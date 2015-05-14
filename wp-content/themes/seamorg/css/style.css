@@ -178,7 +178,7 @@ height:100px !important;
 	width:19%;
 	background:#a89715;
 	font-size:13px;
-	
+
 }
 
 .upcoming-event
@@ -200,7 +200,7 @@ height:100px !important;
 .upcoming-event-heading2 h2
 {
 	color:#4a3f37 !important;
-} 
+}
 
 .upcoming-event-heading h2
 {
@@ -255,11 +255,11 @@ margin:50px 0px 50px 0px;
 	color:#4e4e4e;
 }
 
-.event-name 
+.event-name
 {
 	width:60%;
 	float:left;
-	
+
 }
 
 .event-name  h2
@@ -524,7 +524,7 @@ letter-spacing:2px;
 	width:100%;
 	float:left;
 	text-align:center;
-	margin-top:-150px;
+	margin-top:-82px;
 }
 
 .footer-row2
@@ -727,7 +727,7 @@ a:hover
   line-height: 1.42857;
   padding: 6px 12px;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-  width: 100%; 
+  width: 100%;
 }
 
 
@@ -747,7 +747,7 @@ a:hover
 	float:left;
 	font-weight:300;
 	font-size:16px;
-	
+
 }
 .inner-content h2
 {
@@ -872,13 +872,13 @@ margin-top:20px;
   -webkit-transition:.5s;
   transition:.5s;
   font-size:20px;
-	
+
 }
 
 .submit-btn2
 {
 	text-transform:uppercase;
-	
+
 }
 
 
