@@ -15,3 +15,9 @@ and open the template in the editor.
 .social-nav li{
     display: inline;
 }
+.searchbg{
+    margin-top: -55px;
+    z-index: 100;
+    position: relative;
+}
+

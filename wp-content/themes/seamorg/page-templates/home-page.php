@@ -8,7 +8,10 @@
  */
 
 get_header(); ?>
-<div class="slider"> <img src="<?php echo get_bloginfo('template_directory');?>/images/slider.jpg"  alt=""> </div>
+<div class="slider">
+    <?php putRevSlider( "homepage-slider" ) ?>
+    <!--<img src="<?php echo get_bloginfo('template_directory');?>/images/slider.jpg"  alt="">-->
+</div>
             <div class="body-cont">
                 <div class="container">
                     <div class="row">
