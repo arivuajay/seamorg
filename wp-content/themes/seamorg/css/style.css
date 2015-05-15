@@ -818,6 +818,15 @@ a:hover
 	margin-bottom:10px;
 }
 
+.signup-form-cont input[type="password"] {
+    border: medium none;
+    color: #000000;
+    height: 46px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    width: 100%;
+}
+
 
 .signup-form-cont textarea
 {
@@ -1056,4 +1065,11 @@ margin-top:20px;
 .tripright-details .buyticket
 {
 	margin:10px 0px 0px 0px;
+}
+
+.fieldset label {
+	display:none;
+}
+.radio_wrap label {
+	display:block !important;
 }
