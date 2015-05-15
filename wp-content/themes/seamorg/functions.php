@@ -239,10 +239,11 @@ function seamorg_scripts() {
     // Add Genericons, used in the main stylesheet.
     wp_enqueue_style('seamorg-slidebar', get_template_directory_uri() . '/css/slidebars.css', array(), '3.2');
     wp_enqueue_style('seamorg-bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css', array(), '3.2');
-    wp_enqueue_style('seamorg-fonts', get_template_directory_uri() . '/css/font-awesome.css', array(), '3.2');
+    wp_enqueue_style('seamorg-fontawesome', get_template_directory_uri() . '/css/font-awesome.css', array(), '3.2');
     wp_enqueue_style('seamorg-styles', get_template_directory_uri() . '/css/style.css', array(), '3.2');
     wp_enqueue_style('seamorg-responsive', get_template_directory_uri() . '/css/responsive.css', array(), '3.2');
     wp_enqueue_style('seamorg-developer', get_template_directory_uri() . '/css/dev.css', array(), '3.2');
+    wp_enqueue_style('seamorg-developer2', get_template_directory_uri() . '/css/dev2.css', array(), '3.2');
 
 
 //        <link href='http://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
