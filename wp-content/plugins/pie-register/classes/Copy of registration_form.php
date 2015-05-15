@@ -91,7 +91,7 @@ class Registration_form extends PieReg_Base
 		//$widget = ( ($fromwidget)? ' pie_widget-2 #' : '' );
 		$label2 = (isset($this->field['label2']) and !empty($this->field['label2']))? __($this->field['label2'],"piereg") : __("Confirm Password","piereg");
 		
-		$data .= '</div></li><li class="_'.$this->pages.' '.$topclass.'"><div class="fieldset"><input id="confirm_password_'.$this->id.'" name="confirm_password" type="password" data-errormessage-value-missing="'.((isset($this->field['validation_message']))?$this->field['validation_message']:"").'" data-errormessage-range-underflow="'.((isset($this->field['validation_message']))?$this->field['validation_message']:"").'" data-errormessage-range-overflow="'.((isset($this->field['validation_message']))?$this->field['validation_message']:"").'" class="input_fields '.$this->field['css'].' piereg_validate[required,equals['.$this->id.']]" placeholder="'.$this->field['placeholder'].'" autocomplete="off" />';	
+		$data .= '</div></li><li class="fields pageFields_'.$this->pages.' '.$topclass.'"><div class="fieldset"><label>'.$label2.'</label><input id="confirm_password_'.$this->id.'" name="confirm_password" type="password" data-errormessage-value-missing="'.((isset($this->field['validation_message']))?$this->field['validation_message']:"").'" data-errormessage-range-underflow="'.((isset($this->field['validation_message']))?$this->field['validation_message']:"").'" data-errormessage-range-overflow="'.((isset($this->field['validation_message']))?$this->field['validation_message']:"").'" class="input_fields '.$this->field['css'].' piereg_validate[required,equals['.$this->id.']]" placeholder="'.$this->field['placeholder'].'" autocomplete="off" />';	
 		
 			
 		return $data;
@@ -119,7 +119,7 @@ class Registration_form extends PieReg_Base
 			
 			//$widget = ( ($fromwidget)? ' pie_widget-2 #' : '' );
 			$label2 = (isset($this->field['label2']) and !empty($this->field['label2']))? __($this->field['label2'],"piereg") : __("Confirm E-mail","piereg");
-			$data .= '</div></li><li class="_'.$this->pages.' '.$topclass .'"><div class="fieldset"><input  placeholder="'.$this->field['placeholder'].'" id="confirm_email_'.$this->id.'" '.$this->addValidation().' type="text" class="input_fields '.$this->field['css'].' piereg_validate[required,equals['.$this->id.']]" autocomplete="off">';
+			$data .= '</div></li><li class="fields pageFields_'.$this->pages.' '.$topclass .'"><div class="fieldset"><label>'.$label2.'</label><input  placeholder="'.$this->field['placeholder'].'" id="confirm_email_'.$this->id.'" '.$this->addValidation().' type="text" class="input_fields '.$this->field['css'].' piereg_validate[required,equals['.$this->id.']]" autocomplete="off">';
 		}	
 		return $data;
 	}
@@ -138,18 +138,18 @@ class Registration_form extends PieReg_Base
 	function addName()
 	{
 		$data = "";
-		$data .= '<div class="fieldset">';
+		$data .= '<div class="fieldset"><label>'.__($this->field['label'],"piereg").'</label>';
 		$data .= '<input value="'.$this->getDefaultValue('first_name').'" id="'.$this->id.'_firstname" name="first_name" class="'.$this->addClass().' input_fields" '.$this->addValidation().'  type="text"  />';
 		
 		$topclass = "";
 		if($this->label_alignment=="top")
 			$topclass = "label_top"; 					
 	
-		//$data .= '</div></li><li class="_'.$this->pages.' '.$topclass.'">';
+		//$data .= '</div></li><li class="fields pageFields_'.$this->pages.' '.$topclass.'">';
 			
 		$label2 = (isset($this->field['label2']) and !empty($this->field['label2']))? __($this->field['label2'],"piereg") : __("Last Name","piereg");
 		/*$data .= '<div class="fieldset"><label>'.$label2.'</label>';*/
-		$data .= '</div><div class="fieldset fieldset_child">';
+		$data .= '</div><div class="fieldset fieldset_child"><label>'.$label2.'</label>';
 		$data .= '<input value="'.$this->getDefaultValue('last_name').'" id="'.$this->id.'_lastname" name="last_name" class="'.$this->addClass().' input_fields" '.$this->addValidation().'  type="text"  /></div>';	
 		return $data;
 		
@@ -1015,11 +1015,11 @@ class Registration_form extends PieReg_Base
 			do_action('Add_payment_option');
 			$data .= "</select>";
 			do_action("get_payment_content_area");
-			$data .= '<input name="pie_submit" class="submit-btn2" type="submit" value="'.$this->field['text'].'" />';	
+			$data .= '<input name="pie_submit" type="submit" value="'.$this->field['text'].'" />';	
 		}
 		else
 		{
-			$data .= '<input name="pie_submit" class="submit-btn2" type="submit" value="'.__($this->field['text'],"piereg").'" />';
+			$data .= '<input name="pie_submit" type="submit" value="'.__($this->field['text'],"piereg").'" />';
 		}
 		if($this->field['reset']==1)
 		{
@@ -1105,7 +1105,7 @@ class Registration_form extends PieReg_Base
 				if($this->label_alignment=="top")
 					$topclass = "label_top";
 				
-				$pie_reg_fields .= '<li class="_'.$this->pages.' '.$topclass.'">';
+				$pie_reg_fields .= '<li class="fields pageFields_'.$this->pages.' '.$topclass.'">';
 	
 				//When to add label
 				/*switch($this->field['type']) :				
@@ -1163,29 +1163,29 @@ class Registration_form extends PieReg_Base
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
 					case 'textarea':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addTextArea();
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
 					case 'dropdown':
 					case 'multiselect':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addDropdown();
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
 					case 'number':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addNumberField();		
 						$pie_reg_fields .= $this->addDesc().'</div>';	
 					break;
 					case 'radio':
 					case 'checkbox':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addCheckRadio();
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
 					case 'html':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addHTML();
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
@@ -1194,28 +1194,28 @@ class Registration_form extends PieReg_Base
 						$pie_reg_fields .= '<div>'.$this->addDesc().'</div>';
 					break;
 					case 'time':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addTime();
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
 					case 'upload':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addUpload();
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
 					case 'profile_pic':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addProfilePicUpload();
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
 					case 'address':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addAddress();
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
 					case 'captcha':
 						if( isset($update['captcha_publc']) && !empty($update['captcha_publc']) ){
-							$pie_reg_fields .= '<div class="fieldset">';
+							$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 							$pie_reg_fields .= $this->addCaptcha();
 							$pie_reg_fields .= $this->addDesc().'</div>';
 						}
@@ -1223,7 +1223,7 @@ class Registration_form extends PieReg_Base
 					case 'math_captcha':
 						global $piereg_math_captcha_register,$piereg_math_captcha_register_widget;
 						if($piereg_math_captcha_register != true && $fromwidget == false){
-							$pie_reg_fields .= '<div class="fieldset">';
+							$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 							$pie_reg_fields .= $this->addMath_Captcha($fromwidget);
 							$pie_reg_fields .= $this->addDesc().'</div>';
 							$piereg_math_captcha_register = true;
@@ -1235,17 +1235,17 @@ class Registration_form extends PieReg_Base
 						}
 					break;
 					case 'phone':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addPhone();
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
 					case 'date':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addDate();	
 						$pie_reg_fields .= $this->addDesc().'</div>';		
 					break;
 					case 'list':
-						$pie_reg_fields .= '<div class="fieldset">';
+						$pie_reg_fields .= '<div class="fieldset">'.$this->addLabel();
 						$pie_reg_fields .= $this->addList();
 						$pie_reg_fields .= $this->addDesc().'</div>';
 					break;
@@ -1319,7 +1319,7 @@ class Registration_form extends PieReg_Base
 				$pie_reg_fields .=  '</li>';
 				if($this->field['type'] == "password" && $this->field['show_meter']==1)
 				{		
-					$pie_reg_fields .=  '<li class="_'.$this->pages.' '.$topclass.'">';
+					$pie_reg_fields .=  '<li class="fields pageFields_'.$this->pages.' '.$topclass.'">';
 					//OLD PASSWORD STRENGHT METER
 					/*$pie_reg_fields .=  "<div id='password_meter' class='fieldset' ".$style.">";
 					$pie_reg_fields .=  '<label id="piereg_passwordDescription">'.__("Password not entered","piereg").'</label>

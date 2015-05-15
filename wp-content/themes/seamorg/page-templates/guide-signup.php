@@ -33,19 +33,8 @@ get_header();
 
 <?php echo do_shortcode('[pie_register_form]'); ?>
  
- 
- <h3> profile section</h3>
- 
- <input name="" type="text" value="Full Name">
-<input name="" type="text" value="Address">
-<input name="" type="text" value="State">
-<input name="" type="text" value="Zipcode">
-<input name="" type="text" value="DOB">
-<input name="" type="text" value="SSN">
 
-<p> <input name="" type="checkbox" value="">  <span>I Agree</span></p>
 
-<p class="center"> <input name="" type="button" value="Submit" class="submit-btn2"> </p>
 
  
  
