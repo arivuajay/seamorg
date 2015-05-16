@@ -27,8 +27,15 @@
 </div>
 <div class="sb-slidebar sb-left">
     <a href="#" class="sb-close"><span class="fa fa-close"></span></a>
+    <?php if(is_user_logged_in()) { ?>
+    <span class="menu-signin">Hi, <a href="<?php echo um_user_profile_url(); ?>">  <?php echo um_user('display_name'); ?> </a></span><br/>
+   <a href="<?php echo wp_logout_url('$index.php'); ?>" class="signup-btn2" >Log Out</a>
+    
+    <?php } else {  ?>
+    
     <span class="menu-signin"><a href="<?php echo get_permalink(48) ?>"> Sign in </a></span><br/>
     <a href="<?php echo get_permalink(46) ?>" class="signup-btn2">Sign Up</a>
+    <?php } ?>
     <div class="">
         <?php wp_nav_menu(array('theme_location' => 'primary', 'container_class' => 'big-menu', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-menu')); ?>
         <?php wp_nav_menu(array('theme_location' => 'primary-2', 'container_class' => 'small-menu', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-2-menu')); ?>
