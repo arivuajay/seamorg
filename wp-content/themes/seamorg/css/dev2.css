@@ -8,3 +8,14 @@ and open the template in the editor.
     Author     : ARK-9
 */
 
+.profile-photo-img {
+  border-radius: 999px !important;
+  display: inline-block;
+  float: left;
+  height: 60px;
+  left: 25px;
+  overflow: hidden;
+  position: relative;
+  top: -20px;
+  width: 60px;
+}

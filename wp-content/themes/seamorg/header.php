@@ -18,17 +18,6 @@
         <!--[if lt IE 9]>
         <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/html5.js"></script>
         <![endif]-->
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-        <script>
-  jQuery(function() {
-    jQuery( ".datepicker" ).datepicker({
-      changeMonth: true,
-      changeYear: true
-    });
-  });
-  </script>
         <?php wp_head(); ?>
     </head>
     <body <?php body_class(); ?>>
@@ -46,8 +35,20 @@
                         </div>
                         <div class="col-xs-12 col-sm-3 col-md-3 toplinks pull-right">
                             <ul>
-                                <li><a href="<?php echo get_permalink(48) ?>">SIGN IN</a></li>
-                                <li><a href="<?php echo get_permalink(46) ?>" class="singup-btn">SIGN UP</a></li>
+                            <?php if(is_user_logged_in()) { ?>
+                            <li>
+                            <a href="<?php echo um_user_profile_url(); ?>" class="profile-photo-img" title="<?php echo um_user('display_name'); ?>">
+							<?php echo $overlay . get_avatar( um_user('ID'), $default_size ); ?>
+                            </a>
+                            </li>
+                            <li>Hi, <a href="<?php echo um_user_profile_url(); ?>">  <?php echo um_user('display_name'); ?> </a></li>
+                            <li><a href="<?php echo wp_logout_url('$index.php'); ?>" >Log Out</a></li>
+                            
+                            <?php } else { ?>
+                            
+                            <li><a href="<?php echo get_permalink(48) ?>">SIGN IN</a></li>
+                            <li><a href="<?php echo get_permalink(46) ?>" class="singup-btn">SIGN UP</a></li>
+                            <?php } ?>
                             </ul>
                         </div>
                     </div>
