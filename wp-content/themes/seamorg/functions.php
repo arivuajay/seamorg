@@ -631,3 +631,19 @@ function my_video_shortcode( $attr, $content = '' ) {
 	return apply_filters( 'my_video_shortcode', $output, $atts, $video, $post_id, $library );
 }
 add_shortcode( 'myvideo', 'my_video_shortcode' );
+
+/* First we need to extend main profile tabs */
+add_filter('um_profile_tabs', 'add_custom_profile_tab', 1000 );
+function add_custom_profile_tab( $tabs ) {
+	$tabs['myeventstab'] = array(
+		'name' => 'My Events',
+		'icon' => 'um-faicon-pencil',
+	);
+
+	return $tabs;
+}
+/* Then we just have to add content to that tab using this action */
+add_action('um_profile_content_myeventstab_default', 'um_profile_content_myeventstab_default');
+function um_profile_content_myeventstab_default( $args ) {
+	echo 'My event list(s) will come up here... :-)';
+}

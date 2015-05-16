@@ -41,11 +41,11 @@
 							<?php echo $overlay . get_avatar( um_user('ID'), $default_size ); ?>
                             </a>
                             </li>
-                            <li>Hi, <a href="<?php echo um_user_profile_url(); ?>">  <?php echo um_user('display_name'); ?> </a></li>
+                            <li>Hi, <a href="<?php echo um_user_profile_url(); ?>">  <?php echo ucfirst(um_user('display_name')); ?> </a></li>
                             <li><a href="<?php echo wp_logout_url('$index.php'); ?>" >Log Out</a></li>
-                            
+
                             <?php } else { ?>
-                            
+
                             <li><a href="<?php echo get_permalink(48) ?>">SIGN IN</a></li>
                             <li><a href="<?php echo get_permalink(46) ?>" class="singup-btn">SIGN UP</a></li>
                             <?php } ?>
