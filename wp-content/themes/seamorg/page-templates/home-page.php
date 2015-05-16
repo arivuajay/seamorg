@@ -156,7 +156,7 @@ get_header(); ?>
                     </div>
                 </div>
             </div>
-            <div class="video-slider"> <?php echo do_shortcode('[myvideo width="100%" height="400px" mp4="http://themepunch.com/revolution/wp-content/uploads/2014/05/computer_typing.mp4"][/myvideo]'); ?></div>
+            <div class="video-slider"><img src="<?php bloginfo('template_url'); ?>/images/video-banerr.jpg"  alt=""></div>
             <div class="testimonsil-cont">
                 <div class="container">
                     <div class="row">
