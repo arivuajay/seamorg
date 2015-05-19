@@ -253,7 +253,7 @@ class EM_Location extends EM_Object {
 		$validate_post = true;
 		if( empty($this->location_name) ){
 			$validate_post = false;
-			$this->add_error( __('Location name','dbem').__(" is required.", "dbem") );
+			$this->add_error( __('Hike name','dbem').__(" is required.", "dbem") );
 		}
 		$validate_image = $this->image_validate();
 		$validate_meta = $this->validate_meta();
@@ -399,14 +399,14 @@ class EM_Location extends EM_Object {
 					//success, so link the event with the post via an event id meta value for easy retrieval
 					$this->location_id = $wpdb->insert_id;
 					update_post_meta($this->post_id, '_location_id', $this->location_id);
-					$this->feedback_message = sprintf(__('Successfully saved %s','dbem'),__('Location','dbem'));
+					$this->feedback_message = sprintf(__('Successfully saved %s','dbem'),__('Hike','dbem'));
 				}	
 			}else{
 				$this->get_previous_status();
 				if ( $wpdb->update(EM_LOCATIONS_TABLE, $location_array, array('location_id'=>$this->location_id)) === false ){
 					$this->add_error( sprintf(__('Something went wrong updating your %s to the index table. Please inform a site administrator about this.','dbem'),__('location','dbem')));			
 				}else{
-					$this->feedback_message = sprintf(__('Successfully saved %s','dbem'),__('Location','dbem'));
+					$this->feedback_message = sprintf(__('Successfully saved %s','dbem'),__('Hike','dbem'));
 					//Also set the status here if status != previous status
 					if( $this->previous_status != $this->get_status() ) $this->set_status($this->get_status());
 				}
@@ -862,7 +862,7 @@ class EM_Location extends EM_Object {
 				case '#_LOCATIONEDITLINK':
 				    if( $this->can_manage('edit_locations','edit_others_locations') ){
 						$link = esc_url($this->get_edit_url());
-						$replace = ($result == '#_LOCATIONEDITURL') ? $link : '<a href="'.$link.'" title="'.esc_attr($this->location_name).'">'.esc_html(sprintf(__('Edit Location','dbem'))).'</a>';
+						$replace = ($result == '#_LOCATIONEDITURL') ? $link : '<a href="'.$link.'" title="'.esc_attr($this->location_name).'">'.esc_html(sprintf(__('Edit Hike','dbem'))).'</a>';
 				    }
 					break;
 				case '#_LOCATIONICALURL':

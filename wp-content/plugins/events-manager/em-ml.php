@@ -57,7 +57,7 @@ class EM_ML{
 				'dbem_ical_description_format',
 				'dbem_ical_real_description_format',
 				'dbem_ical_location_format',				
-				//Locations
+				//Hikes
 				'dbem_location_list_item_format_header',
 				'dbem_location_list_item_format',
 				'dbem_location_list_item_format_footer',

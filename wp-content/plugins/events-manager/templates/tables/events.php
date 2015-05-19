@@ -59,7 +59,7 @@
 						*/ ?>
 						<th><?php _e ( 'Name', 'dbem' ); ?></th>
 						<th>&nbsp;</th>
-						<th><?php _e ( 'Location', 'dbem' ); ?></th>
+						<th><?php _e ( 'Hike', 'dbem' ); ?></th>
 						<th colspan="2"><?php _e ( 'Date and time', 'dbem' ); ?></th>
 					</tr>
 				</thead>

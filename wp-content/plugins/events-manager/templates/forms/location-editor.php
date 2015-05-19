@@ -22,14 +22,14 @@ if(!is_admin()) echo $EM_Notices;
 	<input type='hidden' name='location_id' value='<?php echo $EM_Location->location_id ?>'/>
  	
 	<?php do_action('em_front_location_form_header'); ?>
-	<h3 class="location-form-name"><?php esc_html_e( 'Location Name', 'dbem' ); ?></h3>
+	<h3 class="location-form-name"><?php esc_html_e( 'Hike Name', 'dbem' ); ?></h3>
 	<div class="inside location-form-name">
 		<input name='location_name' id='location-name' type='text' value='<?php echo esc_attr($EM_Location->location_name, ENT_QUOTES); ?>' size='40'  />
 		<br />
 		<?php esc_html_e('The name of the location', 'dbem') ?>
 	</div>
 
-	<h3 class="location-form-where"><?php esc_html_e( 'Location', 'dbem' ); ?></h3>
+	<h3 class="location-form-where"><?php esc_html_e( 'Hike', 'dbem' ); ?></h3>
 	<div class="inside location-form-where">
 		<?php em_locate_template('forms/location/where.php','dbem'); ?>
 	</div>
@@ -49,7 +49,7 @@ if(!is_admin()) echo $EM_Notices;
 	<?php if(get_option('dbem_location_attributes_enabled')){ em_locate_template('forms/location/attributes-public.php',true); } ?>
 				
 	<?php if( $EM_Location->can_manage('upload_event_images','upload_event_images') ): ?>
-	<h3 class="location-form-image"><?php esc_html_e( 'Location Image', 'dbem' ); ?></h3>
+	<h3 class="location-form-image"><?php esc_html_e( 'Hike Image', 'dbem' ); ?></h3>
 	<div class="inside location-form-image" style="padding:10px;">
 		<?php em_locate_template('forms/location/featured-image-public.php',true); ?>
 	</div>
@@ -62,9 +62,9 @@ if(!is_admin()) echo $EM_Notices;
 	<?php endif; ?>
 	<p class='submit'>
 	    <?php if( empty($EM_Location->location_id) ): ?>
-	    <input type='submit' class='button-primary' name='submit' value='<?php echo esc_attr(sprintf( __('Submit %s','dbem'), __('Location','dbem') )); ?>' />
+	    <input type='submit' class='button-primary' name='submit' value='<?php echo esc_attr(sprintf( __('Submit %s','dbem'), __('Hike','dbem') )); ?>' />
 	    <?php else: ?>
-	    <input type='submit' class='button-primary' name='submit' value='<?php echo esc_attr(sprintf( __('Update %s','dbem'), __('Location','dbem') )); ?>' />
+	    <input type='submit' class='button-primary' name='submit' value='<?php echo esc_attr(sprintf( __('Update %s','dbem'), __('Hike','dbem') )); ?>' />
 	    <?php endif; ?>
 	</p>
 </form>

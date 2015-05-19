@@ -159,7 +159,7 @@ msgid ""
 msgstr ""
 
 #: widgets/em-locations.php:124
-msgid "No Locations message"
+msgid "No Hikes message"
 msgstr "Ningún mensaje Ubicaciones"
 
 #: admin/em-options.php:1763
@@ -326,13 +326,13 @@ msgid "This setting was not changed."
 msgstr "La configuración no se ha cargado."
 
 #: admin/em-options.php:330
-msgid "Please enter your Location ID, or leave blank for no location."
+msgid "Please enter your Hike ID, or leave blank for no location."
 msgstr ""
 "Por favor, introduce la ID de tu localización o déjalo en blanco para "
 "deshabilitar la localización."
 
 #: admin/em-options.php:338
-msgid "Please enter your Location ID."
+msgid "Please enter your Hike ID."
 msgstr "Por favor, introduce la ID de tu localización."
 
 #: admin/em-options.php:399 admin/em-options.php:1801
@@ -363,7 +363,7 @@ msgid "Search forms"
 msgstr "Formularios de búsqueda"
 
 #: admin/em-options.php:521
-msgid "Event/Location admin pages"
+msgid "Event/Hike admin pages"
 msgstr "Páginas de administrador de Evento/Localización"
 
 #: admin/em-options.php:522
@@ -375,7 +375,7 @@ msgid "Events list page"
 msgstr "Página de lista de eventos"
 
 #: admin/em-options.php:524
-msgid "Locations list page"
+msgid "Hikes list page"
 msgstr "Página de lista de localizaciones"
 
 #: admin/em-options.php:525
@@ -667,7 +667,7 @@ msgid "The description of the event that will appear in the calendar."
 msgstr ""
 
 #: admin/em-options.php:1410
-msgid "iCal Location"
+msgid "iCal Hike"
 msgstr "iCal Ubicación"
 
 #: admin/em-options.php:1410
@@ -1097,7 +1097,7 @@ msgid "All events link text?"
 msgstr "¿Texto del enlace a todos los eventos?"
 
 #: widgets/em-locations.php:13
-msgid "Event Locations"
+msgid "Event Hikes"
 msgstr "Ubicaciones de eventos"
 
 #: widgets/em-locations.php:22
@@ -1358,7 +1358,7 @@ msgstr "Ayuda"
 #: em-actions.php:182 em-install.php:472 em-install.php:474 em-install.php:972
 #: em-install.php:1031 em-posts.php:236 em-posts.php:239 em-posts.php:241
 #: templates/tables/locations.php:10 templates/tables/locations.php:13
-msgid "Locations"
+msgid "Hikes"
 msgstr "Ubicaciones"
 
 #: admin/em-admin.php:113 classes/em-people.php:35 events-manager.php:723
@@ -1548,7 +1548,7 @@ msgstr "Fecha"
 #: templates/forms/location-editor.php:32
 #: templates/forms/location-editor.php:65
 #: templates/forms/location-editor.php:67 templates/tables/events.php:62
-msgid "Location"
+msgid "Hike"
 msgstr "Ubicación"
 
 #: admin/em-bookings.php:152
@@ -1751,7 +1751,7 @@ msgid "Category Related Placeholders"
 msgstr "Variables relacionadas con la Categoría"
 
 #: admin/em-help.php:36 admin/em-ms-options.php:60 admin/em-options.php:258
-msgid "Location Related Placeholders"
+msgid "Hike Related Placeholders"
 msgstr "Variables relacionadas con la Ubicación"
 
 #: admin/em-help.php:39 admin/em-ms-options.php:61 admin/em-options.php:259
@@ -1959,7 +1959,7 @@ msgid "Example:"
 msgstr "Ejemplo:"
 
 #: admin/em-ms-options.php:160
-msgid "Locations on main blog?"
+msgid "Hikes on main blog?"
 msgstr "¿Ubicaciones en el blog principal?"
 
 #: admin/em-ms-options.php:160 admin/em-ms-options.php:165
@@ -2229,7 +2229,7 @@ msgid "no default location"
 msgstr "sin ubicación predeterminada"
 
 #: admin/em-options.php:330 admin/em-options.php:338
-msgid "Default Location"
+msgid "Default Hike"
 msgstr "Ubicación predeterminada"
 
 #: admin/em-options.php:330 admin/em-options.php:338
@@ -2244,7 +2244,7 @@ msgid "(not applicable with event ownership on presently, coming soon!)"
 msgstr "(actualmente no aplicable al propietario del evento, ¡próximamente!)"
 
 #: admin/em-options.php:342
-msgid "Default Location Country"
+msgid "Default Hike Country"
 msgstr "País predeterminado de la ubicación"
 
 #: admin/em-options.php:342 admin/em-options.php:1291
@@ -3734,7 +3734,7 @@ msgstr ""
 "siguiente."
 
 #: admin/em-options.php:1635 admin/em-options.php:1642
-msgid "Location balloon format"
+msgid "Hike balloon format"
 msgstr "Formato del globo de la Ubicación"
 
 #: admin/em-options.php:1635 admin/em-options.php:1642
@@ -3748,7 +3748,7 @@ msgid "Event."
 msgstr "Evento."
 
 #: admin/em-options.php:1638
-msgid "Single Location/Event Map Format"
+msgid "Single Hike/Event Map Format"
 msgstr "Ubicación individual/Formato del mapa del evento"
 
 #: admin/em-options.php:1639
@@ -4952,7 +4952,7 @@ msgstr "Mis eventos"
 
 #: buddypress/bp-em-core.php:124 buddypress/bp-em-core.php:224
 #: buddypress/screens/my-locations.php:32
-msgid "My Locations"
+msgid "My Hikes"
 msgstr "Mis ubicaciones"
 
 #: buddypress/bp-em-core.php:136 buddypress/bp-em-core.php:233
@@ -5008,12 +5008,12 @@ msgid "Add Event"
 msgstr "Añadir evento"
 
 #: buddypress/screens/my-locations.php:46 em-events.php:189 em-posts.php:242
-msgid "Add Location"
+msgid "Add Hike"
 msgstr "Añadir ubicación"
 
 #: buddypress/screens/my-locations.php:48 classes/em-location.php:845
 #: em-events.php:191 em-posts.php:245
-msgid "Edit Location"
+msgid "Edit Hike"
 msgstr "Editar ubicación"
 
 #: buddypress/screens/profile.php:11
@@ -5701,7 +5701,7 @@ msgid "The country"
 msgstr "El país"
 
 #: classes/em-location.php:256 widgets/em-locations.php:23
-msgid "Location name"
+msgid "Hike name"
 msgstr "Nombre de la ubicación"
 
 #: classes/em-location.php:256 classes/em-location.php:272
@@ -6495,31 +6495,31 @@ msgid "Display locations on your blog."
 msgstr "Muestra las ubicaciones en el blog."
 
 #: em-posts.php:243
-msgid "Add New Location"
+msgid "Add New Hike"
 msgstr "Añadir nueva ubicación"
 
 #: em-posts.php:246
-msgid "New Location"
+msgid "New Hike"
 msgstr "Nueva Ubicación"
 
 #: em-posts.php:248
-msgid "View Location"
+msgid "View Hike"
 msgstr "Ver ubicación"
 
 #: em-posts.php:249
-msgid "Search Locations"
+msgid "Search Hikes"
 msgstr "Buscar ubicaciones"
 
 #: em-posts.php:250
-msgid "No Locations Found"
+msgid "No Hikes Found"
 msgstr "No se han encontrado ubicaciones"
 
 #: em-posts.php:251
-msgid "No Locations Found in Trash"
+msgid "No Hikes Found in Trash"
 msgstr "No se han encontrado ubicaciones en la papelera"
 
 #: em-posts.php:252
-msgid "Parent Location"
+msgid "Parent Hike"
 msgstr "Ubicación padre"
 
 #: em-template-tags.php:286
@@ -6862,15 +6862,15 @@ msgid "This event does not have a physical location."
 msgstr "Este evento no tiene una ubicación física."
 
 #: templates/forms/event/location.php:32
-msgid "Location:"
+msgid "Hike:"
 msgstr "Ubicación:"
 
 #: templates/forms/event/location.php:35
-msgid "No Location"
+msgid "No Hike"
 msgstr "Sin ubicación"
 
 #: templates/forms/event/location.php:65
-msgid "Location Name:"
+msgid "Hike Name:"
 msgstr "Nombre de la ubicación:"
 
 #: templates/forms/event/location.php:70
@@ -6915,7 +6915,7 @@ msgid "none selected"
 msgstr "no seleccionados"
 
 #: templates/forms/map-container.php:3
-msgid "Location not found"
+msgid "Hike not found"
 msgstr "Ubicación no encontrada"
 
 #: templates/forms/event/recurring-when.php:10
@@ -7087,7 +7087,7 @@ msgstr "Imagen del evento"
 
 #: templates/forms/location/attributes.php:43
 msgid ""
-"You don't have any custom attributes defined in any of your Locations "
+"You don't have any custom attributes defined in any of your Hikes "
 "Manager template settings. Please add them the <a href='%s'>settings page</a>"
 msgstr ""
 "No tienes ningún atributo personalizado definido en ninguna configuración de "
@@ -7097,7 +7097,7 @@ msgstr ""
 #: templates/forms/location/attributes.php:51
 msgid ""
 "If you see any attributes under here, that means they're not used in "
-"Locations Manager formats. To add them, you need to add the custom attribute "
+"Hikes Manager formats. To add them, you need to add the custom attribute "
 "again to a formatting option in the settings page. To remove any of these "
 "depreciated attributes, give it a blank value and save."
 msgstr ""
@@ -7124,7 +7124,7 @@ msgstr ""
 "a>, añadiendo los siguiente campos separados por comas."
 
 #: templates/forms/location-editor.php:25
-msgid "Location Name"
+msgid "Hike Name"
 msgstr "Nombre de ubicación"
 
 #: templates/forms/location-editor.php:29
@@ -7140,7 +7140,7 @@ msgid "HTML Allowed."
 msgstr "HTML permitido."
 
 #: templates/forms/location-editor.php:52
-msgid "Location Image"
+msgid "Hike Image"
 msgstr "Imagen de la ubicación"
 
 #: templates/forms/event/bookings-ticket-form.php:12

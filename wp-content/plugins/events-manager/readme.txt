@@ -37,7 +37,7 @@ Version 5 now makes events and locations WordPress Custom Post Types, allowing f
 * Easily create custom event attributes (e.g. dress code)
 * Google Maps
 * Advanced permissions - restrict user management of events and locations.
-* Widgets for Events, Locations and Calendars
+* Widgets for Events, Hikes and Calendars
 * Fine grained control of how every aspect of your events are shown on your site, easily modify templates from the settings pages and template files
 * iCal Feed (single and all events)
 * Add to Google Calendar buttons
@@ -93,7 +93,7 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page, which is upd
 1. Event registration and user submitted events pending approval
 2. Event ticketing and bookings forms, easily styleable.
 3. Multiple tickets with constraints and prices
-4. Locations with google map integration
+4. Hikes with google map integration
 5. Event registration page
 6. Manage attendees with various booking reports
 
@@ -1222,7 +1222,7 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page, which is upd
 * js correction preventing maps loading
 
 = 5.0 =
-* Events and Locations are now custom post types
+* Events and Hikes are now custom post types
 * categories are now custom taxonomies
 * events can have tags
 * new placeholders, conditionals and search attributes
@@ -1233,7 +1233,7 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page, which is upd
 * various bugs fixed
 * streamlined templates and consolidated varoius list templates
 * event and location editors revamped, consolidated and basic CSS added for front-end forms
-* Locations are now optional (if chosen)
+* Hikes are now optional (if chosen)
 * more capabilities added for finer permission control
 * all day events possible
 

@@ -125,7 +125,7 @@ function em_bookings_event(){
 				<?php echo substr ( $EM_Event->event_start_time, 0, 5 ) . " - " . substr ( $EM_Event->event_end_time, 0, 5 ); ?>							
 			</p>
 			<p>
-				<strong><?php esc_html_e('Location','dbem'); ?></strong> :
+				<strong><?php esc_html_e('Hike','dbem'); ?></strong> :
 				<a class="row-title" href="<?php echo admin_url(); ?>post.php?action=edit&amp;post=<?php echo $EM_Event->get_location()->post_id ?>"><?php echo ($EM_Event->get_location()->location_name); ?></a> 
 			</p>
 		</div>

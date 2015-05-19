@@ -7,10 +7,10 @@
 <form id='locations-filter' method='post' action=''>
 	<input type='hidden' name='pno' value='<?php echo esc_attr($page) ?>' />
 	<div class="subsubsub">
-		<a href='<?php echo em_add_get_params($_SERVER['REQUEST_URI'], array('view'=>null, 'pno'=>null)); ?>' <?php echo ( empty($_REQUEST['view']) ) ? 'class="current"':''; ?>><?php echo sprintf( __( 'My %s', 'dbem' ), __('Locations','dbem')); ?> <span class="count">(<?php echo $locations_mine_count; ?>)</span></a>
+		<a href='<?php echo em_add_get_params($_SERVER['REQUEST_URI'], array('view'=>null, 'pno'=>null)); ?>' <?php echo ( empty($_REQUEST['view']) ) ? 'class="current"':''; ?>><?php echo sprintf( __( 'My %s', 'dbem' ), __('Hikes','dbem')); ?> <span class="count">(<?php echo $locations_mine_count; ?>)</span></a>
 		<?php if( current_user_can('read_others_locations') ): ?>
 		&nbsp;|&nbsp;
-		<a href='<?php echo em_add_get_params($_SERVER['REQUEST_URI'], array('view'=>'others', 'pno'=>null)); ?>' <?php echo ( !empty($_REQUEST['view']) && $_REQUEST['view'] == 'others' ) ? 'class="current"':''; ?>><?php echo sprintf( __( 'All %s', 'dbem' ), __('Locations','dbem')); ?><span class="count">(<?php echo $locations_all_count; ?>)</span></a>
+		<a href='<?php echo em_add_get_params($_SERVER['REQUEST_URI'], array('view'=>'others', 'pno'=>null)); ?>' <?php echo ( !empty($_REQUEST['view']) && $_REQUEST['view'] == 'others' ) ? 'class="current"':''; ?>><?php echo sprintf( __( 'All %s', 'dbem' ), __('Hikes','dbem')); ?><span class="count">(<?php echo $locations_all_count; ?>)</span></a>
 		<?php endif; ?>
 	</div>						
 	<?php if ( $locations_count > 0 ) : ?>

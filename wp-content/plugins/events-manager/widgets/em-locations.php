@@ -10,7 +10,7 @@ class EM_Locations_Widget extends WP_Widget {
     /** constructor */
     function EM_Locations_Widget() {
     	$this->defaults = array(
-    		'title' => __('Event Locations','dbem'),
+    		'title' => __('Event Hikes','dbem'),
     		'scope' => 'future',
     		'order' => 'ASC',
     		'limit' => 5,
@@ -20,10 +20,10 @@ class EM_Locations_Widget extends WP_Widget {
     	);
     	$this->em_orderby_options = array(
     		'event_start_date, event_start_time, location_name' => __('Event start date/time, location name','dbem'),
-    		'location_name' => __('Location name','dbem')
+    		'location_name' => __('Hike name','dbem')
     	);
     	$widget_ops = array('description' => __( "Display a list of event locations on Events Manager.", 'dbem') );
-        parent::WP_Widget(false, $name = 'Event Locations', $widget_ops);	
+        parent::WP_Widget(false, $name = 'Event Hikes', $widget_ops);	
     }
 
     /** @see WP_Widget::widget */
@@ -121,7 +121,7 @@ class EM_Locations_Widget extends WP_Widget {
 			<textarea rows="10" cols="20" class="widefat" id="<?php echo $this->get_field_id('format'); ?>" name="<?php echo $this->get_field_name('format'); ?>"><?php echo esc_textarea($instance['format']); ?></textarea>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id('no_locations_text'); ?>"><?php esc_html_e('No Locations message','dbem'); ?>: </label>
+			<label for="<?php echo $this->get_field_id('no_locations_text'); ?>"><?php esc_html_e('No Hikes message','dbem'); ?>: </label>
 			<input type="text" id="<?php echo $this->get_field_id('no_locations_text'); ?>" name="<?php echo $this->get_field_name('no_locations_text'); ?>" value="<?php echo esc_attr( $instance['no_locations_text'] ); ?>" >
 		</p>
         <?php 

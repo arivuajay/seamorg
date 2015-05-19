@@ -396,17 +396,27 @@ add_shortcode('link', 'link_from_id');
 add_filter('link', 'link_from_id');
 
 /* First we need to extend main profile tabs */
-add_filter('um_profile_tabs', 'add_custom_profile_tab', 1000 );
-function add_custom_profile_tab( $tabs ) {
-	$tabs['myeventstab'] = array(
-		'name' => 'My Events',
-		'icon' => 'um-faicon-pencil',
-	);
+add_filter('um_profile_tabs', 'add_my_events_tab', 1000);
+function add_my_events_tab($tabs) {
+    $tabs['myeventstab'] = array(
+        'name' => 'My Events',
+        'icon' => 'um-faicon-pencil',
+    );
 
-	return $tabs;
+    return $tabs;
 }
+
 /* Then we just have to add content to that tab using this action */
-add_action('um_profile_content_myeventstab_default', 'um_profile_content_myeventstab_default');
-function um_profile_content_myeventstab_default( $args ) {
+add_filter('um_profile_content_myeventstab', 'myevents_content' );
+function myevents_content($args) {
 	echo 'My event list(s) will come up here... :-)';
+}
+
+add_action('user_register', 'update_role_registration_save', 10, 1);
+function update_role_registration_save($user_id) {
+    if (isset($_POST['role']) && $_POST['role'] == 'guide') {
+        $u = new WP_User($user_id);
+        $u->remove_role('subscriber');
+        $u->add_role('guide');
+    }
 }

@@ -38,7 +38,7 @@ $args = !empty($args) ? $args:array(); /* @var $args array */
 			if( !empty($args['search_scope']) ) em_locate_template('templates/search/scope.php',true,array('args'=>$args));
 			//categories
 			if( !empty($args['search_categories']) ) em_locate_template('templates/search/categories.php',true,array('args'=>$args));
-			//Location data
+			//Hike data
 			em_locate_template('templates/search/location.php',true, array('args'=>$args));
 			if( !empty($args['search_geo_units']) ) em_locate_template('templates/search/geo-units.php',true, array('args'=>$args));
 			?>

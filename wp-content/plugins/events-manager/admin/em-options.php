@@ -255,7 +255,7 @@ function em_admin_options_page() {
 	//TODO place all options into an array
 	global $events_placeholder_tip, $locations_placeholder_tip, $categories_placeholder_tip, $bookings_placeholder_tip;
 	$events_placeholders = '<a href="'.EM_ADMIN_URL .'&amp;page=events-manager-help#event-placeholders">'. __('Event Related Placeholders','dbem') .'</a>';
-	$locations_placeholders = '<a href="'.EM_ADMIN_URL .'&amp;page=events-manager-help#location-placeholders">'. __('Location Related Placeholders','dbem') .'</a>';
+	$locations_placeholders = '<a href="'.EM_ADMIN_URL .'&amp;page=events-manager-help#location-placeholders">'. __('Hike Related Placeholders','dbem') .'</a>';
 	$bookings_placeholders = '<a href="'.EM_ADMIN_URL .'&amp;page=events-manager-help#booking-placeholders">'. __('Booking Related Placeholders','dbem') .'</a>';
 	$categories_placeholders = '<a href="'.EM_ADMIN_URL .'&amp;page=events-manager-help#category-placeholders">'. __('Category Related Placeholders','dbem') .'</a>';
 	$events_placeholder_tip = " ". sprintf(__('This accepts %s and %s placeholders.','dbem'),$events_placeholders, $locations_placeholders);
@@ -327,7 +327,7 @@ function em_admin_options_page() {
 						if( get_option('dbem_locations_enabled') ){
 							/*default location*/
 							if( defined('EM_OPTIMIZE_SETTINGS_PAGE_LOCATIONS') && EM_OPTIMIZE_SETTINGS_PAGE_LOCATIONS ){
-				            	em_options_input_text( __( 'Default Location', 'dbem' ), 'dbem_default_location', __('Please enter your Location ID, or leave blank for no location.','dbem').' '.__( 'This option allows you to select the default location when adding an event.','dbem' )." ".__('(not applicable with event ownership on presently, coming soon!)','dbem') );
+				            	em_options_input_text( __( 'Default Hike', 'dbem' ), 'dbem_default_location', __('Please enter your Hike ID, or leave blank for no location.','dbem').' '.__( 'This option allows you to select the default location when adding an event.','dbem' )." ".__('(not applicable with event ownership on presently, coming soon!)','dbem') );
 				            }else{
 								$location_options = array();
 								$location_options[0] = __('no default location','dbem');
@@ -335,16 +335,16 @@ function em_admin_options_page() {
 								foreach($EM_Locations as $EM_Location){
 							 		$location_options[$EM_Location->location_id] = $EM_Location->location_name;
 							 	}
-								em_options_select ( __( 'Default Location', 'dbem' ), 'dbem_default_location', $location_options, __('Please enter your Location ID.','dbem').' '.__( 'This option allows you to select the default location when adding an event.','dbem' )." ".__('(not applicable with event ownership on presently, coming soon!)','dbem') );
+								em_options_select ( __( 'Default Hike', 'dbem' ), 'dbem_default_location', $location_options, __('Please enter your Hike ID.','dbem').' '.__( 'This option allows you to select the default location when adding an event.','dbem' )." ".__('(not applicable with event ownership on presently, coming soon!)','dbem') );
 							}
 							
 							/*default location country*/
-							em_options_select ( __( 'Default Location Country', 'dbem' ), 'dbem_location_default_country', em_get_countries(__('no default country', 'dbem')), __('If you select a default country, that will be pre-selected when creating a new location.','dbem') );
+							em_options_select ( __( 'Default Hike Country', 'dbem' ), 'dbem_location_default_country', em_get_countries(__('no default country', 'dbem')), __('If you select a default country, that will be pre-selected when creating a new location.','dbem') );
 						}
 						?>
 						<tr class="em-header">
 							<td colspan="2">
-								<h4><?php echo sprintf(__('%s Settings','dbem'),__('Location','dbem')); ?></h4>
+								<h4><?php echo sprintf(__('%s Settings','dbem'),__('Hike','dbem')); ?></h4>
 							</td>
 						</tr>
 						<?php
@@ -355,7 +355,7 @@ function em_admin_options_page() {
 							em_options_radio_binary ( sprintf(__( 'Enable %s attributes?', 'dbem' ),__('location','dbem')), 'dbem_location_attributes_enabled', __( 'Select yes to enable the attributes feature','dbem' ) );
 							em_options_radio_binary ( sprintf(__( 'Enable %s custom fields?', 'dbem' ),__('location','dbem')), 'dbem_cp_locations_custom_fields', __( 'Custom fields are the same as attributes, except you cannot restrict specific values, users can add any kind of custom field name/value pair. Only available in the WordPress admin area.','dbem' ) );
 							if( get_option('dbem_location_attributes_enabled') ){
-								em_options_textarea ( sprintf(__( '%s Attributes', 'dbem' ),__('Location','dbem')), 'dbem_location_placeholders_custom', sprintf(__( "You can also add location attributes here, one per line in this format <code>#_LATT{key}</code>. They will not appear on location pages unless you insert them into another template below, but you may want to store extra information about an event for other uses. <a href='%s'>More information on placeholders.</a>", 'dbem' ), EM_ADMIN_URL .'&amp;page=events-manager-help') );
+								em_options_textarea ( sprintf(__( '%s Attributes', 'dbem' ),__('Hike','dbem')), 'dbem_location_placeholders_custom', sprintf(__( "You can also add location attributes here, one per line in this format <code>#_LATT{key}</code>. They will not appear on location pages unless you insert them into another template below, but you may want to store extra information about an event for other uses. <a href='%s'>More information on placeholders.</a>", 'dbem' ), EM_ADMIN_URL .'&amp;page=events-manager-help') );
 							}
 						}
 						?>
@@ -524,10 +524,10 @@ function em_admin_options_page() {
 						?>
 						<tr class="em-subheader"><td colspan="2">The options below currently have no effect, but are there so you know what may be added in future updates. You can leave them on if you want furture styling to take effect, or turn them off to keep your current styles as is.</td><tr>
 						<?php
-							em_options_radio_binary ( __( 'Event/Location admin pages', 'dbem' ), 'dbem_css_editors' );
+							em_options_radio_binary ( __( 'Event/Hike admin pages', 'dbem' ), 'dbem_css_editors' );
 							em_options_radio_binary ( __( 'Booking admin pages', 'dbem' ), 'dbem_css_rsvpadmin' );
 							em_options_radio_binary ( __( 'Events list page', 'dbem' ), 'dbem_css_evlist' );
-							em_options_radio_binary ( __( 'Locations list page', 'dbem' ), 'dbem_css_loclist' );
+							em_options_radio_binary ( __( 'Hikes list page', 'dbem' ), 'dbem_css_loclist' );
 							em_options_radio_binary ( __( 'Event booking forms', 'dbem' ), 'dbem_css_rsvp' );
 							em_options_radio_binary ( __( 'Categories list page', 'dbem' ), 'dbem_css_catlist' );
 							em_options_radio_binary ( __( 'Tags list page', 'dbem' ), 'dbem_css_taglist' );
@@ -574,7 +574,7 @@ function em_admin_options_page() {
 	            	<?php
 	            	em_options_input_text ( __( 'Events', 'dbem' ), 'dbem_cp_events_slug', sprintf(__('e.g. %s - you can use / Separators too', 'dbem' ), '<strong>'.home_url().'/<code>'.get_option('dbem_cp_events_slug',EM_POST_TYPE_EVENT_SLUG).'</code>/2012-olympics/</strong>'), EM_POST_TYPE_EVENT_SLUG );
 					if( get_option('dbem_locations_enabled')  && !(EM_MS_GLOBAL && get_site_option('dbem_ms_mainblog_locations') && !is_main_site()) ){
-		            	em_options_input_text ( __( 'Locations', 'dbem' ), 'dbem_cp_locations_slug', sprintf(__('e.g. %s - you can use / Separators too', 'dbem' ), '<strong>'.home_url().'/<code>'.get_option('dbem_cp_locations_slug',EM_POST_TYPE_LOCATION_SLUG).'</code>/wembley-stadium/</strong>'), EM_POST_TYPE_LOCATION_SLUG );
+		            	em_options_input_text ( __( 'Hikes', 'dbem' ), 'dbem_cp_locations_slug', sprintf(__('e.g. %s - you can use / Separators too', 'dbem' ), '<strong>'.home_url().'/<code>'.get_option('dbem_cp_locations_slug',EM_POST_TYPE_LOCATION_SLUG).'</code>/wembley-stadium/</strong>'), EM_POST_TYPE_LOCATION_SLUG );
 					}
 	            	if( get_option('dbem_categories_enabled') && !(EM_MS_GLOBAL && !is_main_site()) ){
 	            		em_options_input_text ( __( 'Event Categories', 'dbem' ), 'dbem_taxonomy_category_slug', sprintf(__('e.g. %s - you can use / Separators too', 'dbem' ), '<strong>'.home_url().'/<code>'.get_option('dbem_taxonomy_category_slug',EM_TAXONOMY_CATEGORY_SLUG).'</code>/sports/</strong>'), EM_TAXONOMY_CATEGORY_SLUG );
@@ -748,7 +748,7 @@ function em_admin_options_page() {
 				
 				<?php if( get_option('dbem_locations_enabled') ): ?>
 				<div  class="postbox " id="em-opt-location-pages" >
-				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__('%s Pages','dbem'),__('Location','dbem')); ?></span></h3>
+				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__('%s Pages','dbem'),__('Hike','dbem')); ?></span></h3>
 				<div class="inside">
 	            	<table class="form-table">
 	            	<?php 
@@ -766,13 +766,13 @@ function em_admin_options_page() {
 				</div> <!-- .postbox -->	
 				
 				<div  class="postbox " id="em-opt-location-archives" >
-				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__('%s List/Archives','dbem'),__('Location','dbem')); ?></span></h3>
+				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__('%s List/Archives','dbem'),__('Hike','dbem')); ?></span></h3>
 				<div class="inside">
 	            	<table class="form-table">
 					<tr>
-						<th><?php echo sprintf(__( '%s page', 'dbem' ),__('Locations','dbem')); ?></th>
+						<th><?php echo sprintf(__( '%s page', 'dbem' ),__('Hikes','dbem')); ?></th>
 						<td>
-							<?php wp_dropdown_pages(array('name'=>'dbem_locations_page', 'selected'=>get_option('dbem_locations_page'), 'show_option_none'=>sprintf(__('[No %s Page]', 'dbem'),__('Locations','dbem')) )); ?>
+							<?php wp_dropdown_pages(array('name'=>'dbem_locations_page', 'selected'=>get_option('dbem_locations_page'), 'show_option_none'=>sprintf(__('[No %s Page]', 'dbem'),__('Hikes','dbem')) )); ?>
 							<br />
 							<em><?php echo sprintf(__( 'This option allows you to select which page to use as the %s page. If you do not select a %s page, to display lists you can enable archives or use the appropriate shortcodes and/or template tags.','dbem' ),__('locations','dbem'),__('locations','dbem')); ?></em>
 						</td>
@@ -782,8 +782,8 @@ function em_admin_options_page() {
 					?>
 					<tr class="em-header">
 						<td colspan="2">
-							<h4><?php echo sprintf(__('WordPress %s Archives','dbem'), __('Location','dbem')); ?></h4>
-							<p><?php echo sprintf(__('%s custom post types can have archives, just like normal WordPress posts. If enabled, should you visit your base slug url %s and you will see an post-formatted archive of previous %s', 'dbem'), __('Location','dbem'), '<code>'.home_url().'/'.get_option('dbem_cp_events_slug',EM_POST_TYPE_LOCATION_SLUG).'/</code>', __('locations','dbem')); ?></p>
+							<h4><?php echo sprintf(__('WordPress %s Archives','dbem'), __('Hike','dbem')); ?></h4>
+							<p><?php echo sprintf(__('%s custom post types can have archives, just like normal WordPress posts. If enabled, should you visit your base slug url %s and you will see an post-formatted archive of previous %s', 'dbem'), __('Hike','dbem'), '<code>'.home_url().'/'.get_option('dbem_cp_events_slug',EM_POST_TYPE_LOCATION_SLUG).'/</code>', __('locations','dbem')); ?></p>
 							<p><?php echo sprintf(__('Note that assigning a %s page above will override this archive if the URLs collide (which is the default settings, and is recommended for maximum plugin compatibility). You can have both at the same time, but you must ensure that your page and %s slugs are different.','dbem'), __('locations','dbem'), __('location','dbem')); ?></p>
 						</td>
 					</tr>
@@ -1413,7 +1413,7 @@ function em_admin_options_page() {
 					    <?php 
 						em_options_input_text ( __( 'iCal Title', 'dbem' ), 'dbem_ical_description_format', __( 'The title that will appear in the calendar.', 'dbem' ).$events_placeholder_tip );
 						em_options_input_text ( __( 'iCal Description', 'dbem' ), 'dbem_ical_real_description_format', __( 'The description of the event that will appear in the calendar.', 'dbem' ).$events_placeholder_tip );
-						em_options_input_text ( __( 'iCal Location', 'dbem' ), 'dbem_ical_location_format', __( 'The location information that will appear in the calendar.', 'dbem' ).$events_placeholder_tip );
+						em_options_input_text ( __( 'iCal Hike', 'dbem' ), 'dbem_ical_location_format', __( 'The location information that will appear in the calendar.', 'dbem' ).$events_placeholder_tip );
 						em_options_select( __('iCal Scope','dbem'), 'dbem_ical_scope', em_get_scopes(), __('Choose to show events within a specific time range.','dbem'));
 						em_options_input_text ( __( 'iCal Limit', 'dbem' ), 'dbem_ical_limit', __( 'Limits the number of future events shown (0 = unlimited).', 'dbem' ) );						
 					    echo $save_button;        
@@ -1424,19 +1424,19 @@ function em_admin_options_page() {
 				
 				<?php if( get_option('dbem_locations_enabled') ): ?>
 				<div  class="postbox " id="em-opt-locations-formats" >
-				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Locations', 'dbem' ); ?> </span></h3>
+				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Hikes', 'dbem' ); ?> </span></h3>
 				<div class="inside">
 	            	<table class="form-table">
-					 	<tr class="em-header"><td colspan="2"><h4><?php echo sprintf(__('%s Page','dbem'),__('Locations','dbem')); ?></h4></td></tr>
+					 	<tr class="em-header"><td colspan="2"><h4><?php echo sprintf(__('%s Page','dbem'),__('Hikes','dbem')); ?></h4></td></tr>
 						<?php
-						em_options_textarea ( sprintf(__('%s list header format','dbem'),__('Locations','dbem')), 'dbem_location_list_item_format_header', sprintf(__( 'This content will appear just above your code for the %s list format below. Default is blank', 'dbem' ), __('locations','dbem')) );
-					 	em_options_textarea ( sprintf(__('%s list item format','dbem'),__('Locations','dbem')), 'dbem_location_list_item_format', sprintf(__( 'The format of a single %s in a list.', 'dbem' ), __('locations','dbem')).$locations_placeholder_tip );
-						em_options_textarea ( sprintf(__('%s list footer format','dbem'),__('Locations','dbem')), 'dbem_location_list_item_format_footer', sprintf(__( 'This content will appear just below your code for the %s list format above. Default is blank', 'dbem' ), __('locations','dbem')) );
-						em_options_input_text ( sprintf(__( 'No %s message', 'dbem' ),__('Locations','dbem')), 'dbem_no_locations_message', sprintf( __( 'The message displayed when no %s are available.', 'dbem' ), __('locations','dbem')) );
+						em_options_textarea ( sprintf(__('%s list header format','dbem'),__('Hikes','dbem')), 'dbem_location_list_item_format_header', sprintf(__( 'This content will appear just above your code for the %s list format below. Default is blank', 'dbem' ), __('locations','dbem')) );
+					 	em_options_textarea ( sprintf(__('%s list item format','dbem'),__('Hikes','dbem')), 'dbem_location_list_item_format', sprintf(__( 'The format of a single %s in a list.', 'dbem' ), __('locations','dbem')).$locations_placeholder_tip );
+						em_options_textarea ( sprintf(__('%s list footer format','dbem'),__('Hikes','dbem')), 'dbem_location_list_item_format_footer', sprintf(__( 'This content will appear just below your code for the %s list format above. Default is blank', 'dbem' ), __('locations','dbem')) );
+						em_options_input_text ( sprintf(__( 'No %s message', 'dbem' ),__('Hikes','dbem')), 'dbem_no_locations_message', sprintf( __( 'The message displayed when no %s are available.', 'dbem' ), __('locations','dbem')) );
 					 	?>
 					 	<tr class="em-header">
 					 	    <td colspan="2">
-					 	        <h4><?php echo sprintf(__('Single %s Page','dbem'),__('Location','dbem')); ?></h4>
+					 	        <h4><?php echo sprintf(__('Single %s Page','dbem'),__('Hike','dbem')); ?></h4>
 					 	        <em><?php echo sprintf(__('These formats can be used on %s pages or on other areas of your site displaying an %s.','dbem'),__('location','dbem'),__('location','dbem'));?></em>
 					 	</tr>
 					 	<?php
@@ -1447,13 +1447,13 @@ function em_admin_options_page() {
 						?>
 						<tr class="em-header">
 						    <td colspan="2">
-						        <h4><?php echo sprintf(__('%s Excerpts','dbem'),__('Location','dbem')); ?></h4>
-					 	        <em><?php echo sprintf(__('These formats can be used when WordPress automatically displays %s excerpts on your site and %s is enabled in your %s settings tab.','dbem'),__('location','dbem'),'<strong>'.__( 'Override Excerpts with Formats?', 'dbem' ).'</strong>','<a href="#formats" class="nav-tab-link" rel="#em-menu-pages">'.__('Pages','dbem').'  &gt; '.sprintf(__('%s List/Archives','dbem'),__('Location','dbem')).'</a>');?></em>
+						        <h4><?php echo sprintf(__('%s Excerpts','dbem'),__('Hike','dbem')); ?></h4>
+					 	        <em><?php echo sprintf(__('These formats can be used when WordPress automatically displays %s excerpts on your site and %s is enabled in your %s settings tab.','dbem'),__('location','dbem'),'<strong>'.__( 'Override Excerpts with Formats?', 'dbem' ).'</strong>','<a href="#formats" class="nav-tab-link" rel="#em-menu-pages">'.__('Pages','dbem').'  &gt; '.sprintf(__('%s List/Archives','dbem'),__('Hike','dbem')).'</a>');?></em>
 						    </td>
 						</tr>
 					 	<?php
-					 	em_options_textarea ( sprintf(__('%s excerpt', 'dbem' ),__('Location','dbem')), 'dbem_location_excerpt_format', __( 'Used if an excerpt has been defined.', 'dbem' ).$locations_placeholder_tip );				 	
-					 	em_options_textarea ( sprintf(__('%s excerpt fallback', 'dbem' ),__('Location','dbem')), 'dbem_location_excerpt_alt_format', __( 'Used if an excerpt has not been defined.', 'dbem' ).$locations_placeholder_tip );
+					 	em_options_textarea ( sprintf(__('%s excerpt', 'dbem' ),__('Hike','dbem')), 'dbem_location_excerpt_format', __( 'Used if an excerpt has been defined.', 'dbem' ).$locations_placeholder_tip );				 	
+					 	em_options_textarea ( sprintf(__('%s excerpt fallback', 'dbem' ),__('Hike','dbem')), 'dbem_location_excerpt_alt_format', __( 'Used if an excerpt has not been defined.', 'dbem' ).$locations_placeholder_tip );
 						?>
 					 	<tr class="em-header"><td colspan="2"><h4><?php echo sprintf(__('%s List Formats','dbem'),__('Event','dbem')); ?></h4></td></tr>
 					 	<?php
@@ -1638,14 +1638,14 @@ function em_admin_options_page() {
 							<p><?php echo sprintf(__('If you use the %s <a href="%s">shortcode</a>, you can display a map of all your locations and events, the settings below will be used.','dbem'), '<code>[locations_map]</code>','http://wp-events-plugin.com/documentation/shortcodes/'); ?></p>
 						</td></tr>
 						<?php
-						em_options_textarea ( __( 'Location balloon format', 'dbem' ), 'dbem_map_text_format', __( 'The format of of the text appearing in the balloon describing the location.', 'dbem' ).' '.__( 'Event.', 'dbem' ).$locations_placeholder_tip );
+						em_options_textarea ( __( 'Hike balloon format', 'dbem' ), 'dbem_map_text_format', __( 'The format of of the text appearing in the balloon describing the location.', 'dbem' ).' '.__( 'Event.', 'dbem' ).$locations_placeholder_tip );
 						?>
 						<tr class="em-header"><td colspan="2">
-							<h4><?php _e('Single Location/Event Map Format','dbem'); ?></h4>
+							<h4><?php _e('Single Hike/Event Map Format','dbem'); ?></h4>
 							<p><?php echo sprintf(_e('If you use the <code>#_LOCATIONMAP</code> <a href="%s">placeholder</a> when displaying individual event and location information, the settings below will be used.','dbem'), '<code>[locations_map]</code>','http://wp-events-plugin.com/documentation/placeholders/'); ?></p>
 						</td></tr>
 						<?php
-						em_options_textarea ( __( 'Location balloon format', 'dbem' ), 'dbem_location_baloon_format', __( 'The format of of the text appearing in the balloon describing the location.', 'dbem' ).$events_placeholder_tip );
+						em_options_textarea ( __( 'Hike balloon format', 'dbem' ), 'dbem_location_baloon_format', __( 'The format of of the text appearing in the balloon describing the location.', 'dbem' ).$events_placeholder_tip );
 						echo $save_button;     
 						?> 
 					</table>
@@ -2157,8 +2157,8 @@ function em_admin_option_box_caps(){
 					'delete_recurring_events' => sprintf(__('User can delete their own %s','dbem'),__('recurring events','dbem')),
 					'edit_recurring_events' => sprintf(__('User can create and edit %s','dbem'),__('recurring events','dbem'))						
 				),
-				sprintf(__('%s Capabilities','dbem'),__('Location','dbem')) => array(
-					/* Location Capabilities */
+				sprintf(__('%s Capabilities','dbem'),__('Hike','dbem')) => array(
+					/* Hike Capabilities */
 					'publish_locations' => sprintf(__('Users can publish %s and skip any admin approval','dbem'),__('locations','dbem')),
 					'delete_others_locations' => sprintf(__('User can delete other users %s','dbem'),__('locations','dbem')),
 					'edit_others_locations' => sprintf(__('User can edit other users %s','dbem'),__('locations','dbem')),

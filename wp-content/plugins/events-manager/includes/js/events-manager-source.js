@@ -844,7 +844,7 @@ function em_maps() {
 			}
 		});
 	});
-	//Location stuff - only needed if inputs for location exist
+	//Hike stuff - only needed if inputs for location exist
 	if( jQuery('select#location-select-id, input#location-address').length > 0 ){
 		var map, marker;
 		//load map info

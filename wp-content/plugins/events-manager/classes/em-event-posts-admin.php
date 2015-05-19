@@ -171,7 +171,7 @@ class EM_Event_Posts_Admin{
 	    unset($columns['date']);
 	    unset($columns['author']);
 	    $columns = array_merge($id_array, $columns, array(
-	    	'location' => __('Location','dbem'),
+	    	'location' => __('Hike','dbem'),
 	    	'date-time' => __('Date and Time','dbem'),
 	    	'author' => __('Owner','dbem'),
 	    	'extra' => ''
@@ -308,7 +308,7 @@ class EM_Event_Recurring_Posts_Admin{
 	    unset($columns['date']);
 	    unset($columns['author']);
 	    return array_merge($id_array, $columns, array(
-	    	'location' => __('Location'),
+	    	'location' => __('Hike'),
 	    	'date-time' => __('Date and Time'),
 	    	'author' => __('Owner','dbem'),
 	    ));

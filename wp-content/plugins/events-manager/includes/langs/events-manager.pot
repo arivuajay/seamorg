@@ -397,7 +397,7 @@ msgstr ""
 #: templates/tables/locations.php:10
 #: templates/tables/locations.php:13
 #@ dbem
-msgid "Locations"
+msgid "Hikes"
 msgstr ""
 
 #: admin/em-admin.php:113
@@ -612,7 +612,7 @@ msgstr ""
 #: templates/tables/events.php:62
 #@ dbem
 #@ default
-msgid "Location"
+msgid "Hike"
 msgstr ""
 
 #: admin/em-bookings.php:152
@@ -885,7 +885,7 @@ msgstr ""
 #: admin/em-ms-options.php:60
 #: admin/em-options.php:258
 #@ dbem
-msgid "Location Related Placeholders"
+msgid "Hike Related Placeholders"
 msgstr ""
 
 #: admin/em-help.php:39
@@ -1148,7 +1148,7 @@ msgstr ""
 
 #: admin/em-ms-options.php:160
 #@ dbem
-msgid "Locations on main blog?"
+msgid "Hikes on main blog?"
 msgstr ""
 
 #: admin/em-ms-options.php:160
@@ -1473,12 +1473,12 @@ msgstr ""
 #: admin/em-options.php:330
 #: admin/em-options.php:338
 #@ dbem
-msgid "Default Location"
+msgid "Default Hike"
 msgstr ""
 
 #: admin/em-options.php:330
 #@ dbem
-msgid "Please enter your Location ID, or leave blank for no location."
+msgid "Please enter your Hike ID, or leave blank for no location."
 msgstr ""
 
 #: admin/em-options.php:330
@@ -1500,12 +1500,12 @@ msgstr ""
 
 #: admin/em-options.php:338
 #@ dbem
-msgid "Please enter your Location ID."
+msgid "Please enter your Hike ID."
 msgstr ""
 
 #: admin/em-options.php:342
 #@ dbem
-msgid "Default Location Country"
+msgid "Default Hike Country"
 msgstr ""
 
 #: admin/em-options.php:342
@@ -1835,7 +1835,7 @@ msgstr ""
 
 #: admin/em-options.php:527
 #@ dbem
-msgid "Event/Location admin pages"
+msgid "Event/Hike admin pages"
 msgstr ""
 
 #: admin/em-options.php:528
@@ -1850,7 +1850,7 @@ msgstr ""
 
 #: admin/em-options.php:530
 #@ dbem
-msgid "Locations list page"
+msgid "Hikes list page"
 msgstr ""
 
 #: admin/em-options.php:531
@@ -3393,7 +3393,7 @@ msgstr ""
 
 #: admin/em-options.php:1416
 #@ dbem
-msgid "iCal Location"
+msgid "iCal Hike"
 msgstr ""
 
 #: admin/em-options.php:1416
@@ -3722,7 +3722,7 @@ msgstr ""
 #: admin/em-options.php:1641
 #: admin/em-options.php:1648
 #@ dbem
-msgid "Location balloon format"
+msgid "Hike balloon format"
 msgstr ""
 
 #: admin/em-options.php:1641
@@ -3738,7 +3738,7 @@ msgstr ""
 
 #: admin/em-options.php:1644
 #@ dbem
-msgid "Single Location/Event Map Format"
+msgid "Single Hike/Event Map Format"
 msgstr ""
 
 #: admin/em-options.php:1645
@@ -5171,7 +5171,7 @@ msgstr ""
 #: buddypress/bp-em-core.php:224
 #: buddypress/screens/my-locations.php:32
 #@ dbem
-msgid "My Locations"
+msgid "My Hikes"
 msgstr ""
 
 #: buddypress/bp-em-core.php:136
@@ -5252,7 +5252,7 @@ msgstr ""
 #: em-events.php:189
 #: em-posts.php:242
 #@ dbem
-msgid "Add Location"
+msgid "Add Hike"
 msgstr ""
 
 #: buddypress/screens/my-locations.php:48
@@ -5260,7 +5260,7 @@ msgstr ""
 #: em-events.php:191
 #: em-posts.php:245
 #@ dbem
-msgid "Edit Location"
+msgid "Edit Hike"
 msgstr ""
 
 #: buddypress/screens/profile.php:11
@@ -6136,7 +6136,7 @@ msgstr ""
 #: classes/em-location.php:256
 #: widgets/em-locations.php:23
 #@ dbem
-msgid "Location name"
+msgid "Hike name"
 msgstr ""
 
 #: classes/em-location.php:256
@@ -7068,37 +7068,37 @@ msgstr ""
 
 #: em-posts.php:243
 #@ dbem
-msgid "Add New Location"
+msgid "Add New Hike"
 msgstr ""
 
 #: em-posts.php:246
 #@ dbem
-msgid "New Location"
+msgid "New Hike"
 msgstr ""
 
 #: em-posts.php:248
 #@ dbem
-msgid "View Location"
+msgid "View Hike"
 msgstr ""
 
 #: em-posts.php:249
 #@ dbem
-msgid "Search Locations"
+msgid "Search Hikes"
 msgstr ""
 
 #: em-posts.php:250
 #@ dbem
-msgid "No Locations Found"
+msgid "No Hikes Found"
 msgstr ""
 
 #: em-posts.php:251
 #@ dbem
-msgid "No Locations Found in Trash"
+msgid "No Hikes Found in Trash"
 msgstr ""
 
 #: em-posts.php:252
 #@ dbem
-msgid "Parent Location"
+msgid "Parent Hike"
 msgstr ""
 
 #: em-template-tags.php:286
@@ -7675,17 +7675,17 @@ msgstr ""
 
 #: templates/forms/event/location.php:32
 #@ dbem
-msgid "Location:"
+msgid "Hike:"
 msgstr ""
 
 #: templates/forms/event/location.php:35
 #@ dbem
-msgid "No Location"
+msgid "No Hike"
 msgstr ""
 
 #: templates/forms/event/location.php:65
 #@ dbem
-msgid "Location Name:"
+msgid "Hike Name:"
 msgstr ""
 
 #: templates/forms/event/location.php:70
@@ -7954,12 +7954,12 @@ msgstr ""
 #: templates/forms/location/attributes.php:43
 #, php-format
 #@ dbem
-msgid "You don't have any custom attributes defined in any of your Locations Manager template settings. Please add them the <a href='%s'>settings page</a>"
+msgid "You don't have any custom attributes defined in any of your Hikes Manager template settings. Please add them the <a href='%s'>settings page</a>"
 msgstr ""
 
 #: templates/forms/location/attributes.php:51
 #@ dbem
-msgid "If you see any attributes under here, that means they're not used in Locations Manager formats. To add them, you need to add the custom attribute again to a formatting option in the settings page. To remove any of these depreciated attributes, give it a blank value and save."
+msgid "If you see any attributes under here, that means they're not used in Hikes Manager formats. To add them, you need to add the custom attribute again to a formatting option in the settings page. To remove any of these depreciated attributes, give it a blank value and save."
 msgstr ""
 
 #: templates/forms/location/featured-image-public.php:13
@@ -7974,7 +7974,7 @@ msgstr ""
 
 #: templates/forms/location-editor.php:25
 #@ dbem
-msgid "Location Name"
+msgid "Hike Name"
 msgstr ""
 
 #: templates/forms/location-editor.php:29
@@ -7994,12 +7994,12 @@ msgstr ""
 
 #: templates/forms/location-editor.php:52
 #@ dbem
-msgid "Location Image"
+msgid "Hike Image"
 msgstr ""
 
 #: templates/forms/map-container.php:3
 #@ dbem
-msgid "Location not found"
+msgid "Hike not found"
 msgstr ""
 
 #: templates/placeholders/locationmap.php:21
@@ -8201,7 +8201,7 @@ msgstr ""
 
 #: widgets/em-locations.php:13
 #@ dbem
-msgid "Event Locations"
+msgid "Event Hikes"
 msgstr ""
 
 #: widgets/em-locations.php:18
@@ -8236,6 +8236,6 @@ msgstr ""
 
 #: widgets/em-locations.php:124
 #@ dbem
-msgid "No Locations message"
+msgid "No Hikes message"
 msgstr ""
 

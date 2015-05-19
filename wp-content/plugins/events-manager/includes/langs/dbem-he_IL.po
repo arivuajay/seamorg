@@ -159,7 +159,7 @@ msgid ""
 msgstr ""
 
 #: widgets/em-locations.php:124
-msgid "No Locations message"
+msgid "No Hikes message"
 msgstr ""
 
 #: admin/em-options.php:1763
@@ -317,11 +317,11 @@ msgid "This setting was not changed."
 msgstr ""
 
 #: admin/em-options.php:330
-msgid "Please enter your Location ID, or leave blank for no location."
+msgid "Please enter your Hike ID, or leave blank for no location."
 msgstr ""
 
 #: admin/em-options.php:338
-msgid "Please enter your Location ID."
+msgid "Please enter your Hike ID."
 msgstr ""
 
 #: admin/em-options.php:399 admin/em-options.php:1801
@@ -350,7 +350,7 @@ msgid "Search forms"
 msgstr "צורות חיפוש"
 
 #: admin/em-options.php:521
-msgid "Event/Location admin pages"
+msgid "Event/Hike admin pages"
 msgstr ""
 
 #: admin/em-options.php:522
@@ -362,7 +362,7 @@ msgid "Events list page"
 msgstr ""
 
 #: admin/em-options.php:524
-msgid "Locations list page"
+msgid "Hikes list page"
 msgstr ""
 
 #: admin/em-options.php:525
@@ -654,7 +654,7 @@ msgid "The description of the event that will appear in the calendar."
 msgstr ""
 
 #: admin/em-options.php:1410
-msgid "iCal Location"
+msgid "iCal Hike"
 msgstr "iCal מיקום"
 
 #: admin/em-options.php:1410
@@ -1080,7 +1080,7 @@ msgid "All events link text?"
 msgstr "טקסט קישור כל האירועים?"
 
 #: widgets/em-locations.php:13
-msgid "Event Locations"
+msgid "Event Hikes"
 msgstr "מיקומי אירועים"
 
 #: widgets/em-locations.php:22
@@ -1340,7 +1340,7 @@ msgstr "עזרה"
 #: em-actions.php:182 em-install.php:472 em-install.php:474 em-install.php:972
 #: em-install.php:1031 em-posts.php:236 em-posts.php:239 em-posts.php:241
 #: templates/tables/locations.php:10 templates/tables/locations.php:13
-msgid "Locations"
+msgid "Hikes"
 msgstr "מקומות"
 
 #: admin/em-admin.php:113 classes/em-people.php:35 events-manager.php:723
@@ -1518,7 +1518,7 @@ msgstr "תאריך"
 #: templates/forms/location-editor.php:32
 #: templates/forms/location-editor.php:65
 #: templates/forms/location-editor.php:67 templates/tables/events.php:62
-msgid "Location"
+msgid "Hike"
 msgstr "מקום"
 
 #: admin/em-bookings.php:152
@@ -1715,7 +1715,7 @@ msgid "Category Related Placeholders"
 msgstr "זמני מקום שקשורים לקטגוריה"
 
 #: admin/em-help.php:36 admin/em-ms-options.php:60 admin/em-options.php:258
-msgid "Location Related Placeholders"
+msgid "Hike Related Placeholders"
 msgstr "סמני מקום שקשורים למיקום"
 
 #: admin/em-help.php:39 admin/em-ms-options.php:61 admin/em-options.php:259
@@ -1911,7 +1911,7 @@ msgid "Example:"
 msgstr "דוגמא:"
 
 #: admin/em-ms-options.php:160
-msgid "Locations on main blog?"
+msgid "Hikes on main blog?"
 msgstr "מקומות באתר העיקרי?"
 
 #: admin/em-ms-options.php:160 admin/em-ms-options.php:165
@@ -2166,7 +2166,7 @@ msgid "no default location"
 msgstr "אין מקום מחדל"
 
 #: admin/em-options.php:330 admin/em-options.php:338
-msgid "Default Location"
+msgid "Default Hike"
 msgstr "מקום מחדל"
 
 #: admin/em-options.php:330 admin/em-options.php:338
@@ -2179,7 +2179,7 @@ msgid "(not applicable with event ownership on presently, coming soon!)"
 msgstr "(כרגע לא זמין. יתאפשר בעתיד!)"
 
 #: admin/em-options.php:342
-msgid "Default Location Country"
+msgid "Default Hike Country"
 msgstr "מדינת מחדל למקום"
 
 #: admin/em-options.php:342 admin/em-options.php:1291
@@ -3556,7 +3556,7 @@ msgid ""
 msgstr ""
 
 #: admin/em-options.php:1635 admin/em-options.php:1642
-msgid "Location balloon format"
+msgid "Hike balloon format"
 msgstr ""
 
 #: admin/em-options.php:1635 admin/em-options.php:1642
@@ -3569,7 +3569,7 @@ msgid "Event."
 msgstr ""
 
 #: admin/em-options.php:1638
-msgid "Single Location/Event Map Format"
+msgid "Single Hike/Event Map Format"
 msgstr ""
 
 #: admin/em-options.php:1639
@@ -4677,7 +4677,7 @@ msgstr "האירועים שלי"
 
 #: buddypress/bp-em-core.php:124 buddypress/bp-em-core.php:224
 #: buddypress/screens/my-locations.php:32
-msgid "My Locations"
+msgid "My Hikes"
 msgstr "המקומות שלי"
 
 #: buddypress/bp-em-core.php:136 buddypress/bp-em-core.php:233
@@ -4733,12 +4733,12 @@ msgid "Add Event"
 msgstr "הוסף אירוע"
 
 #: buddypress/screens/my-locations.php:46 em-events.php:189 em-posts.php:242
-msgid "Add Location"
+msgid "Add Hike"
 msgstr "הוסף מקום"
 
 #: buddypress/screens/my-locations.php:48 classes/em-location.php:845
 #: em-events.php:191 em-posts.php:245
-msgid "Edit Location"
+msgid "Edit Hike"
 msgstr "ערוך מקום"
 
 #: buddypress/screens/profile.php:11
@@ -5397,7 +5397,7 @@ msgid "The country"
 msgstr "המדינה"
 
 #: classes/em-location.php:256 widgets/em-locations.php:23
-msgid "Location name"
+msgid "Hike name"
 msgstr "שם מקום"
 
 #: classes/em-location.php:256 classes/em-location.php:272
@@ -6153,31 +6153,31 @@ msgid "Display locations on your blog."
 msgstr "הצג מקומות באתר שלך."
 
 #: em-posts.php:243
-msgid "Add New Location"
+msgid "Add New Hike"
 msgstr "הוסף מקום חדש"
 
 #: em-posts.php:246
-msgid "New Location"
+msgid "New Hike"
 msgstr "מקום חדש"
 
 #: em-posts.php:248
-msgid "View Location"
+msgid "View Hike"
 msgstr "צפה במקום"
 
 #: em-posts.php:249
-msgid "Search Locations"
+msgid "Search Hikes"
 msgstr "חפש מקומות"
 
 #: em-posts.php:250
-msgid "No Locations Found"
+msgid "No Hikes Found"
 msgstr "לא נמצאו מקומות"
 
 #: em-posts.php:251
-msgid "No Locations Found in Trash"
+msgid "No Hikes Found in Trash"
 msgstr "לא נמצאו מקומות בפח"
 
 #: em-posts.php:252
-msgid "Parent Location"
+msgid "Parent Hike"
 msgstr "מקום אב"
 
 #: em-template-tags.php:286
@@ -6507,15 +6507,15 @@ msgid "This event does not have a physical location."
 msgstr "לאירוע זה אין מקום פיסי"
 
 #: templates/forms/event/location.php:32
-msgid "Location:"
+msgid "Hike:"
 msgstr "המקום:"
 
 #: templates/forms/event/location.php:35
-msgid "No Location"
+msgid "No Hike"
 msgstr "אין מיקום"
 
 #: templates/forms/event/location.php:65
-msgid "Location Name:"
+msgid "Hike Name:"
 msgstr "שם מקום: "
 
 #: templates/forms/event/location.php:70
@@ -6558,7 +6558,7 @@ msgid "none selected"
 msgstr "לא נבחרו"
 
 #: templates/forms/map-container.php:3
-msgid "Location not found"
+msgid "Hike not found"
 msgstr "מיקום לא נמצא"
 
 #: templates/forms/event/recurring-when.php:10
@@ -6728,7 +6728,7 @@ msgstr "תמונת אירוע"
 
 #: templates/forms/location/attributes.php:43
 msgid ""
-"You don't have any custom attributes defined in any of your Locations "
+"You don't have any custom attributes defined in any of your Hikes "
 "Manager template settings. Please add them the <a href='%s'>settings page</a>"
 msgstr ""
 "אין לך מאפיינים יחודיים מוגדרים באף הגדרת תבנית. אנא הוסף אותם כאן: <a "
@@ -6737,7 +6737,7 @@ msgstr ""
 #: templates/forms/location/attributes.php:51
 msgid ""
 "If you see any attributes under here, that means they're not used in "
-"Locations Manager formats. To add them, you need to add the custom attribute "
+"Hikes Manager formats. To add them, you need to add the custom attribute "
 "again to a formatting option in the settings page. To remove any of these "
 "depreciated attributes, give it a blank value and save."
 msgstr ""
@@ -6761,7 +6761,7 @@ msgstr ""
 "maps.google.com</a> על ידי הוספת כל השדות למטה, מופרדים בפסיקים."
 
 #: templates/forms/location-editor.php:25
-msgid "Location Name"
+msgid "Hike Name"
 msgstr "שם מקום"
 
 #: templates/forms/location-editor.php:29
@@ -6777,7 +6777,7 @@ msgid "HTML Allowed."
 msgstr "מותר HTML."
 
 #: templates/forms/location-editor.php:52
-msgid "Location Image"
+msgid "Hike Image"
 msgstr "תמונת המקום"
 
 #: templates/forms/event/bookings-ticket-form.php:12

@@ -40,7 +40,7 @@ $has_depreciated = false;
 				}
 				if($count == 1){
 					?>
-					<tr><td colspan="2"><?php echo sprintf(__("You don't have any custom attributes defined in any of your Locations Manager template settings. Please add them the <a href='%s'>settings page</a>",'dbem'),EM_ADMIN_URL ."&amp;page=locations-manager-options"); ?></td></tr>
+					<tr><td colspan="2"><?php echo sprintf(__("You don't have any custom attributes defined in any of your Hikes Manager template settings. Please add them the <a href='%s'>settings page</a>",'dbem'),EM_ADMIN_URL ."&amp;page=locations-manager-options"); ?></td></tr>
 					<?php
 				}
 				?>
@@ -48,7 +48,7 @@ $has_depreciated = false;
 		</table>
 		<?php if( count(array_diff(array_keys($EM_Location->location_attributes), $attributes['names'])) > 0 ): ?>
 		<p><strong><?php _e('Depreciated Attributes', 'dbem')?></strong></p>
-		<p><em><?php _e("If you see any attributes under here, that means they're not used in Locations Manager formats. To add them, you need to add the custom attribute again to a formatting option in the settings page. To remove any of these depreciated attributes, give it a blank value and save.",'dbem') ?></em></p>
+		<p><em><?php _e("If you see any attributes under here, that means they're not used in Hikes Manager formats. To add them, you need to add the custom attribute again to a formatting option in the settings page. To remove any of these depreciated attributes, give it a blank value and save.",'dbem') ?></em></p>
 		<table class="form-table">
 			<thead>
 				<tr valign="top">

@@ -291,7 +291,7 @@ msgstr "راهنما"
 #: em-actions.php:182 em-install.php:472 em-install.php:474 em-install.php:972
 #: em-install.php:1031 em-posts.php:236 em-posts.php:239 em-posts.php:241
 #: templates/tables/locations.php:10 templates/tables/locations.php:13
-msgid "Locations"
+msgid "Hikes"
 msgstr "مکان ها"
 
 # @ dbem
@@ -523,7 +523,7 @@ msgstr "تاریخ"
 #: templates/forms/location-editor.php:32
 #: templates/forms/location-editor.php:65
 #: templates/forms/location-editor.php:67 templates/tables/events.php:62
-msgid "Location"
+msgid "Hike"
 msgstr "مکان"
 
 # @ dbem
@@ -786,7 +786,7 @@ msgstr "نگهدارنده متن رویدادهای مرتبط"
 
 # @ dbem
 #: admin/em-help.php:36 admin/em-ms-options.php:60 admin/em-options.php:258
-msgid "Location Related Placeholders"
+msgid "Hike Related Placeholders"
 msgstr "نگهدارنده متن مکان های مرتبط"
 
 # @ dbem
@@ -1021,7 +1021,7 @@ msgstr "مثال:"
 
 # @ dbem
 #: admin/em-ms-options.php:160
-msgid "Locations on main blog?"
+msgid "Hikes on main blog?"
 msgstr "مکان های روی بلاگ اصلی؟"
 
 # @ dbem
@@ -1358,12 +1358,12 @@ msgstr ""
 
 # @ dbem
 #: admin/em-options.php:330 admin/em-options.php:338
-msgid "Default Location"
+msgid "Default Hike"
 msgstr "مکان پیشفرض"
 
 # @ dbem
 #: admin/em-options.php:330
-msgid "Please enter your Location ID, or leave blank for no location."
+msgid "Please enter your Hike ID, or leave blank for no location."
 msgstr ""
 
 # @ dbem
@@ -1387,12 +1387,12 @@ msgstr "مکان پیشفرضی وجود ندارد."
 # @ dbem
 #: admin/em-options.php:338
 #, fuzzy
-msgid "Please enter your Location ID."
+msgid "Please enter your Hike ID."
 msgstr "مکان مادر"
 
 # @ dbem
 #: admin/em-options.php:342
-msgid "Default Location Country"
+msgid "Default Hike Country"
 msgstr "کشور پیشفرض مکان"
 
 # @ dbem
@@ -1832,7 +1832,7 @@ msgstr "فرم های جستجو"
 
 # @ dbem
 #: admin/em-options.php:521
-msgid "Event/Location admin pages"
+msgid "Event/Hike admin pages"
 msgstr "صفحه مدیریت رویداد / مکان"
 
 # @ dbem
@@ -1847,7 +1847,7 @@ msgstr "صفحه لیست رویدادها"
 
 # @ dbem
 #: admin/em-options.php:524
-msgid "Locations list page"
+msgid "Hikes list page"
 msgstr "صفحه لیست مکان ها"
 
 # @ dbem
@@ -3488,7 +3488,7 @@ msgstr "توضیحات رویداد در تقویم نمایش داده خواه
 
 # @ dbem
 #: admin/em-options.php:1410
-msgid "iCal Location"
+msgid "iCal Hike"
 msgstr "مکان iCal"
 
 # @ dbem
@@ -3824,7 +3824,7 @@ msgstr ""
 
 # @ dbem
 #: admin/em-options.php:1635 admin/em-options.php:1642
-msgid "Location balloon format"
+msgid "Hike balloon format"
 msgstr "فرمت بالون موقعیت مکانی"
 
 # @ dbem
@@ -3840,7 +3840,7 @@ msgstr "رویداد."
 
 # @ dbem
 #: admin/em-options.php:1638
-msgid "Single Location/Event Map Format"
+msgid "Single Hike/Event Map Format"
 msgstr "فرمت نقشه رویداد / مکان تکی"
 
 # @ dbem
@@ -5540,7 +5540,7 @@ msgstr "رویدادهای من"
 # @ dbem
 #: buddypress/bp-em-core.php:124 buddypress/bp-em-core.php:224
 #: buddypress/screens/my-locations.php:32
-msgid "My Locations"
+msgid "My Hikes"
 msgstr "مکان های من"
 
 # @ dbem
@@ -5612,13 +5612,13 @@ msgstr "افزودن رویداد"
 
 # @ dbem
 #: buddypress/screens/my-locations.php:46 em-events.php:189 em-posts.php:242
-msgid "Add Location"
+msgid "Add Hike"
 msgstr "افزودن مکان"
 
 # @ dbem
 #: buddypress/screens/my-locations.php:48 classes/em-location.php:845
 #: em-events.php:191 em-posts.php:245
-msgid "Edit Location"
+msgid "Edit Hike"
 msgstr "ویرایش مکان"
 
 # @ dbem
@@ -6516,7 +6516,7 @@ msgstr "کشور"
 
 # @ dbem
 #: classes/em-location.php:256 widgets/em-locations.php:23
-msgid "Location name"
+msgid "Hike name"
 msgstr "نام مکان"
 
 # @ dbem
@@ -7543,37 +7543,37 @@ msgstr "نمایش مکان ها روی بلاگ شما"
 
 # @ dbem
 #: em-posts.php:243
-msgid "Add New Location"
+msgid "Add New Hike"
 msgstr "افزودن مکان جدید"
 
 # @ dbem
 #: em-posts.php:246
-msgid "New Location"
+msgid "New Hike"
 msgstr "مکان جدید"
 
 # @ dbem
 #: em-posts.php:248
-msgid "View Location"
+msgid "View Hike"
 msgstr "مشاهده مکان"
 
 # @ dbem
 #: em-posts.php:249
-msgid "Search Locations"
+msgid "Search Hikes"
 msgstr "جستجوی مکان ها"
 
 # @ dbem
 #: em-posts.php:250
-msgid "No Locations Found"
+msgid "No Hikes Found"
 msgstr "مکانی پیدا نشد"
 
 # @ dbem
 #: em-posts.php:251
-msgid "No Locations Found in Trash"
+msgid "No Hikes Found in Trash"
 msgstr "مکانی در سطل زباله پیدا نشد"
 
 # @ dbem
 #: em-posts.php:252
-msgid "Parent Location"
+msgid "Parent Hike"
 msgstr "مکان مادر"
 
 # @ dbem
@@ -8211,17 +8211,17 @@ msgstr "این رویداد مکان فیزیکی ندارد."
 
 # @ dbem
 #: templates/forms/event/location.php:32
-msgid "Location:"
+msgid "Hike:"
 msgstr "مکان:"
 
 # @ dbem
 #: templates/forms/event/location.php:35
-msgid "No Location"
+msgid "No Hike"
 msgstr "بدون مکان"
 
 # @ dbem
 #: templates/forms/event/location.php:65
-msgid "Location Name:"
+msgid "Hike Name:"
 msgstr "نام مکان:"
 
 # @ dbem
@@ -8491,7 +8491,7 @@ msgstr "بروزرسانی"
 #: templates/forms/location/attributes.php:43
 #, php-format
 msgid ""
-"You don't have any custom attributes defined in any of your Locations "
+"You don't have any custom attributes defined in any of your Hikes "
 "Manager template settings. Please add them the <a href='%s'>settings page</a>"
 msgstr ""
 "شما در تنظیمات قالب مدیریت مکان ها هیچ صفت دلخواهی ایجاد نکرده اید. لطفاً "
@@ -8501,7 +8501,7 @@ msgstr ""
 #: templates/forms/location/attributes.php:51
 msgid ""
 "If you see any attributes under here, that means they're not used in "
-"Locations Manager formats. To add them, you need to add the custom attribute "
+"Hikes Manager formats. To add them, you need to add the custom attribute "
 "again to a formatting option in the settings page. To remove any of these "
 "depreciated attributes, give it a blank value and save."
 msgstr ""
@@ -8530,7 +8530,7 @@ msgstr ""
 
 # @ dbem
 #: templates/forms/location-editor.php:25
-msgid "Location Name"
+msgid "Hike Name"
 msgstr "نام مکان"
 
 # @ dbem
@@ -8550,12 +8550,12 @@ msgstr "HTML مجاز است."
 
 # @ dbem
 #: templates/forms/location-editor.php:52
-msgid "Location Image"
+msgid "Hike Image"
 msgstr "عکس مکان"
 
 # @ dbem
 #: templates/forms/map-container.php:3
-msgid "Location not found"
+msgid "Hike not found"
 msgstr "مکانی پیدا نشد"
 
 # @ dbem
@@ -8751,7 +8751,7 @@ msgstr "فرمت لیست آیتم"
 
 # @ dbem
 #: widgets/em-locations.php:13
-msgid "Event Locations"
+msgid "Event Hikes"
 msgstr "مکان های رویداد"
 
 # @ dbem
@@ -8787,7 +8787,7 @@ msgstr "چیدمان مکان ها"
 # @ dbem
 #: widgets/em-locations.php:124
 #, fuzzy
-msgid "No Locations message"
+msgid "No Hikes message"
 msgstr "مکان ها"
 
 # @ dbem

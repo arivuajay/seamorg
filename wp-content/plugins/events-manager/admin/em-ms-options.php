@@ -57,7 +57,7 @@ function em_ms_admin_options_page() {
 	}	
 	//TODO place all options into an array
 	$events_placeholders = '<a href="'.EM_ADMIN_URL .'&amp;events-manager-help#event-placeholders">'. __('Event Related Placeholders','dbem') .'</a>';
-	$locations_placeholders = '<a href="'.EM_ADMIN_URL .'&amp;events-manager-help#location-placeholders">'. __('Location Related Placeholders','dbem') .'</a>';
+	$locations_placeholders = '<a href="'.EM_ADMIN_URL .'&amp;events-manager-help#location-placeholders">'. __('Hike Related Placeholders','dbem') .'</a>';
 	$bookings_placeholders = '<a href="'.EM_ADMIN_URL .'&amp;events-manager-help#booking-placeholders">'. __('Booking Related Placeholders','dbem') .'</a>';
 	$categories_placeholders = '<a href="'.EM_ADMIN_URL .'&amp;events-manager-help#category-placeholders">'. __('Category Related Placeholders','dbem') .'</a>';
 	$events_placeholder_tip = " ". sprintf(__('This accepts %s and %s placeholders.','dbem'),$events_placeholders, $locations_placeholders);
@@ -156,15 +156,15 @@ function em_ms_admin_options_page() {
 							em_options_radio_binary ( sprintf(__( 'Display global events on main blog?', 'dbem'), __('events','dbem')), 'dbem_ms_global_events', sprintf($global_post_tip, __('events','dbem'), __('events','dbem')) );
 							em_options_radio_binary ( sprintf(__( 'Link sub-site %s directly to sub-site?', 'dbem'), __('events','dbem')), 'dbem_ms_global_events_links', sprintf($global_link_tip, __('events','dbem'), __('event','dbem')).sprintf($global_link_tip2, __('event','dbem'), $options_page_link) );
 							em_options_input_text ( sprintf(__( 'Global %s slug', 'dbem' ),__('event','dbem')), 'dbem_ms_events_slug', sprintf($global_slug_tip, __('Events','dbem'), __('events','dbem')).__('Example:','dbem').'<code>http://yoursite.com/events/<strong>event</strong>/subsite-event-slug/', EM_EVENT_SLUG );
-							?><tr class="em-header"><td><h4><?php echo sprintf(__('%s Options','dbem'),__('Location','dbem')); ?></h4></td></tr><?php
-							em_options_radio_binary ( sprintf(__( 'Locations on main blog?', 'dbem'), __('locations','dbem')), 'dbem_ms_mainblog_locations', __('If you would prefer all your locations to belong to your main blog, users in sub-sites will still be able to create locations, but the actual locations are created and reside in the main blog.','dbem') );
+							?><tr class="em-header"><td><h4><?php echo sprintf(__('%s Options','dbem'),__('Hike','dbem')); ?></h4></td></tr><?php
+							em_options_radio_binary ( sprintf(__( 'Hikes on main blog?', 'dbem'), __('locations','dbem')), 'dbem_ms_mainblog_locations', __('If you would prefer all your locations to belong to your main blog, users in sub-sites will still be able to create locations, but the actual locations are created and reside in the main blog.','dbem') );
 							?>
 							</tbody>
 							<tbody class="em-global-options em-global-locations">
 							<?php
 							em_options_radio_binary ( sprintf(__( 'Display global %s on main blog?', 'dbem'), __('locations','dbem')), 'dbem_ms_global_locations', sprintf($global_post_tip, __('locations','dbem'), __('locations','dbem')) );
 							em_options_radio_binary ( sprintf(__( 'Link sub-site %s directly to sub-site?', 'dbem'), __('locations','dbem')), 'dbem_ms_global_locations_links', sprintf($global_link_tip, __('locations','dbem'), __('location','dbem')).sprintf($global_link_tip2, __('location','dbem'), $options_page_link) );
-							em_options_input_text ( sprintf(__( 'Global %s slug', 'dbem' ),__('location','dbem')), 'dbem_ms_locations_slug', sprintf($global_slug_tip, __('Locations','dbem'), __('locations','dbem')).__('Example:','dbem').'<code>http://yoursite.com/locations/<strong>location</strong>/subsite-location-slug/', EM_LOCATION_SLUG );
+							em_options_input_text ( sprintf(__( 'Global %s slug', 'dbem' ),__('location','dbem')), 'dbem_ms_locations_slug', sprintf($global_slug_tip, __('Hikes','dbem'), __('locations','dbem')).__('Example:','dbem').'<code>http://yoursite.com/locations/<strong>location</strong>/subsite-location-slug/', EM_LOCATION_SLUG );
 							?>
 							</tbody>
 							<?php echo $save_button; ?>

@@ -42,7 +42,7 @@ function em_admin_menu(){
 	//If multisite global with locations set to be saved in main blogs we can force locations to be created on the main blog only
 	if( EM_MS_GLOBAL && !is_main_site() && get_site_option('dbem_ms_mainblog_locations') ){
 		include( dirname(__FILE__)."/em-ms-locations.php" );
-		$plugin_pages['locations'] = add_submenu_page('edit.php?post_type='.EM_POST_TYPE_EVENT, __('Locations','dbem'),__('Locations','dbem'), 'read_others_locations', "locations", 'em_admin_ms_locations');
+		$plugin_pages['locations'] = add_submenu_page('edit.php?post_type='.EM_POST_TYPE_EVENT, __('Hikes','dbem'),__('Hikes','dbem'), 'read_others_locations', "locations", 'em_admin_ms_locations');
 	}
 	$plugin_pages = apply_filters('em_create_events_submenu',$plugin_pages);
 	//We have to modify the menus manually

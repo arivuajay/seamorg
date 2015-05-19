@@ -12,7 +12,7 @@ $dbem_debug_options = array(
 	//Event Formatting
 	'dbem_event_list_item_format' => '<li>#j #M #Y - #H:#i<br/> #_EVENTLINK<br/>#_LOCATIONTOWN </li>',
 	'dbem_single_event_format' => $dbem_event_format,
-	//Location Formatting
+	//Hike Formatting
 	'dbem_location_event_list_item_format' => "<li>#_LOCATIONNAME - #j #M #Y - #H:#i</li>",
 	'dbem_location_list_item_format' => '#_LOCATIONLINK<ul><li>#_LOCATIONADDRESS</li><li>#_LOCATIONTOWN</li></ul>',
 	'dbem_location_no_events_message' => __('<li>No events in this location</li>', 'dbem'),

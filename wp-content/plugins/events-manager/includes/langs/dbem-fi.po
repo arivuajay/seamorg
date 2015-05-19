@@ -159,7 +159,7 @@ msgid ""
 msgstr ""
 
 #: widgets/em-locations.php:124
-msgid "No Locations message"
+msgid "No Hikes message"
 msgstr "Ei Toimipaikat viesti"
 
 #: admin/em-options.php:1763
@@ -317,11 +317,11 @@ msgid "This setting was not changed."
 msgstr ""
 
 #: admin/em-options.php:330
-msgid "Please enter your Location ID, or leave blank for no location."
+msgid "Please enter your Hike ID, or leave blank for no location."
 msgstr ""
 
 #: admin/em-options.php:338
-msgid "Please enter your Location ID."
+msgid "Please enter your Hike ID."
 msgstr ""
 
 #: admin/em-options.php:399 admin/em-options.php:1801
@@ -352,7 +352,7 @@ msgid "Search forms"
 msgstr "Hakulomakkeet"
 
 #: admin/em-options.php:521
-msgid "Event/Location admin pages"
+msgid "Event/Hike admin pages"
 msgstr "Tapahtuman/sijainnin hallintasivut"
 
 #: admin/em-options.php:522
@@ -364,7 +364,7 @@ msgid "Events list page"
 msgstr "Tapahtumalista"
 
 #: admin/em-options.php:524
-msgid "Locations list page"
+msgid "Hikes list page"
 msgstr "Sijantilista"
 
 #: admin/em-options.php:525
@@ -664,7 +664,7 @@ msgid "The description of the event that will appear in the calendar."
 msgstr "Tapahtuman kuvaus, joka näkyy kalenterissa."
 
 #: admin/em-options.php:1410
-msgid "iCal Location"
+msgid "iCal Hike"
 msgstr "iCal-sijainti"
 
 #: admin/em-options.php:1410
@@ -1134,7 +1134,7 @@ msgid "All events link text?"
 msgstr "Kaikki tapahtumat -linkin teksti?"
 
 #: widgets/em-locations.php:13
-msgid "Event Locations"
+msgid "Event Hikes"
 msgstr "Tapahtumapaikat"
 
 #: widgets/em-locations.php:22
@@ -1394,7 +1394,7 @@ msgstr "Ohje"
 #: em-actions.php:182 em-install.php:472 em-install.php:474 em-install.php:972
 #: em-install.php:1031 em-posts.php:236 em-posts.php:239 em-posts.php:241
 #: templates/tables/locations.php:10 templates/tables/locations.php:13
-msgid "Locations"
+msgid "Hikes"
 msgstr "Tapahtumapaikat"
 
 #: admin/em-admin.php:113 classes/em-people.php:35 events-manager.php:723
@@ -1589,7 +1589,7 @@ msgstr "Päivämäärä"
 #: templates/forms/location-editor.php:32
 #: templates/forms/location-editor.php:65
 #: templates/forms/location-editor.php:67 templates/tables/events.php:62
-msgid "Location"
+msgid "Hike"
 msgstr "Tapahtumapaikka"
 
 #: admin/em-bookings.php:152
@@ -1791,7 +1791,7 @@ msgid "Category Related Placeholders"
 msgstr "Kategorioihin  liittyvät kentät"
 
 #: admin/em-help.php:36 admin/em-ms-options.php:60 admin/em-options.php:258
-msgid "Location Related Placeholders"
+msgid "Hike Related Placeholders"
 msgstr "Paikaan liittyvät kentät"
 
 #: admin/em-help.php:39 admin/em-ms-options.php:61 admin/em-options.php:259
@@ -1996,7 +1996,7 @@ msgid "Example:"
 msgstr "Esimerkki:"
 
 #: admin/em-ms-options.php:160
-msgid "Locations on main blog?"
+msgid "Hikes on main blog?"
 msgstr "Tapahtumapaikat pääblogissa"
 
 #: admin/em-ms-options.php:160 admin/em-ms-options.php:165
@@ -2265,7 +2265,7 @@ msgid "no default location"
 msgstr "ei oletuspaikkaa"
 
 #: admin/em-options.php:330 admin/em-options.php:338
-msgid "Default Location"
+msgid "Default Hike"
 msgstr "Oletuspaikka"
 
 #: admin/em-options.php:330 admin/em-options.php:338
@@ -2278,7 +2278,7 @@ msgid "(not applicable with event ownership on presently, coming soon!)"
 msgstr "(ei käytössä tapahtuman omistuksessa tällä hetkellä, tulossa pian!)"
 
 #: admin/em-options.php:342
-msgid "Default Location Country"
+msgid "Default Hike Country"
 msgstr "Oletusmaa"
 
 #: admin/em-options.php:342 admin/em-options.php:1291
@@ -3785,7 +3785,7 @@ msgstr ""
 "sijainneistasi ja tapahtumistasi käyttäen alla olevia asetuksia. "
 
 #: admin/em-options.php:1635 admin/em-options.php:1642
-msgid "Location balloon format"
+msgid "Hike balloon format"
 msgstr "Paikka kuplan muoto"
 
 #: admin/em-options.php:1635 admin/em-options.php:1642
@@ -3798,7 +3798,7 @@ msgid "Event."
 msgstr "Tapahtuma."
 
 #: admin/em-options.php:1638
-msgid "Single Location/Event Map Format"
+msgid "Single Hike/Event Map Format"
 msgstr "Yhden sijainnin/tapahtuman karttamuotoilu "
 
 #: admin/em-options.php:1639
@@ -4980,7 +4980,7 @@ msgstr "Omat tapahtumat"
 
 #: buddypress/bp-em-core.php:124 buddypress/bp-em-core.php:224
 #: buddypress/screens/my-locations.php:32
-msgid "My Locations"
+msgid "My Hikes"
 msgstr "Omat tapahtumapaikat"
 
 #: buddypress/bp-em-core.php:136 buddypress/bp-em-core.php:233
@@ -5036,12 +5036,12 @@ msgid "Add Event"
 msgstr "Lisää tapahtuma"
 
 #: buddypress/screens/my-locations.php:46 em-events.php:189 em-posts.php:242
-msgid "Add Location"
+msgid "Add Hike"
 msgstr "Lisää tapahtumapaikka"
 
 #: buddypress/screens/my-locations.php:48 classes/em-location.php:845
 #: em-events.php:191 em-posts.php:245
-msgid "Edit Location"
+msgid "Edit Hike"
 msgstr "Muokkaa tapahtumapaikkaa"
 
 #: buddypress/screens/profile.php:11
@@ -5722,7 +5722,7 @@ msgid "The country"
 msgstr "Maa"
 
 #: classes/em-location.php:256 widgets/em-locations.php:23
-msgid "Location name"
+msgid "Hike name"
 msgstr "Tapahtumapaikan nimi"
 
 #: classes/em-location.php:256 classes/em-location.php:272
@@ -6512,31 +6512,31 @@ msgid "Display locations on your blog."
 msgstr "Näytä sijainnit blogissasi. "
 
 #: em-posts.php:243
-msgid "Add New Location"
+msgid "Add New Hike"
 msgstr "Lisää uusi sijainti"
 
 #: em-posts.php:246
-msgid "New Location"
+msgid "New Hike"
 msgstr "Uusi sijainti"
 
 #: em-posts.php:248
-msgid "View Location"
+msgid "View Hike"
 msgstr "Näytä tapahtumapaikka"
 
 #: em-posts.php:249
-msgid "Search Locations"
+msgid "Search Hikes"
 msgstr "Etsi sijainteja"
 
 #: em-posts.php:250
-msgid "No Locations Found"
+msgid "No Hikes Found"
 msgstr "Sijainteja ei löytynyt"
 
 #: em-posts.php:251
-msgid "No Locations Found in Trash"
+msgid "No Hikes Found in Trash"
 msgstr "Sijainteja ei löytynyt roskiksesta"
 
 #: em-posts.php:252
-msgid "Parent Location"
+msgid "Parent Hike"
 msgstr "Ylätason sijainti"
 
 #: em-template-tags.php:286
@@ -6877,15 +6877,15 @@ msgid "This event does not have a physical location."
 msgstr "Tapahtumalla ei ole fyysistä tapahtumapaikkaa."
 
 #: templates/forms/event/location.php:32
-msgid "Location:"
+msgid "Hike:"
 msgstr "Tapahtumapaikka:"
 
 #: templates/forms/event/location.php:35
-msgid "No Location"
+msgid "No Hike"
 msgstr "Ei tapahtumapaikkaa"
 
 #: templates/forms/event/location.php:65
-msgid "Location Name:"
+msgid "Hike Name:"
 msgstr "Tapahtumapaikan nimi:"
 
 #: templates/forms/event/location.php:70
@@ -6930,7 +6930,7 @@ msgid "none selected"
 msgstr "ei valittuja"
 
 #: templates/forms/map-container.php:3
-msgid "Location not found"
+msgid "Hike not found"
 msgstr "Sijaintia ei löytynyt"
 
 #: templates/forms/event/recurring-when.php:10
@@ -7102,7 +7102,7 @@ msgstr "Tapahtuman tunnuskuva"
 
 #: templates/forms/location/attributes.php:43
 msgid ""
-"You don't have any custom attributes defined in any of your Locations "
+"You don't have any custom attributes defined in any of your Hikes "
 "Manager template settings. Please add them the <a href='%s'>settings page</a>"
 msgstr ""
 "Sinulla ei ole räätälöityjä ominaisuuksia määriteltynä Tapahtumapaikka "
@@ -7111,7 +7111,7 @@ msgstr ""
 #: templates/forms/location/attributes.php:51
 msgid ""
 "If you see any attributes under here, that means they're not used in "
-"Locations Manager formats. To add them, you need to add the custom attribute "
+"Hikes Manager formats. To add them, you need to add the custom attribute "
 "again to a formatting option in the settings page. To remove any of these "
 "depreciated attributes, give it a blank value and save."
 msgstr ""
@@ -7137,7 +7137,7 @@ msgstr ""
 "kaikki alapuolella olevat kentät erotettuina pilkuilla. "
 
 #: templates/forms/location-editor.php:25
-msgid "Location Name"
+msgid "Hike Name"
 msgstr "Tapahtumapaikan nimi"
 
 #: templates/forms/location-editor.php:29
@@ -7153,7 +7153,7 @@ msgid "HTML Allowed."
 msgstr "HTML sallittu."
 
 #: templates/forms/location-editor.php:52
-msgid "Location Image"
+msgid "Hike Image"
 msgstr "Tapahtumapaikan kuva"
 
 #: templates/forms/event/bookings-ticket-form.php:12

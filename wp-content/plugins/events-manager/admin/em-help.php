@@ -33,7 +33,7 @@ function em_admin_help_page(){
 			<h3><?php _e('Tag Related Placeholders','dbem'); ?></h3>
 			<?php echo em_docs_placeholders( array('type'=>'tags') ); ?>
 			<a name="location-placeholders"></a>
-			<h3><?php _e('Location Related Placeholders','dbem'); ?></h3>
+			<h3><?php _e('Hike Related Placeholders','dbem'); ?></h3>
 			<?php echo em_docs_placeholders( array('type'=>'locations') ); ?>
 			<a name="booking-placeholders"></a>
 			<h3><?php _e('Booking Related Placeholders','dbem'); ?></h3>

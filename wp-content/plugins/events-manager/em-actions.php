@@ -143,7 +143,7 @@ function em_init_actions() {
 		}
 	}
 	
-	//Location Actions
+	//Hike Actions
 	if( !empty($_REQUEST['action']) && substr($_REQUEST['action'],0,8) == 'location' ){
 		global $EM_Location, $EM_Notices;
 		//Load the location object, with saved event if requested
@@ -179,7 +179,7 @@ function em_init_actions() {
 				}
 				if( empty($errors) ){
 					$result = true;
-					$location_term = ( count($locations) > 1 ) ?__('Locations', 'dbem') : __('Location', 'dbem'); 
+					$location_term = ( count($locations) > 1 ) ?__('Hikes', 'dbem') : __('Hike', 'dbem'); 
 					$EM_Notices->add_confirm( sprintf(__('%s successfully deleted', 'dbem'), $location_term) );
 				}else{
 					$result = false;

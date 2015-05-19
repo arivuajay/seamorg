@@ -300,8 +300,8 @@ class EM_Locations extends EM_Object {
 	public static function get_default_search( $array_or_defaults = array(), $array = array() ){
 	    self::$context = EM_POST_TYPE_LOCATION;
 		$defaults = array(
-			'eventful' => false, //Locations that have an event (scope will also play a part here
-			'eventless' => false, //Locations WITHOUT events, eventful takes precedence
+			'eventful' => false, //Hikes that have an event (scope will also play a part here
+			'eventless' => false, //Hikes WITHOUT events, eventful takes precedence
 			'orderby' => 'location_name',
 			'town' => false,
 			'state' => false,

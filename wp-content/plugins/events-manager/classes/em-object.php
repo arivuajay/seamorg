@@ -325,8 +325,8 @@ class EM_Object {
 			}
 		}
 		
-		//Filter by Location - can be object, array, or id
-		if ( is_numeric($location) && $location > 0 ) { //Location ID takes precedence
+		//Filter by Hike - can be object, array, or id
+		if ( is_numeric($location) && $location > 0 ) { //Hike ID takes precedence
 			$conditions['location'] = " {$locations_table}.location_id = $location";
 		}elseif ( $location === 0 ) { //only helpful is searching events
 			$conditions['location'] = " {$events_table}.location_id = $location OR {$events_table}.location_id IS NULL";
@@ -355,7 +355,7 @@ class EM_Object {
 			$conditions['event'] = "( {$events_table}.event_id=". implode(" {$events_table}.event_id=", $event_ids) ." )";
 		}
 
-		//Location specific filters
+		//Hike specific filters
 		//if we're searching near something, country etc. becomes irrelevant
 		if( !empty($args['near']) && self::array_is_numeric($args['near']) ){
 			$distance = !empty($args['near_distance']) && is_numeric($args['near_distance']) ? absint($args['near_distance']) : get_option('dbem_search_form_geo_units',25);
@@ -689,8 +689,8 @@ class EM_Object {
 			}
 		}
 		
-		//Filter by Location - can be object, array, or id
-		if ( is_numeric($location) && $location > 0 ) { //Location ID takes precedence
+		//Filter by Hike - can be object, array, or id
+		if ( is_numeric($location) && $location > 0 ) { //Hike ID takes precedence
 			$query[] = array( 'key' => '_location_id', 'value' => $location, 'compare' => '=' );
 		}elseif ( self::array_is_numeric($location) ){
 			$query[] = array( 'key' => '_location_id', 'value' => $location, 'compare' => 'IN' );

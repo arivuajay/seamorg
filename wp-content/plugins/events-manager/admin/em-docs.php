@@ -234,7 +234,7 @@ function em_docs_init($force_init = false){
 					)
 				),
 				'locations' => array(
-					'Location Details' => array(
+					'Hike Details' => array(
 						'desc' => '',
 						'placeholders' => array(
 							'#_LOCATIONID' => array( 'desc' => 'Shows the event ID number in the wp_em_locations table.' ),
@@ -295,7 +295,7 @@ function em_docs_init($force_init = false){
 				),
 				'bookings' => array(
 					'Individual Booking Information' => array(
-						'desc' => 'When a specific booking is displayed (on screen and on email), you can use these placeholders to show specific information about the booking. Event and Location placeholders are also available in these cases.',
+						'desc' => 'When a specific booking is displayed (on screen and on email), you can use these placeholders to show specific information about the booking. Event and Hike placeholders are also available in these cases.',
 						'placeholders' => array(
 							'#_BOOKINGID' => array( 'desc' => 'The unique ID of this booking, useful if you are making your own customizations to this plugin.' ),
 							'#_BOOKINGNAME' => array( 'desc' => 'Name of person who made the booking.' ),

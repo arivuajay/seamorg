@@ -399,7 +399,7 @@ class EM_Event extends EM_Object{
 			$this->recurrence = 1;
 			$this->post_type = 'event-recurring';
 		}
-		//Get Location info
+		//Get Hike info
 		if( !get_option('dbem_locations_enabled') || (!empty($_POST['no_location']) && !get_option('dbem_require_location',true)) || (empty($_POST['location_id']) && !get_option('dbem_require_location',true) && get_option('dbem_use_select_for_locations')) ){
 			$this->location_id = 0;
 		}elseif( !empty($_POST['location_id']) && is_numeric($_POST['location_id']) ){

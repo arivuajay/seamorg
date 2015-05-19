@@ -29,10 +29,10 @@ $required = apply_filters('em_required_html','<i>*</i>');
 	<?php if( get_option('dbem_use_select_for_locations') || !$EM_Event->can_manage('edit_locations','edit_others_locations') ) : ?> 
 	<table class="em-location-data">
 		<tr class="em-location-data-select">
-			<th><?php _e('Location:','dbem') ?> </th>
+			<th><?php _e('Hike:','dbem') ?> </th>
 			<td> 
 				<select name="location_id" id='location-select-id' size="1">  
-					<?php if(!get_option('dbem_require_location',true)): ?><option value="0"><?php _e('No Location','dbem'); ?></option><?php endif; ?>
+					<?php if(!get_option('dbem_require_location',true)): ?><option value="0"><?php _e('No Hike','dbem'); ?></option><?php endif; ?>
 					<?php 
 					$ddm_args = array('blog'=>false, 'private'=>$EM_Event->can_manage('read_private_locations'));
 					$ddm_args['owner'] = (is_user_logged_in() && !current_user_can('read_others_locations')) ? get_current_user_id() : false;
@@ -62,7 +62,7 @@ $required = apply_filters('em_required_html','<i>*</i>');
 			}
 		?>
 		<tr class="em-location-data-name">
-			<th><?php _e ( 'Location Name:', 'dbem' )?></th>
+			<th><?php _e ( 'Hike Name:', 'dbem' )?></th>
 			<td>
 				<input id='location-id' name='location_id' type='hidden' value='<?php echo $EM_Location->location_id; ?>' size='15' />
 				<input id="location-name" type="text" name="location_name" value="<?php echo esc_attr($EM_Location->location_name, ENT_QUOTES); ?>" /><?php echo $required; ?>													

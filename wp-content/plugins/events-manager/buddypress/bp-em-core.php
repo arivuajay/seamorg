@@ -121,7 +121,7 @@ class BP_EM_Component extends BP_Component {
 		
 		if( $can_manage_locations && get_option('dbem_locations_enabled') ){
 			$sub_nav[] = array(
-				'name' => __( 'My Locations', 'dbem' ),
+				'name' => __( 'My Hikes', 'dbem' ),
 				'slug' => 'my-locations',
 				'parent_slug' => em_bp_get_slug(),
 				'parent_url' => $em_link,
@@ -221,7 +221,7 @@ class BP_EM_Component extends BP_Component {
 				$wp_admin_nav[] = array(
 					'parent' => 'my-em-' . $this->id,
 					'id'     => 'my-em-' . $this->id .'-my-locations',
-					'title'  => __( 'My Locations', 'dbem' ),
+					'title'  => __( 'My Hikes', 'dbem' ),
 					'href'   => $em_link.'my-locations/'
 				);
 			}

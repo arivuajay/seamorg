@@ -35,7 +35,7 @@ class EM_Location_Posts_Admin{
 		global $menu, $submenu;
 	  	// Add a submenu to the custom top-level menu:
    		$plugin_pages = array(); 
-		$plugin_pages[] = add_submenu_page('edit.php?post_type='.EM_POST_TYPE_EVENT, __('Locations', 'dbem'), __('Locations', 'dbem'), 'edit_locations', 'events-manager-locations', "edit.php?post_type=event");
+		$plugin_pages[] = add_submenu_page('edit.php?post_type='.EM_POST_TYPE_EVENT, __('Hikes', 'dbem'), __('Hikes', 'dbem'), 'edit_locations', 'events-manager-locations', "edit.php?post_type=event");
 		$plugin_pages = apply_filters('em_create_locationss_submenu',$plugin_pages);
 	}
 	
@@ -44,9 +44,9 @@ class EM_Location_Posts_Admin{
 		if( array_key_exists('cb', $columns) ){
 			$cb = $columns['cb'];
 	    	unset($columns['cb']);
-	    	$id_array = array('cb'=>$cb, 'location-id' => sprintf(__('%s ID','dbem'),__('Location','dbem')));
+	    	$id_array = array('cb'=>$cb, 'location-id' => sprintf(__('%s ID','dbem'),__('Hike','dbem')));
 		}else{
-	    	$id_array = array('location-id' => sprintf(__('%s ID','dbem'),__('Location','dbem')));
+	    	$id_array = array('location-id' => sprintf(__('%s ID','dbem'),__('Hike','dbem')));
 		}
 	    unset($columns['author']);
 	    unset($columns['date']);

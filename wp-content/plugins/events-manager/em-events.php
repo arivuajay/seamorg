@@ -186,9 +186,9 @@ function em_content_page_title($original_content, $id = null) {
 			}elseif( $post->ID == $edit_locations_page_id ){
 				if( !empty($_REQUEST['action']) && $_REQUEST['action'] = 'edit' ){
 					if( empty($EM_Location) || !is_object($EM_Location) ){
-						$content = __('Add Location', 'dbem');
+						$content = __('Add Hike', 'dbem');
 					}else{
-						$content = __('Edit Location', 'dbem');
+						$content = __('Edit Hike', 'dbem');
 					}
 				}
 			}elseif( $post->ID == $edit_bookings_page_id){ 

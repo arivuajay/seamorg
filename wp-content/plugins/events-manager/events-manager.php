@@ -440,7 +440,7 @@ function em_plugins_loaded(){
 		'delete_recurring_events' => sprintf(__('You do not have permission to delete %s','dbem'),__('recurring events','dbem')),
 		'edit_others_recurring_events' => sprintf(__('You do not have permission to edit others %s','dbem'),__('recurring events','dbem')),
 		'edit_recurring_events' => sprintf(__('You do not have permission to edit %s','dbem'),__('recurring events','dbem')),
-		/* Location Capabilities */
+		/* Hike Capabilities */
 		'publish_locations' => sprintf(__('You do not have permission to publish %s','dbem'),__('locations','dbem')),
 		'delete_others_locations' => sprintf(__('You do not have permission to delete others %s','dbem'),__('locations','dbem')),
 		'delete_locations' => sprintf(__('You do not have permission to delete %s','dbem'),__('locations','dbem')),

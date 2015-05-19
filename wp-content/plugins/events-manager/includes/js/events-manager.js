@@ -936,7 +936,7 @@ function em_maps() {
 	jQuery('.em-location-map').each( function(index, el){ em_maps_load_location(el); } );	
 	jQuery('.em-locations-map').each( function(index, el){ em_maps_load_locations(el); } );
 	
-	//Location stuff - only needed if inputs for location exist
+	//Hike stuff - only needed if inputs for location exist
 	if( jQuery('select#location-select-id, input#location-address').length > 0 ){
 		var map, marker;
 		//load map info

@@ -457,7 +457,7 @@ function em_add_options() {
 </p>
 {has_location}
 <p>
-	<strong>'.__('Location','dbem').'</strong><br/>
+	<strong>'.__('Hike','dbem').'</strong><br/>
 	#_LOCATIONLINK
 </p>
 {/has_location}
@@ -476,13 +476,13 @@ function em_add_options() {
 		'dbem_event_page_title_format' => '#_EVENTNAME',
 		'dbem_event_all_day_message' => __('All Day','dbem'),
 		'dbem_no_events_message' => sprintf(__( 'No %s', 'dbem' ),__('Events','dbem')),
-		//Location Formatting
+		//Hike Formatting
 		'dbem_locations_default_orderby' => 'location_name',
 		'dbem_locations_default_order' => 'ASC',
 		'dbem_locations_default_limit' => 10,
-		'dbem_locations_page_title' => __('Event','dbem')." ".__('Locations','dbem'),
+		'dbem_locations_page_title' => __('Event','dbem')." ".__('Hikes','dbem'),
 		'dbem_locations_page_search_form' => 1,
-		'dbem_no_locations_message' => sprintf(__( 'No %s', 'dbem' ),__('Locations','dbem')),
+		'dbem_no_locations_message' => sprintf(__( 'No %s', 'dbem' ),__('Hikes','dbem')),
 		'dbem_location_default_country' => '',
 		'dbem_location_list_item_format_header' => '<ul class="em-locations-list">',
 		'dbem_location_list_item_format' => '<li>#_LOCATIONLINK<ul><li>#_LOCATIONFULLLINE</li></ul></li>',
@@ -797,7 +797,7 @@ function em_add_options() {
 		}
 		$orderby = (count($orderby) > 0) ? implode(',',$orderby):$dbem_options['dbem_events_default_orderby'];
 		update_option('dbem_events_default_orderby',$orderby);
-		//Locations and categories weren't controlled in v4, so just reset them
+		//Hikes and categories weren't controlled in v4, so just reset them
 		update_option('dbem_locations_default_orderby','location_name');
 		update_option('dbem_categories_default_orderby','name');
 		//Update the slugs if necessary
@@ -940,7 +940,7 @@ function em_set_capabilities(){
 			'publish_events', 'delete_others_events', 'edit_others_events', 'manage_others_bookings',
 			/* Recurring Event Capabilties */
 			'publish_recurring_events', 'delete_others_recurring_events', 'edit_others_recurring_events',
-			/* Location Capabilities */
+			/* Hike Capabilities */
 			'publish_locations', 'delete_others_locations',	'delete_locations', 'edit_others_locations',
 			/* Category Capabilities */
 			'delete_event_categories', 'edit_event_categories'
@@ -954,7 +954,7 @@ function em_set_capabilities(){
 			'delete_events', 'edit_events', 'read_private_events',
 			/* Recurring Event Capabilties */
 			'delete_recurring_events', 'edit_recurring_events',
-			/* Location Capabilities */
+			/* Hike Capabilities */
 			'edit_locations', 'read_private_locations', 'read_others_locations',
 		);
 		em_set_mass_caps( array('administrator','editor','contributor','author','subscriber'), $loose_caps);
@@ -998,7 +998,7 @@ function em_create_events_page(){
 		$post_id = wp_insert_post($post_data, false);
 	   	if( $post_id > 0 ){
 	   		update_option('dbem_events_page', $post_id);
-	   		//Now Locations Page
+	   		//Now Hikes Page
 	   		$post_data = array(
 				'post_status' => 'publish',
 	   			'post_parent' => $post_id,
@@ -1006,7 +1006,7 @@ function em_create_events_page(){
 				'ping_status' => get_option('default_ping_status'),
 				'post_content' => 'CONTENTS',
 				'post_excerpt' => '',
-				'post_title' => __('Locations','dbem')
+				'post_title' => __('Hikes','dbem')
 			);
 			$loc_id = wp_insert_post($post_data, false);
 	   		update_option('dbem_locations_page', $loc_id);
@@ -1065,7 +1065,7 @@ function em_migrate_v4(){
 				'ping_status' => get_option('default_ping_status'),
 				'post_content' => 'CONTENTS',
 				'post_excerpt' => '',
-				'post_title' => get_option('dbem_locations_page_title', __('Locations','dbem')),
+				'post_title' => get_option('dbem_locations_page_title', __('Hikes','dbem')),
 		   		'post_slug' => get_option('dbem_cp_locations_slug')
 			);
 			$loc_post_id = wp_insert_post($post_data, false);

@@ -316,7 +316,7 @@ function em_get_event_search_form( $args = array() ){
 	return ob_get_clean();
 }
 
-//Location Forms
+//Hike Forms
 /**
  * Outputs the location submission form for guests and members.
  * @param array $args
