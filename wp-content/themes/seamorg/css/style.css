@@ -1073,3 +1073,31 @@ margin-top:20px;
 .radio_wrap label {
 	display:block !important;
 }
+
+
+
+
+/*19-05-2015*/
+
+
+#location-select-id
+{
+	width:100%;
+	float:left;
+	padding:8px;
+	border:#e5e5e5 solid 1px;
+}
+
+
+#em-location-data .em-location-map-container {
+  width: 100% !important;
+  margin-top:25px;
+}
+
+
+.create-event-part1
+{
+	margin-top:40px;
+}
+
+
