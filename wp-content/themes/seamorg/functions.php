@@ -412,6 +412,22 @@ function myevents_content($args) {
 	echo 'My event list(s) will come up here... :-)';
 }
 
+add_filter('um_profile_tabs', 'add_my_bookings_tab', 1000);
+function add_my_bookings_tab($tabs) {
+    $tabs['mybookingstab'] = array(
+        'name' => 'My Bookings',
+        'icon' => 'um-faicon-pencil',
+    );
+
+    return $tabs;
+}
+
+/* Then we just have to add content to that tab using this action */
+add_filter('um_profile_content_mybookingstab', 'mybookings_content' );
+function mybookings_content($args) {
+	echo 'My bookings list(s) will come up here... :-)';
+}
+
 add_action('user_register', 'update_role_registration_save', 10, 1);
 function update_role_registration_save($user_id) {
     if (isset($_POST['role']) && $_POST['role'] == 'guide') {

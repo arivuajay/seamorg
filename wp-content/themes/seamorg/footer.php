@@ -19,7 +19,7 @@
                     <h2>Join with us</h2>
                     <?php wp_nav_menu(array('container' => false, 'menu_id' => 'social', 'menu_class' => 'social-nav', 'depth' => 0, 'theme_location' => 'social', 'walker' => new social_nav_walker())); ?>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copy"> &copy; Copyright <?php echo date('Y')." ".get_bloginfo( 'name' ); ?> . All rights reserved.  Designed By <a href="http://www.8milestechnologies.com/" target="_blank">8milestechnologies</a></div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copy"> &copy; Copyright <?php echo date('Y') . " " . get_bloginfo('name'); ?> . All rights reserved.  Designed By <a href="http://www.8milestechnologies.com/" target="_blank">8milestechnologies</a></div>
             </div>
         </div>
     </div>
@@ -27,14 +27,14 @@
 </div>
 <div class="sb-slidebar sb-left">
     <a href="#" class="sb-close"><span class="fa fa-close"></span></a>
-    <?php if(is_user_logged_in()) { ?>
-    <span class="menu-signin">Hi, <a href="<?php echo um_user_profile_url(); ?>">  <?php echo um_user('display_name'); ?> </a></span><br/>
-   <a href="<?php echo wp_logout_url('$index.php'); ?>" class="signup-btn2" >Log Out</a>
-    
-    <?php } else {  ?>
-    
-    <span class="menu-signin"><a href="<?php echo get_permalink(48) ?>"> Sign in </a></span><br/>
-    <a href="<?php echo get_permalink(46) ?>" class="signup-btn2">Sign Up</a>
+    <?php if (is_user_logged_in()) { ?>
+        <span class="menu-signin">Hi, <a href="<?php echo um_user_profile_url(); ?>">  <?php echo um_user('display_name'); ?> </a></span><br/>
+        <a href="<?php echo wp_logout_url('$index.php'); ?>" class="signup-btn2" >Log Out</a>
+
+    <?php } else { ?>
+
+        <span class="menu-signin"><a href="<?php echo get_permalink(48) ?>"> Sign in </a></span><br/>
+        <a href="<?php echo get_permalink(46) ?>" class="signup-btn2">Sign Up</a>
     <?php } ?>
     <div class="">
         <?php wp_nav_menu(array('theme_location' => 'primary', 'container_class' => 'big-menu', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-menu')); ?>
@@ -63,6 +63,24 @@
     })(jQuery);
 </script>
 
-<?php wp_footer(); ?>
+<?php
+if ($_REQUEST['debug'] == 'true') {
+    $included_files = get_included_files();
+    $stylesheet_dir = str_replace('\\', '/', get_stylesheet_directory());
+    $template_dir = str_replace('\\', '/', get_template_directory());
+
+    foreach ($included_files as $key => $path) {
+
+        $path = str_replace('\\', '/', $path);
+
+        if (false === strpos($path, $stylesheet_dir) && false === strpos($path, $template_dir))
+            unset($included_files[$key]);
+    }
+
+    echo '<pre>';
+    var_dump($included_files);
+}
+wp_footer();
+?>
 </body>
 </html>

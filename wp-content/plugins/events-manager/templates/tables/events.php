@@ -16,9 +16,9 @@
 		<form id="posts-filter" action="" method="get">
 			<div class="subsubsub">
 				<?php $default_params = array('scope'=>null,'status'=>null,'em_search'=>null,'pno'=>null); //template for cleaning the link for each view below ?>
-				<a href='<?php echo em_add_get_params($_SERVER['REQUEST_URI'], $default_params + array('view'=>'future')); ?>' <?php echo ( !isset($_GET['status']) ) ? 'class="current"':''; ?>><?php _e ( 'Upcoming', 'dbem' ); ?> <span class="count">(<?php echo $future_count; ?>)</span></a> &nbsp;|&nbsp; 
+				<a href='<?php echo em_add_get_params($_SERVER['REQUEST_URI'], $default_params + array('view'=>'future')); ?>' <?php echo ( !isset($_GET['status']) ) ? 'class="current"':''; ?>><?php _e ( 'Upcoming', 'dbem' ); ?> <span class="count">(<?php echo $future_count; ?>)</span></a> &nbsp;|&nbsp;
 				<?php if( $pending_count > 0 ): ?>
-				<a href='<?php echo em_add_get_params($_SERVER['REQUEST_URI'], $default_params + array('view'=>'pending')); ?>' <?php echo ( !empty($_REQUEST['scope']) && $_REQUEST['scope'] == 'all' && !isset($_GET['status']) ) ? 'class="current"':''; ?>><?php _e ( 'Pending', 'dbem' ); ?> <span class="count">(<?php echo $pending_count; ?>)</span></a> &nbsp;|&nbsp; 
+				<a href='<?php echo em_add_get_params($_SERVER['REQUEST_URI'], $default_params + array('view'=>'pending')); ?>' <?php echo ( !empty($_REQUEST['scope']) && $_REQUEST['scope'] == 'all' && !isset($_GET['status']) ) ? 'class="current"':''; ?>><?php _e ( 'Pending', 'dbem' ); ?> <span class="count">(<?php echo $pending_count; ?>)</span></a> &nbsp;|&nbsp;
 				<?php endif; ?>
 				<?php if( $draft_count > 0 ): ?>
 				<a href='<?php echo em_add_get_params($_SERVER['REQUEST_URI'], $default_params + array('view'=>'draft')); ?>' <?php echo ( isset($_GET['status']) && $_GET['status']=='draft' ) ? 'class="current"':''; ?>><?php _e ( 'Draft', 'dbem' ); ?> <span class="count">(<?php echo $draft_count; ?>)</span></a> &nbsp;|&nbsp;
@@ -42,17 +42,17 @@
 				?>
 				<br class="clear" />
 			</div>
-				
+
 			<?php
 			if ( empty($EM_Events) ) {
 				echo get_option ( 'dbem_no_events_message' );
 			} else {
 			?>
-					
+
 			<table class="widefat events-table">
 				<thead>
 					<tr>
-						<?php /* 
+						<?php /*
 						<th class='manage-column column-cb check-column' scope='col'>
 							<input class='select-all' type="checkbox" value='1' />
 						</th>
@@ -70,20 +70,20 @@
 						/* @var $EM_Event EM_Event */
 						$rowno++;
 						$class = ($rowno % 2) ? 'alternate' : '';
-						// FIXME set to american						
+						// FIXME set to american
 						$localised_start_date = date_i18n(get_option('dbem_date_format'), $EM_Event->start);
 						$localised_end_date = date_i18n(get_option('dbem_date_format'), $EM_Event->end);
 						$style = "";
 						$today = current_time('timestamp');
 						$location_summary = "<b>" . esc_html($EM_Event->get_location()->location_name) . "</b><br/>" . esc_html($EM_Event->get_location()->location_address) . " - " . esc_html($EM_Event->get_location()->location_town);
-						
-						if ($EM_Event->start < $today && $EM_Event->end < $today){						
+
+						if ($EM_Event->start < $today && $EM_Event->end < $today){
 							$class .= " past";
 						}
 						//Check pending approval events
 						if ( !$EM_Event->get_status() ){
 							$class .= " pending";
-						}					
+						}
 						?>
 						<tr class="event <?php echo trim($class); ?>" <?php echo $style; ?> id="event_<?php echo $EM_Event->event_id ?>">
 							<?php /*
@@ -95,7 +95,7 @@
 								<strong>
 									<a class="row-title" href="<?php echo esc_url($EM_Event->get_edit_url()); ?>"><?php echo esc_html($EM_Event->event_name); ?></a>
 								</strong>
-								<?php 
+								<?php
 								if( get_option('dbem_rsvp_enabled') == 1 && $EM_Event->event_rsvp == 1 ){
 									?>
 									<br/>
@@ -120,7 +120,7 @@
 							<td>
 								<?php echo $location_summary; ?>
 							</td>
-					
+
 							<td>
 								<?php echo $localised_start_date; ?>
 								<?php echo ($localised_end_date != $localised_start_date) ? " - $localised_end_date":'' ?>
@@ -134,7 +134,7 @@
 								?>
 							</td>
 							<td>
-								<?php 
+								<?php
 								if ( $EM_Event->is_recurrence() ) {
 									$recurrence_delete_confirm = __('WARNING! You will delete ALL recurrences of this event, including booking history associated with any event in this recurrence. To keep booking information, go to the relevant single event and save it to detach it from this recurrence series.','dbem');
 									?>
@@ -143,7 +143,7 @@
 									<a href="<?php echo esc_url($EM_Event->get_edit_reschedule_url()); ?>"><?php _e ( 'Edit Recurring Events', 'dbem' ); ?></a>
 									<?php if( current_user_can('delete_events')) : ?>
 									<span class="trash"><a href="<?php echo esc_url(add_query_arg(array('action'=>'event_delete', 'event_id'=>$EM_Event->recurrence_id, '_wpnonce'=> wp_create_nonce('event_delete_'.$EM_Event->recurrence_id)))); ?>" class="em-event-rec-delete" onclick ="if( !confirm('<?php echo $recurrence_delete_confirm; ?>') ){ return false; }"><?php _e('Delete','dbem'); ?></a></span>
-									<?php endif; ?>										
+									<?php endif; ?>
 									</strong>
 									<?php
 								}
@@ -154,7 +154,7 @@
 					}
 					?>
 				</tbody>
-			</table>  
+			</table>
 			<?php
 			} // end of table
 			?>

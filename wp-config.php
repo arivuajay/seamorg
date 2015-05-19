@@ -19,13 +19,13 @@
 define('DB_NAME', 'seamorg');
 
 /** MySQL database username */
-define('DB_USER', 'seamorg');
+define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'rtEdsfdOp3438Ijs@');
+define('DB_PASSWORD', '');
 
 /** MySQL hostname */
-define('DB_HOST', 'seamorg.db.10816599.hostedresource.com');
+define('DB_HOST', '192.168.1.119');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
