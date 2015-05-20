@@ -5,7 +5,7 @@
 
 <div class="em-location-map-container">
 	<div id='em-map-404'  class="em-location-map-404">
-		<p><em><?php _e ( 'Hike not found', 'dbem' ); ?></em></p>
+		<p><em><?php _e ( 'Hike Loading ......', 'dbem' ); ?></em></p>
 	</div>
 	<div id='em-map' class="em-location-map-content" style='display: none;'></div>
 </div>

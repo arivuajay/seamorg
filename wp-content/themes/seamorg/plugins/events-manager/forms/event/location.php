@@ -30,9 +30,9 @@ $required = apply_filters('em_required_html','<i>*</i>');
     
     <div class="em-location-data">
       <div class="row em-location-data-select">
-  <div class="col-xs-12 col-sm-4 col-md-3"><?php _e('Hike Name ','dbem') ?>  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12"><?php _e('Hike Name ','dbem') ?>  </div>
   
-  <div class="col-xs-12 col-sm-8 col-md-9"><select name="location_id" id='location-select-id' size="1">  
+  <div class="col-xs-12 col-sm-12 col-md-12"><select name="location_id" id='location-select-id' size="1">  
 					<?php if(!get_option('dbem_require_location',true)): ?><option value="0"><?php _e('No Hike','dbem'); ?></option><?php endif; ?>
 					<?php 
 					$ddm_args = array('blog'=>false, 'private'=>$EM_Event->can_manage('read_private_locations'));

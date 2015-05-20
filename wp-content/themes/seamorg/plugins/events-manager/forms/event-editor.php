@@ -55,21 +55,21 @@ if (!empty($_REQUEST['success'])) {
 <?php endif; ?>
          </div>
    
-   <div class="col-xs-12 col-sm-6 col-md-6"> 
+   <div class="col-xs-12 col-sm-6 col-md-6 create-event-part2"> 
    
    
    <div class="row"> 
    
    
-    <div class="col-xs-12 col-sm-6 col-md-6"> 
+    <div class="col-xs-12 col-sm-12 col-md-12"> 
     <?php esc_html_e('Event Name', 'dbem'); ?>
      </div>
      
-         <div class="col-xs-12 col-sm-6 col-md-6"> 
+         <div class="col-xs-12 col-sm-12 col-md-12"> 
    <div class="inside event-form-name">
             <input type="text" name="event_name" id="event-name" value="<?php echo esc_attr($EM_Event->event_name, ENT_QUOTES); ?>" /><?php echo $required; ?>
-            <br />
-            <?php esc_html_e('The event name. Example: Birthday party', 'dbem'); ?>
+            <br /> 
+           <span class="help-block"> <?php esc_html_e('The event name. Example: Birthday party', 'dbem'); ?></span>
 <?php em_locate_template('forms/event/group.php', true); ?>
         </div>
 
@@ -78,12 +78,9 @@ if (!empty($_REQUEST['success'])) {
    
    </div>
    
-   
-   
-           
-           
+  
         
-        <h3 class="event-form-when"><?php esc_html_e('When', 'dbem'); ?></h3>
+        <h3 class="event-form-when hidden"><?php esc_html_e('When', 'dbem'); ?></h3>
         <div class="inside event-form-when">
             <?php
             if (empty($EM_Event->event_id) && $EM_Event->can_manage('edit_recurring_events', 'edit_others_recurring_events') && get_option('dbem_recurrence_enabled')) {
@@ -106,15 +103,15 @@ if (!empty($_REQUEST['success'])) {
 
 
 
-        <h3 class="event-form-details"><?php esc_html_e('Details', 'dbem'); ?></h3>
+        <span class="event-form-details"><?php esc_html_e('Details', 'dbem'); ?></span>
         <div class="inside event-form-details">
             <div class="event-editor">
                 <?php if (get_option('dbem_events_form_editor') && function_exists('wp_editor')): ?>
                     <?php wp_editor($EM_Event->post_content, 'em-editor-content', array('textarea_name' => 'content')); ?>
 <?php else: ?>
-                    <textarea name="content" rows="10" style="width:100%"><?php echo $EM_Event->post_content ?></textarea>
-                    <br />
-                    <?php esc_html_e('Details about the event.', 'dbem') ?> <?php esc_html_e('HTML allowed.', 'dbem') ?>
+                    <textarea name="content"><?php echo $EM_Event->post_content ?></textarea>
+                   
+                    <?php //esc_html_e('Details about the event.', 'dbem') ?> <?php //esc_html_e('HTML allowed.', 'dbem') ?>
 <?php endif; ?>
             </div>
             <div class="event-extra-details">
@@ -128,7 +125,7 @@ if (!empty($_REQUEST['success'])) {
         </div>
 
         <?php if ($EM_Event->can_manage('upload_event_images', 'upload_event_images')): ?>
-            <h3><?php esc_html_e('Event Image', 'dbem'); ?></h3>
+            <span><?php esc_html_e('Event Image', 'dbem'); ?></span>
             <div class="inside event-form-image">
     <?php em_locate_template('forms/event/featured-image-public.php', true); ?>
             </div>
