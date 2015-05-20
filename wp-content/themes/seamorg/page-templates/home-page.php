@@ -19,7 +19,6 @@ get_header();
                 <div class="searchbg">
                     <?php
                     $args = em_get_search_form_defaults($args);
-//                    $args['search_url'] = get_option('dbem_events_page') ? get_permalink(get_option('dbem_events_page')) : EM_URI;
                     em_locate_template('templates/events-search.php', true, array('args' => $args));
                     ?>
                     <input name="" type="text" class="searchfield1" value="Where do you want to go ?">

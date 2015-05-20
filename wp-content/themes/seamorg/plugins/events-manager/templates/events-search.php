@@ -24,13 +24,13 @@ $args = !empty($args) ? $args : array(); /* @var $args array */
                         em_locate_template('templates/search/geo.php', true, array('args' => $args));
                     ?>
                     <?php if (!empty($args['css'])) : //show the button here if we're using the default styling, if you still want to use this and use custom CSS, then you have to override our rules  ?>
-                        <input name="" type="button" class="search-btn" value="search" />
+                        <input type="submit" class="search-btn" value="search" />
 
                     <?php if (!empty($args['advanced_hidden']) && !empty($args['show_advanced'])): ?>
                         <div class="em-search-options search-btn search-btn2">
                             <a href="#" class="em-toggle" rel=".em-search-advanced:.em-search-form">
-                                <span class="hide" style="display:none;"><?php echo esc_html($args['search_text_hide']); ?></span>
-                                <span class="show"><?php echo esc_html($args['search_text_show']); ?></span>
+                                <span class="hide" style="display:none;"><?php echo _e($args['search_text_hide']); ?></span>
+                                <span class="show"><?php echo _e($args['search_text_show']); ?></span>
                             </a>
                         </div>
                     <?php endif; ?>

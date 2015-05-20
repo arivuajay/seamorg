@@ -7,6 +7,6 @@ $args = !empty($args) ? $args:array(); /* @var $args array */
 	<script type="text/javascript">
 	EM.search_term_placeholder = '<?php echo esc_attr($args['search_term_label']); ?>';
 	</script>
-	<input type="text" name="em_search" class="em-events-search-text em-search-text" value="<?php echo esc_attr($args['search']); ?>" />
+	<input type="text" name="em_search" class="em-events-search-text em-search-text searchfield1" value="<?php echo esc_attr($args['search']); ?>" />
 </div>
 <!-- END General Search -->
