@@ -1,6 +1,6 @@
 <?php
-/* This general search will find matches within event_name, event_notes, and the location_name, address, town, state and country. */ 
-$args = !empty($args) ? $args:array(); /* @var $args array */ 
+/* This general search will find matches within event_name, event_notes, and the location_name, address, town, state and country. */
+$args = !empty($args) ? $args:array(); /* @var $args array */
 ?>
 <!-- START General Search -->
 <div class="em-search-text em-search-field">
