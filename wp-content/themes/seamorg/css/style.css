@@ -1172,3 +1172,26 @@ margin-top:20px;
 {
 	font-size:12px;
 }
+
+
+#event-image
+{
+	font-size:12px;
+	margin-top:10px;
+}
+
+.help-block.label {
+  color: #737373;
+  padding:0px;
+}
+
+.button-primary
+{
+	border:none;
+	background:#7b8d6d;
+	color:#ffffff;
+	height:40px;
+	padding:0px 40px;
+	font-size:22px;
+	font-weight:200;
+}
