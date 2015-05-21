@@ -26,8 +26,9 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
 	}else{
 		?>
 		<h4><?php esc_html_e('Tickets','dbem'); ?></h4>
-		<p><em><?php esc_html_e('You can have single or multiple tickets, where certain tickets become availalble under certain conditions, e.g. early bookings, group discounts, maximum bookings per ticket, etc.', 'dbem'); ?> <?php esc_html_e('Basic HTML is allowed in ticket labels and descriptions.','dbem'); ?></em></p>					
-		<table class="form-table">
+		<p class="help-block"><?php esc_html_e('You can have single or multiple tickets, where certain tickets become availalble under certain conditions, e.g. early bookings, group discounts, maximum bookings per ticket, etc.', 'dbem'); ?> <?php esc_html_e('Basic HTML is allowed in ticket labels and descriptions.','dbem'); ?></p>
+        <div class="table-responsive"> 
+        <table width="100%" class="form-table table table-bordered">
 			<thead>
 				<tr valign="top">
 					<th colspan="2"><?php esc_html_e('Ticket Name','dbem'); ?></th>
@@ -36,13 +37,13 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
 					<th><?php esc_html_e('Start/End','dbem'); ?></th>
 					<th><?php esc_html_e('Avail. Spaces','dbem'); ?></th>
 					<th><?php esc_html_e('Booked Spaces','dbem'); ?></th>
-					<th>&nbsp;</th>
+					
 				</tr>
 			</thead>    
 			<tfoot>
 				<tr valign="top">
 					<td colspan="8">
-						<a href="#" id="em-tickets-add"><?php esc_html_e('Add new ticket','dbem'); ?></a>
+						<a href="#" id="em-tickets-add" class="button-primary2"><?php esc_html_e('Add new ticket','dbem'); ?></a>
 					</td>
 				</tr>
 			</tfoot>
@@ -113,6 +114,11 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
 				array_shift($EM_Tickets->tickets);
 			?>
 		</table>
+        
+         </div>					
+		
+        
+        
 	<?php 
 	}
 	?>
@@ -120,25 +126,43 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
 	<div id="em-booking-options">
 	<?php if( !get_option('dbem_bookings_tickets_single') || count($EM_Ticket->get_event()->get_tickets()->tickets) > 1 ): ?>
 	<h4><?php esc_html_e('Event Options','dbem'); ?></h4>
-	<p>
+    
+    <div class="row">
+    
+    <div class="col-xs-12 col-sm-6 col-md-6">  
+    <p>
 		<label><?php esc_html_e('Total Spaces','dbem'); ?></label>
-		<input type="text" name="event_spaces" value="<?php if( $EM_Event->event_spaces > 0 ){ echo $EM_Event->event_spaces; } ?>" /><br />
-		<em><?php esc_html_e('Individual tickets with remaining spaces will not be available if total booking spaces reach this limit. Leave blank for no limit.','dbem'); ?></em>
+		<input type="text" class="defult-txt" name="event_spaces" value="<?php if( $EM_Event->event_spaces > 0 ){ echo $EM_Event->event_spaces; } ?>" /><br />
+		<span class="help-block"><?php esc_html_e('Individual tickets with remaining spaces will not be available if total booking spaces reach this limit. Leave blank for no limit.','dbem'); ?></span>
 	</p>
-	<p>
+    
+    </div>
+    
+    
+     <div class="col-xs-12 col-sm-6 col-md-6">  
+     <p>
 		<label><?php esc_html_e('Maximum Spaces Per Booking','dbem'); ?></label>
-		<input type="text" name="event_rsvp_spaces" value="<?php if( $EM_Event->event_rsvp_spaces > 0 ){ echo $EM_Event->event_rsvp_spaces; } ?>" /><br />
-		<em><?php esc_html_e('If set, the total number of spaces for a single booking to this event cannot exceed this amount.','dbem'); ?><?php esc_html_e('Leave blank for no limit.','dbem'); ?></em>
+		<input type="text" class="defult-txt" name="event_rsvp_spaces" value="<?php if( $EM_Event->event_rsvp_spaces > 0 ){ echo $EM_Event->event_rsvp_spaces; } ?>" /><br />
+		<span class="help-block"><?php esc_html_e('If set, the total number of spaces for a single booking to this event cannot exceed this amount.','dbem'); ?><?php esc_html_e('Leave blank for no limit.','dbem'); ?></span>
 	</p>
+     
+       </div>
+     
+     
+     
+    </div>
+    
+	
+	
 	<p>
 		<label><?php esc_html_e('Booking Cut-Off Date','dbem'); ?></label>
-		<span class="em-booking-date-normal">
-			<span class="em-date-single">
-				<input id="em-bookings-date-loc" class="em-date-input-loc" type="text" />
-				<input id="em-bookings-date" class="em-date-input" type="hidden" name="event_rsvp_date" value="<?php echo $EM_Event->event_rsvp_date; ?>" />
-			</span>
-		</span>
-		<span class="em-booking-date-recurring">
+          
+          
+          <div class="row em-booking-date-normal em-date-single">
+          <div class="col-xs-12 col-sm-6 col-md-6 ">   	<input id="em-bookings-date-loc" class="em-date-input-loc em-date-input-loc2" type="text" />
+				<input id="em-bookings-date" class="em-date-input" type="hidden" name="event_rsvp_date" value="<?php echo $EM_Event->event_rsvp_date; ?>" /> </div>
+                
+                <span class="em-booking-date-recurring">
 			<input type="text" name="recurrence_rsvp_days" size="3" value="<?php if( !empty($EM_Event->recurrence_rsvp_days) ) echo absint($EM_Event->recurrence_rsvp_days); ?>" />
 			<?php _e('day(s)','dbem'); ?>
 			<select name="recurrence_rsvp_days_when">
@@ -147,9 +171,25 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
 			</select>
 			<?php _e('at','dbem'); ?>
 		</span>
-		<input type="text" name="event_rsvp_time" class="em-time-input" maxlength="8" size="8" value="<?php echo date( em_get_hour_format(), $EM_Event->rsvp_end ); ?>" />
-		<br />
-		<em><?php esc_html_e('This is the definite date after which bookings will be closed for this event, regardless of individual ticket settings above. Default value will be the event start date.','dbem'); ?></em>
+                
+                <div class="col-xs-12 col-sm-6 col-md-6">
+            <input type="text" name="event_rsvp_time" class="em-time-input" maxlength="8" size="8" value="<?php echo date( em_get_hour_format(), $EM_Event->rsvp_end ); ?>" />
+
+	
+            </div>
+            
+              <div class="col-xs-12 col-sm-12 col-md-12"> 	<span class="help-block"><?php esc_html_e('This is the definite date after which bookings will be closed for this event, regardless of individual ticket settings above. Default value will be the event start date.','dbem'); ?></span> </div>
+                
+          
+          </div>  
+        
+		
+			
+		
+		
+        
+        
+		
 	</p>
 	<?php endif; ?>
 	</div>

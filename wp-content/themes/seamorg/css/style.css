@@ -1150,6 +1150,17 @@ margin-top:20px;
 	margin-bottom:15px;
 	margin-top:5px;
 }
+
+.defult-txt
+{
+	width:100% !important;
+	float:left;
+	padding:8px;
+	border:#e5e5e5 solid 1px;
+	height:36px;
+	margin-bottom:15px;
+	margin-top:5px;
+}
 .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
   color: #000000 !important;
   width: 49%;
@@ -1194,4 +1205,44 @@ margin-top:20px;
 	padding:0px 40px;
 	font-size:22px;
 	font-weight:200;
+}
+
+.button-primary:hover
+{
+	background:#a89715;
+}
+
+
+.button-primary2
+{
+	border:none;
+	background:#281e15;
+	color:#ffffff;
+	height:35px;
+	padding:5px 20px;
+	font-size:15px;
+}
+
+.button-primary2:hover
+{
+	text-decoration:none;
+	background:#a89715;
+	color:#ffffff;
+}
+
+
+#event-form h4 {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 25px 0 15px;
+}
+
+#event-rsvp-options label {
+  font-weight: normal;
+}
+
+
+.em-date-input-loc2
+{
+	margin-bottom:0px !important;
 }

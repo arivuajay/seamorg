@@ -407,8 +407,8 @@ class EM_Booking_Form {
 		$default_form_id = get_option('em_booking_form_fields');
 		?>
 		<br style="clear" />
-		<h4><?php esc_html_e_emp('Booking Form','dbem'); ?> </h4>
-		<p><em><?php _e('You can choose to use a custom booking form, or leave as is to use the default booking form.','em-pro'); ?></em></p>
+		<span><?php esc_html_e_emp('Booking Form','dbem'); ?> </span>
+		<p><span class="help-block"><?php _e('You can choose to use a custom booking form, or leave as is to use the default booking form.','em-pro'); ?></span></p>
 		<div>	
 			<?php _e('Selected Booking Form','em-pro'); ?> :
 			<select name="custom_booking_form" onchange="this.parentNode.submit()">
