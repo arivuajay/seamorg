@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Seamorg functions and definitions
  *
@@ -440,3 +441,31 @@ function update_role_registration_save($user_id) {
         $u->add_role('guide');
     }
 }
+
+add_shortcode('theme_uri', 'theme_uri_shortcode' );
+function theme_uri_shortcode( $attrs = array (), $content = '' ){
+    $theme_uri = is_child_theme() ? get_stylesheet_directory_uri() : get_template_directory_uri();
+
+    return trailingslashit( $theme_uri );
+}
+
+//For Event Manager
+function custom_placeholders($atts) {
+    extract(shortcode_atts(array('id' => false), $atts));
+    if ('id' == false) {
+        return false;
+    }
+    $id = $atts['id'];
+    switch ($id) {
+        case '#_SEARCHWORD':
+            $args = em_get_search_form_defaults($args);
+            $replace = (empty($args['search'])) ? $atts['default'] : ucwords($args['search']);
+
+            break;
+    }
+    return $replace;
+}
+
+add_shortcode('CUSTOMPLACEHOLDER', 'custom_placeholders');
+add_filter('CUSTOMPLACEHOLDER', 'custom_placeholders');
+//For Event Manager
