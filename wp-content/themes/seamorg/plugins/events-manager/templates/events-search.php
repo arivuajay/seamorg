@@ -45,6 +45,8 @@ $args = !empty($args) ? $args : array(); /* @var $args array */
             <?php endif; ?>
             <?php if (!empty($args['show_advanced'])): //show advanced fields, collapesed if the main form is shown, inline if not ?>
                 <div class="em-search-advanced" <?php if (!empty($args['advanced_hidden'])) echo 'style="display:none"'; ?>>
+                
+<div class="row ">
                     <?php
                     //date range (scope)
                     if (!empty($args['search_scope']))
@@ -61,6 +63,7 @@ $args = !empty($args) ? $args : array(); /* @var $args array */
                     <?php if (!$args['show_main'] || empty($args['css'])): //show button if it wasn't shown further up ?>
                         <input type="submit" value="<?php echo esc_attr($args['search_button']); ?>" class="em-search-submit" />
                     <?php endif; ?>
+                </div>
                 </div>
             <?php endif; ?>
 

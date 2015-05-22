@@ -1,6 +1,10 @@
 <?php $args = !empty($args) ? $args:array(); /* @var $args array */ ?>
 <!-- START Country Search -->
-<div class="em-search-country em-search-field">
+
+
+ <div class="col-xs-12 col-sm-4 col-md-4">
+
+<div class="em-search-country ">
 	<label><?php echo esc_html($args['country_label']); ?></label>
 	<select name="country" class="em-search-country em-events-search-country">
 		<option value=''><?php echo esc_html($args['countries_label']); ?></option>
@@ -22,4 +26,6 @@
 		<?php endforeach; ?>
 	</select>
 </div>
+ </div>
+
 <!-- END Country Search -->
