@@ -443,11 +443,21 @@ function update_role_registration_save($user_id) {
     }
 }
 
-add_shortcode('theme_uri', 'theme_uri_shortcode' );
-function theme_uri_shortcode( $attrs = array (), $content = '' ){
+add_shortcode('theme_uri', 'theme_uri_shortcode');
+
+function theme_uri_shortcode($attrs = array(), $content = '') {
     $theme_uri = is_child_theme() ? get_stylesheet_directory_uri() : get_template_directory_uri();
 
-    return trailingslashit( $theme_uri );
+    return trailingslashit($theme_uri);
+}
+
+function getCurrentUserRole() {
+    $current_user = wp_get_current_user();
+    if (!($current_user instanceof WP_User))
+        return;
+    $roles = $current_user->roles;
+
+    return $roles;
 }
 
 //For Event Manager
@@ -469,4 +479,22 @@ function custom_placeholders($atts) {
 
 add_shortcode('CUSTOMPLACEHOLDER', 'custom_placeholders');
 add_filter('CUSTOMPLACEHOLDER', 'custom_placeholders');
+
+add_filter('um_account_page_default_tabs_hook', 'my_custom_tab_in_um', 100);
+
+function my_custom_tab_in_um($tabs) {
+    if(in_array('guide', getCurrentUserRole())) {
+        $tabs[800]['mytab']['icon'] = 'um-faicon-pencil';
+        $tabs[800]['mytab']['title'] = 'My Events';
+        $tabs[800]['mytab']['custom'] = true;
+        $tabs[800]['mytab']['tablink'] = 158;
+    } elseif(in_array('subscriber', getCurrentUserRole())) {
+        $tabs[900]['mytab']['icon'] = 'um-faicon-pencil';
+        $tabs[900]['mytab']['title'] = 'My Bookings';
+        $tabs[900]['mytab']['custom'] = true;
+        $tabs[800]['mytab']['tablink'] = 79;
+    }
+    return $tabs;
+}
+
 //For Event Manager
