@@ -269,6 +269,7 @@ function seamorg_scripts() {
     }
 
     wp_enqueue_script('seamorg-script', get_template_directory_uri() . '/js/functions.js', array('jquery'), '20150330', true);
+    wp_enqueue_script('seamorg-custom-script', get_template_directory_uri() . '/js/custom.js', array('jquery'), '20150330', true);
     wp_localize_script('seamorg-script', 'screenReaderText', array(
         'expand' => '<span class="screen-reader-text">' . __('expand child menu', 'seamorg') . '</span>',
         'collapse' => '<span class="screen-reader-text">' . __('collapse child menu', 'seamorg') . '</span>',
