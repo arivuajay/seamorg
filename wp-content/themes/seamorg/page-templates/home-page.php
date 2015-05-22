@@ -21,13 +21,6 @@ get_header();
                     $args = em_get_search_form_defaults($args);
                     em_locate_template('templates/events-search.php', true, array('args' => $args));
                     ?>
-                    <input name="" type="text" class="searchfield1" value="Where do you want to go ?">
-                    <input name="" type="text" class="searchfield1 searchfield2" value="Date">
-                    <select name="" class="searchfield1 searchfield3">
-                        <option value="Select Place">Select Place</option>
-                    </select>
-                    <input name="" type="button" class="search-btn" value="search">
-                    <input name="" type="button" class="search-btn search-btn2" value="Advanced Search">
                 </div>
             </div>
         </div>

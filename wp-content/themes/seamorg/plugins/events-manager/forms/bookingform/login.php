@@ -5,7 +5,7 @@
 ?>
 <div class="em-booking-login">
 	<form class="em-booking-login-form" action="<?php echo site_url('wp-login.php', 'login_post'); ?>" method="post">
-	<p><?php esc_html_e('Log in if you already have an account with us.','dbem'); ?></p>
+	<p><b><?php esc_html_e('Log in if you already have an account with us.','dbem'); ?></b></p>
     <p>
 		<label><?php esc_html_e( 'Username','dbem' ) ?></label>
 		<input type="text" name="log" class="input" value="" />
@@ -15,7 +15,7 @@
 		<input type="password" name="pwd" class="input" value="" />
     </p>
     <?php do_action('login_form'); ?>
-	<input type="submit" name="wp-submit" id="em_wp-submit" value="<?php esc_html_e('Log In', 'dbem'); ?>" tabindex="100" />
+	<input type="submit" name="wp-submit" class="button-primary" id="em_wp-submit" value="<?php esc_html_e('Log In', 'dbem'); ?>" tabindex="100" /> <br/>
 	<input name="rememberme" type="checkbox" id="em_rememberme" value="forever" /> <label><?php esc_html_e( 'Remember Me','dbem' ) ?></label>
 	<input type="hidden" name="redirect_to" value="<?php echo esc_url($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']); ?>#em-booking" />
 	<br />
@@ -31,7 +31,7 @@
 			$register_link = site_url('wp-login.php?action=register', 'login');
 		}
 		?>
-		<a href="<?php echo $register_link ?>"><?php esc_html_e('Sign Up','dbem') ?></a>&nbsp;&nbsp;|&nbsp;&nbsp; 
+		<a class="singup-btn" href="<?php echo $register_link ?>"><?php esc_html_e('Sign Up','dbem') ?></a>&nbsp;&nbsp;|&nbsp;&nbsp; 
 		<?php
 	}
 	?>	                    

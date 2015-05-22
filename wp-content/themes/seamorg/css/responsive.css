@@ -95,6 +95,34 @@ display:none!important
 	margin-top:0px;
 }
 
+.search-btn2
+{
+	display:none !important;
+}
+
+.searchfield1{
+  width: 68% !important;
+}
+
+.searchbg
+{
+	padding-bottom:0px;
+	margin-top:0px !important;
+}
+
+.header {
+
+  position: relative;
+}
+
+.slider
+{
+	margin-top:0px;
+}
+
+.inner-cont {
+  margin-top: 20px;
+}
 }
 @media (min-width:768px)and (max-width:991px) {
 .hidden-sm {
@@ -147,6 +175,14 @@ display:none!important
 {
 	margin:25px 0px 25px 0px;
 }
+
+.search-btn2 {
+  background: none repeat scroll 0 0 #a89715;
+  color: #ffffff;
+  font-size: 13px;
+  width: 23.7% !important;
+}
+
 
 }
 @media (min-width:992px)and (max-width:1199px) {

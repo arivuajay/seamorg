@@ -45,7 +45,10 @@ if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true
 		<?php echo $EM_Notices; ?>
 		<?php if( $tickets_count > 0) : ?>
 			<?php //Tickets exist, so we show a booking form. ?>
-			<form class="em-booking-form" name='booking-form' method='post' action='<?php echo apply_filters('em_booking_form_action_url',''); ?>#em-booking'>
+            
+            <div class="row">
+            <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+            <form class="em-booking-form" name='booking-form' method='post' action='<?php echo apply_filters('em_booking_form_action_url',''); ?>#em-booking'>
 			 	<input type='hidden' name='action' value='booking_add'/>
 			 	<input type='hidden' name='event_id' value='<?php echo $EM_Event->event_id; ?>'/>
 			 	<input type='hidden' name='_wpnonce' value='<?php echo wp_create_nonce('booking_add'); ?>'/>
@@ -87,7 +90,7 @@ if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true
 							<?php if( preg_match('/https?:\/\//',get_option('dbem_bookings_submit_button')) ): //Settings have an image url (we assume). Use it here as the button.?>
 							<input type="image" src="<?php echo get_option('dbem_bookings_submit_button'); ?>" class="em-booking-submit" id="em-booking-submit" />
 							<?php else: //Display normal submit button ?>
-							<input type="submit" class="em-booking-submit" id="em-booking-submit" value="<?php echo esc_attr(get_option('dbem_bookings_submit_button')); ?>" />
+							<input type="submit" class="em-booking-submit button-primary" id="em-booking-submit" value="<?php echo esc_attr(get_option('dbem_bookings_submit_button')); ?>" />
 							<?php endif; ?>
 						</div>
 						<?php do_action('em_booking_form_footer_after_buttons', $EM_Event); //do not delete ?>
@@ -95,14 +98,23 @@ if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true
 				<?php else: ?>
 					<p class="em-booking-form-details"><?php echo get_option('dbem_booking_feedback_log_in'); ?></p>
 				<?php endif; ?>
-			</form>	
-			<?php 
+			</form>
+            
+            </div>
+            
+             <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+            
+            <?php 
 			if( !is_user_logged_in() && get_option('dbem_bookings_login_form') ){
 				//User is not logged in, show login form (enabled on settings page)
 				em_locate_template('forms/bookingform/login.php',true, array('EM_Event'=>$EM_Event));
 			}
 			?>
-			<br class="clear" style="clear:left;" />  
+            
+            </div>
+            
+            </div>
+ 
 		<?php endif; ?>
 	<?php endif; ?>
 </div>
