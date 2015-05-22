@@ -9,7 +9,7 @@ global $EM_Event;
 <span id="event-image-img">
 <?php if ($EM_Event->get_image_url() != '') : ?>
 	<img src='<?php echo $EM_Event->get_image_url('medium'); ?>' alt='<?php echo $EM_Event->event_name ?>'/>
-<?php else : ?> 
+<?php else : ?>
 	<?php //_e('No image uploaded for this event yet', 'dbem') ?>
 <?php endif; ?>
 </span>

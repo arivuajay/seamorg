@@ -20,7 +20,7 @@ function em_content($page_content) {
 	$edit_bookings_page_id = get_option( 'dbem_edit_bookings_page' );
 	$my_bookings_page_id = get_option( 'dbem_my_bookings_page' );
 	//general defaults
-	$args = array(				
+	$args = array(
 		'owner' => false,
 		'pagination' => 1
 	);
@@ -35,7 +35,7 @@ function em_content($page_content) {
 					$args = EM_Events::get_post_search( array_merge($args, $_REQUEST) );
 					em_locate_template('templates/calendar-day.php',true, array('args'=>$args));
 				}elseif ( is_object($EM_Event)) {
-					em_locate_template('templates/event-single.php',true, array('args'=>$args));	
+					em_locate_template('templates/event-single.php',true, array('args'=>$args));
 				}else{
 					// Multiple events page
 					$args['orderby'] = get_option('dbem_events_default_orderby');
@@ -81,7 +81,7 @@ function em_content($page_content) {
 						//load the search form and pass on custom arguments (from settings page)
 						$search_args = em_get_search_form_defaults();
 						//remove date and category
-						$search_args['search_categories'] = $search_args['search_scope'] = false; 
+						$search_args['search_categories'] = $search_args['search_scope'] = false;
 						em_locate_template('templates/locations-search.php', true, array('args'=>$search_args));
 					}
 					if( !empty($args['ajax']) ){ echo '<div class="em-search-ajax">'; } //AJAX wrapper open
@@ -135,7 +135,7 @@ function em_content_page_title($original_content, $id = null) {
 	global $EM_Event, $EM_Location, $EM_Category, $wp_query, $post;
 	if( empty($post) ) return $original_content; //fix for any other plugins calling the_content outside the loop
 	if ($id && $id !== $post->ID) return $original_content;
-	
+
 	$events_page_id = get_option ( 'dbem_events_page' );
 	$locations_page_id = get_option( 'dbem_locations_page' );
 	$edit_events_page_id = get_option( 'dbem_edit_events_page' );
@@ -173,7 +173,7 @@ function em_content_page_title($original_content, $id = null) {
 				}
 			}elseif( $post->ID == $edit_events_page_id ){
 				if( !empty($_REQUEST['action']) && $_REQUEST['action'] = 'edit' ){
-					if( is_object($EM_Event) && $EM_Event->event_id){					
+					if( is_object($EM_Event) && $EM_Event->event_id){
 						if($EM_Event->is_recurring()){
 							$content = __( "Reschedule Events", 'dbem' )." '{$EM_Event->event_name}'";
 						}else{
@@ -191,7 +191,7 @@ function em_content_page_title($original_content, $id = null) {
 						$content = __('Edit Hike', 'dbem');
 					}
 				}
-			}elseif( $post->ID == $edit_bookings_page_id){ 
+			}elseif( $post->ID == $edit_bookings_page_id){
 				if( is_object($EM_Event) ){
 					$content = $EM_Event->name .' - '. $original_content;
 				}
