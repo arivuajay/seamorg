@@ -25,8 +25,12 @@ get_header();
     </div>
     <div class="container">
         <div class="row">
-            <?php the_content(); ?>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h2><?php the_title(); ?></h2>
+                <?php the_content(); ?>
+            </div>
         </div>
     </div>
 </div>
-<?php get_footer();
+<?php
+get_footer();

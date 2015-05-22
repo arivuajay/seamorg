@@ -20,4 +20,6 @@ and open the template in the editor.
     z-index: 100;
     position: relative;
 }
-
+.um-profile-body.myeventstab.myeventstab-default {
+  color: #888;
+}
