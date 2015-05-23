@@ -83,7 +83,7 @@ if (!empty($show_add_new) && current_user_can('edit_events'))
                             $class .= " pending";
                         }
                         ?>
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 event <?php echo trim($class); ?>" <?php echo $style; ?> id="event_<?php echo $EM_Event->event_id ?>">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 event-grid event <?php echo trim($class); ?>" <?php echo $style; ?> id="event_<?php echo $EM_Event->event_id ?>">
                         <div class="event-cont">
                             <div class="event-img">
                                 <div class="eventplace-details"> <img src="<?php echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php echo esc_html($EM_Event->get_location()->location_name); ?> <span> <?php echo em_get_currency_formatted($min); ?></span></div>

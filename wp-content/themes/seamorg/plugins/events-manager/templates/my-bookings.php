@@ -43,7 +43,7 @@ if (is_user_logged_in()):
                     if (($rowno < $limit || empty($limit)) && ($event_count >= $offset || $offset === 0)) {
                         $rowno++;
                         ?>
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 booking-grid">
                             <div class="event-cont">
                                 <div class="event-img">
                                     <div class="eventplace-details"> <img src="<?php echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php echo esc_html($EM_Event->get_location()->location_name); ?> <span><?php echo $EM_Booking->get_spaces() ?></span></div>
