@@ -23,18 +23,18 @@
 		?>
 		<br class="clear" />
 	</div>
-		
+
 	<?php
 	if (empty ( $EM_Events )) {
 		// TODO localize
 		echo "<p>". __( 'No Events','dbem' ) ."</p>";
 	} else {
 	?>
-			
+
 	<table class="widefat events-table">
 		<thead>
 			<tr>
-				<?php /* 
+				<?php /*
 				<th class='manage-column column-cb check-column' scope='col'>
 					<input class='select-all' type="checkbox" value='1' />
 				</th>
@@ -46,7 +46,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php 
+			<?php
 			$rowno = 0;
 			$event_count = 0;
 			foreach ( $EM_Events as $event ) {
@@ -60,14 +60,14 @@
 					$style = "";
 					$today = current_time('timestamp');
 					$location_summary = "<b>" . $event->get_location()->name . "</b><br/>" . $event->get_location()->address . " - " . $event->get_location()->town;
-					
+
 					if ($event->start < $today && $event->end < $today){
 						$class .= " past";
 					}
 					//Check pending approval events
 					if ( !$event->status ){
 						$class .= " pending";
-					}					
+					}
 					?>
 					<tr class="event <?php echo trim($class); ?>" <?php echo $style; ?> id="event_<?php echo $event->event_id ?>">
 						<?php /*
@@ -79,7 +79,7 @@
 							<strong>
 								<a class="row-title" href="<?php echo $event->get_edit_url(); ?>"><?php echo ($event->event_name); ?></a>
 							</strong>
-							<?php 
+							<?php
 							if( $event->can_manage('manage_bookings','manage_others_bookings') && get_option('dbem_rsvp_enabled') == 1 && $event->event_rsvp == 1 ){
 								?>
 								<br/>
@@ -107,7 +107,7 @@
 							<br/><span class="category"><strong><?php _e( 'Category', 'dbem' ); ?>: </strong><?php echo $category->name ?></span>
 							<?php endif; ?>
 						</td>
-				
+
 						<td>
 							<?php echo $localised_start_date; ?>
 							<?php echo ($localised_end_date != $localised_start_date) ? " - $localised_end_date":'' ?>
@@ -121,7 +121,7 @@
 							?>
 						</td>
 						<td>
-							<?php 
+							<?php
 							if ( $event->is_recurrence() && $event->can_manage('edit_events','edit_others_events') ) {
 								$recurrence_delete_confirm = __('WARNING! You will delete ALL recurrences of this event, including booking history associated with any event in this recurrence. To keep booking information, go to the relevant single event and save it to detach it from this recurrence series.','dbem');
 								?>
@@ -130,7 +130,7 @@
 								<a href="<?php echo $url ?>edit/?event_id=<?php echo $event->recurrence_id ?>"><?php _e ( 'Edit Recurring Events', 'dbem' ); ?></a>
 								<?php if( current_user_can('delete_events')) : ?>
 								<span class="trash"><a href="<?php echo $url ?>?action=event_delete&amp;event_id=<?php echo $event->event_id ?>" class="em-event-rec-delete" onclick ="if( !confirm('<?php echo $recurrence_delete_confirm; ?>') ){ return false; }"><?php _e('Delete','dbem'); ?></a></span>
-								<?php endif; ?>										
+								<?php endif; ?>
 								</strong>
 								<?php
 							}else{ echo "&nbsp;"; }
@@ -143,7 +143,7 @@
 			}
 			?>
 		</tbody>
-	</table>  
+	</table>
 	<?php
 	} // end of table
 	?>

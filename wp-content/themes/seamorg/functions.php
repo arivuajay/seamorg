@@ -79,7 +79,7 @@ if (!function_exists('seamorg_setup')) :
          * See: https://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
          */
         add_theme_support('post-thumbnails');
-        set_post_thumbnail_size(825, 510, true);
+        set_post_thumbnail_size(640, 360, true);
 
         // This theme uses wp_nav_menu() in two locations.
         register_nav_menus(array(
@@ -498,3 +498,4 @@ function my_custom_tab_in_um($tabs) {
 }
 
 //For Event Manager
+add_image_size( 'grid-3-thumbnails', 360, 230, true );

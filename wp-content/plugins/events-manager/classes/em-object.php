@@ -9,10 +9,10 @@ class EM_Object {
 	var $feedback_message = "";
 	var $errors = array();
 	var $mime_types = array(1 => 'gif', 2 => 'jpg', 3 => 'png');
-	
+
 	private static $taxonomies_array; //see self::get_taxonomies()
-	protected static $context = 'event'; //this should be overriden to the db table name for deciding on ambiguous fields to look up 
-	
+	protected static $context = 'event'; //this should be overriden to the db table name for deciding on ambiguous fields to look up
+
 	/**
 	 * Takes the array and provides a clean array of search parameters, along with details
 	 * @param array $defaults
@@ -28,11 +28,11 @@ class EM_Object {
 			'scope' => 'future',
 			'order' => 'ASC', //hard-coded at end of this function
 			'orderby' => false,
-			'format' => '', 
+			'format' => '',
 			'category' => 0,
 			'tag' => 0,
 			'location' => false,
-			'event' => false, 
+			'event' => false,
 			'offset'=>0,
 			'page'=>1,//basically, if greater than 0, calculates offset at end
 			'page_queryvar'=>null,
@@ -59,13 +59,13 @@ class EM_Object {
 		}
 		//TODO decide on search defaults shared across all objects and then validate here
 		$defaults = array_merge($super_defaults, $defaults);
-		
+
 		if(is_array($array)){
 			//We are still dealing with recurrence_id, location_id, category_id in some place, so we do a quick replace here just in case
 			if( array_key_exists('recurrence_id', $array) && !array_key_exists('recurrence', $array) ) { $array['recurrence'] = $array['recurrence_id']; }
 			if( array_key_exists('location_id', $array) && !array_key_exists('location', $array) ) { $array['location'] = $array['location_id']; }
 			if( array_key_exists('category_id', $array) && !array_key_exists('category', $array) ) { $array['category'] = $array['category_id']; }
-		
+
 			//Clean all id lists
 			$clean_ids_array = array('location', 'event', 'post_id');
 			if( !empty($array['owner']) && $array['owner'] != 'me') $clean_ids_array[] = 'owner'; //clean owner attribute if not 'me'
@@ -79,7 +79,7 @@ class EM_Object {
 					$array[$item] = preg_replace(array('/^[&,]/','/[&,]$/'),'', $array[$item]); //trim , and & from ends
 			    }
 			}
-					    
+
 			//Near
 			if( !empty($array['near']) ){
 				if( is_array($array['near']) ){
@@ -93,11 +93,11 @@ class EM_Object {
 				$array['near_unit'] = !empty($array['near_unit']) && in_array($array['near_unit'], array('km','mi')) ? $array['near_unit']:$defaults['near_unit']; //default is 'mi'
 				$array['near_distance'] = !empty($array['near_distance']) && is_numeric($array['near_distance']) ? absint($array['near_distance']) : $defaults['near_distance']; //default is 25
 			}
-			//Country - Turn into array for multiple search if comma-seperated 
+			//Country - Turn into array for multiple search if comma-seperated
 			if( !empty($array['country']) && is_string($array['country']) && preg_match('/^( ?.+ ?,?)+$/', $array['country']) ){
 			    $array['country'] = explode(',',$array['country']);
 			}
-			
+
 			//OrderBy - can be a comma-seperated array of field names to order by (field names of object, not db)
 			if( array_key_exists('orderby', $array)){
 				if( !is_array($array['orderby']) && preg_match('/,/', $array['orderby']) ) {
@@ -107,20 +107,20 @@ class EM_Object {
 			//TODO validate search query array
 			//Clean the supplied array, so we only have allowed keys
 			foreach( array_keys($array) as $key){
-				if( !array_key_exists($key, $defaults) && !array_key_exists($key, $taxonomies) ) unset($array[$key]);		
+				if( !array_key_exists($key, $defaults) && !array_key_exists($key, $taxonomies) ) unset($array[$key]);
 			}
 			//return clean array
 			$defaults = array_merge ( $defaults, $array ); //No point using WP's cleaning function, we're doing it already.
 		}
-		
+
 		//Do some spring cleaning for known values
 		//Month & Year - may be array or single number
 		$month_regex = '/^[0-9]{1,2}$/';
 		$year_regex = '/^[0-9]{4}$/';
 		if( is_array($defaults['month']) ){
-			$defaults['month'] = ( preg_match($month_regex, $defaults['month'][0]) && preg_match($month_regex, $defaults['month'][1]) ) ? $defaults['month']:''; 
+			$defaults['month'] = ( preg_match($month_regex, $defaults['month'][0]) && preg_match($month_regex, $defaults['month'][1]) ) ? $defaults['month']:'';
 		}else{
-			$defaults['month'] = preg_match($month_regex, $defaults['month']) ? $defaults['month']:'';	
+			$defaults['month'] = preg_match($month_regex, $defaults['month']) ? $defaults['month']:'';
 		}
 		if( is_array($defaults['year']) ){
 			$defaults['year'] = ( preg_match($year_regex, $defaults['year'][0]) && preg_match($year_regex, $defaults['year'][1]) ) ? $defaults['year']:'';
@@ -163,7 +163,7 @@ class EM_Object {
 		$defaults['search'] = ($defaults['search']) ? trim(esc_sql(like_escape($defaults['search']))):false;
 		//Calculate offset if event page is set
 		if($defaults['page'] > 1){
-			$defaults['offset'] = $defaults['limit'] * ($defaults['page']-1);	
+			$defaults['offset'] = $defaults['limit'] * ($defaults['page']-1);
 		}else{
 			$defaults['page'] = ($defaults['limit'] > 0 ) ? floor($defaults['offset']/$defaults['limit']) + 1 : 1;
 		}
@@ -172,7 +172,7 @@ class EM_Object {
 		//return values
 		return apply_filters('em_object_get_default_search', $defaults, $array, $super_defaults);
 	}
-	
+
 	/**
 	 * Builds an array of SQL query conditions based on regularly used arguments
 	 * @param array $args
@@ -182,9 +182,9 @@ class EM_Object {
 		global $wpdb;
 		$events_table = EM_EVENTS_TABLE;
 		$locations_table = EM_LOCATIONS_TABLE;
-		
+
 		$args = apply_filters('em_object_build_sql_conditions_args',$args);
-		
+
 		//Format the arguments passed on
 		$scope = $args['scope'];//undefined variable warnings in ZDE, could just delete this (but dont pls!)
 		$recurring = $args['recurring'];
@@ -201,7 +201,7 @@ class EM_Object {
 		$year = $args['year'];
 		$today = date('Y-m-d', current_time('timestamp'));
 		//Create the WHERE statement
-		
+
 		//Recurrences
 		$conditions = array();
 		if( $recurring ){
@@ -215,7 +215,7 @@ class EM_Object {
 		    if( $recurrences !== null ){
 		    	$conditions['recurrences'] = $recurrences ? "(`recurrence_id` > 0 )":"(`recurrence_id` IS NULL OR `recurrence_id`=0 )";
 		    }
-			$conditions['recurring'] = "(`recurrence`!=1 OR `recurrence` IS NULL)";			
+			$conditions['recurring'] = "(`recurrence`!=1 OR `recurrence` IS NULL)";
 		}
 		//Dates - first check 'month', and 'year', and adjust scope if needed
 		if( !($month=='' && $year=='') ){
@@ -225,10 +225,10 @@ class EM_Object {
 				$date_month_end = $month[1];
 			}else{
 				if( !empty($month) ){
-					$date_month_start = $date_month_end = $month;					
+					$date_month_start = $date_month_end = $month;
 				}else{
 					$date_month_start = 1;
-					$date_month_end = 12;				
+					$date_month_end = 12;
 				}
 			}
 			//Sort out year range, if supplied an array of array(year,year), it'll check between these two years
@@ -279,7 +279,7 @@ class EM_Object {
 					$conditions['scope'] = " event_start_date < '$today'";
 				}else{
 					$conditions['scope'] = " event_end_date < '$today'";
-				}  
+				}
 			}elseif ($scope == "today"){
 				$conditions['scope'] = " (event_start_date = CAST('$today' AS DATE))";
 				if( !get_option('dbem_events_current_are_past') ){
@@ -324,7 +324,7 @@ class EM_Object {
 				$conditions['scope'] = '('.$conditions['scope'].')';
 			}
 		}
-		
+
 		//Filter by Hike - can be object, array, or id
 		if ( is_numeric($location) && $location > 0 ) { //Hike ID takes precedence
 			$conditions['location'] = " {$locations_table}.location_id = $location";
@@ -340,7 +340,7 @@ class EM_Object {
 			}
 			$conditions['location'] = "( {$locations_table}.location_id=". implode(" {$locations_table}.location_id=", $location_ids) ." )";
 		}
-		
+
 		//Filter by Event - can be object, array, or id
 		if ( is_numeric($event) && $event > 0 ) { //event ID takes precedence
 			$conditions['event'] = " {$events_table}.event_id = $event";
@@ -371,9 +371,9 @@ class EM_Object {
 			    foreach( $country_arg as $country ){
     			    if( array_key_exists($country, $countries) ){
         					//we have a country code
-        				$countries_search[] = $country;					
+        				$countries_search[] = $country;
         			}elseif( in_array($country, $countries) ){
-        				//we have a country name, 
+        				//we have a country name,
         				$countries_search[] = array_search($country, $countries);
     			    }
 			    }
@@ -398,7 +398,7 @@ class EM_Object {
 				$conditions['region'] = $wpdb->prepare('location_region=%s', $args['region']);
 			}
 		}
-		
+
 		//START TAXONOMY FILTERS - can be id, slug, name or comma seperated ids/slugs/names, if negative or prepended with a - then considered a negative filter
 		//convert taxonomies to arrays
 		$taxonomies = self::get_taxonomies();
@@ -421,7 +421,7 @@ class EM_Object {
 			    if( !empty($tax_data['ms']) ) self::ms_global_switch(); //if in ms global mode, switch here rather than on each EM_Category instance
 			    $tax_conds = array();
 			    //if a single array is supplied then we treat it as an OR type of query, if an array of arrays is supplied we condsider it to be many ANDs of ORs
-			    //so here we wrap a single array into another array and there is only one 'AND' condition (therefore no AND within this tax search) 
+			    //so here we wrap a single array into another array and there is only one 'AND' condition (therefore no AND within this tax search)
 			    foreach($args[$tax_name] as $k=>$v) if( is_array($v) ) $contains_array = true;
 			    if( empty($contains_array) ) $args[$tax_name] = array($args[$tax_name]);
 			    //go through taxonomy arg and generate relevant SQL
@@ -467,15 +467,15 @@ class EM_Object {
 								$tax_conds[] = "$ms_context IN ( SELECT object_id FROM ".EM_META_TABLE." WHERE meta_value IN (".implode(',',$term_ids).") AND meta_key='{$tax_data['ms']}' )";
 							}
 							if( count($term_not_ids) > 0 ){
-								$tax_conds[] = "$ms_context NOT IN ( SELECT object_id FROM ".EM_META_TABLE." WHERE meta_value IN (".implode(',',$term_not_ids).") AND meta_key='{$tax_data['ms']}' )";			
-							} 
+								$tax_conds[] = "$ms_context NOT IN ( SELECT object_id FROM ".EM_META_TABLE." WHERE meta_value IN (".implode(',',$term_not_ids).") AND meta_key='{$tax_data['ms']}' )";
+							}
 						}else{
 					    	//normal taxonomy filtering
 							if( count($term_tax_ids) > 0 ){
 								$tax_conds[] = "$post_context IN ( SELECT object_id FROM ".$wpdb->term_relationships." WHERE term_taxonomy_id IN (".implode(',',$term_tax_ids).") )";
 							}
 							if( count($term_tax_not_ids) > 0 ){
-								$tax_conds[] = "$post_context NOT IN ( SELECT object_id FROM ".$wpdb->term_relationships." WHERE term_taxonomy_id IN (".implode(',',$term_tax_not_ids).") )";			
+								$tax_conds[] = "$post_context NOT IN ( SELECT object_id FROM ".$wpdb->term_relationships." WHERE term_taxonomy_id IN (".implode(',',$term_tax_not_ids).") )";
 							}
 						}
 					}else{
@@ -490,7 +490,7 @@ class EM_Object {
 			}
 		}
 		//END TAXONOMY FILTERS
-	
+
 		//If we want rsvped items, we usually check the event
 		if( $bookings == 1 ){
 			$conditions['bookings'] = 'event_rsvp=1';
@@ -510,7 +510,7 @@ class EM_Object {
 		//return values
 		return apply_filters('em_object_build_sql_conditions', $conditions);
 	}
-	
+
 	public static function get_taxonomies(){
 	    if( empty(self::$taxonomies_array) ){
 	        //default taxonomies
@@ -537,7 +537,7 @@ class EM_Object {
 	                    }
 	                    if( $event_tax ) $taxonomies_array[$prefix.$tax_name]['context'][] = EM_POST_TYPE_EVENT;
 	                    if( $loc_tax ) $taxonomies_array[$prefix.$tax_name]['context'][] = EM_POST_TYPE_LOCATION;
-	                }	                
+	                }
 	            }
 	        }
 	        //users can add even more to this if needed, e.g. MS compatability
@@ -545,7 +545,7 @@ class EM_Object {
 	    }
 	    return self::$taxonomies_array;
 	}
-	
+
 	/**
 	 * WORK IN PROGRESS
 	 * Builds an array of SQL query conditions based on regularly used arguments
@@ -554,9 +554,9 @@ class EM_Object {
 	 */
 	public static function build_wpquery_conditions( $args = array(), $wp_query ){
 		global $wpdb;
-		
+
 		$args = apply_filters('em_object_build_sql_conditions_args',$args);
-		
+
 		//Format the arguments passed on
 		$scope = $args['scope'];//undefined variable warnings in ZDE, could just delete this (but dont pls!)
 		$recurring = $args['recurring'];
@@ -572,7 +572,7 @@ class EM_Object {
 		$year = $args['year'];
 		$today = date('Y-m-d', current_time('timestamp'));
 		//Create the WHERE statement
-		
+
 		//Recurrences
 		$query = array();
 		if( $recurrence > 0 ){
@@ -586,10 +586,10 @@ class EM_Object {
 				$date_month_end = $month[1];
 			}else{
 				if( !empty($month) ){
-					$date_month_start = $date_month_end = $month;					
+					$date_month_start = $date_month_end = $month;
 				}else{
 					$date_month_start = 1;
-					$date_month_end = 12;				
+					$date_month_end = 12;
 				}
 			}
 			//Sort out year range, if supplied an array of array(year,year), it'll check between these two years
@@ -613,7 +613,7 @@ class EM_Object {
 			}else{
 				$query[] = array( 'key' => '_start_ts', 'value' => $tomorrow, 'compare' => '<=' );
 				$query[] = array( 'key' => '_end_ts', 'value' => $today, 'compare' => '>=' );
-			}				
+			}
 		}elseif ( is_array($scope) || preg_match( "/^[0-9]{4}-[0-9]{2}-[0-9]{2},[0-9]{4}-[0-9]{2}-[0-9]{2}$/", $scope ) ) {
 			if( !is_array($scope) ) $scope = explode(',',$scope);
 			if( !empty($scope[0]) ){
@@ -688,7 +688,7 @@ class EM_Object {
 				$query[] = array( 'key' => '_end_ts', 'value' => $start_month, 'compare' => '>=' );
 			}
 		}
-		
+
 		//Filter by Hike - can be object, array, or id
 		if ( is_numeric($location) && $location > 0 ) { //Hike ID takes precedence
 			$query[] = array( 'key' => '_location_id', 'value' => $location, 'compare' => '=' );
@@ -702,7 +702,7 @@ class EM_Object {
 			}
 			$query[] = array( 'key' => '_location_id', 'value' => $location_ids, 'compare' => 'IN' );
 		}
-		
+
 		//Filter by Event - can be object, array, or id
 		if ( is_numeric($event) && $event > 0 ) { //event ID takes precedence
 			$query[] = array( 'key' => '_event_id', 'value' => $event, 'compare' => '=' );
@@ -721,11 +721,11 @@ class EM_Object {
 			$countries = em_get_countries();
 			//we can accept country codes or names
 			if( in_array($args['country'], $countries) ){
-				//we have a country name, 
-				$country = $countries[$args['country']]."'";	
+				//we have a country name,
+				$country = $countries[$args['country']]."'";
 			}elseif( array_key_exists($args['country'], $countries) ){
 				//we have a country code
-				$country = $args['country'];					
+				$country = $args['country'];
 			}
 			if(!empty($country)){
 				//get loc ids
@@ -744,7 +744,7 @@ class EM_Object {
 			}
 		}
 		//state lookup
-		if( !empty($args['town']) ){			
+		if( !empty($args['town']) ){
 			$ids = $wpdb->get_col($wpdb->prepare("SELECT post_id FROM ".$wpdb->postmeta." WHERE meta_key='_location_town' AND meta_value='%s'", $args['town']));
 			if( is_array($wp_query->query_vars['post__in']) ){
 				//remove values not in this array.
@@ -754,7 +754,7 @@ class EM_Object {
 			}
 		}
 		//region lookup
-		if( !empty($args['region']) ){	
+		if( !empty($args['region']) ){
 			$ids = $wpdb->get_col($wpdb->prepare("SELECT post_id FROM ".$wpdb->postmeta." WHERE meta_key='_location_region' AND meta_value='%s'", $args['region']));
 			if( is_array($wp_query->query_vars['post__in']) ){
 				//remove values not in this array.
@@ -777,7 +777,7 @@ class EM_Object {
 					if( !is_array($wp_query->query_vars['tax_query']) ) $wp_query->query_vars['tax_query'] = array();
 					$wp_query->query_vars['tax_query'] = array('taxonomy' => EM_TAXONOMY_CATEGORY, 'field'=>'id', 'terms'=>$term->term_id);
 				}
-			} 
+			}
 		}elseif( self::array_is_numeric($category) ){
 			$term_ids = array();
 			foreach($category as $category_id){
@@ -795,7 +795,7 @@ class EM_Object {
 					$wp_query->query_vars['tax_query'] = array('taxonomy' => EM_TAXONOMY_CATEGORY, 'field'=>'id', 'terms'=>$term_ids);
 				}
 			}
-		}		
+		}
 		//Add conditions for tags
 		//Filter by tag, can be id or comma seperated ids
 		if ( !empty($tag) && !is_array($tag) ){
@@ -804,7 +804,7 @@ class EM_Object {
 			if( !empty($term->term_id) ){
 				if( !is_array($wp_query->query_vars['tax_query']) ) $wp_query->query_vars['tax_query'] = array();
 				$wp_query->query_vars['tax_query'] = array('taxonomy' => EM_TAXONOMY_TAXONOMY, 'field'=>'id', 'terms'=>$term->term_taxonomy_id);
-			} 
+			}
 		}elseif( is_array($tag) ){
 			$term_ids = array();
 			foreach($tag as $tag_data){
@@ -818,7 +818,7 @@ class EM_Object {
 				$wp_query->query_vars['tax_query'] = array('taxonomy' => EM_TAXONOMY_TAXONOMY, 'field'=>'id', 'terms'=>$term_ids);
 			}
 		}
-	
+
 		//If we want rsvped items, we usually check the event
 		if( $bookings == 1 ){
 			$query[] = array( 'key' => '_event_rsvp', 'value' => 1, 'compare' => '=' );
@@ -834,7 +834,7 @@ class EM_Object {
 	  	}
 		return apply_filters('em_object_build_wp_query_conditions', $wp_query);
 	}
-	
+
 	public static function build_sql_orderby( $args, $accepted_fields, $default_order = 'ASC' ){
 		//First, ORDER BY
 		$args = apply_filters('em_object_build_sql_orderby_args', $args);
@@ -872,7 +872,7 @@ class EM_Object {
 		}
 		return apply_filters('em_object_build_sql_orderby', $orderby);
 	}
-	
+
 	/**
 	 * Gets array of searchable variables that should be considered in a $_REQUEST variable
 	 * @param array $args Arguments to include in returned array
@@ -912,10 +912,10 @@ class EM_Object {
 		}
 		return apply_filters('em_get_post_search', $args);
 	}
-	
+
 	/**
 	 * Generates pagination for classes like EM_Events based on supplied arguments and whether AJAX is enabled.
-	 * 
+	 *
 	 * @param array $args The arguments being searched for
 	 * @param integer $count The number of total items to paginate through
 	 * @param string $search_action The name of the action query var used to trigger a search - used in AJAX requests and normal searches
@@ -937,7 +937,7 @@ class EM_Object {
 		}
 		//go through default arguments (if defined) and build a list of unique non-default arguments that should go into the querystring
 		$unique_args = array(); //this is the set of unique arguments we'll add to the querystring
-		$ignored_args = array('offset', 'ajax', 'array', 'pagination','format','format_header','format_footer'); 
+		$ignored_args = array('offset', 'ajax', 'array', 'pagination','format','format_header','format_footer');
 		foreach( $default_args as $arg_key => $arg_default_val){
 			if( array_key_exists($arg_key, $args) && !in_array($arg_key, $ignored_args) ){
 				//if array exists, implode it in case one value is already imploded for matching purposes
@@ -948,7 +948,7 @@ class EM_Object {
 				}
 			}
 		}
-		if( !empty($unique_args['search']) ){ 
+		if( !empty($unique_args['search']) ){
 			$unique_args['em_search'] = $unique_args['search']; //special case, since em_search is used in links rather than search, which we remove below
 			unset($unique_args['search']);
 		}
@@ -970,7 +970,7 @@ class EM_Object {
 		}
 		return $return;
 	}
-	
+
 	/**
 	 * Used by "single" objects, e.g. bookings, events, locations to verify if they have the capability to edit this or someone else's object. Relies on the fact that the object has an owner property with id of user (or admin capability must pass).
 	 * @param string $owner_capability If the object has an owner property and the user id matches that, this capability will be checked for.
@@ -983,7 +983,7 @@ class EM_Object {
 		if( is_multisite() && is_super_admin() ){ return true; }
 		//set user to the desired user we're verifying, otherwise default to current user
 	    if( $user_to_check ){
-	    	$user = new WP_User($user_to_check);	
+	    	$user = new WP_User($user_to_check);
 	    }
 	    if( empty($user->ID) ) $user = wp_get_current_user();
 		//do they own this?
@@ -1004,14 +1004,14 @@ class EM_Object {
 		}elseif( $admin_capability && array_key_exists($admin_capability, $em_capabilities_array) ){
 			$error_msg = $em_capabilities_array[$admin_capability];
 		}
-		
+
 		if( !$can_manage && !$is_owner && !empty($error_msg) ){
 			$this->add_error($error_msg);
 		}
 		return $can_manage;
 	}
 
-	
+
 	public static function ms_global_switch(){
 		if( EM_MS_GLOBAL ){
 			//If in multisite global, then get the main blog
@@ -1019,13 +1019,13 @@ class EM_Object {
 			switch_to_blog($current_site->blog_id);
 		}
 	}
-	
+
 	public static function ms_global_switch_back(){
 		if( EM_MS_GLOBAL ){
 			restore_current_blog();
 		}
 	}
-	
+
 	/**
 	 * Save an array into this class.
 	 * If you provide a record from the database table corresponding to this class type it will add the data to this object.
@@ -1048,7 +1048,7 @@ class EM_Object {
 			}
 		}
 	}
-	
+
 	/**
 	 * Copies all the properties to shorter property names for compatability, do not use the old properties.
 	 */
@@ -1075,7 +1075,7 @@ class EM_Object {
 		}
 		return apply_filters('em_to_array', $array);
 	}
-	
+
 
 	/**
 	 * Function to retreive wpdb types for all fields, or if you supply an assoc array with field names as keys it'll return an equivalent array of wpdb types
@@ -1096,8 +1096,8 @@ class EM_Object {
 			}
 		}
 		return apply_filters('em_object_get_types', $types, $this, $array);
-	}	
-	
+	}
+
 	function get_fields( $inverted_array=false ){
 		if( is_array($this->fields) ){
 			$return = array();
@@ -1119,9 +1119,9 @@ class EM_Object {
 	 * @return string
 	 */
 	function sanitize( $value ) {
-		if( get_magic_quotes_gpc() ) 
+		if( get_magic_quotes_gpc() )
 	      $value = stripslashes( $value );
-	
+
 		//check if this function exists
 		if( function_exists( "mysql_real_escape_string" ) ) {
 	    	$value = mysql_real_escape_string( $value );
@@ -1131,7 +1131,7 @@ class EM_Object {
 		}
 		return apply_filters('em_object_sanitize', $value);
 	}
-	
+
 	/**
 	 * Cleans arrays that contain id lists. Takes an array of items and will clean the keys passed in second argument so that if they keep numbers, explode comma-seperated numbers, and unsets the key if there's any other value
 	 * @param array $array
@@ -1157,7 +1157,7 @@ class EM_Object {
 		}
 		return $array;
 	}
-		
+
 	/**
 	 * Send an email and log errors in this object
 	 * @param string $subject
@@ -1184,7 +1184,7 @@ class EM_Object {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Will return true if this is a simple (non-assoc) numeric array, meaning it has at one or more numeric entries and nothing else
 	 * @param mixed $array
@@ -1198,11 +1198,11 @@ class EM_Object {
 			}
 		}
 		return (!in_array(false, $results) && count($results) > 0);
-	}	
-	
+	}
+
 	/**
 	 * Returns an array of errors in this object
-	 * @return array 
+	 * @return array
 	 */
 	function get_errors(){
 		if(is_array($this->errors)){
@@ -1211,14 +1211,14 @@ class EM_Object {
 			return array();
 		}
 	}
-	
+
 	/**
 	 * Adds an error to the object
 	 */
 	function add_error($errors){
 		if(!is_array($errors)){ $errors = array($errors); } //make errors var an array if it isn't already
 		if(!is_array($this->errors)){ $this->errors = array(); } //create empty array if this isn't an array
-		foreach($errors as $key => $error){			
+		foreach($errors as $key => $error){
 			if( !in_array($error, $this->errors) ){
 			    if( !is_array($error) ){
 					$this->errors[] = $error;
@@ -1228,7 +1228,7 @@ class EM_Object {
 			}
 		}
 	}
-	
+
 	/**
 	 * Converts an array to JSON format, useful for outputting data for AJAX calls. Uses a PHP4 fallback function, given it doesn't support json_encode().
 	 * @param array $array
@@ -1246,7 +1246,7 @@ class EM_Object {
 		}
 		return apply_filters('em_object_json_encode', $return, $array);
 	}
-	
+
 	/**
 	 * Compatible json encoder function for PHP4
 	 * @param array $array
@@ -1295,13 +1295,13 @@ class EM_Object {
 	        }
 	        // Then we collapse the staging array into the JSON form:
 	        $result = "[ " . implode( ", ", $construct ) . " ]";
-	    }		
+	    }
 	    return $result;
-	}	
-	
+	}
+
 	/*
 	 * START IMAGE UPlOAD FUNCTIONS
-	 * Used for various objects, so shared in one place 
+	 * Used for various objects, so shared in one place
 	 */
 	/**
 	 * Returns the type of image in lowercase, if $path is true, a base filename is returned which indicates where to store the file from the root upload folder.
@@ -1323,13 +1323,13 @@ class EM_Object {
 				$dir = (EM_IMAGE_DS == '/') ? 'categories/':'';
 				$type = 'category';
 				break;
-		} 	
+		}
 		if($path){
 			return apply_filters('em_object_get_image_type',$dir.$type, $path, $this);
 		}
 		return apply_filters('em_object_get_image_type',$type, $path, $this);
 	}
-	
+
 	function get_image_url($size = 'full'){
 		$image_url = $this->image_url;
 		if( !empty($this->post_id) && (empty($this->image_url) || $size != 'full') ){
@@ -1362,7 +1362,7 @@ class EM_Object {
 		}
 		return apply_filters('em_object_get_image_url', $image_url, $this);
 	}
-	
+
 	function image_delete($force_delete=true) {
 		$type = $this->get_image_type();
 		if( $type ){
@@ -1376,7 +1376,7 @@ class EM_Object {
 					$type_id_name = $type.'_id';
 					$file_name= EM_IMAGE_UPLOAD_DIR.$this->get_image_type(true)."-".$this->$type_id_name;
 					$result = false;
-					foreach($this->mime_types as $mime_type) { 
+					foreach($this->mime_types as $mime_type) {
 						if (file_exists($file_name.".".$mime_type)){
 					  		$result = unlink($file_name.".".$mime_type);
 					  		$this->image_url = '';
@@ -1387,22 +1387,22 @@ class EM_Object {
 		}
 		return apply_filters('em_object_get_image_url', $result, $this);
 	}
-	
+
 	function image_upload(){
 		$type = $this->get_image_type();
 		//Handle the attachment as a WP Post
 		$attachment = '';
-		$user_to_check = ( !is_user_logged_in() && get_option('dbem_events_anonymous_submissions') ) ? get_option('dbem_events_anonymous_user'):false;		
+		$user_to_check = ( !is_user_logged_in() && get_option('dbem_events_anonymous_submissions') ) ? get_option('dbem_events_anonymous_user'):false;
 		if ( !empty($_FILES[$type.'_image']['size']) && file_exists($_FILES[$type.'_image']['tmp_name']) && $this->image_validate() && $this->can_manage('upload_event_images','upload_event_images', $user_to_check) ) {
-			require_once(ABSPATH . "wp-admin" . '/includes/file.php');					
+			require_once(ABSPATH . "wp-admin" . '/includes/file.php');
 			require_once(ABSPATH . "wp-admin" . '/includes/image.php');
-					
+
 			$attachment = wp_handle_upload($_FILES[$type.'_image'], array('test_form'=>false), current_time('mysql'));
-						
+
 			if ( isset($attachment['error']) ){
 				$this->add_error('Image Error: ' . $attachment['error'] );
 			}
-			
+
 			/* Attach file to item */
 			if ( count($this->errors) == 0 && $attachment ){
 				$attachment_data = array(
@@ -1426,28 +1426,28 @@ class EM_Object {
 		}
 		return apply_filters('em_object_image_upload', false, $this);
 	}
-	
+
 	function image_validate(){
 		$type = $this->get_image_type();
 		if( $type ){
-			if ( !empty($_FILES[$type.'_image']) && $_FILES[$type.'_image']['size'] > 0 ) { 
+			if ( !empty($_FILES[$type.'_image']) && $_FILES[$type.'_image']['size'] > 0 ) {
 				if (is_uploaded_file($_FILES[$type.'_image']['tmp_name'])) {
 			  		list($width, $height, $mime_type, $attr) = getimagesize($_FILES[$type.'_image']['tmp_name']);
-					$maximum_size = get_option('dbem_image_max_size'); 
-					if ($_FILES[$type.'_image']['size'] > $maximum_size){ 
+					$maximum_size = get_option('dbem_image_max_size');
+					if ($_FILES[$type.'_image']['size'] > $maximum_size){
 				     	$this->add_error( __('The image file is too big! Maximum size:', 'dbem')." $maximum_size");
 					}
-					$maximum_width = get_option('dbem_image_max_width'); 
+					$maximum_width = get_option('dbem_image_max_width');
 					$maximum_height = get_option('dbem_image_max_height');
-					$minimum_width = get_option('dbem_image_min_width'); 
-					$minimum_height = get_option('dbem_image_min_height');  
-				  	if (($width > $maximum_width) || ($height > $maximum_height)) { 
+					$minimum_width = get_option('dbem_image_min_width');
+					$minimum_height = get_option('dbem_image_min_height');
+				  	if (($width > $maximum_width) || ($height > $maximum_height)) {
 						$this->add_error( __('The image is too big! Maximum size allowed:','dbem')." $maximum_width x $maximum_height");
 				  	}
-				  	if (($width < $minimum_width) || ($height < $minimum_height)) { 
+				  	if (($width < $minimum_width) || ($height < $minimum_height)) {
 						$this->add_error( __('The image is too small! Minimum size allowed:','dbem')." $minimum_width x $minimum_height");
 				  	}
-				  	if ( empty($mime_type) || !array_key_exists($mime_type, $this->mime_types) ){ 
+				  	if ( empty($mime_type) || !array_key_exists($mime_type, $this->mime_types) ){
 						$this->add_error(__('The image is in a wrong format!','dbem'));
 				  	}
 		  		}
@@ -1465,7 +1465,7 @@ class EM_Object {
 				$match[1] = 12+$match[1];
 			}elseif( !empty($match[3]) && $match[3] == 'AM' && $match[1] == 12 ){
 				$match[1] = '00';
-			} 
+			}
 			$time = $match[1].":".$match[2].":00";
 			return $time;
 		}
@@ -1480,7 +1480,7 @@ class EM_Object {
 	function format_price( $price ){
 		return em_get_currency_formatted( $price );
 	}
-	
+
 	function get_tax_rate(){
 		return get_option('dbem_bookings_tax');
 	}
