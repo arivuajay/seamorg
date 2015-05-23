@@ -43,7 +43,7 @@ if (!empty($show_add_new) && current_user_can('edit_events'))
             ?>
             <br class="clear" />
         </div>
-
+        <div class="row">
         <?php
         if (empty($EM_Events)) {
             echo get_option('dbem_no_events_message');
@@ -111,6 +111,7 @@ if (!empty($show_add_new) && current_user_can('edit_events'))
                     </div>
         <?php } ?>
     <?php } ?>
+        </div>
         <div class='tablenav'>
             <div class="alignleft actions">
                 <br class='clear' />
