@@ -32,7 +32,7 @@ if (!empty($show_add_new) && current_user_can('edit_events'))
             <?php if (!empty($_REQUEST['view'])): ?>
                 <input type="hidden" name="view" value="<?php echo esc_attr($_REQUEST['view']); ?>" />
 <?php endif; ?>
-            <input type="submit" value="<?php _e('Search Events', 'dbem'); ?>" class="button" />
+            <input type="submit"  value="<?php _e('Search Events', 'dbem'); ?>" class="button button-primary" />
         </p>
         <div class="tablenav">
             <?php
@@ -97,11 +97,11 @@ if (!empty($show_add_new) && current_user_can('edit_events'))
                                     <span><?php echo $localised_start_date; ?></span>
                                 </div>
                                 <div class="buyticket">
-                                    <a class="row-title" href="<?php echo esc_url($EM_Event->get_edit_url()); ?>">Edit</a>
+                                    <a class="row-title" href="<?php echo esc_url($EM_Event->get_edit_url()); ?>"><i class="fa fa-pencil"></i> Edit</a>
                                     <?php if (current_user_can('delete_events')) : ?>
                                         <a class="row-title em-event-rec-delete" href="<?php echo esc_url(add_query_arg(array('action' => 'event_delete', 'event_id' => $EM_Event->recurrence_id, '_wpnonce' => wp_create_nonce('event_delete_' . $EM_Event->recurrence_id)))); ?>" onclick ="if (!confirm('<?php echo $recurrence_delete_confirm; ?>')) {
                                                                 return false;
-                                                            }">Delete</a>
+                                                            }"> <i class="fa fa-trash"></i> Delete</a>
 
         <?php endif; ?>
 

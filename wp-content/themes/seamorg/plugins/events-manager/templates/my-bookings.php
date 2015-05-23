@@ -46,7 +46,8 @@ if (is_user_logged_in()):
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 booking-grid">
                             <div class="event-cont">
                                 <div class="event-img">
-                                    <div class="eventplace-details"> <img src="<?php echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php echo esc_html($EM_Event->get_location()->location_name); ?> <span><?php echo $EM_Booking->get_spaces() ?></span></div>
+                                    <div class="eventplace-details"> <img src="<?php echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php echo esc_html($EM_Event->get_location()->location_name); ?> <span> <i class="fa fa-user"></i>
+ <?php echo $EM_Booking->get_spaces() ?></span></div>
                                     <?php if ($EM_Event->get_image_url() != '') : ?>
                                         <img src='<?php echo $EM_Event->get_image_url('grid-3-thumbnails'); ?>' alt='<?php echo $EM_Event->event_name ?>'/>
                                     <?php endif; ?>
