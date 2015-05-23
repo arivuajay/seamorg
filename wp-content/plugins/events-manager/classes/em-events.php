@@ -5,20 +5,20 @@
  *
  */
 class EM_Events extends EM_Object {
-	
+
 	/**
-	 * Returns an array of EM_Events that match the given specs in the argument, or returns a list of future evetnts in future 
+	 * Returns an array of EM_Events that match the given specs in the argument, or returns a list of future evetnts in future
 	 * (see EM_Events::get_default_search() ) for explanation of possible search array values. You can also supply a numeric array
-	 * containing the ids of the events you'd like to obtain 
-	 * 
+	 * containing the ids of the events you'd like to obtain
+	 *
 	 * @param array $args
 	 * @return EM_Event array()
 	 */
 	public static function get( $args = array(), $count=false ) {
-		global $wpdb;	 
+		global $wpdb;
 		$events_table = EM_EVENTS_TABLE;
 		$locations_table = EM_LOCATIONS_TABLE;
-		
+
 		//Quick version, we can accept an array of IDs, which is easy to retrieve
 		if( self::array_is_numeric($args) ){ //Array of numbers, assume they are event IDs to retreive
 			//We can just get all the events here and return them
@@ -32,29 +32,29 @@ class EM_Events extends EM_Object {
 			foreach($results as $result){
 				$events[$result['event_id']] = new EM_Event($result);
 			}
-			return $events; //We return all the events matched as an EM_Event array. 
+			return $events; //We return all the events matched as an EM_Event array.
 		}
-		
-		//We assume it's either an empty array or array of search arguments to merge with defaults			
+
+		//We assume it's either an empty array or array of search arguments to merge with defaults
 		$args = self::get_default_search($args);
 		$limit = ( $args['limit'] && is_numeric($args['limit'])) ? "LIMIT {$args['limit']}" : '';
 		$offset = ( $limit != "" && is_numeric($args['offset']) ) ? "OFFSET {$args['offset']}" : '';
 		$groupby_sql = '';
-		
+
 		//Get the default conditions
 		$conditions = self::build_sql_conditions($args);
 		//Put it all together
 		$where = ( count($conditions) > 0 ) ? " WHERE " . implode ( " AND ", $conditions ):'';
-		
+
 		//Get ordering instructions
 		$EM_Event = new EM_Event();
 		$EM_Location = new EM_Location();
 		$orderby = self::build_sql_orderby($args, array_keys(array_merge($EM_Event->fields, $EM_Location->fields)), get_option('dbem_events_default_order'));
 		//Now, build orderby sql
 		$orderby_sql = ( count($orderby) > 0 ) ? 'ORDER BY '. implode(', ', $orderby) : '';
-		
+
 		//Create the SQL statement and execute
-		
+
 		if( !$count && $args['array'] ){
 			$selectors_array = array();
 			foreach( array_keys($EM_Event->fields) as $field_selector){
@@ -73,10 +73,10 @@ class EM_Events extends EM_Object {
 			$limit = 'LIMIT 1';
 			$offset = 'OFFSET 0';
 		}
-		
+
 		//add group_by if needed
-		$groupby_sql = !empty($groupby_sql) && is_array($groupby_sql) ? 'GROUP BY '.implode(',', $groupby_sql):''; 
-		
+		$groupby_sql = !empty($groupby_sql) && is_array($groupby_sql) ? 'GROUP BY '.implode(',', $groupby_sql):'';
+
 		$sql = apply_filters('em_events_get_sql',"
 			SELECT $selectors FROM $events_table
 			LEFT JOIN $locations_table ON {$locations_table}.location_id={$events_table}.location_id
@@ -84,11 +84,11 @@ class EM_Events extends EM_Object {
 			$groupby_sql $orderby_sql
 			$limit $offset
 		", $args);
-				
+
 		//If we're only counting results, return the number of results
 		if( $count ){
 			$wpdb->query($sql);
-			return apply_filters('em_events_get_count', $wpdb->get_var('SELECT FOUND_ROWS()'), $args);		
+			return apply_filters('em_events_get_count', $wpdb->get_var('SELECT FOUND_ROWS()'), $args);
 		}
 		$results = $wpdb->get_results( $sql, ARRAY_A);
 
@@ -96,11 +96,11 @@ class EM_Events extends EM_Object {
 		if( $args['array'] == true ){
 			return apply_filters('em_events_get_array',$results, $args);
 		}
-		
+
 		//Make returned results EM_Event objects
 		$results = (is_array($results)) ? $results:array();
 		$events = array();
-		
+
 		if( EM_MS_GLOBAL ){
 			foreach ( $results as $event ){
 				$events[] = em_get_event($event['post_id'], $event['blog_id']);
@@ -110,10 +110,10 @@ class EM_Events extends EM_Object {
 				$events[] = em_get_event($event['post_id'], 'post_id');
 			}
 		}
-		
+
 		return apply_filters('em_events_get', $events, $args);
 	}
-	
+
 	/**
 	 * Returns the number of events on a given date
 	 * @param $date
@@ -125,11 +125,11 @@ class EM_Events extends EM_Object {
 		$sql = "SELECT COUNT(*) FROM  $table_name WHERE (event_start_date  like '$date') OR (event_start_date <= '$date' AND event_end_date >= '$date');";
 		return apply_filters('em_events_count_date', $wpdb->get_var($sql));
 	}
-	
+
 	public static function count( $args = array() ){
 		return apply_filters('em_events_count', self::get($args, true), $args);
 	}
-	
+
 	/**
 	 * Will delete given an array of event_ids or EM_Event objects
 	 * @param unknown_type $id_array
@@ -151,11 +151,11 @@ class EM_Events extends EM_Object {
 		//TODO add better error feedback on events delete fails
 		return apply_filters('em_events_delete',  in_array(false, $results), $event_ids);
 	}
-	
-	
+
+
 	/**
 	 * Output a set of matched of events. You can pass on an array of EM_Events as well, in this event you can pass args in second param.
-	 * Note that you can pass a 'pagination' boolean attribute to enable pagination, default is enabled (true). 
+	 * Note that you can pass a 'pagination' boolean attribute to enable pagination, default is enabled (true).
 	 * @param array $args
 	 * @param array $secondary_args
 	 * @return string
@@ -193,7 +193,6 @@ class EM_Events extends EM_Object {
 		}
 		//What format shall we output this to, or use default
 		$format = ( empty($args['format']) ) ? get_option( 'dbem_event_list_item_format' ) : $args['format'] ;
-		
 		$output = "";
 		$events = apply_filters('em_events_output_events', $events);
 		if ( $events_count > 0 ) {
@@ -215,14 +214,14 @@ class EM_Events extends EM_Object {
 			}
 		} else {
 			$output = get_option ( 'dbem_no_events_message' );
-		}	
-		
+		}
+
 		//TODO check if reference is ok when restoring object, due to changes in php5 v 4
 		$EM_Event = $EM_Event_old;
 		$output = apply_filters('em_events_output', $output, $events, $args);
-		return $output;		
+		return $output;
 	}
-	
+
 	/**
 	 * Generate a grouped list of events by year, month, week or day.
 	 * @since 5.4.4.2
@@ -316,7 +315,7 @@ class EM_Events extends EM_Object {
 		}
 		return ob_get_clean();
 	}
-	
+
 	public static function get_pagination_links($args, $count, $search_action = 'search_events', $default_args = array()){
 		//get default args if we're in a search, supply to parent since we can't depend on late static binding until WP requires PHP 5.3 or later
 		if( empty($default_args) && (!empty($args['ajax']) || !empty($_REQUEST['action']) && $_REQUEST['action'] == $search_action) ){
@@ -325,7 +324,7 @@ class EM_Events extends EM_Object {
 		}
 		return parent::get_pagination_links($args, $count, $search_action, $default_args);
 	}
-	
+
 	/* (non-PHPdoc)
 	 * DEPRECATED - this class should just contain static classes,
 	 * @see EM_Object::can_manage()
@@ -343,7 +342,7 @@ class EM_Events extends EM_Object {
 		}
 		return apply_filters('em_events_can_manage', false, $event_ids);
 	}
-	
+
 	public static function get_post_search($args = array(), $filter = false, $request = array(), $accepted_args = array()){
 		//supply $accepted_args to parent argument since we can't depend on late static binding until WP requires PHP 5.3 or later
 		$accepted_args = !empty($accepted_args) ? $accepted_args : array_keys(self::get_default_search());
@@ -380,7 +379,7 @@ class EM_Events extends EM_Object {
 		}
 		//private events
 		if( empty($args['private']) ){
-			$conditions['private'] = "(`event_private`=0)";			
+			$conditions['private'] = "(`event_private`=0)";
 		}elseif( !empty($args['private_only']) ){
 			$conditions['private_only'] = "(`event_private`=1)";
 		}
@@ -419,7 +418,7 @@ class EM_Events extends EM_Object {
 		}
 		return apply_filters( 'em_events_build_sql_conditions', $conditions, $args );
 	}
-	
+
 	/* Overrides EM_Object method to apply a filter to result
 	 * @see wp-content/plugins/events-manager/classes/EM_Object#build_sql_orderby()
 	 */
@@ -427,8 +426,8 @@ class EM_Events extends EM_Object {
 	    self::$context = EM_POST_TYPE_EVENT;
 		return apply_filters( 'em_events_build_sql_orderby', parent::build_sql_orderby($args, $accepted_fields, get_option('dbem_events_default_order')), $args, $accepted_fields, $default_order );
 	}
-	
-	/* 
+
+	/*
 	 * Adds custom Events search defaults
 	 * @param array $array_or_defaults may be the array to override defaults
 	 * @param array $array

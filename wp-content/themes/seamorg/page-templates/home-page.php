@@ -31,125 +31,61 @@ get_header();
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading">
-                <h2> Up Coming Events </h2>
-                <span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+            <?php
+            if (class_exists('EM_Events')) {
+                $format_header = '<h2> Up Coming Events </h2><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span></div>';
+                $format_footer = '<div class="viewall-cont"><a href="'.get_permalink(75).'"> View all</a></div>';
+
+                $format = '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="event-cont">
                     <div class="event-img">
-                        <div class="eventplace-details"> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/map-icon.png"  alt=""> London <span> $65</span></div>
-                        <img src="<?php echo get_bloginfo('template_directory'); ?>/images/event-thumb1.jpg"  alt="">
+                        <div class="eventplace-details">#_LOCATIONNAME <span> #_EVENTPRICERANGE</span></div>
+                        #_EVENTIMAGE{360,230}
                     </div>
                     <div class="eventplace-details-txt">
                         <div class="event-name">
-                            <h2>Hiking in autumn</h2>
-                            <span> 14 May 2016 </span>
+                            <h2>#_EVENTNAME</h2>
+                            <span>#_EVENTDATES</span>
                         </div>
-                        <div class="buyticket"><a href="#">
-                                Buy Ticket
-                            </a></div>
+                        <div class="buyticket"><a href="#_EVENTURL">Book It</a></div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="event-cont">
-                    <div class="event-img">
-                        <div class="eventplace-details"> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/map-icon.png"  alt=""> London <span> $65</span></div>
-                        <img src="<?php echo get_bloginfo('template_directory'); ?>/images/event-thumb1.jpg"  alt="">
-                    </div>
-                    <div class="eventplace-details-txt">
-                        <div class="event-name">
-                            <h2>Hiking in autumn</h2>
-                            <span> 14 May 2016 </span>
-                        </div>
-                        <div class="buyticket"><a href="#">
-                                Buy Ticket
-                            </a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="event-cont">
-                    <div class="event-img">
-                        <div class="eventplace-details"> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/map-icon.png"  alt=""> London <span> $65</span></div>
-                        <img src="<?php echo get_bloginfo('template_directory'); ?>/images/event-thumb1.jpg"  alt="">
-                    </div>
-                    <div class="eventplace-details-txt">
-                        <div class="event-name">
-                            <h2>Hiking in autumn</h2>
-                            <span> 14 May 2016 </span>
-                        </div>
-                        <div class="buyticket"><a href="#">
-                                Buy Ticket
-                            </a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="viewall-cont">
-                <a href="#"> View all</a></div>
+            </div>';
+        echo EM_Events::output(array('scope'=>'future', 'order_by'=>'start_date','limit' => 3, 'format' => $format, 'format_header' =>$format_header, 'format_footer' => $format_footer));
+            }
+            ?>
+
         </div>
     </div>
 </div>
 <div class="upcoming-event">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading upcoming-event-heading2">
-                <h2> Popular Events</h2>
-                <span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+            <?php
+            if (class_exists('EM_Events')) {
+                $format_header = '<div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading upcoming-event-heading2"><h2> Popular Events</h2><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span></div>';
+                $format_footer = '<div class="viewall-cont"><a href="'.get_permalink(75).'"> View all</a></div>';
+
+                $format = '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="event-cont">
                     <div class="event-img">
-                        <div class="eventplace-details"> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/map-icon.png"  alt=""> London <span> $65</span></div>
-                        <img src="<?php echo get_bloginfo('template_directory'); ?>/images/event-thumb1.jpg"  alt="">
+                        <div class="eventplace-details">#_LOCATIONNAME <span> #_EVENTPRICERANGE</span></div>
+                        #_EVENTIMAGE{360,230}
                     </div>
                     <div class="eventplace-details-txt">
                         <div class="event-name">
-                            <h2>Hiking in autumn</h2>
-                            <span> 14 May 2016 </span>
+                            <h2>#_EVENTNAME</h2>
+                            <span>#_EVENTDATES</span>
                         </div>
-                        <div class="buyticket buyticket2"><a href="#">
-                                Buy Ticket
-                            </a></div>
+                        <div class="buyticket"><a href="#_EVENTURL">Book It</a></div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="event-cont">
-                    <div class="event-img">
-                        <div class="eventplace-details"> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/map-icon.png"  alt=""> London <span> $65</span></div>
-                        <img src="<?php echo get_bloginfo('template_directory'); ?>/images/event-thumb1.jpg"  alt="">
-                    </div>
-                    <div class="eventplace-details-txt">
-                        <div class="event-name">
-                            <h2>Hiking in autumn</h2>
-                            <span> 14 May 2016 </span>
-                        </div>
-                        <div class="buyticket buyticket2"><a href="#">
-                                Buy Ticket
-                            </a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="event-cont">
-                    <div class="event-img">
-                        <div class="eventplace-details"> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/map-icon.png"  alt=""> London <span> $65</span></div>
-                        <img src="<?php echo get_bloginfo('template_directory'); ?>/images/event-thumb1.jpg"  alt="">
-                    </div>
-                    <div class="eventplace-details-txt">
-                        <div class="event-name">
-                            <h2>Hiking in autumn</h2>
-                            <span> 14 May 2016 </span>
-                        </div>
-                        <div class="buyticket buyticket2"><a href="#">
-                                Buy Ticket
-                            </a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="viewall-cont">
-                <a href="#"> View all</a></div>
+            </div>';
+        echo EM_Events::output(array('scope'=>'future', 'order_by'=>'start_date','limit' => 3, 'format' => $format, 'format_header' =>$format_header, 'format_footer' => $format_footer));
+            }
+            ?>
         </div>
     </div>
 </div>
