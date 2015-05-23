@@ -57,12 +57,12 @@ if (is_user_logged_in()):
                                         <span><?php echo date_i18n(get_option('dbem_date_format'), $EM_Event->start); ?></span>
                                     </div>
                                     <div class="buyticket">
-                                        <a class="row-title" href="javascript:void(0);"><?php echo $EM_Booking->get_status(); ?></a>
+                                        <a class="row-title" href="javascript:void(0);"> <i class="fa fa-check"></i>  <?php echo $EM_Booking->get_status(); ?></a>
                                         <?php
                                         $cancel_link = '';
                                         if (!in_array($EM_Booking->booking_status, array(2, 3)) && get_option('dbem_bookings_user_cancellation') && $EM_Event->get_bookings()->has_open_time()) {
                                             $cancel_url = em_add_get_params($_SERVER['REQUEST_URI'], array('action' => 'booking_cancel', 'booking_id' => $EM_Booking->booking_id, '_wpnonce' => $nonce));
-                                            $cancel_link = '<a class="row-title em-bookings-cancel" href="' . $cancel_url . '" onclick="if( !confirm(EM.booking_warning_cancel) ){ return false; }">' . __('Cancel', 'dbem') . '</a>';
+                                            $cancel_link = '<a class="row-title em-bookings-cancel" href="' . $cancel_url . '" onclick="if( !confirm(EM.booking_warning_cancel) ){ return false; }"> <i class="fa fa-close"></i> ' . __ ('Cancel', 'dbem') . '</a>';
                                         }
                                         echo apply_filters('em_my_bookings_booking_actions', $cancel_link, $EM_Booking);
                                         ?>

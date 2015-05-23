@@ -123,6 +123,11 @@ display:none!important
 .inner-cont {
   margin-top: 20px;
 }
+
+.guide-signup
+{
+	margin-top:0px;
+}
 }
 @media (min-width:768px)and (max-width:991px) {
 .hidden-sm {
@@ -183,6 +188,11 @@ display:none!important
   width: 23.7% !important;
 }
 
+
+.um-account-meta.radius-1 img {
+  border:none;
+  border-radius: 999px !important;
+}
 
 }
 @media (min-width:992px)and (max-width:1199px) {

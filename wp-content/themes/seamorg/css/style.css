@@ -1426,3 +1426,51 @@ div.em-booking-login label {
   line-height: 22px !important;
 }
 
+
+
+.um-account-link.current {
+  background: none repeat scroll 0 0 #817743;
+  color: #ffffff !important;
+}
+
+.current .um-account-title.uimob800-hide
+{
+	color:#ffffff;
+}
+
+.um-account-link.current:hover
+{
+	color:#2e2e2e !important;
+}
+
+.current .um-account-icontip {
+  color: #2e2e2e !important;
+}
+
+.booking-grid h2
+{
+	font-size:18px;
+	margin:0px 0px 10px 0px;
+}
+
+.booking-grid .buyticket a {
+  background: none repeat scroll 0 0 #4a3f37;
+  color: #ffffff;
+  display: block;
+  font-size: 13px;
+  padding: 5px;
+  margin-bottom:5px;
+}
+
+
+
+.booking-grid .em-bookings-cancel
+{
+	background:#817743 !important;
+}
+
+.booking-grid .event-cont
+{
+	margin-top:15px;
+	margin-bottom:25px;
+}

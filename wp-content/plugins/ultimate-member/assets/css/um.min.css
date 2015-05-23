@@ -4910,7 +4910,8 @@ padding:0!important
 	box-shadow:none!important;
 	margin:0!important;
 	position:static;
-	outline:0!important
+	outline:0!important;
+	border:none;
 }
 .um-form input[type=password]:focus, .um-form input[type=text]:focus, .um-form textarea:focus {
 	box-shadow:none!important;
@@ -7110,9 +7111,10 @@ html[dir=rtl] .select2-container-multi .select2-choices .select2-search-choice {
 	display:inline-block
 }
 .um-account-meta.radius-1 img {
-	-moz-border-radius:999px;
-	-webkit-border-radius:999px;
-	border-radius:999px
+	-moz-border-radius:999px !important;
+	-webkit-border-radius:999px !important;
+	border-radius:999px !important;
+	border:#5f3e27 solid 8px;
 }
 .um-account-meta.radius-2 img {
 	-moz-border-radius:4px;
@@ -7135,7 +7137,7 @@ html[dir=rtl] .select2-container-multi .select2-choices .select2-search-choice {
 	display:block;
 	height:44px;
 	line-height:44px;
-	color:#666!important;
+	color:#ffffff!important;
 	text-decoration:none!important;
 	position:relative;
 	padding-left:40px;
@@ -7209,8 +7211,8 @@ transition:all .2s linear;
 	color:#555
 }
 .um-account-side li a:hover {
-	color:#444;
-	background:#ddd
+	color:#ffffff !important;
+	background:#31271e
 }
 .um-account-side li a.current, .um-account-side li a.current:hover {
 	color:#444;
@@ -8042,7 +8044,7 @@ div.uimob800 .um-account-side li a {
 	padding:0!important;
 	height:44px;
 	line-height:44px;
-	color:#666!important;
+	color:#ffffff!important;
 	text-align:center;
 	text-decoration:none!important;
 	background:0 0;
@@ -8076,7 +8078,7 @@ div.uimob800 .um-account-side li a.current, div.uimob800 .um-account-side li a.c
 	color:#fff!important
 }
 div.uimob800 .um-account-meta a {
-	border:1px solid #ddd
+/*	border:1px solid #ddd*/
 }
 div.uimob800 .um-account-meta a, div.uimob800 .um-account-meta img {
 	display:block;
