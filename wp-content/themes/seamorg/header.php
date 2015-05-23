@@ -37,11 +37,11 @@
                             <ul>
                             <?php if(is_user_logged_in()) { ?>
                             <li>
-                            <a href="<?php echo um_user_profile_url(); ?>" class="profile-photo-img" title="<?php echo um_user('display_name'); ?>">
+                                <a href="<?php echo get_permalink(112); ?>" class="profile-photo-img" title="<?php echo um_user('display_name'); ?>">
 							<?php echo $overlay . get_avatar( um_user('ID'), $default_size ); ?>
                             </a>
                             </li>
-                            <li>Hi, <a href="<?php echo um_user_profile_url(); ?>">  <?php echo ucfirst(um_user('display_name')); ?> </a></li>
+                            <li>Hi, <a href="<?php echo get_permalink(112); ?>">  <?php echo ucfirst(um_user('display_name')); ?> </a></li>
                             <li><a href="<?php echo wp_logout_url('$index.php'); ?>" >Log Out</a></li>
 
                             <?php } else { ?>

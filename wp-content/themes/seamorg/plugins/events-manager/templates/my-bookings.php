@@ -20,7 +20,7 @@
 		<div class='em-my-bookings'>
 				<?php if ( $bookings_count >= $limit ) : ?>
 				<div class='tablenav'>
-					<?php 
+					<?php
 					if ( $bookings_count >= $limit ) {
 						$link = em_add_get_params($_SERVER['REQUEST_URI'], array('pno'=>'%PAGE%'), false); //don't html encode, so em_paginate does its thing
 						$bookings_nav = em_paginate( $link, $bookings_count, $limit, $page);
@@ -33,53 +33,50 @@
 				<div class="clear"></div>
 				<?php if( $bookings_count > 0 ): ?>
 				<div class='table-wrap'>
-				<table id='dbem-bookings-table' class='widefat post fixed'>
-					<thead>
-						<tr>
-							<th class='manage-column' scope='col'><?php _e('Event', 'dbem'); ?></th>
-							<th class='manage-column' scope='col'><?php _e('Date', 'dbem'); ?></th>
-							<th class='manage-column' scope='col'><?php _e('Spaces', 'dbem'); ?></th>
-							<th class='manage-column' scope='col'><?php _e('Status', 'dbem'); ?></th>
-							<th class='manage-column' scope='col'>&nbsp;</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php 
+						<?php
 						$rowno = 0;
 						$event_count = 0;
 						$nonce = wp_create_nonce('booking_cancel');
 						foreach ($EM_Bookings as $EM_Booking) {
 							/* @var $EM_Booking EM_Booking */
-							$EM_Event = $EM_Booking->get_event();						
+							$EM_Event = $EM_Booking->get_event();
 							if( ($rowno < $limit || empty($limit)) && ($event_count >= $offset || $offset === 0) ) {
 								$rowno++;
 								?>
-								<tr>
-									<td><?php echo $EM_Event->output("#_EVENTLINK"); ?></td>
-									<td><?php echo date_i18n( get_option('dbem_date_format'), $EM_Event->start ); ?></td>
-									<td><?php echo $EM_Booking->get_spaces() ?></td>
-									<td>
-										<?php echo $EM_Booking->get_status(); ?>
-									</td>
-									<td>
-										<?php
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="event-cont">
+                            <div class="event-img">
+                                <div class="eventplace-details"> <img src="<?php echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php echo esc_html($EM_Event->get_location()->location_name); ?> <span><?php echo $EM_Booking->get_spaces() ?></span></div>
+                                <?php if ($EM_Event->get_image_url() != '') : ?>
+                                    <img src='<?php echo $EM_Event->get_image_url('grid-3-thumbnails'); ?>' alt='<?php echo $EM_Event->event_name ?>'/>
+        <?php endif; ?>
+                            </div>
+                            <div class="eventplace-details-txt">
+                                <div class="event-name">
+                                    <h2><?php echo $EM_Event->output("#_EVENTLINK"); ?></h2>
+                                    <span><?php echo date_i18n( get_option('dbem_date_format'), $EM_Event->start ); ?></span>
+                                </div>
+                                <div class="buyticket">
+                                    <a class="row-title" href="javascript:void(0);"><?php echo $EM_Booking->get_status(); ?></a>
+                                    <?php
 										$cancel_link = '';
 										if( !in_array($EM_Booking->booking_status, array(2,3)) && get_option('dbem_bookings_user_cancellation') && $EM_Event->get_bookings()->has_open_time() ){
 											$cancel_url = em_add_get_params($_SERVER['REQUEST_URI'], array('action'=>'booking_cancel', 'booking_id'=>$EM_Booking->booking_id, '_wpnonce'=>$nonce));
-											$cancel_link = '<a class="em-bookings-cancel" href="'.$cancel_url.'" onclick="if( !confirm(EM.booking_warning_cancel) ){ return false; }">'.__('Cancel','dbem').'</a>';
+											$cancel_link = '<a class="row-title em-bookings-cancel" href="'.$cancel_url.'" onclick="if( !confirm(EM.booking_warning_cancel) ){ return false; }">'.__('Cancel','dbem').'</a>';
 										}
 										echo apply_filters('em_my_bookings_booking_actions', $cancel_link, $EM_Booking);
 										?>
-									</td>
-								</tr>								
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 								<?php
 							}
 							do_action('em_my_bookings_booking_loop',$EM_Booking);
 							$event_count++;
 						}
 						?>
-					</tbody>
-				</table>
 				</div>
 				<?php else: ?>
 					<?php _e('You do not have any bookings.', 'dbem'); ?>
