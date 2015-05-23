@@ -1419,3 +1419,10 @@ div.em-booking-login label {
 {
 	display:none;
 }
+
+.um-field-label label {
+  font-size: 15px !important;
+  font-weight: 300;
+  line-height: 22px !important;
+}
+

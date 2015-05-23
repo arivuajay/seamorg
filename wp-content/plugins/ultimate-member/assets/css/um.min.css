@@ -4900,9 +4900,9 @@ padding:0!important
 	padding:0 12px!important;
 	width:100%;
 	display:block!important;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
+	-moz-border-radius:0px;
+	-webkit-border-radius:0px;
+	border-radius:0px;
 	cursor:text!important;
 	font-size:15px!important;
 	height:40px!important;
@@ -5063,11 +5063,11 @@ input[type=submit].um-button:hover {
 	position:relative;
 transition:.25s;
 	box-sizing:border-box;
-	-moz-border-radius:4px!important;
-	-webkit-border-radius:4px!important;
-	border-radius:4px!important;
-	border-top:1px solid rgba(0, 0, 0, 0)!important;
-	border-bottom:2px solid rgba(0, 0, 0, .1)!important;
+	-moz-border-radius:0px!important;
+	-webkit-border-radius:0px!important;
+	border-radius:0px!important;
+	/*border-top:1px solid rgba(0, 0, 0, 0)!important;
+	border-bottom:2px solid rgba(0, 0, 0, .1)!important;*/
 	opacity:1
 }
 .um-button.um-btn-auto-width {
