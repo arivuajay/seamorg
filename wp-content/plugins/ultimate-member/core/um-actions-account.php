@@ -385,10 +385,11 @@
 
 						if ( isset($info['custom']) || um_get_option('account_tab_'.$id ) == 1 || $id == 'general' ) {
                                                     $url = ($info['custom'] && $tablink) ? get_permalink($tablink) : $ultimatemember->account->tab_link($id);
+                                                    $class = ($info['custom'] && $tablink) ? ' tablink' : '';
                                                     ?>
 
                             <li>
-					<a data-tab="<?php echo $id; ?>" href="<?php echo $url; ?>" class="um-account-link <?php if ( $id == $current_tab ) echo 'current'; ?>">
+					<a data-tab="<?php echo $id; ?>" href="<?php echo $url; ?>" class="um-account-link <?php if ( $id == $current_tab ) echo 'current'; echo $class; ?>">
 
 						<?php if ( $ultimatemember->mobile->isMobile() ) { ?>
 						<span class="um-account-icontip uimob800-show" title="<?php echo $title; ?>"><i class="<?php echo $icon; ?>"></i></span>
