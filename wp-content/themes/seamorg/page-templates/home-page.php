@@ -135,7 +135,7 @@ get_header();
         </div>
     </div>
 </div>
-<div class="video-slider"><img src="<?php bloginfo('template_url'); ?>/images/video-banerr.jpg"  alt=""></div>
+<div class="video-slider"><?php putRevSlider("video_slider") ?></div>
 <div class="testimonsil-cont">
     <div class="container">
         <div class="row">
