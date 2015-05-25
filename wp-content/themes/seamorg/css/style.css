@@ -6,7 +6,10 @@ body
 	font-family: 'Lato', sans-serif;
 	font-size:15px;
 	line-height:22px;
+	background:#32271e;
 }
+
+
 
 img
 {
@@ -26,7 +29,7 @@ box-shadow:         0px 1px 5px 0px rgba(50, 50, 50, 0.75);
 padding:10px 20px;
 z-index:102;
 position:fixed;
-height:100px !important;
+height:90px !important;
 }
 
 
@@ -63,6 +66,7 @@ height:100px !important;
 	list-style:none;
 	display:inline;
 	padding-right:10px;
+	float:right;
 }
 
 .toplinks ul li:last-child
@@ -92,7 +96,7 @@ height:100px !important;
 {
 	width:100%;
 	float:left;
-	margin-top:95px;
+	margin-top:85px;
 }
 
 .slider img
@@ -638,8 +642,8 @@ html.sb-active #sb-site, .sb-toggle-left, .sb-toggle-right, .sb-open-left, .sb-o
 .inner-cont
 {
 	margin-top:140px;
-	min-height:500px;
-	padding-bottom:150px;
+/*	min-height:500px;*/
+	padding-bottom:120px;
 }
 
 .inner-heading
@@ -738,7 +742,7 @@ a:hover
 	width:100%;
 	float:left;
 	background:#66442c;
-	margin-top:100px;
+	margin-top:90px;
 	padding-top:25px;
 	color:#ffffff;
 }
@@ -1524,4 +1528,17 @@ a.em-button {
 	  border: 1px solid #e5e5e5;
     height: 36px;
 	padding:2px;
+}
+
+.profile-photo-img {
+  border-radius: 999px !important;
+  display: inline-block;
+  float: left;
+  height: 60px;
+  left: 0 !important;
+  margin-right: 15px;
+  overflow: hidden;
+  position: relative;
+  top: -20px;
+  width: 60px;
 }
