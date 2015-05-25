@@ -1542,3 +1542,8 @@ a.em-button {
   top: -20px;
   width: 60px;
 }
+
+
+.bx-wrapper {
+  z-index: -1;
+}
