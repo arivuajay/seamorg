@@ -497,5 +497,6 @@ function my_custom_tab_in_um($tabs) {
     return $tabs;
 }
 
+
 //For Event Manager
 add_image_size( 'grid-3-thumbnails', 360, 230, true );

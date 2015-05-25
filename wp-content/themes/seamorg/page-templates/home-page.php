@@ -30,12 +30,10 @@ get_header();
 <div class="upcoming-event">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading">
-
             <?php
             if (class_exists('EM_Events')) {
-                $format_header = '<h2> Up Coming Events </h2><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span></div>';
-                $format_footer = '<div class="viewall-cont"><a href="'.get_permalink(75).'"> View all</a></div>';
+                $format_header = '<div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading"><h2> Up Coming Events </h2><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span></div>';
+                $format_footer = '<div class="viewall-cont"><a href="' . get_permalink(75) . '"> View all</a></div>';
 
                 $format = '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="event-cont">
@@ -52,12 +50,38 @@ get_header();
                     </div>
                 </div>
             </div>';
-        echo EM_Events::output(array('scope'=>'future', 'order_by'=>'start_date','limit' => 3, 'format' => $format, 'format_header' =>$format_header, 'format_footer' => $format_footer));
+
+                echo $format_header;
+                $args = array(
+                    'post_type' => 'event',
+                    'posts_per_page' => 3,
+                    'meta_query' => array('key' => '_start_ts', 'value' => current_time('timestamp'), 'compare' => '>=', 'type' => 'numeric'),
+                    'orderby' => 'meta_value_num',
+                    'order' => 'ASC',
+                    'meta_key' => '_start_ts',
+                    'meta_value' => current_time('timestamp'),
+                    'meta_value_num' => current_time('timestamp'),
+                    'meta_compare' => '>='
+                );
+
+                // The Query
+                $query = new WP_Query($args);
+                // The Loop
+                while ($query->have_posts()):
+                    $query->next_post();
+                    $event = new EM_Event($query->post);
+                    echo $event->output($format);
+                endwhile;
+                // Reset Post Data
+                wp_reset_postdata();
+                echo $format_footer;
+//        echo EM_Events::output(array('scope'=>'future', 'order_by'=>'start_date','limit' => 3, 'format' => $format, 'format_header' =>$format_header, 'format_footer' => $format_footer));
             }
             ?>
 
         </div>
     </div>
+</div>
 </div>
 <div class="upcoming-event">
     <div class="container">
@@ -66,7 +90,7 @@ get_header();
             <?php
             if (class_exists('EM_Events')) {
                 $format_header = '<div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading upcoming-event-heading2"><h2> Popular Events</h2><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span></div>';
-                $format_footer = '<div class="viewall-cont"><a href="'.get_permalink(75).'"> View all</a></div>';
+                $format_footer = '<div class="viewall-cont"><a href="' . get_permalink(75) . '"> View all</a></div>';
 
                 $format = '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="event-cont">
@@ -83,7 +107,29 @@ get_header();
                     </div>
                 </div>
             </div>';
-        echo EM_Events::output(array('scope'=>'future', 'order_by'=>'start_date','limit' => 3, 'format' => $format, 'format_header' =>$format_header, 'format_footer' => $format_footer));
+
+                echo $format_header;
+                $args = array(
+                    'post_type' => 'event',
+                    'posts_per_page' => 3,
+                    'orderby' => 'post_modified',
+                    'order' => 'DESC',
+                    'meta_key' => '_is_ns_featured_post',
+                    'meta_value' => 'yes',
+                );
+                $query = new WP_Query(array('meta_key' => '', 'meta_value' => ''));
+                // The Query
+                $query = new WP_Query($args);
+                // The Loop
+                while ($query->have_posts()):
+                    $query->next_post();
+                    $event = new EM_Event($query->post);
+                    echo $event->output($format);
+                endwhile;
+                // Reset Post Data
+                wp_reset_postdata();
+                echo $format_footer;
+//                echo EM_Events::output(array('scope' => 'future', 'order_by' => 'start_date', 'limit' => 3, 'format' => $format, 'format_header' => $format_header, 'format_footer' => $format_footer));
             }
             ?>
         </div>
