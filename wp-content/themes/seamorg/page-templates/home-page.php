@@ -141,9 +141,8 @@ get_header();
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2> Client Testimonials </h2>
-                <p> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/clinet1.jpg"  alt=""></p>
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-lg-offset-1"> <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica,
-                        quam nunc putamus parum claram,anteposuerit litterarum formas humanitatis per seacula .</p></div>
+<!--                <p> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/clinet1.jpg"  alt=""></p>
+-->                 <?php  dynamic_sidebar('testimonial-area'); // Displays rotating testimonials or statically ?>
                 <p class="readmore-cont"> <a href="#" class="readmore">Read more</a></p>
             </div>
         </div>

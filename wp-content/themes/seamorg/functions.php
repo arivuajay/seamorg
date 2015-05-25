@@ -144,6 +144,16 @@ function seamorg_widgets_init() {
         'before_title' => '<h2 class="widget-title">',
         'after_title' => '</h2>',
     ));
+	
+	register_sidebar(array(
+        'name' => __('Testimonial Area', 'seamorg'),
+        'id' => 'testimonial-area',
+        'description' => __('Add widgets here to appear in your sidebar.', 'seamorg'),
+        'before_widget' => '<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-lg-offset-1">',
+        'after_widget' => '</div>',
+        'before_title' => '<h2 class="widget-title">',
+        'after_title' => '</h2>',
+    ));
 }
 
 add_action('widgets_init', 'seamorg_widgets_init');
