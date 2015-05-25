@@ -1547,3 +1547,9 @@ a.em-button {
 .bx-wrapper {
   z-index: -1;
 }
+
+
+.tripright-details .buyticket
+{
+	float:left;
+}
