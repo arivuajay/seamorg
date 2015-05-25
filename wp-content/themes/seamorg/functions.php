@@ -144,8 +144,8 @@ function seamorg_widgets_init() {
         'before_title' => '<h2 class="widget-title">',
         'after_title' => '</h2>',
     ));
-	
-	register_sidebar(array(
+
+    register_sidebar(array(
         'name' => __('Testimonial Area', 'seamorg'),
         'id' => 'testimonial-area',
         'description' => __('Add widgets here to appear in your sidebar.', 'seamorg'),
@@ -490,15 +490,30 @@ function custom_placeholders($atts) {
 add_shortcode('CUSTOMPLACEHOLDER', 'custom_placeholders');
 add_filter('CUSTOMPLACEHOLDER', 'custom_placeholders');
 
+function my_em_styles_placeholders($replace, $EM_Event, $result) {
+    global $wp_query, $wp_rewrite;
+    switch ($result) {
+        case '#_EVENTSTARTDATE':
+            //get format of time to show
+            $date_format = ( get_option('dbem_date_format') ) ? get_option('dbem_date_format') : get_option('date_format');
+            $replace = date_i18n($date_format, $EM_Event->start);
+            break;
+    }
+    return $replace;
+}
+
+add_filter('em_event_output_placeholder', 'my_em_styles_placeholders', 1, 3);
+
+
 add_filter('um_account_page_default_tabs_hook', 'my_custom_tab_in_um', 100);
 
 function my_custom_tab_in_um($tabs) {
-    if(in_array('guide', getCurrentUserRole())) {
+    if (in_array('guide', getCurrentUserRole())) {
         $tabs[800]['mytab']['icon'] = 'um-faicon-pencil';
         $tabs[800]['mytab']['title'] = 'My Events';
         $tabs[800]['mytab']['custom'] = true;
         $tabs[800]['mytab']['tablink'] = 158;
-    } elseif(in_array('subscriber', getCurrentUserRole())) {
+    } elseif (in_array('subscriber', getCurrentUserRole())) {
         $tabs[900]['mytab']['icon'] = 'um-faicon-pencil';
         $tabs[900]['mytab']['title'] = 'My Bookings';
         $tabs[900]['mytab']['custom'] = true;
@@ -507,6 +522,5 @@ function my_custom_tab_in_um($tabs) {
     return $tabs;
 }
 
-
 //For Event Manager
-add_image_size( 'grid-3-thumbnails', 360, 230, true );
+add_image_size('grid-3-thumbnails', 360, 230, true);

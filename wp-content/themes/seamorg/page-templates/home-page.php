@@ -38,13 +38,13 @@ get_header();
                 $format = '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="event-cont">
                     <div class="event-img">
-                        <div class="eventplace-details">#_LOCATIONNAME <span> #_EVENTPRICERANGE</span></div>
-                        #_EVENTIMAGE{360,230}
+                        <div class="eventplace-details"><img src="'.get_template_directory_uri().'/images/map-icon.png" alt="#_EVENTNAME" />&nbsp; #_LOCATIONNAME <span> #_EVENTPRICERANGE</span></div>
+                        <a href="#_EVENTURL" title="#_EVENTNAME">#_EVENTIMAGE{360,230}</a>
                     </div>
                     <div class="eventplace-details-txt">
                         <div class="event-name">
                             <h2>#_EVENTNAME</h2>
-                            <span>#_EVENTDATES</span>
+                            <span>#_EVENTSTARTDATE</span>
                         </div>
                         <div class="buyticket"><a href="#_EVENTURL">Book It</a></div>
                     </div>
@@ -95,13 +95,13 @@ get_header();
                 $format = '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="event-cont">
                     <div class="event-img">
-                        <div class="eventplace-details">#_LOCATIONNAME <span> #_EVENTPRICERANGE</span></div>
-                        #_EVENTIMAGE{360,230}
+                        <div class="eventplace-details"><img src="'.get_template_directory_uri().'/images/map-icon.png" alt="#_EVENTNAME" />&nbsp; #_LOCATIONNAME <span> #_EVENTPRICERANGE</span></div>
+                        <a href="#_EVENTURL" title="#_EVENTNAME">#_EVENTIMAGE{360,230}</a>
                     </div>
                     <div class="eventplace-details-txt">
                         <div class="event-name">
                             <h2>#_EVENTNAME</h2>
-                            <span>#_EVENTDATES</span>
+                            <span>#_EVENTSTARTDATE</span>
                         </div>
                         <div class="buyticket"><a href="#_EVENTURL">Book It</a></div>
                     </div>
