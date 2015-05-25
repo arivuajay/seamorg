@@ -2518,7 +2518,7 @@ msgstr "活動類別"
 #: admin/em-options.php:577 admin/em-options.php:990 admin/em-options.php:994
 #: admin/em-options.php:995 admin/em-options.php:1516 em-posts.php:54
 #: em-posts.php:57
-msgid "Event Tags"
+msgid "Thinks to Bring"
 msgstr "活動標簽"
 
 #: admin/em-options.php:586 admin/em-options.php:745 admin/em-options.php:1091
@@ -5969,19 +5969,19 @@ msgid "Event Tag"
 msgstr "活動標簽"
 
 #: em-posts.php:59
-msgid "Search Event Tags"
+msgid "Search Thinks to Bring"
 msgstr "搜索活動標簽"
 
 #: em-posts.php:60
-msgid "Popular Event Tags"
+msgid "Popular Thinks to Bring"
 msgstr "受歡迎的活動標簽"
 
 #: em-posts.php:61
-msgid "All Event Tags"
+msgid "All Thinks to Bring"
 msgstr "所有活動標簽"
 
 #: em-posts.php:62
-msgid "Parent Event Tags"
+msgid "Parent Thinks to Bring"
 msgstr "原始活動標簽"
 
 #: em-posts.php:63

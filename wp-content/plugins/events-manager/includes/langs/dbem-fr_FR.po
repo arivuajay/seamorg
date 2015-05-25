@@ -2783,7 +2783,7 @@ msgstr "Catégories"
 #: admin/em-options.php:577 admin/em-options.php:990 admin/em-options.php:994
 #: admin/em-options.php:995 admin/em-options.php:1516 em-posts.php:54
 #: em-posts.php:57
-msgid "Event Tags"
+msgid "Thinks to Bring"
 msgstr "Mots-clef d'événement"
 
 #: admin/em-options.php:586 admin/em-options.php:745 admin/em-options.php:1091
@@ -6527,19 +6527,19 @@ msgid "Event Tag"
 msgstr "Mot-clef"
 
 #: em-posts.php:59
-msgid "Search Event Tags"
+msgid "Search Thinks to Bring"
 msgstr "Rechercher dans les mots-clef"
 
 #: em-posts.php:60
-msgid "Popular Event Tags"
+msgid "Popular Thinks to Bring"
 msgstr "Mots-clef populaires"
 
 #: em-posts.php:61
-msgid "All Event Tags"
+msgid "All Thinks to Bring"
 msgstr "Tous les mots-clef"
 
 #: em-posts.php:62
-msgid "Parent Event Tags"
+msgid "Parent Thinks to Bring"
 msgstr "Mots-clef parent"
 
 #: em-posts.php:63

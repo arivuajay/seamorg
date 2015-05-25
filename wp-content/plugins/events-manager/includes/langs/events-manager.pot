@@ -1951,7 +1951,7 @@ msgstr ""
 #: em-posts.php:57
 #@ dbem
 #@ default
-msgid "Event Tags"
+msgid "Thinks to Bring"
 msgstr ""
 
 #: admin/em-options.php:592
@@ -6834,22 +6834,22 @@ msgstr ""
 
 #: em-posts.php:59
 #@ dbem
-msgid "Search Event Tags"
+msgid "Search Thinks to Bring"
 msgstr ""
 
 #: em-posts.php:60
 #@ dbem
-msgid "Popular Event Tags"
+msgid "Popular Thinks to Bring"
 msgstr ""
 
 #: em-posts.php:61
 #@ dbem
-msgid "All Event Tags"
+msgid "All Thinks to Bring"
 msgstr ""
 
 #: em-posts.php:62
 #@ dbem
-msgid "Parent Event Tags"
+msgid "Parent Thinks to Bring"
 msgstr ""
 
 #: em-posts.php:63

@@ -580,7 +580,7 @@ function em_admin_options_page() {
 	            		em_options_input_text ( __( 'Event Categories', 'dbem' ), 'dbem_taxonomy_category_slug', sprintf(__('e.g. %s - you can use / Separators too', 'dbem' ), '<strong>'.home_url().'/<code>'.get_option('dbem_taxonomy_category_slug',EM_TAXONOMY_CATEGORY_SLUG).'</code>/sports/</strong>'), EM_TAXONOMY_CATEGORY_SLUG );
 	            	}
 	            	if( get_option('dbem_tags_enabled') ){
-		            	em_options_input_text ( __( 'Event Tags', 'dbem' ), 'dbem_taxonomy_tag_slug', sprintf(__('e.g. %s - you can use / Separators too', 'dbem' ), '<strong>'.home_url().'/<code>'.get_option('dbem_taxonomy_tag_slug',EM_TAXONOMY_TAG_SLUG).'</code>/running/</strong>'), EM_TAXONOMY_TAG_SLUG );
+		            	em_options_input_text ( __( 'Thinks to Bring', 'dbem' ), 'dbem_taxonomy_tag_slug', sprintf(__('e.g. %s - you can use / Separators too', 'dbem' ), '<strong>'.home_url().'/<code>'.get_option('dbem_taxonomy_tag_slug',EM_TAXONOMY_TAG_SLUG).'</code>/running/</strong>'), EM_TAXONOMY_TAG_SLUG );
 	            	}
 	            	echo $save_button;
 	            	?>
@@ -993,12 +993,12 @@ function em_admin_options_page() {
 				
 				<?php if( get_option('dbem_tags_enabled') ): //disabled for now, will add tag stuff later ?>
 				<div  class="postbox " id="em-opt-tags-pages" >
-				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo __('Event Tags','dbem'); ?></span></h3>
+				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo __('Thinks to Bring','dbem'); ?></span></h3>
 				<div class="inside">
 				    <div class="em-boxheader">
     					<p>
-    						<?php echo sprintf(__('%s are a <a href="%s" target="_blank">WordPress custom taxonomy</a>.','dbem'), __('Event Tags','dbem'), 'http://codex.wordpress.org/Taxonomies');?>
-    						<?php echo sprintf(__('%s can be displayed just like normal WordPress custom taxonomies in an archive-style format, however Events Manager by default allows you to completely change the standard look of these archives and use our own <a href="%s">custom formatting</a> methods.','dbem'), __('Event Tags','dbem'), EM_ADMIN_URL .'&amp;page=events-manager-help#event-placeholders'); ?>
+    						<?php echo sprintf(__('%s are a <a href="%s" target="_blank">WordPress custom taxonomy</a>.','dbem'), __('Thinks to Bring','dbem'), 'http://codex.wordpress.org/Taxonomies');?>
+    						<?php echo sprintf(__('%s can be displayed just like normal WordPress custom taxonomies in an archive-style format, however Events Manager by default allows you to completely change the standard look of these archives and use our own <a href="%s">custom formatting</a> methods.','dbem'), __('Thinks to Bring','dbem'), EM_ADMIN_URL .'&amp;page=events-manager-help#event-placeholders'); ?>
     					</p>
     					<p>
     						<?php echo sprintf(__('Due to how we change how this custom taxonomy is displayed when overriding with formats it is strongly advised that you assign a %s page below, which increases comatability with various plugins and themes.','dbem'), __('tags','dbem')); ?>
@@ -1519,7 +1519,7 @@ function em_admin_options_page() {
 				
 				<?php if( get_option('dbem_tags_enabled') ): ?>
 				<div  class="postbox " id="em-opt-tags-formats" >
-				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Event Tags', 'dbem' ); ?> </span></h3>
+				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Thinks to Bring', 'dbem' ); ?> </span></h3>
 				<div class="inside">
 	            	<table class="form-table">
 					 	<tr class="em-header"><td colspan="2"><h4><?php echo sprintf(__('%s Page','dbem'),__('Tags','dbem')); ?></h4></td></tr>

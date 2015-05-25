@@ -2586,7 +2586,7 @@ msgstr "Kategórie udalostí"
 #: admin/em-options.php:577 admin/em-options.php:990 admin/em-options.php:994
 #: admin/em-options.php:995 admin/em-options.php:1516 em-posts.php:54
 #: em-posts.php:57
-msgid "Event Tags"
+msgid "Thinks to Bring"
 msgstr "Značky udalosti"
 
 #: admin/em-options.php:586 admin/em-options.php:745 admin/em-options.php:1091
@@ -6243,19 +6243,19 @@ msgid "Event Tag"
 msgstr "Značka udalosti"
 
 #: em-posts.php:59
-msgid "Search Event Tags"
+msgid "Search Thinks to Bring"
 msgstr "Hľadať značky udalosti"
 
 #: em-posts.php:60
-msgid "Popular Event Tags"
+msgid "Popular Thinks to Bring"
 msgstr "Oľúbené značky udalosti"
 
 #: em-posts.php:61
-msgid "All Event Tags"
+msgid "All Thinks to Bring"
 msgstr "Všetky značky udalosti"
 
 #: em-posts.php:62
-msgid "Parent Event Tags"
+msgid "Parent Thinks to Bring"
 msgstr "Nadriadené značky udalosti"
 
 #: em-posts.php:63

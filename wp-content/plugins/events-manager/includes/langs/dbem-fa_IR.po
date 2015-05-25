@@ -1982,7 +1982,7 @@ msgstr "دسته بندی رویدادها"
 #: admin/em-options.php:577 admin/em-options.php:990 admin/em-options.php:994
 #: admin/em-options.php:995 admin/em-options.php:1516 em-posts.php:54
 #: em-posts.php:57
-msgid "Event Tags"
+msgid "Thinks to Bring"
 msgstr "تگ های رویداد"
 
 # @ dbem
@@ -7314,22 +7314,22 @@ msgstr "تگ رویداد"
 
 # @ dbem
 #: em-posts.php:59
-msgid "Search Event Tags"
+msgid "Search Thinks to Bring"
 msgstr "جستجو در تگ رویداد"
 
 # @ dbem
 #: em-posts.php:60
-msgid "Popular Event Tags"
+msgid "Popular Thinks to Bring"
 msgstr "محبوب ترین تگ رویداد"
 
 # @ dbem
 #: em-posts.php:61
-msgid "All Event Tags"
+msgid "All Thinks to Bring"
 msgstr "همه تگ های رویداد"
 
 # @ dbem
 #: em-posts.php:62
-msgid "Parent Event Tags"
+msgid "Parent Thinks to Bring"
 msgstr "تگ های رویداد مادر"
 
 # @ dbem
