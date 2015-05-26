@@ -36,15 +36,15 @@
                         <div class="col-xs-12 col-sm-6 col-md-5 toplinks pull-right">
                             <ul>
                             <?php if(is_user_logged_in()) { ?>
-                             <li><a href="<?php echo wp_logout_url('index.php'); ?>" class="singup-btn">Log Out</a></li>
+                             <li><a href="<?php echo wp_logout_url('$index.php'); ?>" class="singup-btn">Log Out</a></li>
                             <li class="um-username">Hi, <a href="<?php echo get_permalink(112); ?>">  <?php echo ucfirst(um_user('user_login')); ?> </a></li>
-                           
+
                             <li class="um-useravatar">
                                 <a href="<?php echo get_permalink(112); ?>" class="profile-photo-img" title="<?php echo um_user('user_login'); ?>">
 							<?php echo $overlay . get_avatar( um_user('ID'), $default_size ); ?>
                             </a>
                             </li>
-                            
+
 
                             <?php } else { ?>
 
