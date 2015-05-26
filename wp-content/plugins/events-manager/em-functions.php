@@ -47,26 +47,40 @@ function em_paginate($link, $total, $limit, $page=1, $data=array()){
 		$startPage = ($page <= $pagesToShow) ? 1 : $pagesToShow * (floor($page/$pagesToShow)) ; //Which page to start the pagination links from (in case we're on say page 12 and $pagesToShow is 10 pages)
 		$placeholder = urlencode('%PAGE%');
 		$link = str_replace('%PAGE%', $placeholder, esc_url($link)); //To avoid url encoded/non encoded placeholders
+                //
+//  <nav>
+//      <ul class="pagination">
+//        <li><a href="#" aria-label="Previous"><span aria-hidden="true">&lt;&lt;</span></a></li>
+//        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+//        <li><a href="#">2</a></li>
+//        <li><a href="#">3</a></li>
+//        <li><a href="#">4</a></li>
+//        <li><a href="#">5</a></li>
+//        <li><a href="#" aria-label="Next"><span aria-hidden="true">&gt;&gt;</span></a></li>
+//     </ul>
+//   </nav>
 	    //Add the back and first buttons
-		    $string = ($page>1 && $startPage != 1) ? '<a class="prev page-numbers" href="'.str_replace($placeholder,1,$link).'" title="1">&lt;&lt;</a> ' : '';
+                    $string = '<nav><ul class="pagination">';
+		    $string .= ($page>1 && $startPage != 1) ? '<li><a class="prev page-numbers" href="'.str_replace($placeholder,1,$link).'" title="1">&lt;&lt;</a></li>' : '';
 		    if($page == 2){
-		    	$string .= ' <a class="prev page-numbers" href="'.esc_url($base_link.$base_querystring).'" title="2">&lt;</a> ';
+		    	$string .= ' <li><a class="prev page-numbers" href="'.esc_url($base_link.$base_querystring).'" title="2">&lt;</a></li> ';
 		    }elseif($page > 2){
-		    	$string .= ' <a class="prev page-numbers" href="'.str_replace($placeholder,$page-1,$link).'" title="'.($page-1).'">&lt;</a> ';
+		    	$string .= ' <li><a class="prev page-numbers" href="'.str_replace($placeholder,$page-1,$link).'" title="'.($page-1).'">&lt;</a></li> ';
 		    }
 		//Loop each page and create a link or just a bold number if its the current page
 		    for ($i = $startPage ; $i < $startPage+$pagesToShow && $i <= $maxPages ; $i++){
 	            if($i == $page || (empty($page) && $startPage == $i)) {
-	                $string .= ' <strong><span class="page-numbers current">'.$i.'</span></strong>';
+	                $string .= ' <li class="active"><a href="javascript:void(0);">'.$i.'<span class="sr-only">(current)</span></a></li>';
 	            }elseif($i=='1'){
-	                $string .= ' <a class="page-numbers" href="'.esc_url($base_link.$base_querystring).'" title="'.$i.'">'.$i.'</a> ';
+	                $string .= ' <li><a class="page-numbers" href="'.esc_url($base_link.$base_querystring).'" title="'.$i.'">'.$i.'</a></li> ';
 	            }else{
-	                $string .= ' <a class="page-numbers" href="'.str_replace($placeholder,$i,$link).'" title="'.$i.'">'.$i.'</a> ';
+	                $string .= ' <li><a class="page-numbers" href="'.str_replace($placeholder,$i,$link).'" title="'.$i.'">'.$i.'</a></li> ';
 	            }
 		    }
 		//Add the forward and last buttons
-		    $string .= ($page < $maxPages) ? ' <a class="next page-numbers" href="'.str_replace($placeholder,$page+1,$link).'" title="'.($page+1).'">&gt;</a> ' :' ' ;
-		    $string .= ($i-1 < $maxPages) ? ' <a class="next page-numbers" href="'.str_replace($placeholder,$maxPages,$link).'" title="'.$maxPages.'">&gt;&gt;</a> ' : ' ';
+		    $string .= ($page < $maxPages) ? ' <li><a class="next page-numbers" href="'.str_replace($placeholder,$page+1,$link).'" title="'.($page+1).'">&gt;</a></li> ' :' ' ;
+		    $string .= ($i-1 < $maxPages) ? ' <li><a class="next page-numbers" href="'.str_replace($placeholder,$maxPages,$link).'" title="'.$maxPages.'">&gt;&gt;</a></li> ' : ' ';
+                    $string .= '</ul></nav>';
 		//Return the string
 		    return apply_filters('em_paginate', '<span class="em-pagination" '.$data_atts.'>'.$string.'</span>');
 	}
@@ -332,7 +346,7 @@ function em_get_attributes($lattributes = false){
 
 /**
  * Decides whether to register a user based on a certain booking that is to be added
- * @param EM_Booking $EM_Booking 
+ * @param EM_Booking $EM_Booking
  */
 function em_booking_add_registration( $EM_Booking ){
     global $EM_Notices;
@@ -428,7 +442,7 @@ function em_register_new_user( $user_data ) {
 
 	//custom registration filter to prevent things like SI Captcha and other plugins of this kind interfering with EM
 	$errors = apply_filters( 'em_registration_errors', $errors, $sanitized_user_login, $user_email );
-	
+
 	if ( $errors->get_error_code() ) return $errors;
 
 	if(empty($user_data['user_pass'])){
@@ -562,7 +576,7 @@ function em_get_search_form_defaults($args = array()){
 	$search_args['main_classes'][] = $search_args['show_main'] ? 'has-search-main':'no-search-main';
 	$search_args['main_classes'][] = $search_args['show_advanced'] ? 'has-advanced':'no-advanced';
 	$search_args['main_classes'][] = $search_args['advanced_hidden'] ? 'advanced-hidden':'advanced-visible';
-	//merge defaults with supplied arguments 
+	//merge defaults with supplied arguments
 	$args = array_merge($search_args, $args);
 	//overwrite with $_REQUEST defaults in event of a submitted search
 	if( isset($_REQUEST['geo']) ) $args['geo'] = $_REQUEST['geo']; //if geo search string requested, use that for search form
@@ -575,8 +589,8 @@ function em_get_search_form_defaults($args = array()){
 	if( isset($_REQUEST['town']) ) $args['town'] = stripslashes($_REQUEST['town']); //if state requested, use that for searching
 	if( isset($_REQUEST['near_unit']) ) $args['near_unit'] = $_REQUEST['near_unit']; //if state requested, use that for searching
 	if( isset($_REQUEST['near_distance']) ) $args['near_distance'] = $_REQUEST['near_distance']; //if state requested, use that for searching
-	if( !empty($_REQUEST['scope']) && !is_array($_REQUEST['scope'])){ 
-		$args['scope'] = explode(',',$_REQUEST['scope']); //convert scope to an array in event of pagination 
+	if( !empty($_REQUEST['scope']) && !is_array($_REQUEST['scope'])){
+		$args['scope'] = explode(',',$_REQUEST['scope']); //convert scope to an array in event of pagination
 	}elseif( !empty($_REQUEST['scope']) ){
 		$args['scope'] = $_REQUEST['scope'];
 	}
@@ -618,10 +632,10 @@ function em_options_input_text($title, $name, $description ='', $default='') {
 	<tr valign="top" id='<?php echo esc_attr($name);?>_row'>
 		<th scope="row"><?php echo esc_html($title); ?></th>
 	    <td>
-			<input name="<?php echo esc_attr($name) ?>" type="text" id="<?php echo esc_attr($name) ?>" style="width: 95%" value="<?php echo esc_attr(get_option($name, $default), ENT_QUOTES); ?>" size="45" />			
+			<input name="<?php echo esc_attr($name) ?>" type="text" id="<?php echo esc_attr($name) ?>" style="width: 95%" value="<?php echo esc_attr(get_option($name, $default), ENT_QUOTES); ?>" size="45" />
 	    	<?php if( $translate ): ?><span class="em-translatable"></span><?php endif; ?>
 	    	<br />
-			<?php 
+			<?php
 				if( $translate ){
 					echo '<div class="em-ml-options"><table class="form-table">';
 					foreach( EM_ML::get_langs() as $lang => $lang_name ){
@@ -665,10 +679,10 @@ function em_options_textarea($title, $name, $description ='') {
 	<tr valign="top" id='<?php echo esc_attr($name);?>_row'>
 		<th scope="row"><?php echo esc_html($title); ?></th>
 			<td>
-				<textarea name="<?php echo esc_attr($name) ?>" id="<?php echo esc_attr($name) ?>" rows="6" cols="60"><?php echo esc_attr(get_option($name), ENT_QUOTES);?></textarea>			
+				<textarea name="<?php echo esc_attr($name) ?>" id="<?php echo esc_attr($name) ?>" rows="6" cols="60"><?php echo esc_attr(get_option($name), ENT_QUOTES);?></textarea>
 		    	<?php if( $translate ): ?><span class="em-translatable"></span><?php endif; ?>
 		    	<br />
-				<?php 
+				<?php
 					if( $translate ){
 						echo '<div class="em-ml-options"><table class="form-table">';
 						foreach( EM_ML::get_langs() as $lang => $lang_name ){
@@ -747,7 +761,7 @@ function em_options_select($title, $name, $list, $description='', $default='') {
    		<th scope="row"><?php echo esc_html($title); ?></th>
    		<td>
 			<select name="<?php echo esc_attr($name); ?>" >
-				<?php 
+				<?php
 				foreach($list as $key => $value) {
 					if( is_array($value) ){
 						?><optgroup label="<?php echo $key; ?>"><?php
@@ -756,7 +770,7 @@ function em_options_select($title, $name, $list, $description='', $default='') {
 			 				<option value='<?php echo esc_attr($key_group) ?>' <?php echo ("$key_group" == $option_value) ? "selected='selected' " : ''; ?>>
 			 					<?php echo esc_html($value_group); ?>
 			 				</option>
-							<?php 
+							<?php
 						}
 						?></optgroup><?php
 					}else{
@@ -764,8 +778,8 @@ function em_options_select($title, $name, $list, $description='', $default='') {
 		 				<option value='<?php echo esc_attr($key) ?>' <?php echo ("$key" == $option_value) ? "selected='selected' " : ''; ?>>
 		 					<?php echo esc_html($value); ?>
 		 				</option>
-						<?php 
-					} 
+						<?php
+					}
 				}
 				?>
 			</select> <br/>
