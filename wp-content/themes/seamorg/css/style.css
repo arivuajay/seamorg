@@ -33,6 +33,10 @@ height:90px !important;
 }
 
 
+div.css-search div.em-search-options {
+  text-align: center !important;
+}
+
 .menu-btn
 {
 	background:none;
@@ -1594,7 +1598,7 @@ div.css-search div.em-search-main div {
 {
 	width:100%
 }
-
+/*
 .picker__day {
   color: #000000;
   font-weight: 400;
@@ -1610,4 +1614,4 @@ div.css-search div.em-search-main div {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
   color: #fff;
   cursor: pointer;
-}
+}*/
