@@ -144,7 +144,7 @@ height:90px !important;
 
 .searchfield1
 {
-	width:40% !important;
+	width:99.5% !important;
 	float:left;
 	height:35px;
 	border:none;
@@ -155,7 +155,7 @@ height:90px !important;
 
 .searchfield2
 {
-	width:32.5% !important;
+	width:99.5% !important;
 	float:left;
 	margin-right:5px;
 }
@@ -171,11 +171,10 @@ height:90px !important;
 	width:15%;
 	background:#7b8d6d;
 	border:none;
-	height:33px;
+	height:33px !important;
 	border:none;
 	text-transform:uppercase;
-	margin-right:0px;
-	float:left;
+	float:right;
 	margin-right:1px;
 }
 
@@ -185,7 +184,7 @@ height:90px !important;
 	width:18%;
 	background:#a89715;
 	font-size:13px;
-	float:right;
+	float:right !important;
 
 }
 
@@ -1173,10 +1172,10 @@ margin-top:20px;
   color: #000000 !important;
   width: 49%;
 }
-.em-date-range
+/*.em-date-range
 {
 	margin-top:5px;
-}
+}*/
 
 .event-editor textarea
 {
@@ -1311,7 +1310,7 @@ div.css-search.has-advanced div.em-search-main {
 }
 
 div.css-search input, div.css-search select {
-  padding: 5px 10px;
+  padding:4px 10px;
 }
 
 .em-search-scope
@@ -1571,4 +1570,25 @@ a.em-button {
 	top:22px;
 	border:none;
 
+}
+
+div.css-search div.em-search-main div {
+  display: inline;
+  float:left;
+}
+
+.em-search-geo
+{
+	width:45%
+}
+
+.em-search-scope
+{
+	width:28.6%;
+	float:left
+}
+
+.em-events-search-dates
+{
+	width:100%
 }
