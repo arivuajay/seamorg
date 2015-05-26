@@ -144,7 +144,7 @@ height:90px !important;
 
 .searchfield1
 {
-	width:30%;
+	width:40% !important;
 	float:left;
 	height:35px;
 	border:none;
@@ -155,7 +155,9 @@ height:90px !important;
 
 .searchfield2
 {
-	width:15.3%;
+	width:32.5% !important;
+	float:left;
+	margin-right:5px;
 }
 
 .searchfield3
@@ -1132,7 +1134,7 @@ margin-top:20px;
 
 .em-date-input-loc
 {
-	width:100% !important;
+	/*width:100% !important;*/
 	float:left;
 	padding:8px;
 	border:#e5e5e5 solid 1px;
@@ -1314,7 +1316,7 @@ div.css-search input, div.css-search select {
 
 .em-search-scope
 {
-	width:inherit !important
+/*	width:inherit !important*/
 }
 
 .em-events-search-country
@@ -1557,4 +1559,16 @@ a.em-button {
 .tp-caption.fullscreenvideo{
     width: 100% !important;
     left: 0 !important;
+}
+
+
+.input-group-addon
+{
+	float:right !important;
+	right:5px;
+	position:absolute;
+	z-index:999;
+	top:22px;
+	border:none;
+
 }

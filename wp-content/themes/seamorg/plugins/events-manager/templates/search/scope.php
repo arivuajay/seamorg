@@ -1,13 +1,13 @@
 <?php $args = !empty($args) ? $args : array(); /* @var $args array */ ?>
 <!-- START Date Search -->
-<div class="em-search-scope em-search-field">
-    <div class=" em-search-scope em-events-search-dates em-date-range">
-        <div class="col-xs-12 col-sm-4 col-md-4">
+<div class="em-search-scope em-search-field searchfield2">
+    <div class=" em-search-scope em-events-search-dates em-date-range ">
+       
             <div class="input-group">
-                <input type="text" class="em-date-input-loc em-date-start form-control" placeholder="<?php echo esc_html($args['scope_label']); ?>" aria-describedby="basic-addon2" />
+                <input type="text" class="em-date-input-loc em-date-start form-control  " placeholder="<?php echo esc_html($args['scope_label']); ?>" aria-describedby="basic-addon2" />
                 <input type="hidden" class="em-date-input" name="scope[0]" value="<?php echo esc_attr($args['scope'][0]); ?>" />
                 <span class="input-group-addon" id="basic-addon2"><i class="fa fa-calendar"></i></span>
-            </div>
+           
         </div>
 
 <!--            <label><?php echo esc_html($args['scope_label']); ?></label>
