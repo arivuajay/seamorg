@@ -1615,3 +1615,18 @@ div.css-search div.em-search-main div {
   color: #fff;
   cursor: pointer;
 }*/
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+
+div.css-search input.em-search-text, div.css-search input.em-search-geo {
+  border: medium none;
+  color: #666;
+  font-size: 16px;
+  line-height: 16px;
+  outline: medium none !important;
+  padding: 8px 8px 6px;
+  text-overflow: ellipsis;
+}
+
+}
