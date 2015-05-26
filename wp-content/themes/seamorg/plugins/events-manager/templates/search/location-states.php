@@ -1,8 +1,8 @@
 <?php $args = !empty($args) ? $args:array(); /* @var $args array */ ?>
 <!-- START State/County Search -->
-<div class="em-search-state em-search-field">
+<div class="em-search-state em-search-field col-xs-12 col-sm-4 col-md-4">
 	<label><?php echo esc_html($args['state_label']); ?></label>
-	<select name="state" class="em-search-state em-events-search-state">
+	<select name="state" class="em-search-state em-events-search-state form-control">
 		<option value=''><?php echo esc_html(get_option('dbem_search_form_states_label')); ?></option>
 		<?php
 		global $wpdb;
@@ -15,7 +15,7 @@
 		foreach($em_states as $state){
 			?>
 			 <option<?php echo (!empty($args['state']) && $args['state'] == $state[0]) ? ' selected="selected"':''; ?>><?php echo esc_html($state[0]); ?></option>
-			<?php 
+			<?php
 		}
 		?>
 	</select>

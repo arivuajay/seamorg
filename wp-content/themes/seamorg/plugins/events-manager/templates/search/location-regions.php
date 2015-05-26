@@ -1,10 +1,10 @@
 <?php $args = !empty($args) ? $args:array(); /* @var $args array */ ?>
 <!-- START Region Search -->
-<div class="em-search-region em-search-field">
+<div class="em-search-region em-search-field col-xs-12 col-sm-4 col-md-4">
 	<label><?php echo esc_html($args['region_label']); ?></label>
-	<select name="region" class="em-search-region em-events-search-region">
+	<select name="region" class="em-search-region em-events-search-region form-control">
 		<option value=''><?php echo esc_html(get_option('dbem_search_form_regions_label')); ?></option>
-		<?php 
+		<?php
 		global $wpdb;
 		$em_states = $cond = array();
 		if( !empty($args['country']) ) $cond[] = $wpdb->prepare("AND location_country=%s", $args['country']);
@@ -14,9 +14,9 @@
 		foreach($em_states as $region){
 			?>
 			 <option<?php echo (!empty($args['region']) && $args['region'] == $region[0]) ? ' selected="selected"':''; ?>><?php echo esc_html($region[0]); ?></option>
-			<?php 
+			<?php
 		}
 		?>
 	</select>
-</div>	
+</div>
 <!-- END Region Search -->
