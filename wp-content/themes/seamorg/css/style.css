@@ -158,6 +158,7 @@ height:90px !important;
 	width:99.5% !important;
 	float:left;
 	margin-right:5px;
+	background:url(../images/calendar.jpg) #ffffff right no-repeat
 }
 
 .searchfield3
@@ -185,6 +186,7 @@ height:90px !important;
 	background:#a89715;
 	font-size:13px;
 	float:right !important;
+	
 
 }
 
