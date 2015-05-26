@@ -1176,7 +1176,7 @@ margin-top:20px;
 	margin-top:5px;
 }
 
-.event-editor textarea 
+.event-editor textarea
 {
 	width:100%;
 	border:#e5e5e5 solid 1px;
@@ -1312,7 +1312,7 @@ div.css-search input, div.css-search select {
   padding: 5px 10px;
 }
 
-.em-search-scope 
+.em-search-scope
 {
 	width:inherit !important
 }
@@ -1320,12 +1320,12 @@ div.css-search input, div.css-search select {
 .em-events-search-country
 {
 	width:100% !important;
-	height:35px !important; 
+	height:35px !important;
 }
 
 div.css-search div.em-search-field {
 	padding:0px;
-  
+
 }
 
 .em-search-country > label, em-date-range label
@@ -1340,7 +1340,7 @@ div.css-search div.em-search-field {
 
 div.css-search {
 	margin-bottom:5px;
-  
+
 }
 
 .searchbg2 .search-btn
@@ -1387,7 +1387,7 @@ div.css-search {
 	padding:2px;
 }
 
-.em-booking-form-details textarea 
+.em-booking-form-details textarea
 {
 	height:100px;
 	 border: 1px solid #e5e5e5;
@@ -1396,7 +1396,7 @@ div.css-search {
 .em-ticket-select
 {
   border: 1px solid #e5e5e5;
-  padding:5px;	
+  padding:5px;
 }
 
 div.em-booking-login {
@@ -1492,11 +1492,11 @@ div.em-booking-login label {
 
 .event-grid .em-event-rec-delete
 {
-	
+
 	background:#817743 !important;
 	}
-	
-	
+
+
 .event-grid .event-cont
 {
 	margin-top:15px;
@@ -1523,7 +1523,7 @@ a.em-button {
   margin: 10px 5px 5px;
 }
 
-#post-search-input 
+#post-search-input
 {
 	  border: 1px solid #e5e5e5;
     height: 36px;
@@ -1552,4 +1552,9 @@ a.em-button {
 .tripright-details .buyticket
 {
 	float:left;
+}
+
+.tp-caption.fullscreenvideo{
+    width: 100% !important;
+    left: 0 !important;
 }
