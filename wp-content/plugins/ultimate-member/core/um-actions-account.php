@@ -318,9 +318,9 @@
 
 		<div class="um-account-meta radius-<?php echo um_get_option('profile_photocorner'); ?> uimob340-show uimob500-show">
 
-                    <div class="um-account-meta-img"><a href="<?php echo get_permalink(112); ?>"><?php echo get_avatar( um_user('ID'), 120); ?></a></div>
+                    <div class="um-account-meta-img"><a href="<?php echo um_get_core_page('account'); ?>"><?php echo get_avatar( um_user('ID'), 120); ?></a></div>
 
-			<div class="um-account-name"><a href="<?php echo get_permalink(112); ?>"><?php echo um_user('display_name'); ?></a></div>
+			<div class="um-account-name"><a href="<?php echo um_get_core_page('account'); ?>"><?php echo um_user('display_name'); ?></a></div>
 
 		</div>
 
@@ -340,19 +340,19 @@
 
 		<div class="um-account-meta radius-<?php echo um_get_option('profile_photocorner'); ?>">
 
-			<div class="um-account-meta-img uimob800-hide"><a href="<?php echo um_user_profile_url(); ?>"><?php echo get_avatar( um_user('ID'), 120); ?></a></div>
+			<div class="um-account-meta-img uimob800-hide"><a href="<?php echo um_get_core_page('account'); ?>"><?php echo get_avatar( um_user('ID'), 120); ?></a></div>
 
 			<?php if ( $ultimatemember->mobile->isMobile() ) { ?>
 
-			<div class="um-account-meta-img-b uimob800-show" title="<?php echo um_user('display_name'); ?>"><a href="<?php echo um_user_profile_url(); ?>"><?php echo get_avatar( um_user('ID'), 120); ?></a></div>
+			<div class="um-account-meta-img-b uimob800-show" title="<?php echo um_user('display_name'); ?>"><a href="<?php echo um_get_core_page('account'); ?>"><?php echo get_avatar( um_user('ID'), 120); ?></a></div>
 
 			<?php } else { ?>
 
-			<div class="um-account-meta-img-b uimob800-show um-tip-w" title="<?php echo um_user('display_name'); ?>"><a href="<?php echo um_user_profile_url(); ?>"><?php echo get_avatar( um_user('ID'), 120); ?></a></div>
+			<div class="um-account-meta-img-b uimob800-show um-tip-w" title="<?php echo um_user('display_name'); ?>"><a href="<?php echo um_get_core_page('account'); ?>"><?php echo get_avatar( um_user('ID'), 120); ?></a></div>
 
 			<?php } ?>
 
-			<div class="um-account-name uimob800-hide"><a href="<?php echo um_user_profile_url(); ?>"><?php echo um_user('display_name'); ?></a></div>
+			<div class="um-account-name uimob800-hide"><a href="<?php echo um_get_core_page('account'); ?>"><?php echo um_user('display_name'); ?></a></div>
 
 		</div>
 
