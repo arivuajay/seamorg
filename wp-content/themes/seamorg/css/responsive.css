@@ -144,6 +144,12 @@ display:none!important
 }
 
 
+.logo
+{
+	margin-top:5px;
+}
+
+
 .searchfield1 {
   width: 31.7% !important;
 }

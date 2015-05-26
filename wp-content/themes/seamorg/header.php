@@ -30,10 +30,10 @@
                                 <img src="<?php echo get_bloginfo('template_directory'); ?>/images/menu.png" width="29" height="13" alt=""> &nbsp; <span>Menu </span>
                             </button>
                         </div>
-                        <div class="col-xs-9 col-sm-3 col-md-3 logo">
+                        <div class="col-xs-9 col-sm-2 col-md-3 logo">
                             <a href="<?php echo esc_url(home_url('/')); ?>"><img src="<?php echo get_bloginfo('template_directory'); ?>/images/logo.jpg" alt=""></a>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-5 toplinks pull-right">
+                        <div class="col-xs-12 col-sm-7 col-md-5 toplinks pull-right">
                             <ul>
                             <?php if(is_user_logged_in()) { ?>
                              <li><a href="<?php echo wp_logout_url('$index.php'); ?>" class="singup-btn">Log Out</a></li>
