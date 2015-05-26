@@ -1594,3 +1594,20 @@ div.css-search div.em-search-main div {
 {
 	width:100%
 }
+
+.picker__day {
+  color: #000000;
+  font-weight: 400;
+  line-height: 1em !important;
+  padding: 10px 0;
+}
+
+.picker__weekday {
+  color: #000000;
+}
+
+.picker__nav--next:hover, .picker__nav--prev:hover {
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
+  color: #fff;
+  cursor: pointer;
+}
