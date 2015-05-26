@@ -524,3 +524,26 @@ function my_custom_tab_in_um($tabs) {
 
 //For Event Manager
 add_image_size('grid-3-thumbnails', 360, 230, true);
+
+/*
+  Validate Numbers in Contact Form 7
+  This is for 10 digit numbers
+ */
+
+function is_number($result, $tag) {
+    $type = $tag['type'];
+    $name = $tag['name'];
+
+    if ($name == 'your-phone' || $name == 'fax') { // Validation applies to these textfield names. Add more with || inbetween
+        $stripped = preg_replace('/\D/', '', $_POST[$name]);
+        $_POST[$name] = $stripped;
+        if (strlen($_POST[$name]) != 10) { // Number string must equal this
+            $result['valid'] = false;
+            $result['reason'][$name] = $_POST[$name] = 'Please enter a 10 digit phone number.';
+        }
+    }
+    return $result;
+}
+
+add_filter('wpcf7_validate_text', 'is_number', 10, 2);
+add_filter('wpcf7_validate_text*', 'is_number', 10, 2);

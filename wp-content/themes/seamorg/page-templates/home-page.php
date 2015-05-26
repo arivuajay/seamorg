@@ -144,8 +144,8 @@ get_header();
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2> Client Testimonials </h2>
-<!--                <p> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/clinet1.jpg"  alt=""></p>
--->                 <?php  dynamic_sidebar('testimonial-area'); // Displays rotating testimonials or statically ?>
+                <p> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/clinet1.jpg"  alt=""></p>
+                 <?php //  dynamic_sidebar('testimonial-area'); // Displays rotating testimonials or statically ?>
                 <p class="readmore-cont"> <a href="#" class="readmore">Read more</a></p>
             </div>
         </div>
