@@ -1,7 +1,9 @@
 <?php $args = !empty($args) ? $args:array(); /* @var $args array */ ?>
 <!-- START State/County Search -->
-<div class="em-search-state em-search-field col-xs-12 col-sm-4 col-md-4">
-	<label><?php echo esc_html($args['state_label']); ?></label>
+<div class="em-search-state em-search-field ">
+<div class="col-xs-12 col-sm-4 col-md-4">
+
+<label><?php echo esc_html($args['state_label']); ?></label>
 	<select name="state" class="em-search-state em-events-search-state form-control">
 		<option value=''><?php echo esc_html(get_option('dbem_search_form_states_label')); ?></option>
 		<?php
@@ -19,5 +21,11 @@
 		}
 		?>
 	</select>
+
+</div>
+
+
+
+	
 </div>
 <!-- END State/County Search -->

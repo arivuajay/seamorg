@@ -1630,3 +1630,56 @@ div.css-search input.em-search-text, div.css-search input.em-search-geo {
 }
 
 }
+
+
+.em-search-region label  
+{
+	color:#ffffff;
+}
+
+.em-search-state label
+{
+	color:#ffffff;
+}
+
+.em-search-region select.em-search-region
+{
+	width:100% !important;
+	height:35px !important;
+
+}
+
+
+
+.em-search-state select.em-search-state
+{
+	width:100% !important;
+	height:35px !important;
+
+}
+
+div.css-search div.em-search-advanced {
+	padding-top:15px
+}
+
+.em-search-geo-units  label
+{
+	color:#ffffff;
+}
+
+
+.em-search-geo-units select.em-search-geo-distance 
+{
+	width:100% !important;
+	height:35px !important;
+
+}
+
+select.em-search-geo-unit
+{
+	width:100% !important;
+	height:35px !important;
+
+}
+
+.page-id-76 .em-search-wrapper, .single-location  .em-search-wrapper{ display: none; }
