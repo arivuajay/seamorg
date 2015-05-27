@@ -606,6 +606,15 @@ class EM_Event extends EM_Object{
 				}
 			}
 		}
+
+                if(empty($this->event_spaces)){
+                    $this->add_error( sprintf(__("%s is required.", "dbem"), __('Total Spaces','dbem')) );
+                }
+
+                if(!empty($this->event_spaces) && $this->event_spaces > $this->get_location()->location_attributes['Maximum Space']){
+                    $this->add_error( sprintf(__("Total spaces should be %d or less.", "dbem"), $this->get_location()->location_attributes['Maximum Space']) );
+                }
+
 		if ( count($missing_fields) > 0){
 			// TODO Create friendly equivelant names for missing fields notice in validation
 			$this->add_error( __( 'Missing fields: ', 'dbem') . implode ( ", ", $missing_fields ) . ". " );

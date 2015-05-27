@@ -69,6 +69,7 @@ $table_prefix  = 'sea_';
  * in their development environments.
  */
 define('WP_DEBUG', false);
+define('DBEM_CUSTOM_MAX_EVENT_LIMIT', 3);
 
 /* That's all, stop editing! Happy blogging. */
 

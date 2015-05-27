@@ -22,7 +22,7 @@
 
 
         $('.book-button').on('click', function() {
-			$('.booking-form-section h3').show();
+            $('.booking-form-section h3').show();
             $('.em-booking-form,.em-booking-login').slideUp();
             _mode = $(this).data('mode');
             $("." + _mode).slideDown();

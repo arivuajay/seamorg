@@ -233,6 +233,7 @@ endif;
  */
 function seamorg_javascript_detection() {
     echo "<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>\n";
+    echo "<script>var site_url = '" . site_url() . "';</script>\n";
 }
 
 add_action('wp_head', 'seamorg_javascript_detection', 0);
@@ -504,7 +505,6 @@ function my_em_styles_placeholders($replace, $EM_Event, $result) {
 
 add_filter('em_event_output_placeholder', 'my_em_styles_placeholders', 1, 3);
 
-
 add_filter('um_account_page_default_tabs_hook', 'my_custom_tab_in_um', 100);
 
 function my_custom_tab_in_um($tabs) {
@@ -513,13 +513,33 @@ function my_custom_tab_in_um($tabs) {
         $tabs[800]['mytab']['title'] = 'My Events';
         $tabs[800]['mytab']['custom'] = true;
         $tabs[800]['mytab']['tablink'] = 158;
+
+        $tabs[801]['mytab']['icon'] = 'um-faicon-pencil';
+        $tabs[801]['mytab']['title'] = 'My Hikes';
+        $tabs[801]['mytab']['custom'] = true;
+        $tabs[801]['mytab']['tablink'] = 250;
     } elseif (in_array('subscriber', getCurrentUserRole())) {
         $tabs[900]['mytab']['icon'] = 'um-faicon-pencil';
         $tabs[900]['mytab']['title'] = 'My Bookings';
         $tabs[900]['mytab']['custom'] = true;
-        $tabs[800]['mytab']['tablink'] = 79;
+        $tabs[900]['mytab']['tablink'] = 79;
     }
     return $tabs;
+}
+
+function guide_can_create() {
+    if (in_array('guide', getCurrentUserRole())) {
+        $event_limit = DBEM_CUSTOM_MAX_EVENT_LIMIT;
+        global $wpdb;
+        $current_user = wp_get_current_user();
+
+        $results = $wpdb->get_results( "SELECT COUNT(*) as count FROM {$wpdb->prefix}em_events WHERE event_owner = '{$current_user->ID}' AND event_status = '1'", OBJECT );
+        if($results && $results[0]->count >= $event_limit){
+            return false;
+        }
+    }
+
+    return true;
 }
 
 //For Event Manager
@@ -547,3 +567,4 @@ function is_number($result, $tag) {
 
 add_filter('wpcf7_validate_text', 'is_number', 10, 2);
 add_filter('wpcf7_validate_text*', 'is_number', 10, 2);
+

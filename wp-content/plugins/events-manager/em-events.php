@@ -98,7 +98,7 @@ function em_content($page_content) {
 				if( !empty($args['ajax']) ){ echo '<div class="em-search-ajax">'; } //AJAX wrapper open
 				em_locate_template('templates/tags-list.php',true, array('args'=>$args));
 				if( !empty($args['ajax']) ) echo "</div>"; //AJAX wrapper close
-			}elseif( $post->ID == $edit_events_page_id && $edit_events_page_id != 0 ){
+			}elseif( $post->ID == $edit_events_page_id && $edit_events_page_id != 0){
 				em_events_admin();
 			}elseif( $post->ID == $edit_locations_page_id && $edit_locations_page_id != 0 ){
 				em_locations_admin();
