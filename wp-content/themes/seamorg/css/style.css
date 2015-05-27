@@ -1629,6 +1629,16 @@ div.css-search input.em-search-text, div.css-search input.em-search-geo {
   text-overflow: ellipsis;
 }
 
+.picker__frame {
+  margin: 0 auto;
+  max-width: 400px;
+  min-width: 256px;
+  opacity: 0;
+  position: fixed;
+  transition: all 0.15s ease-out 0s;
+  width: 100%;
+}
+
 }
 
 
@@ -1683,3 +1693,6 @@ select.em-search-geo-unit
 }
 
 .page-id-76 .em-search-wrapper, .single-location  .em-search-wrapper{ display: none; }
+
+
+
