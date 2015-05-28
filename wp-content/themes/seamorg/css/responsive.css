@@ -146,6 +146,11 @@ display:none!important
   width: 100% !important;
 }
 
+.search-btn {
+
+  width: 28% !important;
+}
+
 
 }
 @media (min-width:768px)and (max-width:991px) {
