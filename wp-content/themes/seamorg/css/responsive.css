@@ -137,6 +137,16 @@ display:none!important
   width: 100% !important;
 }
 
+.searchbg2 .em-search-scope {
+  float: left;
+  width: 65% !important;
+}
+
+.searchbg2 .em-events-search-dates {
+  width: 100% !important;
+}
+
+
 }
 @media (min-width:768px)and (max-width:991px) {
 .hidden-sm {
