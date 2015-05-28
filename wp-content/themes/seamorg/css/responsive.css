@@ -15,6 +15,7 @@ display:none!important
 }
 .menu {
   width: 50px !important;
+  padding:0px;
 }
 
 .menu-btn span
@@ -32,20 +33,9 @@ display:none!important
 	display:none;
 }
 
-.searchfield2, .searchfield3, .search-btn2
-{
-	display:none;
-}
 
-.search-btn {
 
-  width: 27% !important;
-}
 
-.searchfield1 {
-
-  width: 72% !important;
-}
 
 .searchbg {
 
@@ -130,13 +120,23 @@ display:none!important
 }
 
 .em-search-geo {
-  width: 73% !important;
+  width: 100% !important;
 }
 
 .searchfield1
 {
 	width:99.5% !important;
 }
+
+.em-search-scope {
+  float: left;
+  width: 71.7% !important;
+}
+
+.em-events-search-dates {
+  width: 100% !important;
+}
+
 }
 @media (min-width:768px)and (max-width:991px) {
 .hidden-sm {
