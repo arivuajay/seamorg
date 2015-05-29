@@ -500,6 +500,14 @@ function my_em_styles_placeholders($replace, $EM_Event, $result) {
             $date_format = ( get_option('dbem_date_format') ) ? get_option('dbem_date_format') : get_option('date_format');
             $replace = date_i18n($date_format, $EM_Event->start);
             break;
+        case '#_HIKEWEATHER':
+            $latitude = $EM_Event->get_location()->location_latitude;
+            $longtitude = $EM_Event->get_location()->location_longitude;
+
+            $content = file_get_contents("https://api.forecast.io/forecast/ae31edd2080dfa3f1ccf6b8fdb4aa71d/$latitude,$longtitude");
+            $report = json_decode($content);
+            $replace = round(($report->currently->temperature - 32) * 5 / 9);
+            break;
     }
     return $replace;
 }
@@ -518,7 +526,7 @@ function my_custom_tab_in_um($tabs) {
         $tabs[801]['mytab']['icon'] = 'um-faicon-pencil';
         $tabs[801]['mytab']['title'] = 'Suggest Hike';
         $tabs[801]['mytab']['custom'] = true;
-        $tabs[801]['mytab']['tablink'] = get_permalink(250)."?action=edit";
+        $tabs[801]['mytab']['tablink'] = get_permalink(250) . "?action=edit";
     } elseif (in_array('subscriber', getCurrentUserRole())) {
         $tabs[900]['mytab']['icon'] = 'um-faicon-pencil';
         $tabs[900]['mytab']['title'] = 'My Bookings';
@@ -535,9 +543,9 @@ function guide_can_create() {
         $current_user = wp_get_current_user();
         $current_time = current_time('mysql');
 
-        $results = $wpdb->get_results( "SELECT COUNT(*) as count FROM {$wpdb->prefix}em_events WHERE event_owner = '{$current_user->ID}' AND event_status = '1' AND event_end_date > '{$current_time}'", OBJECT );
+        $results = $wpdb->get_results("SELECT COUNT(*) as count FROM {$wpdb->prefix}em_events WHERE event_owner = '{$current_user->ID}' AND event_status = '1' AND event_end_date > '{$current_time}'", OBJECT);
 
-        if($results && $results[0]->count >= $event_limit){
+        if ($results && $results[0]->count >= $event_limit) {
             return false;
         }
     }
@@ -570,4 +578,16 @@ function is_number($result, $tag) {
 
 add_filter('wpcf7_validate_text', 'is_number', 10, 2);
 add_filter('wpcf7_validate_text*', 'is_number', 10, 2);
+
+//Disable WP Updatees
+function remove_core_updates() {
+    global $wp_version;
+    return(object) array('last_checked' => time(), 'version_checked' => $wp_version,);
+}
+
+add_filter('pre_site_transient_update_core', 'remove_core_updates');
+add_filter('pre_site_transient_update_plugins', 'remove_core_updates');
+add_filter('pre_site_transient_update_themes', 'remove_core_updates');
+//Disable WP Updatees
+
 
