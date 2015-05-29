@@ -532,8 +532,10 @@ function guide_can_create() {
         $event_limit = DBEM_CUSTOM_MAX_EVENT_LIMIT;
         global $wpdb;
         $current_user = wp_get_current_user();
+        $current_time = current_time('mysql');
 
-        $results = $wpdb->get_results( "SELECT COUNT(*) as count FROM {$wpdb->prefix}em_events WHERE event_owner = '{$current_user->ID}' AND event_status = '1'", OBJECT );
+        $results = $wpdb->get_results( "SELECT COUNT(*) as count FROM {$wpdb->prefix}em_events WHERE event_owner = '{$current_user->ID}' AND event_status = '1' AND event_end_date > '{$current_time}'", OBJECT );
+
         if($results && $results[0]->count >= $event_limit){
             return false;
         }

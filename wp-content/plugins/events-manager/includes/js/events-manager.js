@@ -784,11 +784,32 @@ function em_setup_datepicker(wrap) {
                     //get corresponding end date input, we expect ranges to be contained in .em-date-range with a start/end input element
                     var startDate = jQuery(this);
                     var endDate = startDate.parents('.em-date-range').find('.em-date-end').first();
-                    if (startDate.val() > endDate.val() && endDate.val() != '') {
-                        endDate.datepicker("setDate", selectedDate);
-                        endDate.trigger('change');
+//                    if (startDate.val() > endDate.val() && endDate.val() != '') {
+                    endDate.datepicker("setDate", selectedDate);
+                    endDate.trigger('change');
+//                    }
+//                    endDate.datepicker("option", 'minDate', selectedDate);
+
+
+                    if (dateInput.parents('div#em-form-when').length) {
+                        var selDT = jQuery.datepicker.formatDate('yy-mm-dd', jQuery.datepicker.parseDate('dd/mm/yy', selectedDate));
+                        locID = jQuery('#location-select-id').val();
+                        jQuery.getJSON(document.URL, {em_ajax_action: 'get_timeslots', set_date: selDT, location_id: locID}, function(result) {
+                            if (result.status) {
+                                console.log('success');
+
+                                jQuery.each(result.data, function(index, value) {
+                                    jQuery('.time-picker ul li').filter(function() {
+                                        return jQuery.text([this]) == value;
+                                    }).remove();
+//                                    console.log(value);
+                                });
+                            } else {
+                                console.log('no rec');
+                            }
+                        });
                     }
-                    endDate.datepicker("option", 'minDate', selectedDate);
+
                 });
             } else if (dateInput.hasClass('em-date-end')) {
                 var startInput = dateInput.parents('.em-date-range').find('.em-date-start').first();
@@ -802,9 +823,10 @@ function em_setup_datepicker(wrap) {
 
 function em_setup_timepicker(wrap) {
     wrap = jQuery(wrap);
+
     wrap.find(".em-time-input").timePicker({
         show24Hours: EM.show24hours == 1,
-        step: 15
+        step: 30
     });
 
     // Keep the duration between the two inputs.
@@ -919,7 +941,7 @@ function em_maps_load_locations(el) {
                     jQuery.extend(marker_options, {
                         position: location,
                         map: maps[map_id],
-                        icon: site_url+'/wp-content/themes/seamorg/images/walk.png'
+                        icon: site_url + '/wp-content/themes/seamorg/images/walk.png'
                     })
                     var marker = new google.maps.Marker(marker_options);
                     maps_markers[map_id].push(marker);
@@ -964,7 +986,7 @@ function em_maps_load_location(el) {
     var marker_options = {
         position: em_LatLng,
         map: maps[map_id],
-        icon: site_url+'/wp-content/themes/seamorg/images/walk.png'
+        icon: site_url + '/wp-content/themes/seamorg/images/walk.png'
     };
     jQuery(document).triggerHandler('em_maps_location_marker_options', marker_options);
     maps_markers[map_id] = new google.maps.Marker(marker_options);
@@ -1056,6 +1078,11 @@ function em_maps() {
                         jQuery('#em-map').hide();
                         jQuery('#em-map-404').show();
                     }
+
+//                    If change the location reset date,bcoz again check for timeslots
+                    _selectedStart = jQuery('#em-form-when .hasDatepicker.em-date-start').datepicker("getDate")
+                    jQuery('#em-form-when .hasDatepicker.em-date-start').datepicker("setDate", _selectedStart);
+                    jQuery('.ui-datepicker-current-day').click();
                 });
             }
         };
@@ -1104,7 +1131,7 @@ function em_maps() {
                 position: em_LatLng,
                 map: map,
                 draggable: true,
-                icon: site_url+'/wp-content/themes/seamorg/images/walk.png'
+                icon: site_url + '/wp-content/themes/seamorg/images/walk.png'
             });
             infoWindow = new google.maps.InfoWindow({
                 content: ''

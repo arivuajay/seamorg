@@ -190,7 +190,7 @@ div.css-search div.em-search-options {
 	background:#a89715;
 	font-size:13px;
 	float:right !important;
-	
+
 
 }
 
@@ -1139,7 +1139,7 @@ margin-top:20px;
 
 .em-date-input-loc
 {
-	/*width:100% !important;*/
+	width:100% !important;
 	float:left;
 	padding:8px;
 	border:#e5e5e5 solid 1px;
@@ -1617,7 +1617,7 @@ div.css-search div.em-search-main div {
 }*/
 
 
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
 
 div.css-search input.em-search-text, div.css-search input.em-search-geo {
   border: medium none;
@@ -1642,7 +1642,7 @@ div.css-search input.em-search-text, div.css-search input.em-search-geo {
 }
 
 
-.em-search-region label  
+.em-search-region label
 {
 	color:#ffffff;
 }
@@ -1678,7 +1678,7 @@ div.css-search div.em-search-advanced {
 }
 
 
-.em-search-geo-units select.em-search-geo-distance 
+.em-search-geo-units select.em-search-geo-distance
 {
 	width:100% !important;
 	height:35px !important;
