@@ -8,23 +8,28 @@ global $EM_Location;
 $attributes = em_get_attributes(true); //lattributes only
 $has_depreciated = false;
 ?>
-<?php if( count( $attributes['names'] ) > 0 ) : ?>
-	<?php foreach( $attributes['names'] as $name) : ?>
-	<div class="location-attributes">
-		<label for="em_attributes[<?php echo $name ?>]"><?php echo $name ?></label>
-		<?php if( count($attributes['values'][$name]) > 1 ): ?>
-		<select name="em_attributes[<?php echo $name ?>]">
-			<?php foreach($attributes['values'][$name] as $attribute_val): ?>
-				<?php if( is_array($EM_Location->location_attributes) && array_key_exists($name, $EM_Location->location_attributes) && $EM_Location->location_attributes[$name]==$attribute_val ): ?>
-					<option selected="selected"><?php echo $attribute_val; ?></option>
-				<?php else: ?>
-					<option><?php echo $attribute_val; ?></option>
-				<?php endif; ?>
-			<?php endforeach; ?>
-		</select>
-		<?php else: ?>
-		<input type="text" name="em_attributes[<?php echo $name ?>]" value="<?php echo array_key_exists($name, $EM_Location->location_attributes) ? esc_attr($EM_Location->location_attributes[$name], ENT_QUOTES):''; ?>" />
-		<?php endif; ?>
-	</div>
-	<?php endforeach; ?>
+<?php if (count($attributes['names']) > 0) : ?>
+    <?php foreach ($attributes['names'] as $name) : ?>
+
+        <div class="row location-attributes">
+            <div class="col-xs-12 col-sm-12 col-md-12"><label for="em_attributes[<?php echo $name ?>]"><?php echo $name ?></label></div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <?php if (count($attributes['values'][$name]) > 1): ?>
+                <select name="em_attributes[<?php echo $name ?>]" class="form-control">
+                    <?php foreach ($attributes['values'][$name] as $attribute_val): ?>
+                        <?php if (is_array($EM_Location->location_attributes) && array_key_exists($name, $EM_Location->location_attributes) && $EM_Location->location_attributes[$name] == $attribute_val): ?>
+                            <option selected="selected"><?php echo $attribute_val; ?></option>
+                        <?php else: ?>
+                            <option><?php echo $attribute_val; ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+            <?php else: ?>
+                <input type="text" class="form-control" name="em_attributes[<?php echo $name ?>]" value="<?php echo array_key_exists($name, $EM_Location->location_attributes) ? esc_attr($EM_Location->location_attributes[$name], ENT_QUOTES) : ''; ?>" />
+            <?php endif; ?>
+
+            </div>
+        </div>
+    <?php endforeach; ?>
 <?php endif; ?>
