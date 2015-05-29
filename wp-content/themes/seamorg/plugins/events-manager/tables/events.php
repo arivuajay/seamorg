@@ -52,6 +52,7 @@ if (!empty($show_add_new) && current_user_can('edit_events'))
 
                     <?php
                     $rowno = 0;
+                    $recurrence_delete_confirm = 'Are you sure want to delete?';
                     foreach ($EM_Events as $EM_Event) {
                         /* @var $EM_Event EM_Event */
                         $rowno++;
@@ -99,7 +100,7 @@ if (!empty($show_add_new) && current_user_can('edit_events'))
                                 <div class="buyticket">
                                     <a class="row-title" href="<?php echo esc_url($EM_Event->get_edit_url()); ?>"><i class="fa fa-pencil"></i> Edit</a>
                                     <?php if (current_user_can('delete_events')) : ?>
-                                        <a class="row-title em-event-rec-delete" href="<?php echo esc_url(add_query_arg(array('action' => 'event_delete', 'event_id' => $EM_Event->recurrence_id, '_wpnonce' => wp_create_nonce('event_delete_' . $EM_Event->recurrence_id)))); ?>" onclick ="if (!confirm('<?php echo $recurrence_delete_confirm; ?>')) {
+                                        <a class="row-title em-event-rec-delete" href="<?php echo esc_url(add_query_arg(array('action' => 'event_delete', 'event_id' => $EM_Event->event_id, '_wpnonce' => wp_create_nonce('event_delete_' . $EM_Event->event_id)))); ?>" onclick ="if (!confirm('<?php echo $recurrence_delete_confirm; ?>')) {
                                                                 return false;
                                                             }"> <i class="fa fa-trash"></i> Delete</a>
 

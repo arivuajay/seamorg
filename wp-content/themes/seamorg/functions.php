@@ -279,6 +279,7 @@ function seamorg_scripts() {
         wp_enqueue_script('seamorg-keyboard-image-navigation', get_template_directory_uri() . '/js/keyboard-image-navigation.js', array('jquery'), '20141010');
     }
 
+    wp_enqueue_script('seamorg-bootstrap-script', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '20150330', true);
     wp_enqueue_script('seamorg-script', get_template_directory_uri() . '/js/functions.js', array('jquery'), '20150330', true);
     wp_enqueue_script('seamorg-custom-script', get_template_directory_uri() . '/js/custom.js', array('jquery'), '20150330', true);
     wp_localize_script('seamorg-script', 'screenReaderText', array(
@@ -512,17 +513,17 @@ function my_custom_tab_in_um($tabs) {
         $tabs[800]['mytab']['icon'] = 'um-faicon-pencil';
         $tabs[800]['mytab']['title'] = 'My Events';
         $tabs[800]['mytab']['custom'] = true;
-        $tabs[800]['mytab']['tablink'] = 158;
+        $tabs[800]['mytab']['tablink'] = get_permalink(158);
 
         $tabs[801]['mytab']['icon'] = 'um-faicon-pencil';
-        $tabs[801]['mytab']['title'] = 'My Hikes';
+        $tabs[801]['mytab']['title'] = 'Suggest Hike';
         $tabs[801]['mytab']['custom'] = true;
-        $tabs[801]['mytab']['tablink'] = 250;
+        $tabs[801]['mytab']['tablink'] = get_permalink(250)."?action=edit";
     } elseif (in_array('subscriber', getCurrentUserRole())) {
         $tabs[900]['mytab']['icon'] = 'um-faicon-pencil';
         $tabs[900]['mytab']['title'] = 'My Bookings';
         $tabs[900]['mytab']['custom'] = true;
-        $tabs[900]['mytab']['tablink'] = 79;
+        $tabs[900]['mytab']['tablink'] = get_permalink(79);
     }
     return $tabs;
 }

@@ -384,7 +384,7 @@
 						$current_tab = $ultimatemember->account->current_tab;
 
 						if ( isset($info['custom']) || um_get_option('account_tab_'.$id ) == 1 || $id == 'general' ) {
-                                                    $url = ($info['custom'] && $tablink) ? get_permalink($tablink) : $ultimatemember->account->tab_link($id);
+                                                    $url = ($info['custom'] && $tablink) ? $tablink : $ultimatemember->account->tab_link($id);
                                                     $class = ($info['custom'] && $tablink) ? ' tablink' : '';
                                                     ?>
 

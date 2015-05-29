@@ -141,6 +141,7 @@ function em_init_actions() {
             } elseif (is_object($EM_Event)) {
                 $events_result = $EM_Event->delete();
             }
+
             $plural = (count($selectedEvents) > 1) ? __('Events', 'dbem') : __('Event', 'dbem');
             if ($events_result) {
                 $message = (!empty($EM_Event->feedback_message) ) ? $EM_Event->feedback_message : sprintf(__('%s successfully deleted.', 'dbem'), $plural);
