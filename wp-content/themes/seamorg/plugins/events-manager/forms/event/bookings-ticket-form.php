@@ -1,7 +1,7 @@
-<?php 
-/* 
- * Used for both multiple and single tickets. $col_count will always be 1 in single ticket mode, and be a unique number for each ticket starting from 1 
- * This form should have $EM_Ticket and $col_count available globally. 
+<?php
+/*
+ * Used for both multiple and single tickets. $col_count will always be 1 in single ticket mode, and be a unique number for each ticket starting from 1
+ * This form should have $EM_Ticket and $col_count available globally.
  */
 global $col_count, $EM_Ticket;
 ?>
@@ -22,7 +22,7 @@ global $col_count, $EM_Ticket;
 			<input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_spaces]" value="<?php echo esc_attr($EM_Ticket->ticket_spaces) ?>" class="ticket_spaces" />
 		</div>
 	</div>
-	<div class="em-ticket-form-advanced" style="display:none;">
+<!--	<div class="em-ticket-form-advanced" style="display:none;">
 		<div class="ticket-spaces ticket-spaces-min">
 			<label title="<?php _e('Leave either blank for no upper/lower limit.','dbem'); ?>"><?php _ex('At least','spaces per booking','dbem') ?></label>
 			<input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_min]" value="<?php echo esc_attr($EM_Ticket->ticket_min) ?>" class="ticket_min" />
@@ -90,7 +90,7 @@ global $col_count, $EM_Ticket;
 		<div class="ticket-roles" <?php if( !$EM_Ticket->ticket_members ): ?>style="display:none;"<?php endif; ?>>
 			<label><?php _e('Restrict to','dbem'); ?></label>
 			<div>
-				<?php 
+				<?php
 				$WP_Roles = new WP_Roles();
 				foreach($WP_Roles->roles as $role => $role_data){ /* @var $WP_Role WP_Role */
 					?>
@@ -100,9 +100,9 @@ global $col_count, $EM_Ticket;
 				?>
 			</div>
 		</div>
-		<?php do_action('em_ticket_edit_form_fields', $col_count, $EM_Ticket); //do not delete, add your extra fields this way, remember to save them too! ?>
-	</div>
-	<div class="ticket-options">
+	</div>-->
+<?php do_action('em_ticket_edit_form_fields', $col_count, $EM_Ticket); //do not delete, add your extra fields this way, remember to save them too! ?>
+<!--	<div class="ticket-options">
 		<a href="#" class="ticket-options-advanced show"><span class="show"><?php _e('Show Advanced Options','dbem'); ?></span><span class="hide" style="display:none;"><?php _e('Hide Advanced Options','dbem'); ?></span></a>
-	</div>
-</div>	
+	</div>-->
+</div>

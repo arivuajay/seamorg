@@ -184,7 +184,7 @@ class EM_Event extends EM_Object{
 	 * Array of dbem_event field names required to create an event
 	 * @var array
 	 */
-	var $required_fields = array('event_name', 'event_start_date');
+	var $required_fields = array('event_name', 'event_start_date','event_start_time');
 	var $mime_types = array(1 => 'gif', 2 => 'jpg', 3 => 'png');
 	/**
 	 * previous status of event when instantiated
@@ -580,6 +580,14 @@ class EM_Event extends EM_Object{
 				$missing_fields[$field] = $field;
 			}
 		}
+
+                if($this->event_start_time == '' || $this->event_start_time == '00:00:00'){
+                    $this->add_error( sprintf(__("%s is required.", "dbem"), __('Event start time','dbem')) );
+                }
+                if($this->event_end_time == '' || $this->event_end_time == '00:00:00'){
+                    $this->add_error( sprintf(__("%s is required.", "dbem"), __('Event end time','dbem')) );
+                }
+
 		if( preg_match('/\d{4}-\d{2}-\d{2}/', $this->event_start_date) && preg_match('/\d{4}-\d{2}-\d{2}/', $this->event_end_date) ){
 			if( strtotime($this->event_start_date . $this->event_start_time) > strtotime($this->event_end_date . $this->event_end_time) ){
 				$this->add_error(__('Events cannot start after they end.','dbem'));
@@ -591,6 +599,8 @@ class EM_Event extends EM_Object{
 			if( !empty($missing_fields['event_end_date']) ) { unset($missing_fields['event_end_date']); }
 			$this->add_error(__('Dates must have correct formatting. Please use the date picker provided.','dbem'));
 		}
+
+
 		if( $this->event_rsvp ){
 		    if( !$this->get_bookings()->get_tickets()->validate() ){
 		        $this->add_error($this->get_bookings()->get_tickets()->get_errors());

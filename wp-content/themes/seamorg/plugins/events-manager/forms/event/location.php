@@ -137,11 +137,3 @@ $required = apply_filters('em_required_html', '<i>*</i>');
 <?php if (get_option('dbem_gmap_is_active')) em_locate_template('forms/map-container.php', true); ?>
     <br style="clear:both;" />
 </div>
-
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        if (!$('#event-rsvp').is(':checked')) {
-            $('#event-rsvp').prop("checked", 'checked').triggerHandler('click');
-        }
-    });
-</script>

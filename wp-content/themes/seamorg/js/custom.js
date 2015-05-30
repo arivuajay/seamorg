@@ -6,7 +6,7 @@
 (function($) {
     $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
-        
+
         $('a[href*=#]:not([href=#])').click(function() {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
                 var target = $(this.hash);
@@ -28,6 +28,10 @@
             _mode = $(this).data('mode');
             $("." + _mode).slideDown();
         });
+
+//        if (!$('#event-rsvp').is(':checked')) {
+//            $('#event-rsvp').prop("checked", 'checked').triggerHandler('click');
+//        }
     });
 })(jQuery);
 
