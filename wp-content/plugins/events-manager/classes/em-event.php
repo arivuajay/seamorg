@@ -587,6 +587,11 @@ class EM_Event extends EM_Object{
                 if($this->event_end_time == '' || $this->event_end_time == '00:00:00'){
                     $this->add_error( sprintf(__("%s is required.", "dbem"), __('Event end time','dbem')) );
                 }
+                if(empty($_FILES['event_image']['name'])){
+                    $this->add_error( sprintf(__("%s is required.", "dbem"), __('Event image','dbem')) );
+                }
+
+
 
 		if( preg_match('/\d{4}-\d{2}-\d{2}/', $this->event_start_date) && preg_match('/\d{4}-\d{2}-\d{2}/', $this->event_end_date) ){
 			if( strtotime($this->event_start_date . $this->event_start_time) > strtotime($this->event_end_date . $this->event_end_time) ){
