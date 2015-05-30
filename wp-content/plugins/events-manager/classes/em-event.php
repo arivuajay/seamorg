@@ -554,6 +554,7 @@ class EM_Event extends EM_Object{
 
 	function validate(){
 		$validate_post = true;
+
 		if( empty($this->event_name) ){
 			$validate_post = false;
 			$this->add_error( sprintf(__("%s is required.", "dbem"), __('Event name','dbem')) );

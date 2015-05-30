@@ -1692,5 +1692,19 @@ select.em-search-geo-unit
 
 }
 
-
+#coupon-accordion .panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+#coupon-accordion .panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+#coupon-accordion .panel-title a{
+    display: block;
+    cursor: pointer;
+}
 
