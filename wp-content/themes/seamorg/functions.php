@@ -238,6 +238,11 @@ function seamorg_javascript_detection() {
 
 add_action('wp_head', 'seamorg_javascript_detection', 0);
 
+function seamorg_admin_javascript_detection(){
+    echo "<script>var site_url = '" . site_url() . "';</script>\n";
+}
+add_action('admin_init', 'seamorg_admin_javascript_detection', 0);
+
 /**
  * Enqueue scripts and styles.
  *

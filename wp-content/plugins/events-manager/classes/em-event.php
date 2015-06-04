@@ -588,9 +588,9 @@ class EM_Event extends EM_Object{
                 if($this->event_end_time == '' || $this->event_end_time == '00:00:00'){
                     $this->add_error( sprintf(__("%s is required.", "dbem"), __('Event end time','dbem')) );
                 }
-                if(empty($_FILES['event_image']['name'])){
-                    $this->add_error( sprintf(__("%s is required.", "dbem"), __('Event image','dbem')) );
-                }
+//                if(empty($_FILES['event_image']['name'])){
+//                    $this->add_error( sprintf(__("%s is required.", "dbem"), __('Event image','dbem')) );
+//                }
 
 
 

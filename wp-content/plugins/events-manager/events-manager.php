@@ -212,7 +212,7 @@ class EM_Scripts_and_Styles {
 		}elseif( !empty( $obj->ID ) ){
 			$obj_id = $obj->ID;
 		}
-		
+
 	    //Decide whether or not to include certain JS files and dependencies
 	    $script_deps = array();
         if( get_option('dbem_js_limit') ){
@@ -220,7 +220,7 @@ class EM_Scripts_and_Styles {
             if( is_page($pages) ){
                 $script_deps['jquery'] = 'jquery';
             }
-            if( (!empty($pages['events']) && is_page($pages['events']) &&  get_option('dbem_events_page_search')) || get_option('dbem_js_limit_search') === '0' || in_array($obj_id, explode(',', get_option('dbem_js_limit_search'))) ){ 
+            if( (!empty($pages['events']) && is_page($pages['events']) &&  get_option('dbem_events_page_search')) || get_option('dbem_js_limit_search') === '0' || in_array($obj_id, explode(',', get_option('dbem_js_limit_search'))) ){
                 //events page only needs datepickers
                 $script_deps['jquery-ui-core'] = 'jquery-ui-core';
                 $script_deps['jquery-ui-datepicker'] = 'jquery-ui-datepicker';
@@ -264,14 +264,14 @@ class EM_Scripts_and_Styles {
 	        	'jquery-ui-autocomplete'=>'jquery-ui-autocomplete',
 	        	'jquery-ui-dialog'=>'jquery-ui-dialog'
             );
-        }            			
+        }
         $script_deps = apply_filters('em_public_script_deps', $script_deps);
         if( !empty($script_deps) ){ //given we depend on jQuery, there must be at least a jQuery dep for our file to be loaded
 			wp_enqueue_script('events-manager', plugins_url('includes/js/events-manager.js',__FILE__), array_values($script_deps), EM_VERSION); //jQuery will load as dependency
 			self::localize_script();
     		do_action('em_enqueue_scripts');
         }
-        
+
 		//Now decide on showing the CSS file
 		if( get_option('dbem_css_limit') ){
 			$includes = get_option('dbem_css_limit_include');
@@ -291,7 +291,7 @@ class EM_Scripts_and_Styles {
 	    	do_action('em_enqueue_styles');
 		}
 	}
-	
+
 	public static function admin_enqueue(){
 	    do_action('em_enqueue_admin_scripts');
 		wp_enqueue_script('events-manager', plugins_url('includes/js/events-manager.js',__FILE__), array('jquery', 'jquery-ui-core','jquery-ui-widget','jquery-ui-position','jquery-ui-sortable','jquery-ui-datepicker','jquery-ui-autocomplete','jquery-ui-dialog'), EM_VERSION);
@@ -335,12 +335,12 @@ class EM_Scripts_and_Styles {
 				'bb_canceling' => get_option('dbem_booking_button_msg_canceling'),
 				'bb_cancelled' => get_option('dbem_booking_button_msg_cancelled'),
 				'bb_cancel_error' => get_option('dbem_booking_button_msg_cancel_error')
-			));		
+			));
 		}
 		$em_localized_js['txt_search'] = get_option('dbem_search_form_text_label',__('Search','dbem'));
 		$em_localized_js['txt_searching'] = __('Searching...','dbem');
 		$em_localized_js['txt_loading'] = __('Loading...','dbem');
-		
+
 		//logged in messages that visitors shouldn't need to see
 		if( is_user_logged_in() || is_page(get_option('dbem_edit_events_page')) ){
 		    if( get_option('dbem_recurrence_enabled') ){
@@ -409,7 +409,7 @@ class EM_Scripts_and_Styles {
 			$em_localized_js['locale_data'] = $calendar_languages[$locale_code];
 		}elseif( array_key_exists($locale_code_short, $calendar_languages) ){
 			$em_localized_js['locale_data'] = $calendar_languages[$locale_code_short];
-		}		
+		}
 		wp_localize_script('events-manager','EM', apply_filters('em_wp_localize_script', $em_localized_js));
 	}
 }
@@ -460,7 +460,7 @@ function em_plugins_loaded(){
 	//WPFC Integration
 	if( defined('WPFC_VERSION') ){
 		function load_em_wpfc_plugin(){
-			if( !function_exists('wpfc_em_init') ) include('em-wpfc.php');	
+			if( !function_exists('wpfc_em_init') ) include('em-wpfc.php');
 		}
 		add_action('init', 'load_em_wpfc_plugin', 200);
 	}
@@ -756,7 +756,7 @@ function em_deactivate() {
 register_deactivation_hook( __FILE__,'em_deactivate');
 
 /**
- * Fail-safe compatibility checking of EM Pro 
+ * Fail-safe compatibility checking of EM Pro
  */
 function em_check_pro_compatability(){
 	if( defined('EMP_VERSION') && EMP_VERSION < EM_PRO_MIN_VERSION && (!defined('EMP_DISABLE_CRITICAL_WARNINGS') || !EMP_DISABLE_CRITICAL_WARNINGS) ){
