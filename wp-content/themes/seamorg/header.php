@@ -31,7 +31,7 @@
                             </button>
                         </div>
                         <div class="col-xs-9 col-sm-2 col-md-3 logo">
-                            <a href="<?php echo esc_url(home_url('/')); ?>"><img src="<?php echo get_bloginfo('template_directory'); ?>/images/logo.jpg" alt=""></a>
+                            <a href="<?php echo esc_url(home_url('/')); ?>"><img src="<?php echo get_bloginfo('template_directory'); ?>/images/logo.png" alt=""></a>
                         </div>
                         <div class="col-xs-12 col-sm-7 col-md-5 toplinks pull-right">
                             <ul>
