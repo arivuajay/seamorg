@@ -151,6 +151,13 @@ display:none!important
   width: 28% !important;
 }
 
+.footer-row2 .menu
+{
+	width:100% !important;
+	float:left
+}
+
+
 
 }
 @media (min-width:768px)and (max-width:991px) {
@@ -226,6 +233,12 @@ display:none!important
 .searchfield2 {
 
   width: 99% !important;
+}
+
+.footer-row2 .menu li {
+  display: inline;
+  padding: 0 9px 0 0;
+  font-size: 15px;
 }
 
 }

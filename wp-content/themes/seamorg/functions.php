@@ -136,11 +136,21 @@ add_action('after_setup_theme', 'seamorg_setup');
 function seamorg_widgets_init() {
 
     register_sidebar(array(
-        'name' => __('Footer Area', 'seamorg'),
-        'id' => 'footer-area',
+        'name' => __('Footer1 Area', 'seamorg'),
+        'id' => 'footer-area-1',
         'description' => __('Add widgets here to appear in your sidebar.', 'seamorg'),
-        'before_widget' => '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footerpart1 %2$s" id="%1$s">',
-        'after_widget' => '</div>',
+        'before_widget' => '',
+        'after_widget' => '',
+        'before_title' => '<h2 class="widget-title">',
+        'after_title' => '</h2>',
+    ));
+	
+	register_sidebar(array(
+        'name' => __('Footer2 Area', 'seamorg'),
+        'id' => 'footer-area-2',
+        'description' => __('Add widgets here to appear in your sidebar.', 'seamorg'),
+        'before_widget' => '',
+        'after_widget' => '',
         'before_title' => '<h2 class="widget-title">',
         'after_title' => '</h2>',
     ));

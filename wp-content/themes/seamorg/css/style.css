@@ -1280,3 +1280,15 @@ select.em-search-geo-unit {
 .em-search-options.search-btn2 {
   padding: 0px !important;
 }
+
+.footer-row2 .menu
+{
+	width:100%;
+	float:left
+}
+
+.footer-row2 .menu li
+{
+	display:inline;
+	padding:0px 15px 0px 0px
+}
