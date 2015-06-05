@@ -139,7 +139,7 @@ function seamorg_widgets_init() {
         'name' => __('Footer Area', 'seamorg'),
         'id' => 'footer-area',
         'description' => __('Add widgets here to appear in your sidebar.', 'seamorg'),
-        'before_widget' => '<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 footerpart1 %2$s" id="%1$s">',
+        'before_widget' => '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footerpart1 %2$s" id="%1$s">',
         'after_widget' => '</div>',
         'before_title' => '<h2 class="widget-title">',
         'after_title' => '</h2>',
@@ -511,7 +511,9 @@ function my_em_styles_placeholders($replace, $EM_Event, $result) {
 
             $content = file_get_contents("https://api.forecast.io/forecast/ae31edd2080dfa3f1ccf6b8fdb4aa71d/$latitude,$longtitude");
             $report = json_decode($content);
-            $replace = round(($report->currently->temperature - 32) * 5 / 9);
+            $celcius = round(($report->currently->temperature - 32) * 5 / 9);
+
+            $replace = "<a target='_blank' href='http://forecast.io/#/f/$latitude,$longtitude'>{$celcius}&deg;C</a>";
             break;
     }
     return $replace;

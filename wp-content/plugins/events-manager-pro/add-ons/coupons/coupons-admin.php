@@ -36,7 +36,7 @@ class EM_Coupons_Admin {
         $owner = empty($EM_Event->event_owner) ? get_current_user_id() : $EM_Event->event_owner;
         ?>
 
-        <div class="panel-group" id="coupon-accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group hidden" id="coupon-accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <div class="panel-title">

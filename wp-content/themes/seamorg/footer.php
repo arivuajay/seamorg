@@ -15,7 +15,7 @@
         <div class="container">
             <div class="row">
                 <?php dynamic_sidebar('footer-area'); ?>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 footerpart1">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footerpart1">
                     <h2>Join with us</h2>
                     <?php wp_nav_menu(array('container' => false, 'menu_id' => 'social', 'menu_class' => 'social-nav', 'depth' => 0, 'theme_location' => 'social', 'walker' => new social_nav_walker())); ?>
                 </div>
