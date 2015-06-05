@@ -102,7 +102,7 @@ div.css-search div.em-search-options {
 	padding:10px;
 	width:100%;
 	float:left;
-	margin-top:-55px;
+	margin-top:-65px !important;
 	padding-bottom:0px;
 }
 .searchfield1 {
@@ -136,10 +136,11 @@ div.css-search div.em-search-options {
 }
 .search-btn2 {
 	color:#ffffff;
-	width:18%;
-	background:#a89715;
-	font-size:13px;
+	width:auto;
+	/*background:#a89715;*/
+	font-size:12px;
 	float:right !important;
+	text-align:right;
 }
 .upcoming-event {
 	width:100%;
@@ -822,7 +823,7 @@ a:hover {
 	display:none;
 }
 .em-date-input-loc {
-	width:100% !important;
+	width:99.2% !important;
 	float:left;
 	padding:8px;
 	border:#e5e5e5 solid 1px;
@@ -1156,10 +1157,10 @@ div.css-search div.em-search-main div {
 	float:left;
 }
 .em-search-geo {
-	width:45%
+	width:46%
 }
 .em-search-scope {
-	width:28.6%;
+	width:45.6%;
 	float:left
 }
 .em-events-search-dates {
@@ -1268,4 +1269,14 @@ select.em-search-geo-unit {
 #coupon-accordion .panel-title a {
 	display: block;
 	cursor: pointer;
+}
+
+
+.show {
+  font-size: 12px !important;
+  text-decoration:underline;
+}
+
+.em-search-options.search-btn2 {
+  padding: 0px !important;
 }

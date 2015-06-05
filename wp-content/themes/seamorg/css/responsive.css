@@ -168,12 +168,7 @@ display:none!important
 .searchfield1 {
   width: 31.7% !important;
 }
-.search-btn2 {
-  background: none repeat scroll 0 0 #a89715;
-  color: #ffffff;
-  font-size: 13px;
-  width: 21% !important;
-}
+
 
 .event-name {
   text-align: center;
@@ -211,12 +206,7 @@ display:none!important
 	margin:25px 0px 25px 0px;
 }
 
-.search-btn2 {
-  background: none repeat scroll 0 0 #a89715;
-  color: #ffffff;
-  font-size: 13px;
-  width: 23.7% !important;
-}
+
 
 
 .um-account-meta.radius-1 img {
@@ -225,7 +215,7 @@ display:none!important
 }
 
 .em-search-geo {
-  width: 36.5% !important;
+  width: 43.6% !important;
 }
 
 .searchfield1
@@ -258,13 +248,10 @@ display:none!important
   width: 33.1% !important;
 }
 */
-.search-btn2 {
-  width: 22%;
-}
 
 
 .em-search-geo {
-  width: 39% !important;
+  width: 44.3% !important;
 }
 
 .searchfield1
@@ -274,7 +261,7 @@ display:none!important
 
 .searchfield2 {
 
-  width: 99% !important;
+  width: 99.5% !important;
 }
 
 .footer-row1 {
