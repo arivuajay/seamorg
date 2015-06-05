@@ -11,7 +11,8 @@ $required = apply_filters('em_required_html', '<i>*</i>');
             <div class="col-xs-12 col-sm-12 col-md-12"><label><?php _e('Address:', 'dbem') ?> <?php echo $required; ?></label></div>
             <div class="col-xs-12 col-sm-12 col-md-12 inside location-form-name">
                 <input class="form-control" id="location-address" type="text" name="location_address" value="<?php echo esc_attr($EM_Location->location_address, ENT_QUOTES);
-; ?>" />
+;
+?>" />
             </div>
         </div>
         <div class="row em-location-data-town">
@@ -49,11 +50,25 @@ $required = apply_filters('em_required_html', '<i>*</i>');
                 </select>
             </div>
         </div>
+        <div id="location_coordinates">
+            <div class="row em-location-data-coordinates">
+                <div class="col-xs-12 col-sm-12 col-md-12"><label><?php _e('Latitude:', 'dbem') ?> <?php echo $required; ?></label></div>
+                <div class="col-xs-12 col-sm-12 col-md-12 inside location-form-name">
+                    <input id='location-latitude' name='location_latitude' type='text' value='<?php echo $EM_Location->location_latitude; ?>' size='15' />
+                </div>
+            </div>
+
+            <div class="row em-location-data-coordinates">
+                <div class="col-xs-12 col-sm-12 col-md-12"><label><?php _e('Longtitude:', 'dbem') ?> <?php echo $required; ?></label></div>
+                <div class="col-xs-12 col-sm-12 col-md-12 inside location-form-name">
+                    <input id='location-longitude' name='location_longitude' type='text' value='<?php echo $EM_Location->location_longitude; ?>' size='15' />
+                </div>
+            </div>
+        </div>
+
+        <br style="clear:both; " />
+
     </div>
 <?php if (get_option('dbem_gmap_is_active')) em_locate_template('forms/map-container.php', true); ?>
-    <br style="clear:both; " />
-    <div id="location_coordinates" style='display: none;'>
-        <input id='location-latitude' name='location_latitude' type='text' value='<?php echo $EM_Location->location_latitude; ?>' size='15' />
-        <input id='location-longitude' name='location_longitude' type='text' value='<?php echo $EM_Location->location_longitude; ?>' size='15' />
-    </div>
+
 </div>
