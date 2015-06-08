@@ -11,8 +11,7 @@ $required = apply_filters('em_required_html', '<i>*</i>');
             <div class="col-xs-12 col-sm-12 col-md-12"><label><?php _e('Address:', 'dbem') ?> <?php echo $required; ?></label></div>
             <div class="col-xs-12 col-sm-12 col-md-12 inside location-form-name">
                 <input class="form-control" id="location-address" type="text" name="location_address" value="<?php echo esc_attr($EM_Location->location_address, ENT_QUOTES);
-;
-?>" />
+; ?>" />
             </div>
         </div>
         <div class="row em-location-data-town">
@@ -50,7 +49,8 @@ $required = apply_filters('em_required_html', '<i>*</i>');
                 </select>
             </div>
         </div>
-        <div id="location_coordinates">
+    </div>
+    <div id="location_coordinates">
             <div class="row em-location-data-coordinates">
                 <div class="col-xs-12 col-sm-12 col-md-12"><label><?php _e('Latitude:', 'dbem') ?> <?php echo $required; ?></label></div>
                 <div class="col-xs-12 col-sm-12 col-md-12 inside location-form-name">
@@ -65,10 +65,9 @@ $required = apply_filters('em_required_html', '<i>*</i>');
                 </div>
             </div>
         </div>
-
         <br style="clear:both; " />
 
-    </div>
 <?php if (get_option('dbem_gmap_is_active')) em_locate_template('forms/map-container.php', true); ?>
+    <br style="clear:both; " />
 
 </div>

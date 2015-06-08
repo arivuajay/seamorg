@@ -1091,7 +1091,7 @@ function em_maps() {
         jQuery('#location-select-id, input#location-id').change(function() {
             get_map_by_id(jQuery(this).val());
         });
-        jQuery('#location-name, #location-town, #location-address, #location-state, #location-postcode, #location-country,#location-latitude,#location-longitude').change(function() {
+        jQuery('#location-name, #location-town, #location-address, #location-state, #location-postcode, #location-country').change(function() {
             //build address
             var addresses = [jQuery('#location-address').val(), jQuery('#location-town').val(), jQuery('#location-state').val(), jQuery('#location-postcode').val()];
             var address = '';
@@ -1114,6 +1114,53 @@ function em_maps() {
                     if (status == google.maps.GeocoderStatus.OK) {
                         jQuery('#location-latitude').val(results[0].geometry.location.lat());
                         jQuery('#location-longitude').val(results[0].geometry.location.lng());
+                    }
+                    refresh_map_location();
+                });
+            }
+        });
+
+        jQuery('#location-latitude,#location-longitude').change(function() {
+            //build address
+            var locate_latitude = jQuery('#location-latitude').val();
+            var locate_longtitude = jQuery('#location-longitude').val();
+
+            var coords = '';
+
+
+            if (locate_latitude == '' && locate_longtitude == '') { //in case only name is entered, no address
+                return false;
+            }
+
+             var latlng = new google.maps.LatLng(locate_latitude, locate_longtitude);
+
+            if ( latlng != '' && jQuery('#em-map').length > 0) {
+                geocoder.geocode({'latLng': latlng}, function(results, status) {
+                    console.log(results);
+                    if (status == google.maps.GeocoderStatus.OK) {
+//Check result 0
+var result = results[0];
+//look for locality tag and administrative_area_level_1
+var address = "";
+var city = "";
+var state = "";
+var country = "";
+
+for(var i=0, len=result.address_components.length; i<len; i++) {
+	var ac = result.address_components[i];
+	if(ac.types.indexOf("sublocality_level_1") >= 0) address = ac.long_name;
+	if(ac.types.indexOf("locality") >= 0) city = ac.long_name;
+	if(ac.types.indexOf("administrative_area_level_1") >= 0) state = ac.long_name;
+	if(ac.types.indexOf("country") >= 0) country = ac.short_name;
+}
+
+//                        #location-name, #location-town, #location-address, #location-state, #location-postcode, #location-country
+                        jQuery('#location-address').val(address);
+                        jQuery('#location-town').val(city);
+                        jQuery('#location-state').val(state);
+//                        jQuery('#location-region').val(results[0].address_components[3].long_name);
+                        jQuery('#location-country').val(country);
+//                        jQuery('#location-longitude').val(results[0].geometry.location.lng());
                     }
                     refresh_map_location();
                 });

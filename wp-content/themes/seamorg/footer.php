@@ -44,12 +44,12 @@
     <div class="">
         <?php wp_nav_menu(array('theme_location' => 'primary', 'container_class' => 'big-menu', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-menu')); ?>
         <?php wp_nav_menu(array('theme_location' => 'primary-2', 'container_class' => 'small-menu', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-2-menu')); ?>
-        <div class="language-cont">
+<!--        <div class="language-cont">
             <p> Language</p>
             <select name="">
                 <option>English</option>
             </select>
-        </div>
+        </div>-->
         <div class="joinwith">
             <p> Join with us</p>
             <?php wp_nav_menu(array('container' => false, 'menu_id' => 'social', 'menu_class' => 'social-nav', 'depth' => 0, 'theme_location' => 'social', 'walker' => new social_nav_walker())); ?>
