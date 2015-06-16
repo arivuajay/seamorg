@@ -41,45 +41,45 @@ if (!empty($_REQUEST['success'])) {
             <?php do_action('em_font_event_form_guest'); ?>
             </div>
         <?php endif; ?>
-        
+
         <div class="row">
-        
+
          <div class="col-xs-12 col-sm-6 col-md-6 create-event-part1">
          <?php if (get_option('dbem_locations_enabled')): ?>
-         
+
             <h3 class="event-form-where hidden"><?php esc_html_e('Where', 'dbem'); ?></h3>
-            
+
             <div class="inside event-form-where">
             <?php em_locate_template('forms/event/location.php', true); ?>
             </div>
 <?php endif; ?>
          </div>
-   
-   <div class="col-xs-12 col-sm-6 col-md-6 create-event-part2"> 
-   
-   
-   <div class="row"> 
-   
-   
-    <div class="col-xs-12 col-sm-12 col-md-12"> 
+
+   <div class="col-xs-12 col-sm-6 col-md-6 create-event-part2">
+
+
+   <div class="row">
+
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
     <?php esc_html_e('Event Name', 'dbem'); ?>
      </div>
-     
-         <div class="col-xs-12 col-sm-12 col-md-12"> 
+
+         <div class="col-xs-12 col-sm-12 col-md-12">
    <div class="inside event-form-name">
             <input type="text" name="event_name" id="event-name" value="<?php echo esc_attr($EM_Event->event_name, ENT_QUOTES); ?>" /><?php echo $required; ?>
-            <br /> 
+            <br />
            <span class="help-block"> <?php esc_html_e('The event name. Example: Birthday party', 'dbem'); ?></span>
 <?php em_locate_template('forms/event/group.php', true); ?>
         </div>
 
      </div>
-   
-   
+
+
    </div>
-   
-  
-        
+
+
+
         <h3 class="event-form-when hidden"><?php esc_html_e('When', 'dbem'); ?></h3>
         <div class="inside event-form-when">
             <?php
@@ -93,24 +93,24 @@ if (!empty($_REQUEST['success'])) {
             ?>
         </div>
    </div>
-        
+
         </div>
-  
-        
 
 
 
 
 
 
-        <span class="event-form-details"><?php esc_html_e('Details', 'dbem'); ?></span>
+
+
+        <span class="event-form-details"><?php esc_html_e('Suggested instructions', 'dbem'); ?></span>
         <div class="inside event-form-details">
             <div class="event-editor">
                 <?php if (get_option('dbem_events_form_editor') && function_exists('wp_editor')): ?>
                     <?php wp_editor($EM_Event->post_content, 'em-editor-content', array('textarea_name' => 'content')); ?>
 <?php else: ?>
                     <textarea name="content"><?php echo $EM_Event->post_content ?></textarea>
-                   
+
                     <?php //esc_html_e('Details about the event.', 'dbem') ?> <?php //esc_html_e('HTML allowed.', 'dbem') ?>
 <?php endif; ?>
             </div>

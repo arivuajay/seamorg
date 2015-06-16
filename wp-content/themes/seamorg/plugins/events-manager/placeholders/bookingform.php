@@ -87,6 +87,7 @@ if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true
 						?>
 						<?php do_action('em_booking_form_footer', $EM_Event); //do not delete ?>
 						<div class="em-booking-buttons">
+                                                    <label class="bookings_comment">&nbsp;</label>
 							<?php if( preg_match('/https?:\/\//',get_option('dbem_bookings_submit_button')) ): //Settings have an image url (we assume). Use it here as the button.?>
 							<input type="image" src="<?php echo get_option('dbem_bookings_submit_button'); ?>" class="em-booking-submit" id="em-booking-submit" />
 							<?php else: //Display normal submit button ?>

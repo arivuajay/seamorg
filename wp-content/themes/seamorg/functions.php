@@ -144,8 +144,8 @@ function seamorg_widgets_init() {
         'before_title' => '<h2 class="widget-title">',
         'after_title' => '</h2>',
     ));
-	
-	register_sidebar(array(
+
+    register_sidebar(array(
         'name' => __('Footer2 Area', 'seamorg'),
         'id' => 'footer-area-2',
         'description' => __('Add widgets here to appear in your sidebar.', 'seamorg'),
@@ -248,9 +248,10 @@ function seamorg_javascript_detection() {
 
 add_action('wp_head', 'seamorg_javascript_detection', 0);
 
-function seamorg_admin_javascript_detection(){
+function seamorg_admin_javascript_detection() {
     echo "<script>var site_url = '" . site_url() . "';</script>\n";
 }
+
 add_action('admin_init', 'seamorg_admin_javascript_detection', 0);
 
 /**
@@ -558,7 +559,7 @@ function guide_can_create() {
         $event_limit = DBEM_CUSTOM_MAX_EVENT_LIMIT;
         global $wpdb;
         $current_user = wp_get_current_user();
-        $current_time = date('Y-m-d',strtotime(current_time('mysql')));
+        $current_time = date('Y-m-d', strtotime(current_time('mysql')));
         $sql = "SELECT COUNT(*) as count FROM {$wpdb->prefix}em_events WHERE event_owner = '{$current_user->ID}' AND event_status = '1' AND event_end_date >= '{$current_time}'";
         $results = $wpdb->get_results($sql, OBJECT);
 
@@ -606,5 +607,33 @@ add_filter('pre_site_transient_update_core', 'remove_core_updates');
 add_filter('pre_site_transient_update_plugins', 'remove_core_updates');
 add_filter('pre_site_transient_update_themes', 'remove_core_updates');
 //Disable WP Updatees
+//
+add_action('um_submit_form_errors_hook', 'check_phone', 100);
 
+function check_phone($args) {
+    global $ultimatemember;
+    $field_value = $args['phone'];
+    $reg_ex = "/^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$/";
+    if (isset($field_value)) {
+        if(empty($field_value)){
+            $ultimatemember->form->add_error('phone', 'Phone number is required.');
+        }elseif (!preg_match($reg_ex, $field_value)) {
+            $ultimatemember->form->add_error('phone', 'Invalid phone number. Enter like (123) 456-7890');
+        }
+    }
+}
 
+add_action('um_submit_form_errors_hook', 'check_ssn', 100);
+
+function check_ssn($args) {
+    global $ultimatemember;
+    $field_value = $args['ssn'];
+    $reg_ex = "/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/";
+    if (isset($field_value)) {
+        if(empty($field_value)){
+            $ultimatemember->form->add_error('ssn', 'SSN number is required.');
+        }elseif (!preg_match($reg_ex, $field_value)) {
+            $ultimatemember->form->add_error('ssn', 'Invalid SSN number. Enter like 123-456-7890');
+        }
+    }
+}

@@ -55,7 +55,7 @@ if (!is_admin())
 
             <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 location-form-details">
-                        <label><?php esc_html_e('Details', 'dbem'); ?></label>
+                        <label><?php esc_html_e('Suggested instructions', 'dbem'); ?></label>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 inside location-form-details">
                         <?php if (get_option('dbem_events_form_editor') && function_exists('wp_editor')): ?>

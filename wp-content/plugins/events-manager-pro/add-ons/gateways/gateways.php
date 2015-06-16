@@ -425,7 +425,8 @@ class EM_Gateways {
 		global $EM_Gateways;
 		$gateway_buttons = array();
 		$active_gateways = self::active_gateways();
-		if( is_array($active_gateways) ){
+
+		if( is_array($active_gateways) && !empty($active_gateways) ){
 			foreach($active_gateways as $gateway => $active_val){
 				if(array_key_exists($gateway, $EM_Gateways) && $EM_Gateways[$gateway]->button_enabled) {
 					$gateway_button = $EM_Gateways[$gateway]->booking_form_button();
@@ -444,6 +445,7 @@ class EM_Gateways {
 				$button .= '<input type="hidden" name="gateway" value="'.$gateway.'" />';
 			}
 		}
+
 		if($button != '') $button .= '<style type="text/css">input.em-booking-submit { display:none; } .em-gateway-button input.em-booking-submit { display:block; }</style>'; //hide normal button if we have buttons
 		return apply_filters('em_gateway_booking_form_buttons', $button, $gateway_buttons);
 	}
