@@ -94,7 +94,7 @@ class EM_Coupons_Admin {
     }
 
     static function admin_menu($plugin_pages) {
-        $plugin_pages[] = add_submenu_page('edit.php?post_type=' . EM_POST_TYPE_EVENT, __('Coupons', 'em-pro'), __('Coupons Manager', 'em-pro'), 'manage_others_bookings', 'events-manager-coupons', 'EM_Coupons_Admin::admin_page');
+//        $plugin_pages[] = add_submenu_page('edit.php?post_type=' . EM_POST_TYPE_EVENT, __('Coupons', 'em-pro'), __('Coupons Manager', 'em-pro'), 'manage_others_bookings', 'events-manager-coupons', 'EM_Coupons_Admin::admin_page');
         return $plugin_pages; //use wp action/filters to mess with the menus
     }
 

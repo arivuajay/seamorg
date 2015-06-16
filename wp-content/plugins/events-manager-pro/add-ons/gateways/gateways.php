@@ -7,7 +7,7 @@ class EM_Gateways {
 	 * STATIC Functions - functions that don't need to be overriden
 	 * --------------------------------------------------
 	 */
-	
+
 	static function init(){
 	    add_filter('em_wp_localize_script', array('EM_Gateways','em_wp_localize_script'),10,1);
 		//add to booking interface (menu options, booking statuses)
@@ -53,7 +53,7 @@ class EM_Gateways {
 			'company' => __('Company','em-pro')
 		);
 	}
-	
+
 	static function em_wp_localize_script( $vars ){
 		if( is_user_logged_in() && get_option('dbem_rsvp_enabled') ){
 		    $vars['booking_delete'] .= ' '.__('All transactional history associated with this booking will also be deleted.','em-pro');
@@ -61,7 +61,7 @@ class EM_Gateways {
 		}
 	    return $vars;
 	}
-	
+
 	static function em_bookings_table($EM_Bookings_Table){
 		$EM_Bookings_Table->statuses['awaiting-online'] = array('label'=>__('Awaiting Online Payment','em-pro'), 'search'=>4);
 		$EM_Bookings_Table->statuses['awaiting-payment'] = array('label'=>__('Awaiting Offline Payment','em-pro'), 'search'=>5);
@@ -81,7 +81,7 @@ class EM_Gateways {
 		}
 		$EM_Gateways[$gateway] = new $class;
 	}
-		
+
 	/**
 	 * Returns an array of active gateway objects
 	 * @return array
@@ -96,7 +96,7 @@ class EM_Gateways {
 		}
 		return $gateways;
 	}
-	
+
 	/**
 	 * Returns an array of all registered gateway objects
 	 * @return array
@@ -109,7 +109,7 @@ class EM_Gateways {
 		}
 		return $gateways;
 	}
-	
+
 	/**
 	 * Returns the EM Gateway with supplied name
 	 * @param string $gateway
@@ -123,7 +123,7 @@ class EM_Gateways {
 		return new EM_Gateway(); //returns a blank EM_Gateway regardless to avoid fatal errors
 	}
 
-	/* 
+	/*
 	 * --------------------------------------------------
 	 * Booking Interception - functions that modify booking object behaviour
 	 * --------------------------------------------------
@@ -139,7 +139,7 @@ class EM_Gateways {
 	    	return $result;
 	    }
 	    if( get_option('dbem_multiple_bookings') && get_class($EM_Booking) == 'EM_Booking' ){ //we only deal with the EM_Multiple_Booking class if we're in multi booking mode
-	        return $result;	        
+	        return $result;
 	    }
 	    if( empty($EM_Booking->booking_id) && (empty($_REQUEST['gateway']) || !array_key_exists($_REQUEST['gateway'], self::active_gateways())) && $EM_Booking->get_price() > 0 && count(EM_Gateways::active_gateways()) > 0 ){
 	        //spammer or hacker trying to get around no gateway selection
@@ -154,7 +154,7 @@ class EM_Gateways {
 	    }
 	    return $result;
 	}
-	
+
 	/**
 	 * Intercepted when a booking is about to be added and saved, calls the relevant booking gateway action provided gateway is provided in submitted request variables.
 	 * @param EM_Event $EM_Event the event the booking is being added to
@@ -170,28 +170,28 @@ class EM_Gateways {
 			$EM_Gateways[$_REQUEST['gateway']]->booking_add($EM_Event, $EM_Booking, $post_validation);
 		}
 	}
-	
+
 	static function event_booking_form_footer( $EM_Event ){
 		if(!$EM_Event->is_free() ){
 		    self::booking_form_footer();
 		}
 	}
-	
+
 	static function mb_booking_form_footer(){
 	    $EM_Multiple_Booking = EM_Multiple_Bookings::get_multiple_booking();
 	    if( $EM_Multiple_Booking->get_price() > 0 ){
 	        self::booking_form_footer();
 	    }
 	}
-	
+
 	/**
-	 * Gets called at the bottom of the form before the submit button. 
+	 * Gets called at the bottom of the form before the submit button.
 	 * Outputs a gateway selector and allows gateways to hook in and provide their own payment information to be submitted.
 	 * By default each gateway is wrapped with a div with id em-booking-gateway-x where x is the gateway for JS to work.
-	 * 
+	 *
 	 * To prevent this from firing, call this function after the init action:
 	 * remove_action('em_booking_form_footer', array('EM_Gateways','booking_form_footer'),1,2);
-	 * 
+	 *
 	 * You'll have to ensure a gateway value is submitted in your booking form in order for paid bookings to be processed properly.
 	 */
 	static function booking_form_footer(){
@@ -239,7 +239,7 @@ class EM_Gateways {
 		}
 		return; //for filter compatibility
 	}
-	
+
 	/**
 	 * Cleans up Pro-added features in the database, such as deleting transactions for this booking.
 	 * @param boolean $result
@@ -254,14 +254,14 @@ class EM_Gateways {
 		}
 		return $result;
 	}
-	
+
 	static function em_action_booking_add($return){
 		if( !empty($_REQUEST['gateway']) ){
 			$return['gateway'] = $_REQUEST['gateway'];
 		}
 		return $return;
 	}
-	
+
 	static function em_gateway_js(){
 		include(dirname(__FILE__).'/gateways.js');
 	}
@@ -272,13 +272,13 @@ class EM_Gateways {
 			exit();
 		}
 	}
-	
+
 	/*
 	 * ----------------------------------------------------------
 	 * Booking Table and CSV Export
 	 * ----------------------------------------------------------
 	 */
-	
+
 	public static function em_bookings_table_rows_col($value, $col, $EM_Booking, $EM_Bookings_Table, $csv){
 		global $EM_Event;
 		if( $col == 'gateway' ){
@@ -292,7 +292,7 @@ class EM_Gateways {
 		}
 		return $value;
 	}
-	
+
 	public static function em_bookings_table_cols_template($template, $EM_Bookings_Table){
 		$template['gateway'] = __('Gateway Used','em-pro');
 		return $template;
@@ -306,11 +306,11 @@ class EM_Gateways {
 	static function get_customer_field($field_name, $EM_Booking = false, $user_or_id = false){
 		//get user id
 		if( is_numeric($user_or_id) ){
-			$user_id = $user_or_id; 
+			$user_id = $user_or_id;
 		}elseif(is_object($user_or_id)){
 			$user_id = $user_or_id->ID;
 		}elseif( !empty($EM_Booking->person_id) ){
-			$user_id = $EM_Booking->person_id;		
+			$user_id = $EM_Booking->person_id;
 		}else{
 			$user_id = get_current_user_id();
 		}
@@ -337,11 +337,11 @@ class EM_Gateways {
 				}
 			}else{
 				return $value;
-			}			
+			}
 		}
 		return '';
 	}
-	
+
 	static function customer_fields_admin_actions() {
 		global $EM_Notices;
 		$EM_Form = EM_User_Fields::get_form();
@@ -358,7 +358,7 @@ class EM_Gateways {
 		}
 		//enable dbem_bookings_tickets_single_form if enabled
 	}
-	
+
 	static function customer_fields_admin() {
 		//enable dbem_bookings_tickets_single_form if enabled
 		$EM_Form = EM_User_Fields::get_form();
@@ -436,7 +436,7 @@ class EM_Gateways {
 			}
 			//$gateway_buttons = apply_filters('em_gateway_buttons', $gateway_buttons, $EM_Event);
 			if( count($gateway_buttons) > 0 ){
-				$button = '<div class="em-gateway-buttons"><div class="em-gateway-button first">'. implode('</div><div class="em-gateway-button">', $gateway_buttons).'</div></div>';			
+				$button = '<div class="em-gateway-buttons"><label for="booking_button">&nbsp;</label><div class="em-gateway-button first">'. implode('</div><div class="em-gateway-button">', $gateway_buttons).'</div></div>';
 			}
 			if( count($gateway_buttons) > 1 ){
 				$button .= '<input type="hidden" name="gateway" value="offline" />';

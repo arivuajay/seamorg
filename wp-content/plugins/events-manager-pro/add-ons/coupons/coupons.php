@@ -3,9 +3,9 @@
 //TODO add logging of coupon useage in seperate log table
 include('coupon.php');
 class EM_Coupons extends EM_Object {
-    
+
     static public $can_manage = 'manage_others_bookings';
-    
+
 	public static function init(){
 	    if( is_admin() ){
 	        include('coupons-admin.php');
@@ -54,7 +54,7 @@ class EM_Coupons extends EM_Object {
 		add_action('wp_head',array('EM_Coupons', 'wp_head'));
 		add_action('admin_head',array('EM_Coupons', 'wp_head'));
 	}
-	
+
 	public static function em_booking_get_price_discounts( $discounts, $EM_Booking ){
 	    $coupons = self::booking_get_coupons($EM_Booking);
 	    if( is_array($coupons) && count($coupons) > 0 ){
@@ -72,7 +72,7 @@ class EM_Coupons extends EM_Object {
 	    }
 	    return $discounts;
 	}
-	
+
 	/* Event Helpers */
 
 	/**
@@ -99,7 +99,7 @@ class EM_Coupons extends EM_Object {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Gets all coupons available to an event
 	 * @param EM_Event $EM_Event
@@ -115,7 +115,7 @@ class EM_Coupons extends EM_Object {
 	    }
 	    return $EM_Event->coupons;
 	}
-	
+
 	/**
 	 * Gets all coupon ids available to an event
 	 * @param EM_Event $EM_Event
@@ -131,7 +131,7 @@ class EM_Coupons extends EM_Object {
 	    }
 	    return $EM_Event->coupon_ids;
 	}
-	
+
 	/**
 	 * @param EM_Event $EM_Event
 	 * @return boolean
@@ -146,14 +146,14 @@ class EM_Coupons extends EM_Object {
 	    }
 	    return $EM_Event->coupons_count > 0;
 	}
-	
+
 	/* Booking Helpers */
 	public static function booking_has_coupons($EM_Booking){
 	    return !empty($EM_Booking->booking_meta['coupon']) || !empty($EM_Booking->booking_meta['coupons']);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param EM_Booking $EM_Booking
 	 * @return array
 	 */
@@ -173,9 +173,9 @@ class EM_Coupons extends EM_Object {
 	    */
 	    return $coupons;
 	}
-	
+
 	/* Multiple Booking Functions */
-	
+
 	public static function cart_coupon_apply( $coupon_code ){
 		$EM_Multiple_Booking = EM_Multiple_Bookings::get_multiple_booking();
 		if(!empty($_REQUEST['coupon_code'])){
@@ -190,7 +190,7 @@ class EM_Coupons extends EM_Object {
 		}
 		return false;
 	}
-	
+
 	public static function cart_coupon_apply_fallback(){
 		global $EM_Notices;
 		if(!empty($_REQUEST['coupon_code'])){
@@ -201,7 +201,7 @@ class EM_Coupons extends EM_Object {
 			$EM_Notices->add_error(__('Coupon Not Found', 'em-pro'));
 		}
 	}
-	
+
 	public static function cart_coupon_apply_ajax(){
 	    $response = array('result'=>false, 'message'=> __('Coupon Not Found', 'em-pro'));
 		if(!empty($_REQUEST['coupon_code'])){
@@ -215,17 +215,17 @@ class EM_Coupons extends EM_Object {
 		echo EM_Object::json_encode($response);
 		exit();
 	}
-	
+
 	/*
-	 * MODIFYING BOOKING Functions 
-	 */	
-	
+	 * MODIFYING BOOKING Functions
+	 */
+
 	/**
 	 * @param boolean $result
 	 * @param EM_Booking $EM_Booking
 	 * @return boolean
 	 */
-	public static function em_booking_get_post( $result, $EM_Booking){ 
+	public static function em_booking_get_post( $result, $EM_Booking){
 		if( !empty($_REQUEST['coupon_code']) ){
 			$EM_Coupon = EM_Coupons::event_get_coupon($_REQUEST['coupon_code'], $EM_Booking->get_event());
 			if( $EM_Coupon === false && !empty($EM_Booking->booking_id) ){ //if a previously saved booking, account for the fact it may not work
@@ -240,13 +240,13 @@ class EM_Coupons extends EM_Object {
 		}
 		return apply_filters('em_coupons_em_booking_get_post', $result, $EM_Booking);
 	}
-	
+
 	public static function em_booking_validate($result, $EM_Booking){
 		if( !empty($EM_Booking->booking_meta['coupon']) ){
 			$EM_Coupon = self::event_get_coupon($EM_Booking->booking_meta['coupon']['coupon_code'], $EM_Booking->get_event());
 			if( $EM_Coupon === false && !empty($EM_Booking->booking_id) ){ //if a previously saved booking, account for the fact it may not work
 				$EM_Coupon = new EM_Coupon($EM_Booking->booking_meta['coupon']);
-			}elseif( $EM_Coupon === false && get_class($EM_Booking) == 'EM_Multiple_Booking'){ //multiple bookings have no event-specific coupons, so use this 
+			}elseif( $EM_Coupon === false && get_class($EM_Booking) == 'EM_Multiple_Booking'){ //multiple bookings have no event-specific coupons, so use this
 				$EM_Coupon = new EM_Coupon($EM_Booking->booking_meta['coupon']['coupon_id']);
 				if( $EM_Coupon->coupon_code != $EM_Booking->booking_meta['coupon']['coupon_code'] ){
 					$EM_Coupon = false;
@@ -260,7 +260,7 @@ class EM_Coupons extends EM_Object {
 		}
 		return apply_filters('em_coupons_em_booking_validate', $result, $EM_Booking);
 	}
-	
+
 	public static function em_booking_save($result, $EM_Booking){
 		if( $result && !empty($EM_Booking->booking_meta['coupon']) ){
 			global $wpdb;
@@ -289,37 +289,37 @@ class EM_Coupons extends EM_Object {
 				$replace = '';
 				if( !empty($EM_Booking->booking_meta['coupon']) ){
 					$EM_Coupon = new EM_Coupon($EM_Booking->booking_meta['coupon']);
-					$replace = $EM_Coupon->coupon_code.' - '.$EM_Coupon->get_discount_text();					
+					$replace = $EM_Coupon->coupon_code.' - '.$EM_Coupon->get_discount_text();
 				}
 			}elseif( $full_result == '#_BOOKINGCOUPONCODE' ){
 				$replace = '';
 				if( !empty($EM_Booking->booking_meta['coupon']) ){
 					$EM_Coupon = new EM_Coupon($EM_Booking->booking_meta['coupon']);
-					$replace = $EM_Coupon->coupon_code;					
+					$replace = $EM_Coupon->coupon_code;
 				}
 			}elseif( $full_result == '#_BOOKINGCOUPONDISCOUNT' ){
 				$replace = '';
 				if( !empty($EM_Booking->booking_meta['coupon']) ){
 					$EM_Coupon = new EM_Coupon($EM_Booking->booking_meta['coupon']);
-					$replace = $EM_Coupon->get_discount_text();					
+					$replace = $EM_Coupon->get_discount_text();
 				}
 			}elseif( $full_result == '#_BOOKINGCOUPONNAME' ){
 				$replace = '';
 				if( !empty($EM_Booking->booking_meta['coupon']) ){
 					$EM_Coupon = new EM_Coupon($EM_Booking->booking_meta['coupon']);
-					$replace = $EM_Coupon->coupon_name;					
+					$replace = $EM_Coupon->coupon_name;
 				}
 			}elseif( $full_result == '#_BOOKINGCOUPONDESCRIPTION' ){
 				$replace = '';
 				if( !empty($EM_Booking->booking_meta['coupon']) ){
 					$EM_Coupon = new EM_Coupon($EM_Booking->booking_meta['coupon']);
-					$replace = $EM_Coupon->coupon_description;					
+					$replace = $EM_Coupon->coupon_description;
 				}
 			}
 		}
 		return $replace; //no need for a filter, use the em_booking_email_placeholders filter
 	}
-	
+
 	public static function em_event_get_post($result, $EM_Event){
 		$EM_Event->coupons = array();
 		if(!empty($_REQUEST['em_coupons']) && is_array($_REQUEST['em_coupons'])){
@@ -327,7 +327,7 @@ class EM_Coupons extends EM_Object {
 		}
 		return $result;
 	}
-	
+
 	public static function em_event_save_meta($result, $EM_Event){
 		global $wpdb;
 		if($result){
@@ -343,7 +343,7 @@ class EM_Coupons extends EM_Object {
 		}
 		return $result;
 	}
-	
+
 	public static function em_event_save_events($result, $EM_Event, $event_ids){
 		global $wpdb;
 		if( $result ){
@@ -363,7 +363,7 @@ class EM_Coupons extends EM_Object {
 		}
 		return $result;
 	}
-	
+
 	public static function em_event_delete_meta($result, $EM_Event){
 		//TODO deleted events should delete coupon references
 		global $wpdb;
@@ -371,7 +371,7 @@ class EM_Coupons extends EM_Object {
 			$wpdb->query("DELETE FROM ".EM_META_TABLE." WHERE meta_key='event-coupon' AND object_id=".$EM_Event->event_id);
 		}
 	}
-	
+
 	public static function em_booking_delete($result, $EM_Booking){
 		global $wpdb;
 		if($result){
@@ -389,19 +389,19 @@ class EM_Coupons extends EM_Object {
 		}
 		return $result;
 	}
-	
+
 	public static function em_booking_form_footer($EM_Event){
 		if( EM_Coupons::event_has_coupons($EM_Event) > 0){
 			?>
-			<p class="em-bookings-form-coupon">
+<!--			<p class="em-bookings-form-coupon">
 				<label><?php _e('Coupon Code','em-pro'); ?></label>
 				<input type="text" name="coupon_code" class="input em-coupon-code" />
-			</p>
+			</p>-->
 			<?php
 			add_action('em_booking_js_footer', array('EM_Coupons', 'em_booking_js_footer') );
 		}
 	}
-	
+
 	/**
 	 * Echoes a coupon code field in the footer of the cart page. Currently used in MB mode only.
 	 * @param EM_Multiple_Booking $EM_Booking
@@ -422,7 +422,7 @@ class EM_Coupons extends EM_Object {
 		add_action('em_cart_js_footer', array('EM_Coupons', 'em_cart_gateway_js') );
 		add_action('em_cart_gateway_js', array('EM_Coupons', 'em_cart_gateway_js') );
 	}
-	
+
 	public static function wp_head(){
 		//override this with CSS in your own theme
 		?>
@@ -433,19 +433,19 @@ class EM_Coupons extends EM_Object {
 			.em-coupon-success { color:green; background:url(<?php echo plugins_url('events-manager-pro/includes/images/success.png','events-manager-pro'); ?>) 0px 0px no-repeat }
 			.em-coupon-error { color:red; background:url(<?php echo plugins_url('events-manager-pro/includes/images/error.png','events-manager-pro'); ?>) 0px 0px no-repeat }
 			.em-cart-coupons-form .em-coupon-message{ margin:5px 0px 0px 0px; }
-			#em-coupon-loading { margin-right:4px; }	
+			#em-coupon-loading { margin-right:4px; }
 		</style>
 		<?php
 	}
-	
+
 	public static function em_cart_gateway_js(){
 		include('coupons-cart.js');
 	}
-	
+
 	public static function em_booking_js_footer(){
 		include('coupons.js');
 	}
-	
+
 	public static function coupon_check_ajax(){
 		$result = array('result'=>false, 'message'=> __('Coupon Not Found', 'em-pro'));
 		if(!empty($_REQUEST['event_id'])){
@@ -463,16 +463,16 @@ class EM_Coupons extends EM_Object {
 		echo EM_Object::json_encode($result);
 		exit();
 	}
-	
+
 	/**
 	 * @param EM_Event $EM_Event
 	 */
 	public static function admin_meta_box($EM_Event){
-		//load this only when needed, so moved into the EM_Coupons_Admin object, 
+		//load this only when needed, so moved into the EM_Coupons_Admin object,
 		include_once('coupons-admin.php');
 		EM_Coupons_Admin::admin_meta_box($EM_Event);
 	}
-	
+
 	/**
 	 * Returns an array of EM_Coupon objects, accepts search arguments or a numeric array for ids to retreive
 	 * @param boolean $args
@@ -483,7 +483,7 @@ class EM_Coupons extends EM_Object {
 		global $wpdb;
 		$coupons_table = EM_COUPONS_TABLE;
 		$coupons = array();
-		
+
 		//Quick version, we can accept an array of IDs, which is easy to retrieve
 		if( self::array_is_numeric($args) ){ //Array of numbers, assume they are event IDs to retreive
 			//We can just get all the events here and return them
@@ -492,27 +492,27 @@ class EM_Coupons extends EM_Object {
 			foreach($results as $result){
 				$coupons[$result['coupon_id']] = new EM_Coupon($result);
 			}
-			return apply_filters('em_coupons_get', $coupons, $args); //We return all the events matched as an EM_Event array. 
+			return apply_filters('em_coupons_get', $coupons, $args); //We return all the events matched as an EM_Event array.
 		}
-		
-		//We assume it's either an empty array or array of search arguments to merge with defaults			
+
+		//We assume it's either an empty array or array of search arguments to merge with defaults
 		$args = self::get_default_search($args);
 		$limit = ( $args['limit'] && is_numeric($args['limit'])) ? "LIMIT {$args['limit']}" : '';
 		$offset = ( $limit != "" && is_numeric($args['offset']) ) ? "OFFSET {$args['offset']}" : '';
-		
+
 		//Get the default conditions
 		$conditions = self::build_sql_conditions($args);
 		$where = ( count($conditions) > 0 ) ? " WHERE " . implode ( " AND ", $conditions ):'';
-		
+
 		//Get ordering instructions
 		$orderby = array('coupon_name','coupon_code');
 		//Now, build orderby sql
 		$orderby_sql = ( count($orderby) > 0 ) ? 'ORDER BY '. implode(', ', $orderby) : '';
-		
+
 		$selectors = '*';
 		if( !empty($args['ids']) ) $selectors = 'coupon_id';
 		if( $count ) $selectors = 'COUNT(*)';
-		
+
 		//Create the SQL statement and execute
 		$sql = "
 			SELECT $selectors FROM $coupons_table
@@ -527,30 +527,30 @@ class EM_Coupons extends EM_Object {
 		}
 		//If we're only counting results, return the number of results
 		if( $count ){
-			return apply_filters('em_coupons_get_array', $wpdb->get_var($sql), $args);	
+			return apply_filters('em_coupons_get_array', $wpdb->get_var($sql), $args);
 		}
-		
+
 		$results = $wpdb->get_results($sql, ARRAY_A);
-		
+
 		//If we want results directly in an array, why not have a shortcut here?
 		if( $args['array'] == true ){
 			return apply_filters('em_coupons_get_array', $results, $args);
 		}
-		
+
 		foreach ( $results as $coupon ){
 			$coupons[$coupon['coupon_id']] = new EM_Coupon($coupon);
 		}
 		return apply_filters('em_coupons_get', $coupons, $args);
 	}
-	
+
 	public static function count($args = array() ){
 		return self::get($args, true);
 	}
-	
+
 	/*
 	 * CSV Functions
 	 */
-	
+
 	public static function em_bookings_table_cols_template($template){
 		if( get_option('dbem_multiple_bookings') ){
 			$template['coupon'] = '[MB] ' . __('Coupon Code','em-pro');
@@ -559,7 +559,7 @@ class EM_Coupons extends EM_Object {
 		}
 		return $template;
 	}
-	
+
 	public static function em_bookings_table_rows_col_coupon($val, $EM_Booking){
 		//if in MB mode, change $EM_Booking with the main booking to grab coupon info, given that we don't support per-event coupons in MB mode atm
 		if( get_option('dbem_multiple_bookings') ){
@@ -624,7 +624,7 @@ class EM_Coupons extends EM_Object {
 				}
 			}
 			//if in MB mode, every coupon is considered sitewide.
-            if( !get_option('dbem_multiple_bookings') ){ 
+            if( !get_option('dbem_multiple_bookings') ){
     			//owner lookup
     			if( !empty($args['owner']) && is_numeric($args['owner'])){
     				$conditions['owner'] = "coupon_owner=".$args['owner'];
@@ -661,7 +661,7 @@ class EM_Coupons extends EM_Object {
 	    				if( $args['eventwide'] === 1 || $args['eventwide'] === true ){
 							//we'll never do an AND search for site-wide/event-wide because it would just negate all coupons that are one or the other
 	    					$conditions['eventwide'] .= " OR coupon_sitewide=1";
-	    				}else{ 
+	    				}else{
 	    					$conditions['sitewide'] = "coupon_sitewide=1";
 	    				}
 	    			}elseif( !$args['sitewide'] ){
@@ -673,8 +673,8 @@ class EM_Coupons extends EM_Object {
 		}
 		return apply_filters( 'em_coupons_build_sql_conditions', $conditions, $args );
 	}
-	
-	/* 
+
+	/*
 	 * Adds custom Events search defaults
 	 * @param array $array
 	 * @return array
