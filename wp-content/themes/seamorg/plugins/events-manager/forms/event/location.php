@@ -40,10 +40,11 @@ $required = apply_filters('em_required_html', '<i>*</i>');
                         $ddm_args['owner'] = (is_user_logged_in() && !current_user_can('read_others_locations')) ? get_current_user_id() : false;
                         $locations = EM_Locations::get($ddm_args);
                         $selected_location = !empty($EM_Event->location_id) || !empty($EM_Event->event_id) ? $EM_Event->location_id : get_option('dbem_default_location');
+
                         foreach ($locations as $EM_Location) {
                             $selected = ($selected_location == $EM_Location->location_id) ? "selected='selected' " : '';
                             ?>
-                            <option value="<?php echo $EM_Location->location_id ?>" title="<?php echo "{$EM_Location->location_latitude},{$EM_Location->location_longitude}" ?>" <?php echo $selected ?>><?php echo $EM_Location->location_name; ?></option>
+                            <option data-max-space="<?php echo $EM_Location->location_attributes['Maximum Space'] ?>" value="<?php echo $EM_Location->location_id ?>" title="<?php echo "{$EM_Location->location_latitude},{$EM_Location->location_longitude}" ?>" <?php echo $selected ?>><?php echo $EM_Location->location_name; ?></option>
                             <?php
                         }
                         ?>

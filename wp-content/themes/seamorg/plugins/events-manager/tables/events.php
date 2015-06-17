@@ -55,7 +55,9 @@ global $wpdb, $bp, $EM_Notices;
         <div class="row">
             <?php
             if (empty($EM_Events)) {
+                echo "<div class=' col-xs-12 col-sm-12 col-md-12 col-lg-12 '>";
                 echo get_option('dbem_no_events_message');
+                echo "</div>";
             } else {
                 ?>
 

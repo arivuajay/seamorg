@@ -8,7 +8,7 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
 </div>
 <div id="event-rsvp-options">
     <?php do_action('em_events_admin_bookings_header', $EM_Event); ?>
-    <div id="em-tickets-form">
+    <div id="em-tickets-form" class="hidden">
         <?php
         //get tickets here and if there are none, create a blank ticket
         $EM_Tickets = $EM_Event->get_tickets();
@@ -133,14 +133,14 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
     </div>
     <div id="em-booking-options">
 <?php if (!get_option('dbem_bookings_tickets_single') || count($EM_Ticket->get_event()->get_tickets()->tickets) > 1): ?>
-            <h4><?php esc_html_e('Event Options', 'dbem'); ?></h4>
+        <h4 class="hidden"><?php esc_html_e('Event Options', 'dbem'); ?></h4>
 
             <div class="row">
 
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <p>
                         <label><?php esc_html_e('Total Spaces', 'dbem'); ?></label>
-                        <input type="text" class="defult-txt" name="event_spaces" value="<?php
+                        <input type="text" class="defult-txt" name="event_spaces" id="event-spaces" value="<?php
                     if ($EM_Event->event_spaces > 0) {
                         echo $EM_Event->event_spaces;
                     }

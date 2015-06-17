@@ -1094,8 +1094,11 @@ function em_maps() {
         jQuery('#location-select-id, input#location-id').change(function() {
             get_map_by_id(jQuery(this).val());
 
-            if(jQuery('#event-name').length > 0 ){
-                    jQuery('#event-name').val(jQuery("#location-select-id option:selected").text());
+            if (jQuery('#event-name').length > 0) {
+                jQuery('#event-name').val(jQuery("#location-select-id option:selected").text());
+            }
+            if (jQuery('#event-spaces').length > 0) {
+                jQuery('#event-spaces').val(jQuery("#location-select-id option:selected").data('max-space'));
             }
         });
         jQuery('#location-name, #location-town, #location-address, #location-state, #location-postcode, #location-country').change(function() {
@@ -1139,27 +1142,31 @@ function em_maps() {
                 return false;
             }
 
-             var latlng = new google.maps.LatLng(locate_latitude, locate_longtitude);
+            var latlng = new google.maps.LatLng(locate_latitude, locate_longtitude);
 
-            if ( latlng != '' && jQuery('#em-map').length > 0) {
+            if (latlng != '' && jQuery('#em-map').length > 0) {
                 geocoder.geocode({'latLng': latlng}, function(results, status) {
                     console.log(results);
                     if (status == google.maps.GeocoderStatus.OK) {
 //Check result 0
-var result = results[0];
+                        var result = results[0];
 //look for locality tag and administrative_area_level_1
-var address = "";
-var city = "";
-var state = "";
-var country = "";
+                        var address = "";
+                        var city = "";
+                        var state = "";
+                        var country = "";
 
-for(var i=0, len=result.address_components.length; i<len; i++) {
-	var ac = result.address_components[i];
-	if(ac.types.indexOf("sublocality_level_1") >= 0) address = ac.long_name;
-	if(ac.types.indexOf("locality") >= 0) city = ac.long_name;
-	if(ac.types.indexOf("administrative_area_level_1") >= 0) state = ac.long_name;
-	if(ac.types.indexOf("country") >= 0) country = ac.short_name;
-}
+                        for (var i = 0, len = result.address_components.length; i < len; i++) {
+                            var ac = result.address_components[i];
+                            if (ac.types.indexOf("sublocality_level_1") >= 0)
+                                address = ac.long_name;
+                            if (ac.types.indexOf("locality") >= 0)
+                                city = ac.long_name;
+                            if (ac.types.indexOf("administrative_area_level_1") >= 0)
+                                state = ac.long_name;
+                            if (ac.types.indexOf("country") >= 0)
+                                country = ac.short_name;
+                        }
 
 //                        #location-name, #location-town, #location-address, #location-state, #location-postcode, #location-country
                         jQuery('#location-address').val(address);
