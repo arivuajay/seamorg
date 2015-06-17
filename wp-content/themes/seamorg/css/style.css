@@ -1156,8 +1156,8 @@ div.css-search div.em-search-main div {
 	display: inline;
 	float:left;
 }
-.em-search-geo {
-	width:46%
+.em-search-geo, .em-search-text {
+ width:45%
 }
 .em-search-scope {
 	width:45.6%;
@@ -1291,4 +1291,31 @@ select.em-search-geo-unit {
 {
 	display:inline;
 	padding:0px 15px 0px 0px
+}
+
+.myevent-search
+{
+	margin-top:-25px;
+	text-align:right;
+	float:right;
+}
+
+.myevent-search label 
+{
+	text-align:left;
+}
+
+#post-search-input {
+
+  width: 58%;
+}
+
+.create-event-btn
+{
+	width:auto;
+	border:none;
+	background:#a89715;
+	-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius: 0px;
 }

@@ -25,13 +25,7 @@ global $wpdb, $bp, $EM_Notices;
             <a href='<?php echo em_add_get_params($_SERVER['REQUEST_URI'], $default_params + array('view' => 'past')); ?>' <?php echo (!empty($_REQUEST['scope']) && $_REQUEST['scope'] == 'past' ) ? 'class="current"' : ''; ?>><?php _e('Past Events', 'dbem'); ?> <span class="count">(<?php echo $past_count; ?>)</span></a>
         </div>
         <div class="row">
-        <div class=" col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <?php
-            if (!empty($show_add_new) && current_user_can('edit_events'))
-                echo '<a class="em-button button add-new-h2 pull-left btn btn-primary" href="' . em_add_get_params($_SERVER['REQUEST_URI'], array('action' => 'edit', 'scope' => null, 'status' => null, 'event_id' => null, 'success' => null)) . '">' . __('Create Event', 'dbem') . '</a>';
-            ?>
-        </div>
-        <div class=" col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div class=" col-xs-12 col-sm-6 col-md-6 col-lg-4 myevent-search">
             <p class="search-box">
                 <label class="screen-reader-text" for="post-search-input"><?php _e('Search Events', 'dbem'); ?>:</label>
                 <input type="text" id="post-search-input" name="em_search" value="<?php echo (!empty($_REQUEST['em_search'])) ? esc_attr($_REQUEST['em_search']) : ''; ?>" />
@@ -41,6 +35,13 @@ global $wpdb, $bp, $EM_Notices;
                 <input type="submit"  value="<?php _e('Search Events', 'dbem'); ?>" class="button button-primary" />
             </p>
         </div>
+        <div class=" col-xs-12 col-sm-6 col-md-6 col-lg-8">
+            <?php
+            if (!empty($show_add_new) && current_user_can('edit_events'))
+                echo '<a class="em-button button add-new-h2 pull-left create-event-btn " href="' . em_add_get_params($_SERVER['REQUEST_URI'], array('action' => 'edit', 'scope' => null, 'status' => null, 'event_id' => null, 'success' => null)) . '">' . __('Create Event', 'dbem') . '</a>';
+            ?>
+        </div>
+        
         </div>
         <div class="tablenav">
             <?php
