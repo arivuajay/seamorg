@@ -157,6 +157,13 @@ display:none!important
 	float:left
 }
 
+.myevent-search
+{
+	margin-top:25px;
+}
+#post-search-input {
+  width: 47%;
+}
 
 
 }
@@ -165,6 +172,10 @@ display:none!important
 display:none!important
 }
 
+
+#post-search-input {
+  width: 56%;
+}
 
 .logo
 {

@@ -1295,7 +1295,7 @@ select.em-search-geo-unit {
 
 .myevent-search
 {
-	margin-top:-25px;
+	margin-top:-45px;
 	text-align:right;
 	float:right;
 }
@@ -1312,10 +1312,16 @@ select.em-search-geo-unit {
 
 .create-event-btn
 {
-	width:auto;
-	border:none;
-	background:#a89715;
-	-webkit-border-radius: 0px;
--moz-border-radius: 0px;
-border-radius: 0px;
+	width:auto !important;
+	border:none !important;
+	background:#a89715 !important;
+	-webkit-border-radius: 0px !important;
+-moz-border-radius: 0px !important;
+border-radius: 0px !important;
+color:#ffffff !important;
+font-size:20px;
+padding:10px 25px !important;
+margin:0px !important;
+margin-top:25px !important;
+
 }
