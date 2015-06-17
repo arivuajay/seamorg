@@ -41,7 +41,7 @@ global $wpdb, $bp, $EM_Notices;
                 echo '<a class="em-button button add-new-h2 pull-left create-event-btn " href="' . em_add_get_params($_SERVER['REQUEST_URI'], array('action' => 'edit', 'scope' => null, 'status' => null, 'event_id' => null, 'success' => null)) . '">' . __('Create Event', 'dbem') . '</a>';
             ?>
         </div>
-        
+
         </div>
         <div class="tablenav">
             <?php
@@ -52,7 +52,7 @@ global $wpdb, $bp, $EM_Notices;
             ?>
             <br class="clear" />
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
             <?php
             if (empty($EM_Events)) {
                 echo get_option('dbem_no_events_message');

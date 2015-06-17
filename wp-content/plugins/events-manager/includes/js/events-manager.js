@@ -787,6 +787,8 @@ function em_setup_datepicker(wrap) {
 //                    if (startDate.val() > endDate.val() && endDate.val() != '') {
                     endDate.datepicker("setDate", selectedDate);
                     endDate.trigger('change');
+                    jQuery('#em-bookings-date-loc').datepicker("setDate", selectedDate);
+                    jQuery('#em-bookings-date-loc').trigger('change');
 //                    }
 //                    endDate.datepicker("option", 'minDate', selectedDate);
 
@@ -1083,13 +1085,18 @@ function em_maps() {
                     _selectedStart = jQuery('#em-form-when .hasDatepicker.em-date-start').datepicker("getDate")
                     jQuery('#em-form-when .hasDatepicker.em-date-start').datepicker("setDate", _selectedStart);
                     jQuery('.ui-datepicker-current-day').click();
-                    jQuery('#start-time, #end-time').val('');
+
+//                    jQuery('#start-time, #end-time').val('');
 
                 });
             }
         };
         jQuery('#location-select-id, input#location-id').change(function() {
             get_map_by_id(jQuery(this).val());
+
+            if(jQuery('#event-name').length > 0 ){
+                    jQuery('#event-name').val(jQuery("#location-select-id option:selected").text());
+            }
         });
         jQuery('#location-name, #location-town, #location-address, #location-state, #location-postcode, #location-country').change(function() {
             //build address

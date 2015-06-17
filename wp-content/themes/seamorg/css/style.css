@@ -822,7 +822,7 @@ a:hover {
 .event-form-name i {
 	display:none;
 }
-.em-date-input-loc {
+.em-date-input-loc, .ticket_price {
 	width:99.2% !important;
 	float:left;
 	padding:8px;
@@ -1300,7 +1300,7 @@ select.em-search-geo-unit {
 	float:right;
 }
 
-.myevent-search label 
+.myevent-search label
 {
 	text-align:left;
 }

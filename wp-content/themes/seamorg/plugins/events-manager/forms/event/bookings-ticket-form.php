@@ -16,13 +16,15 @@ global $col_count, $EM_Ticket;
 			<label><?php _e('Description','dbem') ?></label>
 			<textarea name="em_tickets[<?php echo $col_count; ?>][ticket_description]" class="ticket_description"><?php echo esc_html(stripslashes($EM_Ticket->ticket_description)) ?></textarea>
 		</div>
-		<div class="ticket-price"><label><?php _e('Price','dbem') ?></label><input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_price]" class="ticket_price" value="<?php echo esc_attr($EM_Ticket->get_price_precise()) ?>" /></div>
+		<div class="ticket-price"><label><?php _e('Price','dbem') ?></label>
+<!--                    <input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_price]" class="ticket_price" value="<?php echo esc_attr($EM_Ticket->get_price_precise()) ?>" />-->
+                </div>
 		<div class="ticket-spaces">
 			<label title="<?php __('Enter a maximum number of spaces (required).','dbem'); ?>"><?php _e('Spaces','dbem') ?></label>
 			<input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_spaces]" value="<?php echo esc_attr($EM_Ticket->ticket_spaces) ?>" class="ticket_spaces" />
 		</div>
 	</div>
-<!--	<div class="em-ticket-form-advanced" style="display:none;">
+	<div class="em-ticket-form-advanced">
 		<div class="ticket-spaces ticket-spaces-min">
 			<label title="<?php _e('Leave either blank for no upper/lower limit.','dbem'); ?>"><?php _ex('At least','spaces per booking','dbem') ?></label>
 			<input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_min]" value="<?php echo esc_attr($EM_Ticket->ticket_min) ?>" class="ticket_min" />
@@ -100,9 +102,9 @@ global $col_count, $EM_Ticket;
 				?>
 			</div>
 		</div>
-	</div>-->
+	</div>
 <?php do_action('em_ticket_edit_form_fields', $col_count, $EM_Ticket); //do not delete, add your extra fields this way, remember to save them too! ?>
-<!--	<div class="ticket-options">
+	<div class="ticket-options">
 		<a href="#" class="ticket-options-advanced show"><span class="show"><?php _e('Show Advanced Options','dbem'); ?></span><span class="hide" style="display:none;"><?php _e('Hide Advanced Options','dbem'); ?></span></a>
-	</div>-->
+	</div>
 </div>
