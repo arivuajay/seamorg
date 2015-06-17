@@ -145,7 +145,7 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
                         echo $EM_Event->event_spaces;
                     }
                     ?>" /><br />
-                        <span class="help-block"><?php esc_html_e('Individual tickets with remaining spaces will not be available if total booking spaces reach this limit. Leave blank for no limit.', 'dbem'); ?></span>
+                        <span class="help-block hidden"><?php esc_html_e('Individual tickets with remaining spaces will not be available if total booking spaces reach this limit. Leave blank for no limit.', 'dbem'); ?></span>
                     </p>
 
                 </div>
@@ -159,7 +159,7 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
                         echo $EM_Event->event_rsvp_spaces;
                     }
                     ?>" /><br />
-                        <span class="help-block"><?php esc_html_e('If set, the total number of spaces for a single booking to this event cannot exceed this amount.', 'dbem'); ?><?php esc_html_e('Leave blank for no limit.', 'dbem'); ?></span>
+                        <span class="help-block hidden"><?php esc_html_e('If set, the total number of spaces for a single booking to this event cannot exceed this amount.', 'dbem'); ?><?php esc_html_e('Leave blank for no limit.', 'dbem'); ?></span>
                     </p>
 
                 </div>
