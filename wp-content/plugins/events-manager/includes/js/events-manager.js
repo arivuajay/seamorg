@@ -1086,7 +1086,7 @@ function em_maps() {
                     jQuery('#em-form-when .hasDatepicker.em-date-start').datepicker("setDate", _selectedStart);
                     jQuery('.ui-datepicker-current-day').click();
 
-//                    jQuery('#start-time, #end-time').val('');
+                    jQuery('#start-time, #end-time').val('');
 
                 });
             }
@@ -1098,7 +1098,7 @@ function em_maps() {
                 jQuery('#event-name').val(jQuery("#location-select-id option:selected").text());
             }
             if (jQuery('#event-spaces').length > 0) {
-                jQuery('#event-spaces').val(jQuery("#location-select-id option:selected").data('max-space'));
+                jQuery('#event-spaces').html(jQuery("#location-select-id option:selected").data('max-space'));
             }
         });
         jQuery('#location-name, #location-town, #location-address, #location-state, #location-postcode, #location-country').change(function() {

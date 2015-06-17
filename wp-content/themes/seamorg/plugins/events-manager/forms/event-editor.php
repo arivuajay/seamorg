@@ -108,6 +108,7 @@ if (!empty($_REQUEST['success'])) {
                         </div>
                     </div>
                     <!--@j@y Price Field From Ticket Option-->
+                    <?php em_locate_template('forms/event/bookings.php', true); ?>
                 </div>
             </div>
 
@@ -151,7 +152,7 @@ if (!empty($_REQUEST['success'])) {
             <!-- START Bookings -->
             <h4 class="hidden"><?php esc_html_e('Bookings/Registration', 'dbem'); ?></h4>
             <div class="inside event-form-bookings">
-                <?php em_locate_template('forms/event/bookings.php', true); ?>
+                <?php // em_locate_template('forms/event/bookings.php', true); ?>
             </div>
             <!-- END Bookings -->
         <?php endif; ?>

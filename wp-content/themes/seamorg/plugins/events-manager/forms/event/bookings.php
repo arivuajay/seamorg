@@ -138,9 +138,15 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
             <div class="row">
 
                 <div class="col-xs-12 col-sm-6 col-md-6">
+                    <p class="em-max-space">
+                        <label><?php esc_html_e('Maximum Space', 'dbem'); ?> : <span id="event-spaces"></span></label>
+                    </p>
+
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
                     <p>
-                        <label><?php esc_html_e('Total Spaces', 'dbem'); ?></label>
-                        <input type="text" class="defult-txt" name="event_spaces" id="event-spaces" value="<?php
+                        <label><?php esc_html_e('Minimum Space', 'dbem'); ?></label>
+                        <input type="text" class="defult-txt" name="event_spaces" value="<?php
                     if ($EM_Event->event_spaces > 0) {
                         echo $EM_Event->event_spaces;
                     }
@@ -151,7 +157,7 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
                 </div>
 
 
-                <div class="col-xs-12 col-sm-6 col-md-6">
+<!--                <div class="col-xs-12 col-sm-6 col-md-6">
                     <p>
                         <label><?php esc_html_e('Maximum Spaces Per Booking', 'dbem'); ?></label>
                         <input type="text" class="defult-txt" name="event_rsvp_spaces" value="<?php
@@ -162,7 +168,7 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
                         <span class="help-block hidden"><?php esc_html_e('If set, the total number of spaces for a single booking to this event cannot exceed this amount.', 'dbem'); ?><?php esc_html_e('Leave blank for no limit.', 'dbem'); ?></span>
                     </p>
 
-                </div>
+                </div>-->
 
 
 
