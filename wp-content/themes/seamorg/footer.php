@@ -14,11 +14,11 @@
     <div class="footer-row2">
         <div class="container">
             <div class="row">
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 footerpart1">
-                <?php dynamic_sidebar('footer-area-1'); ?>
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 footerpart1">
+                    <?php dynamic_sidebar('footer-area-1'); ?>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 footerpart1">
-                <?php dynamic_sidebar('footer-area-2'); ?>
+                    <?php dynamic_sidebar('footer-area-2'); ?>
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 footerpart1">
                     <h2>Join with us</h2>
@@ -44,12 +44,12 @@
     <div class="">
         <?php wp_nav_menu(array('theme_location' => 'primary', 'container_class' => 'big-menu', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-menu')); ?>
         <?php wp_nav_menu(array('theme_location' => 'primary-2', 'container_class' => 'small-menu', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-2-menu')); ?>
-<!--        <div class="language-cont">
-            <p> Language</p>
-            <select name="">
-                <option>English</option>
-            </select>
-        </div>-->
+        <!--        <div class="language-cont">
+                    <p> Language</p>
+                    <select name="">
+                        <option>English</option>
+                    </select>
+                </div>-->
         <div class="joinwith">
             <p> Join with us</p>
             <?php wp_nav_menu(array('container' => false, 'menu_id' => 'social', 'menu_class' => 'social-nav', 'depth' => 0, 'theme_location' => 'social', 'walker' => new social_nav_walker())); ?>
@@ -58,12 +58,16 @@
 </div>
 <!-- Slidebars -->
 <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/slidebars.js"></script>
+<script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/jquery.maskedinput.min.js"></script>
 <script>
     (function($) {
         $(document).ready(function() {
             $.slidebars({
                 scrollLock: true
             });
+
+            $("#phone-118").mask("(999) 999-9999");
+            $("#ssn-118").mask("999-999-9999");
         });
     })(jQuery);
 </script>

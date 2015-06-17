@@ -607,33 +607,3 @@ add_filter('pre_site_transient_update_core', 'remove_core_updates');
 add_filter('pre_site_transient_update_plugins', 'remove_core_updates');
 add_filter('pre_site_transient_update_themes', 'remove_core_updates');
 //Disable WP Updatees
-//
-add_action('um_submit_form_errors_hook', 'check_phone', 100);
-
-function check_phone($args) {
-    global $ultimatemember;
-    $field_value = $args['phone'];
-    $reg_ex = "/^\([0-9]{3}\)[ ][0-9]{3}-[0-9]{4}$/";
-    if (isset($field_value)) {
-        if(empty($field_value)){
-            $ultimatemember->form->add_error('phone', 'Phone number is required.');
-        }elseif (!preg_match($reg_ex, $field_value)) {
-            $ultimatemember->form->add_error('phone', 'Invalid phone number. Enter like (123) 456-7890');
-        }
-    }
-}
-
-add_action('um_submit_form_errors_hook', 'check_ssn', 100);
-
-function check_ssn($args) {
-    global $ultimatemember;
-    $field_value = $args['ssn'];
-    $reg_ex = "/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/";
-    if (isset($field_value)) {
-        if(empty($field_value)){
-            $ultimatemember->form->add_error('ssn', 'SSN number is required.');
-        }elseif (!preg_match($reg_ex, $field_value)) {
-            $ultimatemember->form->add_error('ssn', 'Invalid SSN number. Enter like 123-456-7890');
-        }
-    }
-}
