@@ -753,11 +753,12 @@ jQuery(document).ready(function($) {
                         jQuery('<span/>').hide().attr('role', 'evt_price').text(v.price).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_guide').text(v.guide_name).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_notes').text(v.notes).appendTo(li);
+                        jQuery('<span/>').hide().attr('role', 'evt_id').text(k).appendTo(li);
 
                         t1 = jQuery('<span/>').append('<ul/>').hide().attr('role', 'evt_ttb').appendTo(li);
                         t2 = t1.find('ul').append('<b>Thinks to Bring </b>');
 
-                        jQuery.each(v.ttb,function(xk,xs){
+                        jQuery.each(v.ttb, function(xk, xs) {
                             jQuery('<li/>').text(xs).appendTo(t2);
                         });
                     });
@@ -776,7 +777,34 @@ jQuery(document).ready(function($) {
         jQuery('#guide_slot').html(the_close.find('[role="evt_guide"]').html());
         jQuery('#tags_slot').html(the_close.find('[role="evt_ttb"]').html());
         jQuery('#notes_slot').html(the_close.find('[role="evt_notes"]').html());
+        jQuery('.book-button').attr('data-eid', the_close.find('[role="evt_id"]').text());
+
         e.preventDefault();
+    });
+
+    jQuery(document).on('click', '#book-now', function(e) {
+        var _evtID = jQuery(this).data('eid');
+
+        jQuery.ajax({
+            type: "POST",
+            url: ultimatemember_ajax_url,
+            data: {action: 'event_book_form', event_id: _evtID },
+//            beforeSend: function(xhr) {
+//                jQuery('ul.time_slots').empty();
+//                jQuery('.time-section').show();
+//                jQuery('ul.time_slots').html('<i class="fa fa-spinner fa-spin"></i>');
+//                jQuery('.price-section, .guide-section, .trip-deatils-txt, .buyticket').hide();
+//            },
+            success: function(response) {
+                if (response) {
+                    jQuery('.booking-form-section').html(response);
+                } else {
+                    alert('System error');
+                }
+            }
+        });
+        e.preventDefault();
+        return false;
     });
 
 });

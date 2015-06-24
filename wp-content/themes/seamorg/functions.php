@@ -679,7 +679,7 @@ function event_time_slots_ajax() {
                 'event_url' => esc_url($rec->get_permalink()),
                 'guide_name' => esc_html($rec->get_contact()->display_name),
                 'notes' => esc_html($rec->post_content),
-                'ttb' =>  wp_get_post_terms($rec->post_id, 'event-tags', array("fields" => "names")),
+                'ttb' => wp_get_post_terms($rec->post_id, 'event-tags', array("fields" => "names")),
                 'price' => em_get_currency_formatted(getEventMinPrice($rec))
             );
         }
@@ -702,4 +702,25 @@ function getEventMinPrice($event) {
         $min = 0;
 
     return $min;
+}
+
+add_action('wp_ajax_event_book_form', 'event_book_form_ajax');
+add_action('wp_ajax_nopriv_event_book_form', 'event_book_form_ajax');
+
+function event_book_form_ajax() {
+    $event_id = $_POST['event_id'];
+
+    if (get_option('dbem_rsvp_enabled')) {
+        if (!defined('EM_XSS_BOOKINGFORM_FILTER') && locate_template('plugins/events-manager/placeholders/bookingform.php')) {
+            add_filter('em_booking_form_action_url', 'esc_url');
+            define('EM_XSS_BOOKINGFORM_FILTER', true);
+        }
+        ob_start();
+        $event = em_get_event($event_id);
+        $template = em_locate_template('placeholders/bookingform.php', true, array('EM_Event' => $event));
+        EM_Bookings::enqueue_js();
+        $replace = ob_get_clean();
+    }
+    echo $replace;
+    die();
 }
