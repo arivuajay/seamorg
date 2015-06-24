@@ -1330,3 +1330,30 @@ margin-top:25px !important;
     font-size: 25px;
 padding: 35px 0;
 }
+
+.event-ttb-details label {
+    display: inline;
+}
+.time-section, .price-section, .guide-section, .trip-deatils-txt, .buyticket{
+    display: none;
+}
+.em_detail_fields {
+  margin-bottom: 10px;
+}
+.em_detail_fields > label{
+      font-weight: bold;
+      padding-right: 10px;
+}
+.em_detail_fields > label,.em_detail_fields .em-date-single {
+  display: inline;
+}
+.em_detail_fields .em-date-input-loc {
+  float: none;
+  margin: 0;
+  width: 50% !important;
+}
+
+.em_detail_fields .time_slots {
+  display: inline;
+  padding: 0;
+}

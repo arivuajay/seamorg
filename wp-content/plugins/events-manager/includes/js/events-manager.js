@@ -729,6 +729,49 @@ jQuery(document).ready(function($) {
         }
     }
 
+//@j@y
+    jQuery(document).on('change', '#event_book_date', function(e) {
+        var _selectedDate = jQuery(this).val();
+        var _hikeID = jQuery(this).data('hikeid');
+
+        jQuery.ajax({
+            type: "POST",
+            url: ultimatemember_ajax_url,
+            data: {action: 'event_time_slots', hike_id: _hikeID, date: _selectedDate},
+            beforeSend: function(xhr) {
+                jQuery('ul.time_slots').empty();
+                jQuery('.time-section').show();
+                jQuery('ul.time_slots').html('<i class="fa fa-spinner fa-spin"></i>');
+            },
+            success: function(response) {
+                var cList = jQuery('ul.time_slots').empty();
+                if (response) {
+                    jQuery.each(response, function(k, v) {
+                        li = jQuery('<li/>').addClass('label label-success').attr('role', 'event_detail').appendTo(cList);
+                        jQuery('<a/>').attr('href', 'javascript:void(0);').text(v.start_time).appendTo(li);
+                        jQuery('<span/>').hide().attr('role', 'evt_price').text(v.price).appendTo(li);
+                        jQuery('<span/>').hide().attr('role', 'evt_guide').text(v.guide_name).appendTo(li);
+                        jQuery('<span/>').hide().attr('role', 'evt_notes').text(v.notes).appendTo(li);
+                        jQuery('<span/>').hide().attr('role', 'evt_ttb').text(v.ttb).appendTo(li);
+                    });
+                } else {
+                    li = jQuery('<li/>').addClass('label label-danger').html("No time slots").appendTo(cList);
+                }
+            }
+        });
+        return false;
+    });
+
+    jQuery(document).on('click', 'ul.time_slots li a', function(e) {
+        the_close = jQuery(this).closest('li');
+        jQuery('.price-section, .guide-section, .trip-deatils-txt, .buyticket').show();
+        jQuery('#price_slot').html(the_close.find('[role="evt_price"]').html());
+        jQuery('#guide_slot').html(the_close.find('[role="evt_guide"]').html());
+        jQuery('#tags_slot').html(the_close.find('[role="evt_ttb"]').html());
+        jQuery('#notes_slot').html(the_close.find('[role="evt_notes"]').html());
+        e.preventDefault();
+    });
+
 });
 
 function em_load_jquery_css() {
@@ -762,6 +805,9 @@ function em_setup_datepicker(wrap) {
             var dateValue_value = dateValue.val();
             dateInput.datepicker(datepicker_vals);
             dateInput.datepicker('option', 'altField', dateValue);
+            if (dateInput.data('min')) {
+                dateInput.datepicker('option', 'minDate', dateInput.data('min'));
+            }
             //now set the value
             if (dateValue_value) {
                 var this_date_formatted = jQuery.datepicker.formatDate(EM.dateFormat, jQuery.datepicker.parseDate('yy-mm-dd', dateValue_value));
@@ -943,7 +989,7 @@ function em_maps_load_locations(el) {
                     jQuery.extend(marker_options, {
                         position: location,
                         map: maps[map_id],
-                        icon: site_url + '/wp-content/themes/seamorg/images/walk.png'
+//                        icon: site_url + '/wp-content/themes/seamorg/images/walk.png'
                     })
                     var marker = new google.maps.Marker(marker_options);
                     maps_markers[map_id].push(marker);
@@ -988,7 +1034,7 @@ function em_maps_load_location(el) {
     var marker_options = {
         position: em_LatLng,
         map: maps[map_id],
-        icon: site_url + '/wp-content/themes/seamorg/images/walk.png'
+//        icon: site_url + '/wp-content/themes/seamorg/images/walk.png'
     };
     jQuery(document).triggerHandler('em_maps_location_marker_options', marker_options);
     maps_markers[map_id] = new google.maps.Marker(marker_options);
@@ -1158,7 +1204,7 @@ function em_maps() {
 
                         for (var i = 0, len = result.address_components.length; i < len; i++) {
                             var ac = result.address_components[i];
-                            if (ac.types.indexOf("sublocality_level_1") >= 0)
+                            if (ac.types.indexOf("route") >= 0)
                                 address = ac.long_name;
                             if (ac.types.indexOf("locality") >= 0)
                                 city = ac.long_name;
@@ -1194,7 +1240,7 @@ function em_maps() {
                 position: em_LatLng,
                 map: map,
                 draggable: true,
-                icon: site_url + '/wp-content/themes/seamorg/images/walk.png'
+//                icon: site_url + '/wp-content/themes/seamorg/images/walk.png'
             });
             infoWindow = new google.maps.InfoWindow({
                 content: ''

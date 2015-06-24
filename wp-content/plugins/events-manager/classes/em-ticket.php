@@ -31,7 +31,7 @@ class EM_Ticket extends EM_Object{
 		'ticket_members_roles' => array('name'=>'ticket_members_roles','type'=>'%s','null'=>1),
 		'ticket_guests' => array('name'=>'guests','type'=>'%d','null'=>1),
 		'ticket_required' => array('name'=>'required','type'=>'%d','null'=>1),
-		'ticket_meta' => array('name'=>'ticket_meta','type'=>'%s','null'=>1)			
+		'ticket_meta' => array('name'=>'ticket_meta','type'=>'%s','null'=>1)
 	);
 	//Other Vars
 	/**
@@ -47,7 +47,7 @@ class EM_Ticket extends EM_Object{
 	 * @var unknown_type
 	 */
 	var $spaces_limit = true;
-	
+
 	/**
 	 * Creates ticket object and retreives ticket data (default is a blank ticket object). Accepts either array of ticket data (from db) or a ticket id.
 	 * @param mixed $ticket_data
@@ -61,9 +61,9 @@ class EM_Ticket extends EM_Object{
 			if( is_array($ticket_data) ){
 				$ticket = $ticket_data;
 			}elseif( is_numeric($ticket_data) ){
-				//Retreiving from the database		
+				//Retreiving from the database
 				global $wpdb;
-				$sql = "SELECT * FROM ". EM_TICKETS_TABLE ." WHERE ticket_id ='$ticket_data'";   
+				$sql = "SELECT * FROM ". EM_TICKETS_TABLE ." WHERE ticket_id ='$ticket_data'";
 			  	$ticket = $wpdb->get_row($sql, ARRAY_A);
 			}
 			//Save into the object
@@ -86,7 +86,7 @@ class EM_Ticket extends EM_Object{
 		$this->compat_keys();
 		do_action('em_ticket',$this, $ticket_data, $ticket);
 	}
-	
+
 	function get_notes(){
 		global $wpdb;
 		if( !is_array($this->notes) && !empty($this->ticket_id) ){
@@ -99,7 +99,7 @@ class EM_Ticket extends EM_Object{
 		}
 		return $this->notes;
 	}
-	
+
 	/**
 	 * Saves the ticket into the database, whether a new or existing ticket
 	 * @return boolean
@@ -109,7 +109,7 @@ class EM_Ticket extends EM_Object{
 		$table = EM_TICKETS_TABLE;
 		do_action('em_ticket_save_pre',$this);
 		//First the person
-		if($this->validate() && $this->can_manage() ){			
+		if($this->validate() && $this->can_manage() ){
 			//Now we save the ticket
 			$data = $this->to_array(true); //add the true to remove the nulls
 			if( !empty($data['ticket_meta']) ) $data['ticket_meta'] = serialize($data['ticket_meta']);
@@ -121,7 +121,7 @@ class EM_Ticket extends EM_Object{
 					if( empty( $data[$field_name]) && $field['null'] ){
 						$set_array[] = "{$field_name}=NULL";
 					}else{
-						$set_array[] = "{$field_name}='".esc_sql($data[$field_name])."'";						
+						$set_array[] = "{$field_name}='".esc_sql($data[$field_name])."'";
 					}
 				}
 				$sql = "UPDATE $table SET ".implode(', ', $set_array)." WHERE ticket_id={$this->ticket_id}";
@@ -131,7 +131,7 @@ class EM_Ticket extends EM_Object{
 				//TODO better error handling
 				$result = $wpdb->insert($table, $data, $this->get_types($data));
 			    $this->ticket_id = $wpdb->insert_id;
-				$this->feedback_message = __('Ticket created','dbem'); 
+				$this->feedback_message = __('Ticket created','dbem');
 			}
 			if( $result === false ){
 				$this->feedback_message = __('There was a problem saving the ticket.', 'dbem');
@@ -146,7 +146,7 @@ class EM_Ticket extends EM_Object{
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Get posted data and save it into the object (not db)
 	 * @return boolean
@@ -198,7 +198,7 @@ class EM_Ticket extends EM_Object{
 					$this->ticket_meta['recurrences']['start_days'] = absint($post['ticket_start_recurring_days']) * -1;
 					$this->ticket_start = date('Y-m-d', strtotime($this->ticket_meta['recurrences']['start_days'] . ' days', $this->get_event()->start));
 				}
-				$this->ticket_meta['recurrences']['start_time'] = ( !empty($post['ticket_start_time']) ) ? $this->sanitize_time($post['ticket_start_time']) : '00:00:00'; 
+				$this->ticket_meta['recurrences']['start_time'] = ( !empty($post['ticket_start_time']) ) ? $this->sanitize_time($post['ticket_start_time']) : '00:00:00';
 				$this->ticket_start .= ' '. $this->ticket_meta['recurrences']['start_time'];
 				//timestamp - calculated only for purposes of not screwing up interfaces that use timestamps for outputting cut-off times such as booking settings for event
 				$this->start_timestamp  = strtotime($this->ticket_start, current_time('timestamp'));
@@ -214,7 +214,7 @@ class EM_Ticket extends EM_Object{
 					$this->ticket_meta['recurrences']['end_days'] = absint($post['ticket_end_recurring_days']) * -1;
 					$this->ticket_end = date('Y-m-d', strtotime($this->ticket_meta['recurrences']['end_days'] . ' days', $this->get_event()->end));
 				}
-				$this->ticket_meta['recurrences']['end_time'] = ( !empty($post['ticket_end_time']) ) ? $this->sanitize_time($post['ticket_end_time']) : '00:00:00'; 
+				$this->ticket_meta['recurrences']['end_time'] = ( !empty($post['ticket_end_time']) ) ? $this->sanitize_time($post['ticket_end_time']) : '00:00:00';
 				$this->ticket_end .= ' '. $this->ticket_meta['recurrences']['end_time'];
 				//timestamp - calculated only for purposes of not screwing up interfaces that use timestamps for outputting cut-off times such as booking settings for event
 				$this->end_timestamp  = strtotime($this->ticket_end, current_time('timestamp')); //we save these timestamps for quicker loading on construct
@@ -225,7 +225,7 @@ class EM_Ticket extends EM_Object{
 		$this->compat_keys();
 		do_action('em_ticket_get_post', $this);
 	}
-	
+
 
 	/**
 	 * Validates the ticket for saving. Should be run during any form submission or saving operation.
@@ -244,12 +244,12 @@ class EM_Ticket extends EM_Object{
 			$this->add_error(__('Please enter a valid ticket price e.g. 10.50 (no currency signs)','dbem'));
 		}
 		if ( count($missing_fields) > 0){
-			// TODO Create friendly equivelant names for missing fields notice in validation 
+			// TODO Create friendly equivelant names for missing fields notice in validation
 			$this->errors[] = __ ( 'Missing fields: ' ) . implode ( ", ", $missing_fields ) . ". ";
 		}
 		return apply_filters('em_ticket_validate', count($this->errors) == 0, $this );
 	}
-	
+
 	function is_available( $include_members_only = false, $include_guests_only = false ){
 		$timestamp = current_time('timestamp');
 		if( isset($this->is_available) && !$include_members_only && !$include_guests_only ) return apply_filters('em_ticket_is_available',  $this->is_available, $this); //save extra queries if doing a standard check
@@ -283,7 +283,7 @@ class EM_Ticket extends EM_Object{
 		}
 		return apply_filters('em_ticket_is_available', $is_available, $this);
 	}
-	
+
 	/**
 	 * Returns whether or not this ticket should be displayed based on availability and other ticket properties and general settings
 	 * @return boolean
@@ -302,10 +302,10 @@ class EM_Ticket extends EM_Object{
 		}
 		return apply_filters('em_ticket_is_displayable', $return, $this);;
 	}
-	
+
 	/**
-	 * Gets the total price for this ticket, includes tax if settings dictates that tax is added to ticket price. 
-	 * Use $this->ticket_price or $this->get_price_without_tax() if you definitely don't want tax included. 
+	 * Gets the total price for this ticket, includes tax if settings dictates that tax is added to ticket price.
+	 * Use $this->ticket_price or $this->get_price_without_tax() if you definitely don't want tax included.
 	 * @param boolean $format
 	 * @return float
 	 */
@@ -320,7 +320,7 @@ class EM_Ticket extends EM_Object{
 		}
 		return $price;
 	}
-	
+
 	/**
 	 * Calculates how much the individual ticket costs with applicable event/site taxes included.
 	 * @param boolean $format
@@ -328,28 +328,28 @@ class EM_Ticket extends EM_Object{
 	function get_price_with_tax( $format = false ){
 	    $price = $this->get_price_without_tax() * (1 + $this->get_event()->get_tax_rate()/100);
 	    if( $format ) return $this->format_price($price);
-	    return $price; 
+	    return $price;
 	}
-	
+
 	/**
 	 * Calculates how much the individual ticket costs with taxes excluded.
 	 * @param boolean $format
 	 */
 	function get_price_without_tax( $format = false ){
 	    if( $format ) return $this->format_price($this->ticket_price);
-	    return $this->ticket_price; 
+	    return $this->ticket_price;
 	}
-	
+
 	/**
 	 * Shows the ticket price which can contain long decimals but will show up to 2 decimal places and remove trailing 0s
-	 * For example: 10.010230 => 10.01023 and 10 => 10.00 
+	 * For example: 10.010230 => 10.01023 and 10 => 10.00
 	 */
 	function get_price_precise(){
 		$price = $this->ticket_price * 1;
 		if( floor($price) == (float) $price ) $price = number_format($price, 2, '.', '');
 		return $price;
 	}
-		
+
 	/**
 	 * Get the total number of tickets (spaces) available, bearing in mind event-wide maxiumums and ticket priority settings.
 	 * @return int
@@ -371,7 +371,7 @@ class EM_Ticket extends EM_Object{
 		$return = ($ticket_available_spaces <= $event_available_spaces) ? $ticket_available_spaces:$event_available_spaces;
 		return apply_filters('em_ticket_get_available_spaces', $return, $this);
 	}
-	
+
 	function get_pending_spaces(){
 	    $spaces = 0;
 		foreach( $this->get_bookings()->get_pending_bookings()->bookings as $EM_Booking ){ //get_bookings() is used twice so we get the confirmed (or all if confirmation disabled) bookings of this ticket's total bookings.
@@ -405,15 +405,15 @@ class EM_Ticket extends EM_Object{
 		}
 		return apply_filters('em_ticket_get_booked_spaces', $spaces, $this);
 	}
-	
+
 	/**
 	 * Smart event locator, saves a database read if possible.
-	 * @return EM_Event 
+	 * @return EM_Event
 	 */
 	function get_event(){
 		return em_get_event($this->event_id);
 	}
-	
+
 	/**
 	 * returns array of EM_Booking objects that have this ticket
 	 * @return EM_Bookings
@@ -430,7 +430,7 @@ class EM_Ticket extends EM_Object{
 		$this->bookings = new EM_Bookings($bookings);
 		return $this->bookings;
 	}
-	
+
 	/**
 	 * I wonder what this does....
 	 * @return boolean
@@ -452,7 +452,7 @@ class EM_Ticket extends EM_Object{
 	}
 
 	/**
-	 * Based on ticket minimums, whether required and if the event has more than one ticket this function will return the absolute minimum required spaces for a booking 
+	 * Based on ticket minimums, whether required and if the event has more than one ticket this function will return the absolute minimum required spaces for a booking
 	 */
 	function get_spaces_minimum(){
 	    $ticket_count = count($this->get_event()->get_bookings()->get_tickets()->tickets);
@@ -468,7 +468,7 @@ class EM_Ticket extends EM_Object{
 	        if( $this->is_required() && $this->is_available() ){
 	            $min_spaces = ($this->ticket_min > 0) ? $this->ticket_min:1;
 	        }elseif( $this->is_available() && $this->ticket_min > 0 ){
-	            $min_spaces = $this->ticket_min;	            
+	            $min_spaces = $this->ticket_min;
 	        }elseif( $this->is_available() && $available_tickets == 1 ){
 	            $min_spaces = 1;
 	        }
@@ -477,7 +477,7 @@ class EM_Ticket extends EM_Object{
 	    }
 	    return $min_spaces;
 	}
-	
+
 	function is_required(){
 	    if( $this->ticket_required || count($this->get_event()->get_tickets()->tickets) == 1 ){
 	        return true;
@@ -490,7 +490,7 @@ class EM_Ticket extends EM_Object{
 	 * @return string
 	 */
 	function get_spaces_options($zero_value = true, $default_value = 0){
-		$available_spaces = $this->get_available_spaces();		
+		$available_spaces = $this->get_available_spaces();
 		if( $this->is_available() ) {
 		    $min_spaces = $this->get_spaces_minimum();
 		    if( $default_value > 0 ){
@@ -501,7 +501,7 @@ class EM_Ticket extends EM_Object{
 			ob_start();
 			?>
 			<select name="em_tickets[<?php echo $this->ticket_id ?>][spaces]" class="em-ticket-select" id="em-ticket-spaces-<?php echo $this->ticket_id ?>">
-				<?php 
+				<?php
 					$min = ($this->ticket_min > 0) ? $this->ticket_min:1;
 					$max = ($this->ticket_max > 0) ? $this->ticket_max:get_option('dbem_bookings_form_max');
 					if( $this->get_event()->event_rsvp_spaces > 0 && $this->get_event()->event_rsvp_spaces < $max ) $max = $this->get_event()->event_rsvp_spaces;
@@ -512,15 +512,15 @@ class EM_Ticket extends EM_Object{
 				<?php endfor; ?>
 				<?php if(empty($shown_default) && $default_value > 0 ): ?><option selected="selected"><?php echo $default_value; ?></option><?php endif; ?>
 			</select>
-			<?php 
+			<?php
 			return apply_filters('em_ticket_get_spaces_options', ob_get_clean(), $zero_value, $default_value, $this);
 		}else{
 			return false;
 		}
 	}
-	
+
 	/**
-	 * Can the user manage this event? 
+	 * Can the user manage this event?
 	 */
 	function can_manage( $owner_capability = false, $admin_capability = false, $user_to_check = false ){
 		if( $this->ticket_id == '' && !is_user_logged_in() && get_option('dbem_events_anonymous_submissions') ){
@@ -528,7 +528,7 @@ class EM_Ticket extends EM_Object{
 		}
 		return $this->get_event()->can_manage('manage_bookings','manage_others_bookings', $user_to_check);
 	}
-	
+
 	/**
 	 * Outputs properties with formatting
 	 * @param string $property

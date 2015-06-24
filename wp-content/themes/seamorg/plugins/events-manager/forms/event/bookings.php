@@ -179,8 +179,10 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
             <p class="hidden">
                 <label><?php esc_html_e('Booking Cut-Off Date', 'dbem'); ?></label>
             <div class="row em-booking-date-normal em-date-single hidden">
-                <div class="col-xs-12 col-sm-6 col-md-6 ">   	<input id="em-bookings-date-loc" class="em-date-input-loc em-date-input-loc2" type="text" />
-                    <input id="em-bookings-date" class="em-date-input" type="hidden" name="event_rsvp_date" value="<?php echo $EM_Event->event_rsvp_date; ?>" /> </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <input id="em-bookings-date-loc" class="em-date-input-loc em-date-input-loc2" type="text" />
+                    <input id="em-bookings-date" class="em-date-input" type="hidden" name="event_rsvp_date" value="<?php echo $EM_Event->event_rsvp_date; ?>" />
+                </div>
 
                 <span class="em-booking-date-recurring">
                     <input type="text" name="recurrence_rsvp_days" size="3" value="<?php if (!empty($EM_Event->recurrence_rsvp_days)) echo absint($EM_Event->recurrence_rsvp_days); ?>" />

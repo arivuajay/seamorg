@@ -99,8 +99,8 @@ global $wpdb, $bp, $EM_Notices;
                         <div class="event-cont">
                             <div class="event-img">
                                 <div class="eventplace-details"> <img src="<?php echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php echo esc_html($EM_Event->get_location()->location_name); ?> <span> <?php echo em_get_currency_formatted($min); ?></span></div>
-                                <?php if ($EM_Event->get_image_url() != '') : ?>
-                                    <img src='<?php echo $EM_Event->get_image_url('grid-3-thumbnails'); ?>' alt='<?php echo $EM_Event->event_name ?>'/>
+                                <?php if ($EM_Event->get_location()->get_image_url() != '') : ?>
+                                    <img src='<?php echo $EM_Event->get_location()->get_image_url('grid-3-thumbnails'); ?>' alt='<?php echo $EM_Event->event_name ?>'/>
                                 <?php endif; ?>
                             </div>
                             <div class="eventplace-details-txt">

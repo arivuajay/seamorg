@@ -114,7 +114,14 @@ if (!empty($_REQUEST['success'])) {
 
         </div>
 
-        <span class="event-form-details"><?php esc_html_e('Suggested instructions', 'dbem'); ?></span>
+        <span class="event-form-details"><?php esc_html_e('Things to bring', 'dbem'); ?></span>
+        <div class="inside event-ttb-details">
+            <div class="event-editor">
+                <?php to_bring_taxonomy($EM_Event->ID);  ?>
+            </div>
+        </div>
+
+        <span class="event-form-details"><?php esc_html_e('Notes', 'dbem'); ?></span>
         <div class="inside event-form-details">
             <div class="event-editor">
                 <?php if (get_option('dbem_events_form_editor') && function_exists('wp_editor')): ?>
@@ -161,7 +168,7 @@ if (!empty($_REQUEST['success'])) {
     </div>
     <p class="submit">
         <?php if (empty($EM_Event->event_id)): ?>
-            <input type='submit' class='button-primary' name='submit' value='<?php echo esc_attr(sprintf(__('Submit %s', 'dbem'), __('Event', 'dbem'))); ?>' />
+            <input type='submit' class='button-primary' name='submit' value='<?php echo esc_attr(sprintf(__('Create %s', 'dbem'), __('Event', 'dbem'))); ?>' />
         <?php else: ?>
             <input type='submit' class='button-primary' name='submit' value='<?php echo esc_attr(sprintf(__('Update %s', 'dbem'), __('Event', 'dbem'))); ?>' />
         <?php endif; ?>

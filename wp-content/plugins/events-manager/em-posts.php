@@ -15,7 +15,7 @@ if( EM_MS_GLOBAL ){
 define('EM_TAXONOMY_TAG_SLUG', get_option('dbem_taxonomy_tag_slug', 'events/tags'));
 
 /*
- * This checks that you have post thumbnails enabled, if not, it enables it. 
+ * This checks that you have post thumbnails enabled, if not, it enables it.
  * You can always disable this by adding remove_action('after_setup_theme','wp_events_plugin_after_setup_theme'); in your functions.php theme file.
  */
 add_action('after_setup_theme','wp_events_plugin_after_setup_theme',100);
@@ -33,7 +33,7 @@ function wp_events_plugin_after_setup_theme(){
 				add_theme_support('post-thumbnails', $post_thumbnails);
 			}
 		}else{
-			add_theme_support('post-thumbnails'); //need to add this for themes that don't have it. 
+			add_theme_support('post-thumbnails'); //need to add this for themes that don't have it.
 		}
 	}
 }
@@ -42,8 +42,8 @@ add_action('init','wp_events_plugin_init',1);
 function wp_events_plugin_init(){
 	define('EM_ADMIN_URL',admin_url().'edit.php?post_type='.EM_POST_TYPE_EVENT); //we assume the admin url is absolute with at least one querystring
 	if( get_option('dbem_tags_enabled', true) ){
-		register_taxonomy(EM_TAXONOMY_TAG,array(EM_POST_TYPE_EVENT,'event-recurring'),array( 
-			'hierarchical' => false, 
+		register_taxonomy(EM_TAXONOMY_TAG,array(EM_POST_TYPE_EVENT,'event-recurring'),array(
+			'hierarchical' => false,
 			'public' => true,
 			'show_ui' => true,
 			'query_var' => true,
@@ -79,8 +79,8 @@ function wp_events_plugin_init(){
 	}
 	if( get_option('dbem_categories_enabled', true) ){
 		$supported_array = (EM_MS_GLOBAL && !is_main_site()) ? array():array(EM_POST_TYPE_EVENT,'event-recurring');
-		register_taxonomy(EM_TAXONOMY_CATEGORY,$supported_array,array( 
-			'hierarchical' => true, 
+		register_taxonomy(EM_TAXONOMY_CATEGORY,$supported_array,array(
+			'hierarchical' => true,
 			'public' => true,
 			'show_ui' => true,
 			'query_var' => true,
@@ -114,7 +114,7 @@ function wp_events_plugin_init(){
 			)
 		));
 	}
-	$event_post_type = array(	
+	$event_post_type = array(
 		'public' => true,
 		'hierarchical' => false,
 		'show_ui' => true,
@@ -136,7 +136,7 @@ function wp_events_plugin_init(){
 			'read_private_posts' => 'read_private_events',
 			'edit_post' => 'edit_event',
 			'delete_post' => 'delete_event',
-			'read_post' => 'read_event',		
+			'read_post' => 'read_event',
 		),
 		'label' => __('Events','dbem'),
 		'description' => __('Display events on your blog.','dbem'),
@@ -160,7 +160,7 @@ function wp_events_plugin_init(){
 		'yarpp_support'=>true
 	);
 	if ( get_option('dbem_recurrence_enabled') ){
-		$event_recurring_post_type = array(	
+		$event_recurring_post_type = array(
 			'public' => apply_filters('em_cp_event_recurring_public', false),
 			'show_ui' => true,
 			'show_in_admin_bar' => true,
@@ -206,7 +206,7 @@ function wp_events_plugin_init(){
 		);
 	}
 	if( get_option('dbem_locations_enabled', true) ){
-		$location_post_type = array(	
+		$location_post_type = array(
 			'public' => true,
 			'hierarchical' => false,
 			'show_in_admin_bar' => true,

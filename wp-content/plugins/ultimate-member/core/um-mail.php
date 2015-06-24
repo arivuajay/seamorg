@@ -5,25 +5,25 @@ class UM_Mail {
 	function __construct() {
 
 		add_filter('mandrill_nl2br', array(&$this, 'mandrill_nl2br') );
-		
+
 		$this->force_plain_text = '';
-		
+
 	}
-	
+
 	/***
 	***	@mandrill compatibility
 	***/
 	function mandrill_nl2br($nl2br, $message = '') {
-		
+
 		// text emails
 		if ( !um_get_option('email_html') ) {
 			$nl2br = true;
 		}
-		
+
 		return $nl2br;
 
 	}
-	
+
 	/***
 	***	@check If template exists
 	***/
@@ -37,30 +37,30 @@ class UM_Mail {
 		} else {
 			$path = um_path . 'templates/email/';
 		}
-		
+
 		if ( file_exists( $path . $template . '.html' ) ) {
 			return $path . $template . '.html';
 		}
-		
+
 		return false;
-		
+
 	}
-	
+
 	/***
 	***	@sends an email to any user
 	***/
 	function send( $email, $template=null, $args = array() ) {
-	
+
 		if ( !$template ) return;
 		if ( um_get_option( $template . '_on' ) != 1 ) return;
 		if ( !is_email( $email ) ) return;
-		
+
 		$this->attachments = null;
 		$this->headers = 'From: '. um_get_option('mail_from') .' <'. um_get_option('mail_from_addr') .'>' . "\r\n";
 
 		$this->subject = um_get_option( $template . '_sub' );
 		$this->subject = $this->convert_tags( $this->subject, $args );
-		
+
 		if ( isset( $args['admin'] ) || isset( $args['plain_text'] ) ) {
 			$this->force_plain_text = 'forced';
 		}
@@ -72,37 +72,37 @@ class UM_Mail {
 		} else {
 			$this->message = um_get_option( $template );
 		}
-		
+
 		// Convert tags in body
 		$this->message = $this->convert_tags( $this->message, $args );
 
 		// Send mail
 		wp_mail( $email, $this->subject, $this->message, $this->headers, $this->attachments );
 		remove_filter( 'wp_mail_content_type', array(&$this, 'set_content_type')  );
-		
+
 		// reset globals
 		$this->force_plain_text = '';
-		
+
 	}
-	
+
 	/***
 	***	@maybe sending HTML emails
 	***/
 	function set_content_type( $content_type ) {
-		
+
 		if ( $this->force_plain_text == 'forced' ) return 'text/plain';
-		
+
 		if ( um_get_option('email_html') ) return 'text/html';
-		
+
 		return 'text/plain';
-	
+
 	}
-	
+
 	/***
 	***	@convert template tags in email template
 	***/
 	function convert_tags( $content, $args = array() ) {
-	
+
 		$search = array(
 			'{display_name}',
 			'{first_name}',
@@ -122,9 +122,9 @@ class UM_Mail {
 			'{submitted_registration}',
 			'{user_avatar_url}',
 		);
-		
+
 		$search = apply_filters('um_template_tags_patterns_hook', $search);
-		
+
 		$replace = array(
 			um_user('display_name'),
 			um_user('first_name'),
@@ -144,17 +144,17 @@ class UM_Mail {
 			um_user_submitted_registration(),
 			um_get_user_avatar_url(),
 		);
-		
+
 		$replace = apply_filters('um_template_tags_replaces_hook', $replace);
-		
+
 		$content = str_replace($search, $replace, $content);
-		
+
 		if ( isset( $args['tags'] ) && isset( $args['tags_replace'] ) ) {
 			$content = str_replace($args['tags'], $args['tags_replace'], $content);
 		}
-		
+
 		return $content;
-		
+
 	}
 
 }

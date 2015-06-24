@@ -248,11 +248,11 @@ function seamorg_javascript_detection() {
 
 add_action('wp_head', 'seamorg_javascript_detection', 0);
 
-//function seamorg_admin_javascript_detection() {
-//    echo "<script>var site_url = '" . site_url() . "';</script>\n";
-//}
-//
-//add_action('admin_init', 'seamorg_admin_javascript_detection', 0);
+function seamorg_admin_javascript_detection() {
+    echo "<script>var site_url = '" . site_url() . "';</script>\n";
+}
+
+add_action('admin_print_scripts', 'seamorg_admin_javascript_detection');
 
 /**
  * Enqueue scripts and styles.
@@ -532,6 +532,28 @@ function my_em_styles_placeholders($replace, $EM_Event, $result) {
 
 add_filter('em_event_output_placeholder', 'my_em_styles_placeholders', 1, 3);
 
+function my_em_location_placeholders($replace, $EM_Location, $result) {
+    global $wp_query, $wp_rewrite;
+    switch ($result) {
+        case '#_HIKEWEATHER':
+            $latitude = $EM_Location->location_latitude;
+            $longtitude = $EM_Location->location_longitude;
+
+            $content = file_get_contents("https://api.forecast.io/forecast/ae31edd2080dfa3f1ccf6b8fdb4aa71d/$latitude,$longtitude");
+            $report = json_decode($content);
+            $celcius = round(($report->currently->temperature - 32) * 5 / 9);
+
+            $replace = "<a target='_blank' href='http://forecast.io/#/f/$latitude,$longtitude'>{$celcius}&deg;C</a>";
+            break;
+        case '#_DATEPICKER':
+            $replace = "<div class='em-date-single'><input id='event_book_date' class='em-date-input-loc' type='text' name='event_book_date' data-min='" . date('d/m/Y') . "' data-hikeid='{$EM_Location->location_id}' /></div>";
+            break;
+    }
+    return $replace;
+}
+
+add_filter('em_location_output_placeholder', 'my_em_location_placeholders', 1, 3);
+
 add_filter('um_account_page_default_tabs_hook', 'my_custom_tab_in_um', 100);
 
 function my_custom_tab_in_um($tabs) {
@@ -606,4 +628,78 @@ function remove_core_updates() {
 add_filter('pre_site_transient_update_core', 'remove_core_updates');
 add_filter('pre_site_transient_update_plugins', 'remove_core_updates');
 add_filter('pre_site_transient_update_themes', 'remove_core_updates');
+
 //Disable WP Updatees
+
+function to_bring_taxonomy($id = null) {
+    $terms = get_terms('event-tags');
+    $selected_terms = array();
+    if ($terms) {
+        if (!is_null($id)) {
+            $selected_terms = wp_get_post_terms($id, 'event-tags', array("fields" => "ids"));
+        }
+        foreach ($terms as $k => $term) {
+            $checked = (in_array($term->term_id, $selected_terms)) ? 'checked="checked"' : '';
+            printf('<input name="things_to_bring[]" id="ttb-' . $k . '" type="checkbox" value="%d" %s /> <label for="ttb-' . $k . '"> %s</label> <br />', $term->term_id, $checked, esc_html(ucwords($term->name)));
+        }
+    }
+}
+
+add_filter('em_event_save', 'my_em_styles_event_save', 1, 2);
+
+function my_em_styles_event_save($result, $EM_Event) {
+    $things_to_bring = $_POST['things_to_bring'];
+
+    if (!empty($things_to_bring)) {
+        $integerIDs = array_map('intval', $things_to_bring);
+        wp_set_post_terms($EM_Event->ID, $integerIDs, 'event-tags');
+    }
+
+    return $result;
+}
+
+add_action('wp_ajax_event_time_slots', 'event_time_slots_ajax');
+add_action('wp_ajax_nopriv_event_time_slots', 'event_time_slots_ajax');
+
+function event_time_slots_ajax() {
+    $slots = null;
+    $time_format = ( get_option('dbem_time_format') ) ? get_option('dbem_time_format') : get_option('time_format');
+
+    $date = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date'])));
+    $hike_id = $_POST['hike_id'];
+    $args = array('location' => $hike_id, 'scope' => $date, 'ajax' => 1, 'limit' => false);
+
+    $events_count = EM_Events::count($args);
+
+    if ($events_count > 0) {
+        $records = EM_Events::get($args);
+        foreach ($records as $rec) {
+            $slots[$rec->event_id] = array(
+                'start_time' => date_i18n($time_format, $rec->start),
+                'event_url' => esc_url($rec->get_permalink()),
+                'guide_name' => esc_html($rec->get_contact()->display_name),
+                'notes' => esc_html($rec->post_content),
+                'ttb' =>  wp_get_post_terms($rec->post_id, 'event-tags', array("fields" => "names")),
+                'price' => em_get_currency_formatted(getEventMinPrice($rec))
+            );
+        }
+    }
+    header("Content-Type: application/json", true);
+    echo json_encode($slots);
+    die();
+}
+
+function getEventMinPrice($event) {
+    $min = false;
+    foreach ($event->get_tickets()->tickets as $EM_Ticket) {
+        if ($EM_Ticket->is_available() || get_option('dbem_bookings_tickets_show_unavailable')) {
+            if ($EM_Ticket->get_price() < $min || $min === false) {
+                $min = $EM_Ticket->get_price();
+            }
+        }
+    }
+    if ($min === false)
+        $min = 0;
+
+    return $min;
+}
