@@ -742,6 +742,7 @@ jQuery(document).ready(function($) {
                 jQuery('ul.time_slots').empty();
                 jQuery('.time-section').show();
                 jQuery('ul.time_slots').html('<i class="fa fa-spinner fa-spin"></i>');
+                jQuery('.price-section, .guide-section, .trip-deatils-txt, .buyticket').hide();
             },
             success: function(response) {
                 var cList = jQuery('ul.time_slots').empty();
@@ -752,7 +753,13 @@ jQuery(document).ready(function($) {
                         jQuery('<span/>').hide().attr('role', 'evt_price').text(v.price).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_guide').text(v.guide_name).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_notes').text(v.notes).appendTo(li);
-                        jQuery('<span/>').hide().attr('role', 'evt_ttb').text(v.ttb).appendTo(li);
+
+                        t1 = jQuery('<span/>').append('<ul/>').hide().attr('role', 'evt_ttb').appendTo(li);
+                        t2 = t1.find('ul').append('<b>Thinks to Bring </b>');
+
+                        jQuery.each(v.ttb,function(xk,xs){
+                            jQuery('<li/>').text(xs).appendTo(t2);
+                        });
                     });
                 } else {
                     li = jQuery('<li/>').addClass('label label-danger').html("No time slots").appendTo(cList);
