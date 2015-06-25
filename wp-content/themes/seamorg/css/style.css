@@ -745,7 +745,7 @@ a:hover {
 	color:#000000;
 }
 .tripright-details strong {
-	font-size:30px;
+	font-size:25px;
 }
 .tripdetails-cont {
 	border-bottom:none;
@@ -1338,7 +1338,7 @@ padding: 35px 0;
     display: none;
 }
 .em_detail_fields {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .em_detail_fields > label{
       font-weight: bold;
@@ -1364,3 +1364,14 @@ ul.time_slots li { margin-right: 5px;  }
 .evt-full{ background-color: #F72222; }
 .evt-booked{ background-color: #FF9800; }
 .evt-available{ background-color: #5cb85c; }
+
+.highlighted
+{
+	background:#a89715;
+}
+
+
+
+.col-xs-12.col-sm-7.col-md-6.col-lg-6.search-thumb > img {
+  border: 10px solid #f4f2f2;
+}
