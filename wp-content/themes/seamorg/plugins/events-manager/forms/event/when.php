@@ -2,13 +2,17 @@
 global $EM_Event, $post;
 $hours_format = em_get_hour_format();
 $required = apply_filters('em_required_html', '<i>*</i>');
+if(!$EM_Event->event_start_date){
+    $today_date = date('d/m/Y');
+    $date_min = " data-min='$today_date'";
+}
 ?>
 <div class="event-form-when" id="em-form-when">
     <div class="row em-date-range">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <span class="em-event-text"><?php _e('Date ', 'dbem'); ?></span>
-            <input class="em-date-start em-date-input-loc" type="text" />
-            <input class="em-date-input" type="hidden" name="event_start_date" value="<?php echo $EM_Event->event_start_date ?>" />
+            <input class="em-date-start em-date-input-loc" type="text" <?php echo $date_min; ?> />
+            <input class="em-date-input" type="hidden" name="event_start_date" value="<?php echo $EM_Event->event_start_date ?>"  />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 hidden">
             <?php _e('to', 'dbem'); ?>
@@ -19,11 +23,11 @@ $required = apply_filters('em_required_html', '<i>*</i>');
     <div class="row em-time-range">
         <div class="col-xs-12 col-sm-6 col-md-6">
             <span class="em-event-text"><?php _e('Event starts at', 'dbem'); ?></span>
-            <input id="start-time" class="em-time-input em-time-start" type="text" size="8" maxlength="8" name="event_start_time" value="<?php echo date($hours_format, $EM_Event->start); ?>" />
+            <input id="start-time" class="em-time-input em-time-start" type="text" size="8" maxlength="8" name="event_start_time" value="<?php if($EM_Event->start) echo date($hours_format, $EM_Event->start); ?>" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6">
             <?php _e('to', 'dbem'); ?>
-            <input id="end-time" class="em-time-input em-time-end" type="text" size="8" maxlength="8" name="event_end_time" value="<?php echo date($hours_format, $EM_Event->end); ?>" />
+            <input id="end-time" class="em-time-input em-time-end" type="text" size="8" maxlength="8" name="event_end_time" value="<?php if($EM_Event->end)  echo date($hours_format, $EM_Event->end); ?>" />
         </div>
     </div>
 <!--    <p>

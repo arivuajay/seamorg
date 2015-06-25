@@ -862,6 +862,7 @@ function em_setup_datepicker(wrap) {
             //finally, apply start/end logic to this field
             dateInput = jQuery(dateInput);
             if (dateInput.hasClass('em-date-start')) {
+                dateInput.datepicker('option', 'minDate', dateInput.data('min'));
                 dateInput.datepicker('option', 'onSelect', function(selectedDate) {
                     //get corresponding end date input, we expect ranges to be contained in .em-date-range with a start/end input element
                     var startDate = jQuery(this);
