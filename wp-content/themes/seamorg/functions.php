@@ -548,6 +548,20 @@ function my_em_location_placeholders($replace, $EM_Location, $result) {
         case '#_DATEPICKER':
             $replace = "<div class='em-date-single'><input id='event_book_date' class='em-date-input-loc' type='text' name='event_book_date' data-min='" . date('d/m/Y') . "' data-hikeid='{$EM_Location->location_id}' /></div>";
             break;
+//         case '#_BOOKINGFORM':
+//            if (get_option('dbem_rsvp_enabled')) {
+//                if (!defined('EM_XSS_BOOKINGFORM_FILTER') && locate_template('plugins/events-manager/placeholders/bookingform.php')) {
+//                    //xss fix for old overriden booking forms
+//                    add_filter('em_booking_form_action_url', 'esc_url');
+//                    define('EM_XSS_BOOKINGFORM_FILTER', true);
+//                }
+//                ob_start();
+//                $event = em_get_event(36);
+//                $template = em_locate_template('placeholders/bookingform.php', true, array('EM_Event' => $event));
+//                EM_Bookings::enqueue_js();
+//                $replace = ob_get_clean();
+//            }
+//            break;
     }
     return $replace;
 }
