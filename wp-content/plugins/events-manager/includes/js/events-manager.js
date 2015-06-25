@@ -771,7 +771,8 @@ jQuery(document).ready(function($) {
     });
 
     jQuery(document).on('click', 'ul.time_slots li.evt-available', function(e) {
-        the_close = jQuery(this);
+        jQuery('ul.time_slots li').removeClass('highlighted');
+        the_close = jQuery(this).addClass('highlighted');
         jQuery('.price-section, .guide-section, .trip-deatils-txt, .buyticket').show();
         jQuery('#price_slot').html(the_close.find('[role="evt_price"]').html());
         jQuery('#guide_slot').html(the_close.find('[role="evt_guide"]').html());
