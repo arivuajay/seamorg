@@ -1168,8 +1168,7 @@ function em_maps() {
                     jQuery('#em-form-when .hasDatepicker.em-date-start').datepicker("setDate", _selectedStart);
                     jQuery('.ui-datepicker-current-day').click();
 
-                    jQuery('#start-time, #end-time').val('');
-
+//                    jQuery('#start-time, #end-time').val('');
                 });
             }
         };

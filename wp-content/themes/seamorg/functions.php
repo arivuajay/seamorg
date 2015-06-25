@@ -591,7 +591,7 @@ function my_custom_tab_in_um($tabs) {
 }
 
 function guide_can_create() {
-    if (in_array('guide', getCurrentUserRole())) {
+    if (!isset($_REQUEST['event_id']) && in_array('guide', getCurrentUserRole())) {
         $event_limit = DBEM_CUSTOM_MAX_EVENT_LIMIT;
         global $wpdb;
         $current_user = wp_get_current_user();
