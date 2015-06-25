@@ -467,7 +467,7 @@ html.sb-active #sb-site, .sb-toggle-left, .sb-toggle-right, .sb-open-left, .sb-o
 	padding: 10px;
 }
 .inner-cont {
-	margin-top:140px;
+	margin-top:120px;
 	/*	min-height:500px;*/
 
     padding-bottom:120px;
@@ -1374,4 +1374,26 @@ ul.time_slots li { margin-right: 5px;  }
 
 .col-xs-12.col-sm-7.col-md-6.col-lg-6.search-thumb > img {
   border: 10px solid #f4f2f2;
+}
+
+.gear-listing-cont
+{
+	width:100%;
+	float:left;
+	border-bottom:#ededed solid 1px;
+	padding-bottom:25px;
+	margin-bottom:0px;
+}
+
+.trip-listing-cont
+{
+	width:100%;
+	float:left;
+	border-bottom:#ededed solid 1px;
+	padding-bottom:25px;
+}
+
+.gear-listing-cont h3, .trip-listing-cont h3
+{
+	margin-top:15px;
 }
