@@ -664,6 +664,7 @@ add_action('wp_ajax_nopriv_event_time_slots', 'event_time_slots_ajax');
 function event_time_slots_ajax() {
     $slots = null;
     $time_format = ( get_option('dbem_time_format') ) ? get_option('dbem_time_format') : get_option('time_format');
+    $time_format = ( get_option('dbem_time_format') ) ? get_option('dbem_time_format') : get_option('time_format');
 
     $date = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date'])));
     $hike_id = $_POST['hike_id'];
@@ -676,6 +677,7 @@ function event_time_slots_ajax() {
         foreach ($records as $rec) {
             $slots[$rec->event_id] = array(
                 'start_time' => date_i18n($time_format, $rec->start),
+                'status' => getEventStatus($rec),
                 'event_url' => esc_url($rec->get_permalink()),
                 'guide_name' => esc_html($rec->get_contact()->display_name),
                 'notes' => esc_html($rec->post_content),
@@ -687,6 +689,20 @@ function event_time_slots_ajax() {
     header("Content-Type: application/json", true);
     echo json_encode($slots);
     die();
+}
+
+function getEventStatus($event) {
+    if (current_time('timestamp') > $event->start) {
+        $replace = 'expired';
+    } elseif ($event->get_bookings()->get_available_spaces() <= 0) {
+        $replace = 'full';
+    } elseif (is_user_logged_in() && is_object($event->get_bookings()->has_booking())) {
+        $replace = 'booked';
+    } else {
+        $replace = 'available';
+    }
+
+    return $replace;
 }
 
 function getEventMinPrice($event) {

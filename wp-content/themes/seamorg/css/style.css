@@ -1357,3 +1357,10 @@ padding: 35px 0;
   display: inline;
   padding: 0;
 }
+#tags_slot ul li, #notes_slot{ text-transform: capitalize; }
+ul.time_slots li.evt-available { cursor: pointer; }
+ul.time_slots li { margin-right: 5px;  }
+.evt-expired{ background-color: #C6C6C6;}
+.evt-full{ background-color: #F72222; }
+.evt-booked{ background-color: #FF9800; }
+.evt-available{ background-color: #5cb85c; }

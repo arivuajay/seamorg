@@ -748,8 +748,8 @@ jQuery(document).ready(function($) {
                 var cList = jQuery('ul.time_slots').empty();
                 if (response) {
                     jQuery.each(response, function(k, v) {
-                        li = jQuery('<li/>').addClass('label label-success').attr('role', 'event_detail').appendTo(cList);
-                        jQuery('<a/>').attr('href', 'javascript:void(0);').text(v.start_time).appendTo(li);
+                        li = jQuery('<li/>').addClass('label evt-'+v.status).attr('role', 'event_detail').appendTo(cList);
+                        jQuery('<span/>').attr('role', 'evt_time').text(v.start_time).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_price').text(v.price).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_guide').text(v.guide_name).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_notes').text(v.notes).appendTo(li);
@@ -770,8 +770,8 @@ jQuery(document).ready(function($) {
         return false;
     });
 
-    jQuery(document).on('click', 'ul.time_slots li a', function(e) {
-        the_close = jQuery(this).closest('li');
+    jQuery(document).on('click', 'ul.time_slots li.evt-available', function(e) {
+        the_close = jQuery(this);
         jQuery('.price-section, .guide-section, .trip-deatils-txt, .buyticket').show();
         jQuery('#price_slot').html(the_close.find('[role="evt_price"]').html());
         jQuery('#guide_slot').html(the_close.find('[role="evt_guide"]').html());
