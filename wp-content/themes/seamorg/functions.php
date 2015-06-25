@@ -699,10 +699,23 @@ function event_time_slots_ajax() {
                 'price' => em_get_currency_formatted(getEventMinPrice($rec))
             );
         }
+
+        $time_slots = slotArrangement($slots);
     }
     header("Content-Type: application/json", true);
-    echo json_encode($slots);
+    echo json_encode($time_slots);
     die();
+}
+
+function slotArrangement($slots) {
+    $sortArray = array();
+    foreach ($slots as $key => $value) {
+        $sortArray[$key] = strtotime($value['start_time']);
+    }
+
+    array_multisort($sortArray, SORT_ASC, $slots);
+
+    return $slots;
 }
 
 function getEventStatus($event) {

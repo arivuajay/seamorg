@@ -742,7 +742,7 @@ jQuery(document).ready(function($) {
                 jQuery('ul.time_slots').empty();
                 jQuery('.time-section').show();
                 jQuery('ul.time_slots').html('<i class="fa fa-spinner fa-spin"></i>');
-                jQuery('.price-section, .guide-section, .trip-deatils-txt, .buyticket').hide();
+                jQuery('.price-section, .guide-section, .trip-deatils-txt, #bookticket').hide();
             },
             success: function(response) {
                 var cList = jQuery('ul.time_slots').empty();
@@ -773,7 +773,7 @@ jQuery(document).ready(function($) {
     jQuery(document).on('click', 'ul.time_slots li.evt-available', function(e) {
         jQuery('ul.time_slots li').removeClass('highlighted');
         the_close = jQuery(this).addClass('highlighted');
-        jQuery('.price-section, .guide-section, .trip-deatils-txt, .buyticket').show();
+        jQuery('.price-section, .guide-section, .trip-deatils-txt, #bookticket').show();
         jQuery('#price_slot').html(the_close.find('[role="evt_price"]').html());
         jQuery('#guide_slot').html(the_close.find('[role="evt_guide"]').html());
         jQuery('#tags_slot').html(the_close.find('[role="evt_ttb"]').html());

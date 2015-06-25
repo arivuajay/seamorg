@@ -1334,7 +1334,7 @@ padding: 35px 0;
 .event-ttb-details label {
     display: inline;
 }
-.time-section, .price-section, .guide-section, .trip-deatils-txt, .buyticket{
+.time-section, .price-section, .guide-section, .trip-deatils-txt, #bookticket{
     display: none;
 }
 .em_detail_fields {
