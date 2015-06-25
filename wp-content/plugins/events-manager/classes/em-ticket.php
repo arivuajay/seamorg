@@ -272,7 +272,6 @@ class EM_Ticket extends EM_Object{
 			}
 		}
 		$condition_6 = !$this->ticket_guests || ($this->ticket_guests && !is_user_logged_in()) || $include_guests_only;
-
 		if( $condition_1 && $condition_2 && $condition_3 && $condition_4 && $condition_5 && $condition_6 ){
 			//Time Constraints met, now quantities
 			if( $available_spaces > 0 && ($available_spaces >= $this->ticket_min || empty($this->ticket_min)) ){
