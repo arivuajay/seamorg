@@ -610,7 +610,7 @@ function guide_can_create() {
 }
 
 //For Event Manager
-add_image_size('grid-3-thumbnails', 360, 230, true);
+add_image_size('grid-3-thumbnails', 360, 203, true);
 
 /*
   Validate Numbers in Contact Form 7
