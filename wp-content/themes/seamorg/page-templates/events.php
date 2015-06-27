@@ -16,7 +16,7 @@ get_header();
                     <div class="searchbg searchbg2">
                         <?php
                         $args = em_get_search_form_defaults($args);
-                        em_locate_template('templates/events-search.php', true, array('args' => $args));
+                        em_locate_template('templates/locations-search.php', true, array('args' => $args));
                         ?>
                     </div>
                 </div>
@@ -26,7 +26,7 @@ get_header();
     <div class="container">
         <div class="row">
             <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-                <h2><?php the_title(); ?></h2>
+                <!--<h2><?php // the_title(); ?></h2>-->
                 <?php the_content(); ?>
             </div>
         </div>

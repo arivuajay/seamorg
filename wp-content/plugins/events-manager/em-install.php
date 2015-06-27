@@ -26,7 +26,7 @@ function em_install() {
 		 		delete_option('em_ms_global_install'); //in case for some reason the user changed global settings
 		 	}else{
 		 		update_option('em_ms_global_install',1); //in case for some reason the user changes global settings in the future
-		 	}	
+		 	}
 			//New install, or Migrate?
 			if( $old_version < 5 && !empty($old_version) ){
 				update_option('dbem_upgrade_throttle', time()+300);
@@ -36,10 +36,10 @@ function em_install() {
 			}elseif( empty($old_version) ){
 				em_create_events_page();
 				update_option('dbem_hello_to_user',1);
-			}			
+			}
 			//set caps and options
 			em_set_capabilities();
-			em_add_options();			
+			em_add_options();
 			//Update Version
 		  	update_option('dbem_version', EM_VERSION);
 			delete_option('dbem_upgrade_throttle');
@@ -406,11 +406,11 @@ function em_add_options() {
 		//Event Form and Anon Submissions
 		'dbem_events_form_editor' => 1,
 		'dbem_events_form_reshow' => 1,
-		'dbem_events_form_result_success' => __('You have successfully submitted your event, which will be published pending approval.','dbem'),
-		'dbem_events_form_result_success_updated' => __('You have successfully updated your event, which will be republished pending approval.','dbem'),
+		'dbem_events_form_result_success' => __('You have successfully submitted your event.','dbem'),
+		'dbem_events_form_result_success_updated' => __('You have successfully updated your event.','dbem'),
 		'dbem_events_anonymous_submissions' => 0,
 		'dbem_events_anonymous_user' => 0,
-		'dbem_events_anonymous_result_success' => __('You have successfully submitted your event, which will be published pending approval.','dbem'),
+		'dbem_events_anonymous_result_success' => __('You have successfully submitted your event.','dbem'),
 		//Event Emails
 		'dbem_event_submitted_email_admin' => '',
 		'dbem_event_submitted_email_subject' => __('Submitted Event Awaiting Approval', 'dbem'),
@@ -768,19 +768,19 @@ function em_add_options() {
 	    //feedback reminder
 	    'dbem_feedback_reminder' => time()
 	);
-	
+
 	//do date js according to locale:
 	$locale_code = substr ( get_locale (), 0, 2 );
 	$locale_dates = array('nl' => 'dd/mm/yy', 'af' => 'dd/mm/yy', 'ar' => 'dd/mm/yy', 'az' => 'dd.mm.yy', 'bg' => 'dd.mm.yy', 'bs' => 'dd.mm.yy', 'cs' => 'dd.mm.yy', 'da' => 'dd-mm-yy', 'de' => 'dd.mm.yy', 'el' => 'dd/mm/yy', 'en-GB' => 'dd/mm/yy', 'eo' => 'dd/mm/yy', 'et' => 'dd.mm.yy', 'eu' => 'yy/mm/dd', 'fa' => 'yy/mm/dd', 'fo' => 'dd-mm-yy', 'fr' => 'dd.mm.yy', 'fr' => 'dd/mm/yy', 'he' => 'dd/mm/yy', 'hu' => 'yy.mm.dd.', 'hr' => 'dd.mm.yy.', 'ja' => 'yy/mm/dd', 'ro' => 'dd.mm.yy', 'sk' =>  'dd.mm.yy', 'sq' => 'dd.mm.yy', 'sr' => 'dd/mm/yy', 'sr' => 'dd/mm/yy', 'sv' => 'yy-mm-dd', 'ta' => 'dd/mm/yy', 'th' => 'dd/mm/yy', 'vi' => 'dd/mm/yy', 'zh' => 'yy/mm/dd', 'es' => 'dd/mm/yy', 'it' => 'dd/mm/yy');
 	if( array_key_exists($locale_code, $locale_dates) ){
 		$dbem_options['dbem_date_format_js'] = $locale_dates[$locale_code];
 	}
-	
+
 	//add new options
 	foreach($dbem_options as $key => $value){
 		add_option($key, $value);
 	}
-	
+
 	if( !get_option('dbem_version') ){ add_option('dbem_credits',1); }
 	if( get_option('dbem_version') != '' && get_option('dbem_version') < 5 ){
 		//make events, cats and locs pages
@@ -870,7 +870,7 @@ function em_add_options() {
 	    update_option('dbem_events_page_search_form',get_option('dbem_events_page_search'));
 	    update_option('dbem_search_form_dates_separator',get_option('dbem_dates_separator'));
 	    delete_option('dbem_events_page_search'); //avoids the double search form on overriden templates
-	    update_option('dbem_locations_page_search_form',0); //upgrades shouldn't get extra surprises  
+	    update_option('dbem_locations_page_search_form',0); //upgrades shouldn't get extra surprises
 	}
 	if( get_option('dbem_version') != '' && get_option('dbem_version') < 5.512 ){
 		update_option('dbem_search_form_geo_units',0); //don't display units search for previous installs
@@ -901,7 +901,7 @@ function em_add_options() {
 	    }else{
 	        //if approvals DISABLED, we should make the old 'New Booking' email the one for a confirmed booking
     	    update_option('dbem_bookings_contact_email_confirmed_subject',get_option('dbem_bookings_contact_email_subject'));
-    	    update_option('dbem_bookings_contact_email_confirmed_body',get_option('dbem_bookings_contact_email_body'));	        
+    	    update_option('dbem_bookings_contact_email_confirmed_body',get_option('dbem_bookings_contact_email_body'));
 	    }
 	    delete_option('dbem_contactperson_email_cancelled_subject');
 	    delete_option('dbem_contactperson_email_cancelled_body');

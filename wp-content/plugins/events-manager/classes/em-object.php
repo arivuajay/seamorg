@@ -50,6 +50,9 @@ class EM_Object {
 			'geo'=>false, //reserved for future searching via name
 			'near'=>false, //lat,lng coordinates in array or comma-seperated format
 			'near_unit'=>get_option('dbem_search_form_geo_unit_default'), //mi or km
+			'em_hikename'=>'',
+			'em_hike_type'=>'',
+			'em_hike_difficult'=>'',
 			'near_distance'=>get_option('dbem_search_form_geo_distance_default'), //distance from near coordinates - currently the default is the same as for the search form
 			'ajax'=> (defined('EM_AJAX') && EM_AJAX) //considered during pagination
 		);

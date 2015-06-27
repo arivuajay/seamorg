@@ -82,7 +82,7 @@ function em_content($page_content) {
 						$search_args = em_get_search_form_defaults();
 						//remove date and category
 						$search_args['search_categories'] = $search_args['search_scope'] = false;
-						em_locate_template('templates/locations-search.php', true, array('args'=>$search_args));
+//						em_locate_template('templates/locations-search.php', true, array('args'=>$search_args));
 					}
 					if( !empty($args['ajax']) ){ echo '<div class="em-search-ajax">'; } //AJAX wrapper open
 					em_locate_template('templates/locations-list.php',true, array('args'=>$args));

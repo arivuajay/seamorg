@@ -594,6 +594,12 @@ function em_get_search_form_defaults($args = array()){
 	}elseif( !empty($_REQUEST['scope']) ){
 		$args['scope'] = $_REQUEST['scope'];
 	}
+	//Hike Type
+	$args['em_hikename'] = (isset($_REQUEST['em_hikename'])) ? $_REQUEST['em_hikename'] : '';
+	$args['em_hike_type'] = (isset($_REQUEST['em_hike_type'])) ? $_REQUEST['em_hike_type'] : '';
+	$args['em_hike_difficult'] = (isset($_REQUEST['em_hike_difficult'])) ? $_REQUEST['em_hike_difficult'] : '';
+        //field label
+
 	return $args;
 }
 

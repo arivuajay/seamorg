@@ -180,7 +180,7 @@ function um_user_ip() {
 	/***
 	***	@Get filtered meta value after applying hooks
 	***/
-	function um_filtered_value( $key, $data = false ) {
+	function um_filtered_value( $key, $data = false,$with_label = false ) {
 		global $ultimatemember;
 
 		$value = um_user( $key );
@@ -194,6 +194,10 @@ function um_user_ip() {
 		$value = apply_filters("um_profile_field_filter_hook__", $value, $data );
 		$value = apply_filters("um_profile_field_filter_hook__{$key}", $value, $data );
 		$value = apply_filters("um_profile_field_filter_hook__{$type}", $value, $data );
+
+                if($with_label && $value){
+                    return "<label>{$data['title']}</label> : ".$value;
+                }
 
 		return $value;
 	}

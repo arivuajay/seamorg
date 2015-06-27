@@ -267,6 +267,7 @@ function seamorg_scripts() {
     wp_enqueue_style('seamorg-slidebar', get_template_directory_uri() . '/css/slidebars.css', array(), '3.2');
     wp_enqueue_style('seamorg-bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css', array(), '3.2');
     wp_enqueue_style('seamorg-fontawesome', get_template_directory_uri() . '/css/font-awesome.css', array(), '3.2');
+//    wp_enqueue_style('seamorg-select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css', array(), '3.2');
     wp_enqueue_style('seamorg-styles', get_template_directory_uri() . '/css/style.css', array(), '3.2');
     wp_enqueue_style('seamorg-responsive', get_template_directory_uri() . '/css/responsive.css', array(), '3.2');
     wp_enqueue_style('seamorg-developer', get_template_directory_uri() . '/css/dev.css', array(), '3.2');
@@ -296,12 +297,13 @@ function seamorg_scripts() {
     }
 
     wp_enqueue_script('seamorg-bootstrap-script', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '20150330', true);
+    wp_enqueue_script('seamorg-query-script', get_template_directory_uri() . '/js/jquery.ba-bbq.min.js', array('jquery'), '20150330', true);
     wp_enqueue_script('seamorg-script', get_template_directory_uri() . '/js/functions.js', array('jquery'), '20150330', true);
     wp_enqueue_script('seamorg-custom-script', get_template_directory_uri() . '/js/custom.js', array('jquery'), '20150330', true);
-    wp_localize_script('seamorg-script', 'screenReaderText', array(
-        'expand' => '<span class="screen-reader-text">' . __('expand child menu', 'seamorg') . '</span>',
-        'collapse' => '<span class="screen-reader-text">' . __('collapse child menu', 'seamorg') . '</span>',
-    ));
+//    wp_localize_script('seamorg-script', 'screenReaderText', array(
+//        'expand' => '<span class="screen-reader-text">' . __('expand child menu', 'seamorg') . '</span>',
+//        'collapse' => '<span class="screen-reader-text">' . __('collapse child menu', 'seamorg') . '</span>',
+//    ));
 }
 
 add_action('wp_enqueue_scripts', 'seamorg_scripts');
@@ -689,11 +691,16 @@ function event_time_slots_ajax() {
     if ($events_count > 0) {
         $records = EM_Events::get($args);
         foreach ($records as $rec) {
+            um_fetch_user($rec->get_contact()->ID);
+            $guide = "<a target='_blank' href='" . um_user_profile_url() . "'>{$rec->get_contact()->display_name}</a>";
+            $book_url = "<a href='".esc_url(get_permalink(343)."?id=".$rec->post_id)."' id='book-now' class='book-button'>Book It</a>";
+
             $slots[$rec->event_id] = array(
                 'start_time' => date_i18n($time_format, $rec->start),
                 'status' => getEventStatus($rec),
                 'event_url' => esc_url($rec->get_permalink()),
-                'guide_name' => esc_html($rec->get_contact()->display_name),
+                'book_it' => $book_url,
+                'guide_name' => $guide,
                 'notes' => esc_html($rec->post_content),
                 'ttb' => wp_get_post_terms($rec->post_id, 'event-tags', array("fields" => "names")),
                 'price' => em_get_currency_formatted(getEventMinPrice($rec))
@@ -745,6 +752,30 @@ function getEventMinPrice($event) {
         $min = 0;
 
     return $min;
+}
+
+function em_custom_booking_form() {
+    $id = $_REQUEST['id'];
+
+    if (!isset($id)) {
+        return false;
+    }
+    return do_shortcode('[event post_id="' . $id . '"]#_BOOKINGFORM[/event]');
+}
+
+add_shortcode('BOOKING_FORM', 'em_custom_booking_form');
+add_filter('BOOKING_FORM', 'em_custom_booking_form');
+
+
+function get_locations_list(){
+    $list = array();
+    $locations = EM_Locations::get();
+
+    foreach ($locations as $loc){
+        $list[] = $loc->location_name;
+    }
+
+    return $list;
 }
 
 //add_action('wp_ajax_event_book_form', 'event_book_form_ajax');

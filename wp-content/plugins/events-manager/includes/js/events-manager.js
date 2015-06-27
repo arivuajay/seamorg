@@ -48,19 +48,19 @@ jQuery(document).ready(function($) {
         }
 
     });
-    if (EM.search_term_placeholder) {
-        if ('placeholder' in document.createElement('input')) {
-            $('input.em-events-search-text, input.em-search-text').attr('placeholder', EM.search_term_placeholder);
-        } else {
-            $('input.em-events-search-text, input.em-search-text').blur(function() {
-                if (this.value == '')
-                    this.value = EM.search_term_placeholder;
-            }).focus(function() {
-                if (this.value == EM.search_term_placeholder)
-                    this.value = '';
-            }).trigger('blur');
-        }
-    }
+//    if (EM.search_term_placeholder) {
+//        if ('placeholder' in document.createElement('input')) {
+//            $('input.em-events-search-text, input.em-search-text').attr('placeholder', EM.search_term_placeholder);
+//        } else {
+//            $('input.em-events-search-text, input.em-search-text').blur(function() {
+//                if (this.value == '')
+//                    this.value = EM.search_term_placeholder;
+//            }).focus(function() {
+//                if (this.value == EM.search_term_placeholder)
+//                    this.value = '';
+//            }).trigger('blur');
+//        }
+//    }
     $('.em-search-form select[name=country]').change(function() {
         var el = $(this);
         $('.em-search select[name=state]').html('<option value="">' + EM.txt_loading + '</option>');
@@ -751,9 +751,10 @@ jQuery(document).ready(function($) {
                         li = jQuery('<li/>').addClass('label evt-'+v.status).attr('role', 'event_detail').appendTo(cList);
                         jQuery('<span/>').attr('role', 'evt_time').text(v.start_time).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_price').text(v.price).appendTo(li);
-                        jQuery('<span/>').hide().attr('role', 'evt_guide').text(v.guide_name).appendTo(li);
+                        jQuery('<span/>').hide().attr('role', 'evt_guide').html(v.guide_name).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_notes').text(v.notes).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_id').text(k).appendTo(li);
+                        jQuery('<span/>').hide().attr('role', 'book_it').html(v.book_it).appendTo(li);
 
                         t1 = jQuery('<span/>').append('<ul/>').hide().attr('role', 'evt_ttb').appendTo(li);
                         t2 = t1.find('ul').append('<b>Thinks to Bring </b>');
@@ -778,35 +779,29 @@ jQuery(document).ready(function($) {
         jQuery('#guide_slot').html(the_close.find('[role="evt_guide"]').html());
         jQuery('#tags_slot').html(the_close.find('[role="evt_ttb"]').html());
         jQuery('#notes_slot').html(the_close.find('[role="evt_notes"]').html());
-        jQuery('.book-button').attr('data-eid', the_close.find('[role="evt_id"]').text());
+        jQuery('#bookticket').html(the_close.find('[role="book_it"]').html());
 
         e.preventDefault();
     });
 
-    jQuery(document).on('click', '#book-now', function(e) {
-        var _evtID = jQuery(this).data('eid');
-
-        jQuery.ajax({
-            type: "POST",
-            url: ultimatemember_ajax_url,
-            data: {action: 'event_book_form', event_id: _evtID },
-//            beforeSend: function(xhr) {
-//                jQuery('ul.time_slots').empty();
-//                jQuery('.time-section').show();
-//                jQuery('ul.time_slots').html('<i class="fa fa-spinner fa-spin"></i>');
-//                jQuery('.price-section, .guide-section, .trip-deatils-txt, .buyticket').hide();
-//            },
-            success: function(response) {
-                if (response) {
-                    jQuery('.booking-form-section').html(response);
-                } else {
-                    alert('System error');
-                }
-            }
-        });
-        e.preventDefault();
-        return false;
-    });
+//    jQuery(document).on('click', '#book-now', function(e) {
+//        var _evtID = jQuery(this).data('eid');
+//
+//        jQuery.ajax({
+//            type: "POST",
+//            url: ultimatemember_ajax_url,
+//            data: {action: 'event_book_form', event_id: _evtID },
+//            success: function(response) {
+//                if (response) {
+//                    jQuery('.booking-form-section').html(response);
+//                } else {
+//                    alert('System error');
+//                }
+//            }
+//        });
+//        e.preventDefault();
+//        return false;
+//    });
 
 });
 

@@ -50,11 +50,11 @@ print "
 }
 ";
 
-print "
-.um-$form_id.um .um-profile-photo a.um-profile-photo-img {
-	top: -".$photosize_up."px;
-}
-";
+//print "
+//.um-$form_id.um .um-profile-photo a.um-profile-photo-img {
+//	top: -".$photosize_up."px;
+//}
+//";
 
 print "
 .um-$form_id.um .um-profile-meta {

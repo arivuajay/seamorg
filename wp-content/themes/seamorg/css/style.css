@@ -997,7 +997,7 @@ div.css-search {
 .searchbg2 div.css-search div.em-search-options {
 	text-align: center;
 }
-.page-id-158 .inner-searchcont, .page-id-76 .inner-searchcont, .single-location .inner-searchcont, .page-id-250 .inner-searchcont {
+.page-id-158 .inner-searchcont, .single-location .inner-searchcont, .page-id-250 .inner-searchcont {
 	display:none;
 }
 .em-booking-form-details {
@@ -1396,4 +1396,57 @@ ul.time_slots li { margin-right: 5px;  }
 .gear-listing-cont h3, .trip-listing-cont h3
 {
 	margin-top:15px;
+}
+
+
+.sort-by {
+  background: #ececec none repeat scroll 0 0;
+  float: right;
+  height: 48px;
+  margin: -20px 0 20px;
+  /*width: 100%;*/
+}
+.sort-by h3 {
+  color: #3484db;
+  display: block;
+  float: left;
+  font-family: arial;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 48px;
+  padding: 0 20px;
+  margin: 0;
+}
+.sort {
+  border-right: 1px solid #ccc;
+  display: block;
+  float: left;
+  height: 25px;
+  margin: 12px 0;
+}
+.sort li {
+  border-left: 1px solid #ccc;
+  float: left;
+  padding: 3px 15px;
+  position: relative;
+  width: 90px;
+  list-style: none;
+}
+.sort li a {
+  background: rgba(0, 0, 0, 0) url("../images/spinner.png") no-repeat scroll 0 0;
+  display: inline-block;
+  height: 8px;
+  overflow: hidden;
+  position: absolute;
+  right: 13px;
+  text-indent: -99999px;
+  top: 35px;
+  width: 13px;
+}
+.sort li .ascending {
+  top: 6px;
+}
+.sort li .descending {
+  background-position: 0 -9px;
+  top: 14px;
 }
