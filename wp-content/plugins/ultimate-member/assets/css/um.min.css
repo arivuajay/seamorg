@@ -6469,7 +6469,7 @@ src:url(../font/raty.woff) format("woff")
 }
 .select2-container .select2-choice {
 	display:block!important;
-	height:36px!important;
+	height:32px!important;
 	padding:0 0 0 12px!important;
 	overflow:hidden!important;
 	position:relative!important;
@@ -6479,9 +6479,7 @@ src:url(../font/raty.woff) format("woff")
 	font-size:15px!important;
 	text-align:left!important;
 	text-decoration:none!important;
-	-moz-border-radius:2px!important;
-	-webkit-border-radius:2px!important;
-	border-radius:2px!important;
+
 	-webkit-touch-callout:none;
 	-webkit-user-select:none;
 	-moz-user-select:none;

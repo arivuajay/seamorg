@@ -130,7 +130,7 @@ display:none!important
 
 .em-search-scope {
   float: left;
-  width: 71.7% !important;
+  width: 71.1% !important;
 }
 
 .em-events-search-dates {
@@ -163,6 +163,17 @@ display:none!important
 }
 #post-search-input {
   width: 47%;
+}
+
+
+.em-search-geo, .em-search-text {
+  width: 101.5%;
+  margin:0px;
+}
+
+.em-search-scope.em-search-field
+{
+	margin:0px;
 }
 
 
@@ -252,6 +263,15 @@ display:none!important
   font-size: 15px;
 }
 
+
+.em-search-scope {
+  float: left;
+  width: 42.6%;
+}
+.em-date-range 
+{
+	  width: 99%;
+}
 }
 @media (min-width:992px)and (max-width:1199px) {
 .hidden-md {
@@ -295,4 +315,12 @@ display:none!important
   width: 100%;
 }
 
+.em-search-scope {
+  float: left;
+  width: 44%;
+}
+.em-date-range 
+{
+	 width: 100%;
+}
 }

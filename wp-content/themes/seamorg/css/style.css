@@ -106,12 +106,12 @@ div.css-search div.em-search-options {
 	padding-bottom:0px;
 }
 .searchfield1 {
-	width:99.5% !important;
+	width:99% !important;
 	float:left;
 	height:35px;
 	border:none;
 	font-size:16px;
-	padding:5px;
+	padding:0px 1px;
 	margin-right:1px;
 }
 .searchfield2 {
@@ -922,7 +922,7 @@ a:hover {
 }
 div.css-search div.em-search-text {
 	background:none;
-	margin: 0 0 0 5px;
+/*	margin: 0 0 0 5px;*/
 	padding-left: 0px;
 	color:#2e2e2e;
 }
@@ -1157,10 +1157,10 @@ div.css-search div.em-search-main div {
 	float:left;
 }
 .em-search-geo, .em-search-text {
- width:45%
+ width:45.5%
 }
 .em-search-scope {
-	width:45.6%;
+	width:46.1%;
 	float:left
 }
 .em-events-search-dates {
