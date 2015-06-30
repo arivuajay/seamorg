@@ -1479,3 +1479,7 @@ ul.time_slots li { margin-right: 5px;  }
   text-transform: capitalize;
   width: 100%;
 }
+
+.um-profile {
+  border: 5px solid #f5f5f5;
+}
