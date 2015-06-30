@@ -697,6 +697,7 @@ function event_time_slots_ajax() {
 
             $slots[$rec->event_id] = array(
                 'start_time' => date_i18n($time_format, $rec->start),
+                'end_time' => date_i18n($time_format, $rec->end),
                 'status' => getEventStatus($rec),
                 'event_url' => esc_url($rec->get_permalink()),
                 'book_it' => $book_url,

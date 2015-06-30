@@ -749,7 +749,7 @@ jQuery(document).ready(function($) {
                 if (response) {
                     jQuery.each(response, function(k, v) {
                         li = jQuery('<li/>').addClass('label evt-' + v.status).attr('role', 'event_detail').appendTo(cList);
-                        jQuery('<span/>').attr('role', 'evt_time').text(v.start_time).appendTo(li);
+                        jQuery('<span/>').attr('role', 'evt_time').text(v.start_time+'-'+v.end_time).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_price').text(v.price).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_guide').html(v.guide_name).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_notes').text(v.notes).appendTo(li);
