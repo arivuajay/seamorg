@@ -1450,3 +1450,32 @@ ul.time_slots li { margin-right: 5px;  }
   background-position: 0 -9px;
   top: 14px;
 }
+
+
+.um-meta-text 
+{
+	  margin-bottom: 15px;
+}
+
+.um-meta-text label {
+  display: inline;
+  float: left;
+  font-weight: bold;
+  width: 100px;
+  font-size:16px !important;
+  margin-bottom:0px;
+}
+
+.guide-profile h3
+{
+	border-bottom:#ececec solid 1px;
+	margin-bottom:20px;
+	padding-bottom:10px;
+}
+
+.um-name {
+  margin-right: 0px;
+  text-align: center;
+  text-transform: capitalize;
+  width: 100%;
+}
