@@ -32,7 +32,7 @@ get_header();
             <?php
             if (class_exists('EM_Events')) {
                 $format_header = '<div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading"><h2> Up Coming Events </h2><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span></div>';
-                $format_footer = '<div class="viewall-cont"><a href="' . get_permalink(75) . '"> View all</a></div>';
+                $format_footer = '<div class="viewall-cont"><a href="' . get_permalink(76) . '"> View all</a></div>';
 
                 $format = '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="event-cont">
@@ -49,7 +49,6 @@ get_header();
                 </div>
             </div>';
 
-                echo $format_header;
                 $args = array(
                     'post_type' => EM_POST_TYPE_EVENT,
                     'posts_per_page' => 10,
@@ -64,19 +63,25 @@ get_header();
 
                 // The Query
                 $query = new WP_Query($args);
-                // The Loop
-                $upcoming_hikes = array();
-                while ($query->have_posts()):
-                    $query->next_post();
-                    $event = new EM_Event($query->post);
-                    if (!in_array($event->location_id, $upcoming_hikes)) {
-                        echo $event->output($format);
-                    }
-                    $upcoming_hikes[] = $event->location_id;
-                endwhile;
-                // Reset Post Data
-                wp_reset_postdata();
-                echo $format_footer;
+                echo $format_header;
+                if ($query->have_posts()) {
+                    // The Loop
+                    $upcoming_hikes = array();
+                    while ($query->have_posts()):
+                        $query->next_post();
+                        $event = new EM_Event($query->post);
+                        if (!in_array($event->location_id, $upcoming_hikes)) {
+                            echo $event->output($format);
+                        }
+                        $upcoming_hikes[] = $event->location_id;
+                    endwhile;
+                    // Reset Post Data
+                    wp_reset_postdata();
+                    echo $format_footer;
+                } else {
+                    echo '<div class="viewall-cont"><a href="javascript:void(0);"> No upcoming events</a></div>';
+                }
+
 //        echo EM_Events::output(array('scope'=>'future', 'order_by'=>'start_date','limit' => 3, 'format' => $format, 'format_header' =>$format_header, 'format_footer' => $format_footer));
             }
             ?>
@@ -92,7 +97,7 @@ get_header();
             <?php
             if (class_exists('EM_Locations')) {
                 $format_header = '<div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading upcoming-event-heading2"><h2> Popular Events</h2><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span></div>';
-                $format_footer = '<div class="viewall-cont"><a href="' . get_permalink(75) . '"> View all</a></div>';
+                $format_footer = '<div class="viewall-cont"><a href="' . get_permalink(76) . '"> View all</a></div>';
 
                 $format = '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="event-cont">
@@ -108,7 +113,6 @@ get_header();
                 </div>
             </div>';
 
-                echo $format_header;
                 $args = array(
                     'post_type' => EM_POST_TYPE_LOCATION,
                     'posts_per_page' => 3,
@@ -117,18 +121,22 @@ get_header();
                     'meta_key' => '_is_ns_featured_post',
                     'meta_value' => 'yes',
                 );
-                $query = new WP_Query(array('meta_key' => '', 'meta_value' => ''));
                 // The Query
                 $query = new WP_Query($args);
-                // The Loop
-                while ($query->have_posts()):
-                    $query->next_post();
-                    $event = new EM_Location($query->post);
-                    echo $event->output($format);
-                endwhile;
-                // Reset Post Data
-                wp_reset_postdata();
-                echo $format_footer;
+                echo $format_header;
+                if ($query->have_posts()) {
+                    // The Loop
+                    while ($query->have_posts()):
+                        $query->next_post();
+                        $event = new EM_Location($query->post);
+                        echo $event->output($format);
+                    endwhile;
+                    // Reset Post Data
+                    wp_reset_postdata();
+                    echo $format_footer;
+                }else {
+                    echo '<div class="viewall-cont"><a href="javascript:void(0);"> No popular events</a></div>';
+                }
 //                echo EM_Events::output(array('scope' => 'future', 'order_by' => 'start_date', 'limit' => 3, 'format' => $format, 'format_header' => $format_header, 'format_footer' => $format_footer));
             }
             ?>
@@ -145,7 +153,7 @@ get_header();
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2> Client Testimonials </h2>
 <!--                <p> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/clinet1.jpg"  alt=""></p>
-                -->                 <?php dynamic_sidebar('testimonial-area'); // Displays rotating testimonials or statically  ?>
+                -->                 <?php dynamic_sidebar('testimonial-area'); // Displays rotating testimonials or statically     ?>
                 <p class="readmore-cont"> <a href="#" class="readmore">Read more</a></p>
             </div>
         </div>

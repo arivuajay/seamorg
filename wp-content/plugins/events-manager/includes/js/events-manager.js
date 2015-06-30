@@ -748,7 +748,7 @@ jQuery(document).ready(function($) {
                 var cList = jQuery('ul.time_slots').empty();
                 if (response) {
                     jQuery.each(response, function(k, v) {
-                        li = jQuery('<li/>').addClass('label evt-'+v.status).attr('role', 'event_detail').appendTo(cList);
+                        li = jQuery('<li/>').addClass('label evt-' + v.status).attr('role', 'event_detail').appendTo(cList);
                         jQuery('<span/>').attr('role', 'evt_time').text(v.start_time).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_price').text(v.price).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_guide').html(v.guide_name).appendTo(li);
@@ -849,6 +849,12 @@ function em_setup_datepicker(wrap) {
             dateInput.change(function() {
                 if (jQuery(this).val() == '') {
                     jQuery(this).nextAll('.em-date-input').first().val('');
+                }
+            });
+
+            dateInput.keyup(function(e) {
+                if (e.keyCode == 8 || e.keyCode == 46) {
+                    jQuery.datepicker._clearDate(this);
                 }
             });
         });

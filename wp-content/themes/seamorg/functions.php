@@ -692,7 +692,7 @@ function event_time_slots_ajax() {
         $records = EM_Events::get($args);
         foreach ($records as $rec) {
             um_fetch_user($rec->get_contact()->ID);
-            $guide = "<a target='_blank' href='" . um_user_profile_url() . "'>{$rec->get_contact()->display_name}</a>";
+            $guide = "<a target='_blank' href='" . um_user_profile_url() . "'>{$rec->get_contact()->get_name()}</a>";
             $book_url = "<a href='".esc_url(get_permalink(343)."?id=".$rec->post_id)."' id='book-now' class='book-button'>Book It</a>";
 
             $slots[$rec->event_id] = array(
@@ -728,7 +728,7 @@ function slotArrangement($slots) {
 function getEventStatus($event) {
     if (current_time('timestamp') > $event->start) {
         $replace = 'expired';
-    } elseif ($event->get_bookings()->get_available_spaces() <= 0) {
+    } elseif ($event->get_bookings()->get_available_spaces() <= 0 || !$event->get_bookings()->is_open()) {
         $replace = 'full';
     } elseif (is_user_logged_in() && is_object($event->get_bookings()->has_booking())) {
         $replace = 'booked';
