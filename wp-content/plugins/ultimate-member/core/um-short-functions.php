@@ -196,7 +196,7 @@ function um_user_ip() {
 		$value = apply_filters("um_profile_field_filter_hook__{$type}", $value, $data );
 
                 if($with_label && $value){
-                    return "<label>{$data['title']}</label> : ".strip_tags($value);
+                    return "<label>{$data['title']} : </label>".strip_tags($value);
                 }
 
 		return $value;
