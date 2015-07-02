@@ -22,8 +22,15 @@ $show_tickets = true;
 if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true) ){
     $is_open = true;
     $can_book = false;
-	$show_tickets = get_option('dbem_bookings_tickets_show_unavailable') && get_option('dbem_bookings_tickets_show_member_tickets');
+    $show_tickets = get_option('dbem_bookings_tickets_show_unavailable') && get_option('dbem_bookings_tickets_show_member_tickets');
 }
+
+if(!$can_book):
+    $redir_url = get_permalink(104)."?redirect_to=". urlencode(get_permalink(343)."?id=".$EM_Event->ID);
+//    var_dump($redir_url);
+    wp_redirect( $redir_url );
+    exit;
+endif;
 ?>
 <div id="em-booking" class="em-booking <?php if( get_option('dbem_css_rsvp') ) echo 'css-booking'; ?>">
 	<?php
@@ -47,7 +54,27 @@ if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true
 			<?php //Tickets exist, so we show a booking form. ?>
 
             <div class="row">
-            <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                    <div class="em_detail_fields">
+                        <label>Hike name :</label>
+                        <span><?php echo $EM_Event->event_name ?></span>
+                    </div>
+                    <div class="em_detail_fields">
+                        <label>Date :</label>
+                        <span><?php $date_format = ( get_option('dbem_date_format') ) ? get_option('dbem_date_format') : get_option('date_format');
+            echo date_i18n($date_format, $EM_Event->start); ?></span>
+                    </div>
+                    <div class="em_detail_fields">
+                        <label>Location :</label>
+                        <span><?php echo $EM_Event->get_location()->location_name ?></span>
+                    </div>
+                    <div class="em_detail_fields">
+                        <label>Trip Details :</label>
+                        <span><?php echo $EM_Event->post_content ?></span>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
             <form class="em-booking-form" name='booking-form' method='post' action='<?php echo apply_filters('em_booking_form_action_url',''); ?>#em-booking'>
 			 	<input type='hidden' name='action' value='booking_add'/>
 			 	<input type='hidden' name='event_id' value='<?php echo $EM_Event->event_id; ?>'/>
@@ -96,22 +123,10 @@ if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true
 						</div>
 						<?php do_action('em_booking_form_footer_after_buttons', $EM_Event); //do not delete ?>
 					</div>
-				<?php else: ?>
-					<p class="em-booking-form-details"><?php echo get_option('dbem_booking_feedback_log_in'); ?></p>
 				<?php endif; ?>
 			</form>
 
-            </div>
-
-             <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-
-            <?php
-			if( !is_user_logged_in() && get_option('dbem_bookings_login_form') ){
-				//User is not logged in, show login form (enabled on settings page)
-				em_locate_template('forms/bookingform/login.php',true, array('EM_Event'=>$EM_Event));
-			}
-			?>
-
+                </div>
             </div>
 
             </div>
