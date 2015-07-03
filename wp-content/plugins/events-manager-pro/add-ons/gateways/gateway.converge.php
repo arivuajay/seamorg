@@ -131,6 +131,13 @@ class EM_Gateway_Converge extends EM_Gateway {
                 //returning a free message
                 $return['message'] = get_option('em_converge_booking_feedback_free');
             }
+
+            $seacrh = array(
+                '[BOOKING_ID]' => $EM_Booking->booking_id
+            );
+
+            $return['detail'] = strtr(get_option('em_converge_booking_confirmation'), $seacrh);
+
         } elseif (!empty($EM_Booking->booking_meta['gateway']) && $EM_Booking->booking_meta['gateway'] == $this->gateway && $EM_Booking->get_price() > 0) {
             //void this last authroization
             $this->void($EM_Booking);
@@ -157,21 +164,21 @@ class EM_Gateway_Converge extends EM_Gateway {
         <p class="em-bookings-form-gateway-expiry">
             <label><?php _e('Expiry Date', 'em-pro'); ?></label>
             <select name="x_exp_date_month" >
-                <?php
-                for ($i = 1; $i <= 12; $i++) {
-                    $m = $i > 9 ? $i : "0$i";
-                    echo "<option>$m</option>";
-                }
-                ?>
+        <?php
+        for ($i = 1; $i <= 12; $i++) {
+            $m = $i > 9 ? $i : "0$i";
+            echo "<option>$m</option>";
+        }
+        ?>
             </select> /
             <select name="x_exp_date_year" >
-                <?php
-                $year = date('Y', current_time('timestamp'));
-                for ($i = $year; $i <= $year + 10; $i++) {
-                    $v = substr($i,-2);
-                    echo "<option value='{$v}'>$i</option>";
-                }
-                ?>
+        <?php
+        $year = date('Y', current_time('timestamp'));
+        for ($i = $year; $i <= $year + 10; $i++) {
+            $v = substr($i, -2);
+            echo "<option value='{$v}'>$i</option>";
+        }
+        ?>
             </select>
         </p>
         <p class="em-bookings-form-ccv">
@@ -198,10 +205,7 @@ class EM_Gateway_Converge extends EM_Gateway {
         $mode = (get_option('em_' . $this->gateway . '_mode') == 'live');
         //Basic Credentials
         $sale = new ConvergeApi(
-                get_option('em_' . $this->gateway . '_merchant_id'),
-                get_option('em_' . $this->gateway . '_user_id'),
-                get_option('em_' . $this->gateway . '_pin'),
-                $mode
+                get_option('em_' . $this->gateway . '_merchant_id'), get_option('em_' . $this->gateway . '_user_id'), get_option('em_' . $this->gateway . '_pin'), $mode
         );
 
         return $sale;
@@ -232,15 +236,15 @@ class EM_Gateway_Converge extends EM_Gateway {
         $amount = $EM_Booking->get_price(false, false, true);
 
         $vars = array(
-                    'ssl_amount' => $amount,
-                    'ssl_card_number' => $_REQUEST['x_card_num'],
-                    'ssl_cvv2cvc2' => $_REQUEST['x_card_code'],
-                    'ssl_exp_date' => $_REQUEST['x_exp_date_month'] . $_REQUEST['x_exp_date_year'],
-                    'ssl_avs_zip' => $zipcode,
-                    'ssl_avs_address' => $address,
-                    'ssl_last_name' => $cust_name,
-                    'product_data' => preg_replace('/[^a-zA-Z0-9\s]/i', "", $EM_Booking->get_event()->event_name)
-                );
+            'ssl_amount' => $amount,
+            'ssl_card_number' => $_REQUEST['x_card_num'],
+            'ssl_cvv2cvc2' => $_REQUEST['x_card_code'],
+            'ssl_exp_date' => $_REQUEST['x_exp_date_month'] . $_REQUEST['x_exp_date_year'],
+            'ssl_avs_zip' => $zipcode,
+            'ssl_avs_address' => $address,
+            'ssl_last_name' => $cust_name,
+            'product_data' => preg_replace('/[^a-zA-Z0-9\s]/i', "", $EM_Booking->get_event()->event_name)
+        );
         //Get Payment
         $sale = apply_filters('em_gateawy_converge_sale_var', $sale, $EM_Booking, $this);
         $response = $sale->ccsale($vars);
@@ -293,6 +297,12 @@ class EM_Gateway_Converge extends EM_Gateway {
                         <em><?php _e('If some cases if you allow a free ticket (e.g. pay at gate) as well as paid tickets, this message will be shown and the user will not be charged.', 'em-pro'); ?></em>
                     </td>
                 </tr>
+                <tr valign="top">
+                    <th scope="row"><?php _e('Confirmation Message', 'em-pro') ?></th>
+                    <td>
+                        <textarea name="booking_confirmation" rows="8" style="width: 100%;"><?php esc_attr_e(get_option('em_' . $this->gateway . "_booking_confirmation")); ?></textarea>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <h3><?php echo sprintf(esc_html__emp('%s Options', 'dbem'), 'Converge') ?></h3>
@@ -333,12 +343,13 @@ class EM_Gateway_Converge extends EM_Gateway {
     function update() {
         parent::update();
         $gateway_options = array(
-            $this->gateway . "_mode" => $_REQUEST['mode'],
-            $this->gateway . "_merchant_id" => $_REQUEST['ssl_merchant_id'],
-            $this->gateway . "_user_id" => $_REQUEST['ssl_user_id'],
-            $this->gateway . "_pin" => $_REQUEST['ssl_pin'],
-            $this->gateway . "_booking_feedback" => wp_kses_data($_REQUEST['booking_feedback']),
-            $this->gateway . "_booking_feedback_free" => wp_kses_data($_REQUEST['booking_feedback_free'])
+        $this->gateway . "_mode" => $_REQUEST['mode'],
+        $this->gateway . "_merchant_id" => $_REQUEST['ssl_merchant_id'],
+        $this->gateway . "_user_id" => $_REQUEST['ssl_user_id'],
+        $this->gateway . "_pin" => $_REQUEST['ssl_pin'],
+        $this->gateway . "_booking_feedback" => wp_kses_data($_REQUEST['booking_feedback']),
+        $this->gateway . "_booking_feedback_free" => wp_kses_data($_REQUEST['booking_feedback_free']),
+        $this->gateway . "_booking_confirmation" => $_REQUEST['booking_confirmation']
         );
         foreach ($gateway_options as $key => $option) {
             update_option('em_' . $key, stripslashes($option));

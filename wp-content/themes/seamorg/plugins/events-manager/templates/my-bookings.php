@@ -40,30 +40,37 @@ if (is_user_logged_in()):
                 foreach ($EM_Bookings as $EM_Booking) {
                     /* @var $EM_Booking EM_Booking */
                     $EM_Event = $EM_Booking->get_event();
+                    $localised_start_date = date_i18n(get_option('dbem_date_format'), $EM_Event->start);
+
                     if (($rowno < $limit || empty($limit)) && ($event_count >= $offset || $offset === 0)) {
                         $rowno++;
                         ?>
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 booking-grid">
                             <div class="event-cont">
                                 <div class="event-img">
-                                    <div class="eventplace-details"> <img src="<?php echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php echo esc_html($EM_Event->get_location()->location_name); ?> <span> <i class="fa fa-user"></i>
- <?php echo $EM_Booking->get_spaces() ?></span></div>
-                                    <?php if ($EM_Event->get_image_url() != '') : ?>
-                                        <img src='<?php echo $EM_Event->get_image_url('grid-3-thumbnails'); ?>' alt='<?php echo $EM_Event->event_name ?>'/>
+                                    <div class="eventplace-details"> <img src="<?php echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php echo esc_html($EM_Event->get_location()->location_name); ?> <span>  <i class="fa fa-user"></i>
+                                            <?php echo $EM_Booking->get_spaces() ?></span></div>
+                                    <?php if ($EM_Event->get_location()->get_image_url() != '') : ?>
+                                        <img src='<?php echo $EM_Event->get_location()->get_image_url('grid-3-thumbnails'); ?>' alt='<?php echo $EM_Event->event_name ?>'/>
                                     <?php endif; ?>
                                 </div>
                                 <div class="eventplace-details-txt">
                                     <div class="event-name">
-                                        <h2><?php echo $EM_Event->output("#_EVENTLINK"); ?></h2>
-                                        <span><?php echo date_i18n(get_option('dbem_date_format'), $EM_Event->start); ?></span>
+                                        <h2>
+                                            <a title="Kodaikanal" href="<?php echo $EM_Event->get_location()->get_permalink(); ?>">
+                                                <?php echo esc_html($EM_Event->event_name); ?>
+                                            </a>
+                                        </h2>
+                                        <span><?php echo $localised_start_date; ?></span>
                                     </div>
                                     <div class="buyticket">
-                                        <a class="row-title" href="javascript:void(0);"> <i class="fa fa-check"></i>  <?php echo $EM_Booking->get_status(); ?></a>
+                                        <a class="row-title" href="javascript:void(0);"> <i class="fa fa-check"></i>
+                                            <?php echo $EM_Booking->get_status(); ?></a>
                                         <?php
                                         $cancel_link = '';
                                         if (!in_array($EM_Booking->booking_status, array(2, 3)) && get_option('dbem_bookings_user_cancellation') && $EM_Event->get_bookings()->has_open_time()) {
                                             $cancel_url = em_add_get_params($_SERVER['REQUEST_URI'], array('action' => 'booking_cancel', 'booking_id' => $EM_Booking->booking_id, '_wpnonce' => $nonce));
-                                            $cancel_link = '<a class="row-title em-bookings-cancel" href="' . $cancel_url . '" onclick="if( !confirm(EM.booking_warning_cancel) ){ return false; }"> <i class="fa fa-close"></i> ' . __ ('Cancel', 'dbem') . '</a>';
+                                            $cancel_link = '<a class="row-title em-bookings-cancel" href="' . $cancel_url . '" onclick="if( !confirm(EM.booking_warning_cancel) ){ return false; }"> <i class="fa fa-close"></i> ' . __('Cancel', 'dbem') . '</a>';
                                         }
                                         echo apply_filters('em_my_bookings_booking_actions', $cancel_link, $EM_Booking);
                                         ?>

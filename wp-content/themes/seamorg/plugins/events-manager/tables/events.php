@@ -70,7 +70,6 @@ global $wpdb, $bp, $EM_Notices;
                     $class = ($rowno % 2) ? 'alternate' : '';
                     // FIXME set to american
                     $localised_start_date = date_i18n(get_option('dbem_date_format'), $EM_Event->start);
-                    $localised_end_date = date_i18n(get_option('dbem_date_format'), $EM_Event->end);
                     $style = "";
                     $today = current_time('timestamp');
 

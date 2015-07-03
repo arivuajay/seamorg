@@ -100,7 +100,7 @@ class EM_Booking extends EM_Object{
 	 * @var EM_Tickets_Bookings
 	 */
 	var $manage_override;
-	
+
 	/**
 	 * Creates booking object and retreives booking data (default is a blank booking object). Accepts either array of booking data (from db) or a booking id.
 	 * @param mixed $booking_data
@@ -133,8 +133,8 @@ class EM_Booking extends EM_Object{
 			1 => __('Approved','dbem'),
 			2 => __('Rejected','dbem'),
 			3 => __('Cancelled','dbem'),
-			4 => __('Awaiting Online Payment','dbem'),
-			5 => __('Awaiting Payment','dbem')
+			4 => __('Processing','dbem'),
+			5 => __('Processing','dbem')
 		);
 		$this->compat_keys(); //depricating in 6.0
 		//do some legacy checking here for bookings made prior to 5.4, due to how taxes are calculated
@@ -145,7 +145,7 @@ class EM_Booking extends EM_Object{
 		}
 		do_action('em_booking', $this, $booking_data);
 	}
-	
+
 	function get_notes(){
 		global $wpdb;
 		if( !is_array($this->notes) && !empty($this->booking_id) ){
@@ -159,7 +159,7 @@ class EM_Booking extends EM_Object{
 		}
 		return $this->notes;
 	}
-	
+
 	/**
 	 * Saves the booking into the database, whether a new or existing booking
 	 * @param $mail whether or not to email the user and contact people
@@ -173,14 +173,14 @@ class EM_Booking extends EM_Object{
 			//update prices, spaces, person_id
 			$this->get_spaces(true);
 			$this->calculate_price();
-			$this->person_id = (empty($this->person_id)) ? $this->get_person()->ID : $this->person_id;			
+			$this->person_id = (empty($this->person_id)) ? $this->get_person()->ID : $this->person_id;
 			//Step 1. Save the booking
 			$data = $this->to_array();
 			$data['booking_meta'] = serialize($data['booking_meta']);
 			//update or save
 			if($this->booking_id != ''){
 				$update = true;
-				$where = array( 'booking_id' => $this->booking_id );  
+				$where = array( 'booking_id' => $this->booking_id );
 				$result = $wpdb->update($table, $data, $where, $this->get_types($data));
 				$result = ($result !== false);
 				$this->feedback_message = __('Changes saved','dbem');
@@ -190,8 +190,8 @@ class EM_Booking extends EM_Object{
 				$data['booking_date'] = current_time('mysql');
 				$data_types[] = '%s';
 				$result = $wpdb->insert($table, $data, $data_types);
-			    $this->booking_id = $wpdb->insert_id;  
-				$this->feedback_message = __('Your booking has been recorded','dbem'); 
+			    $this->booking_id = $wpdb->insert_id;
+				$this->feedback_message = __('Your booking has been recorded','dbem');
 			}
 			//Step 2. Insert ticket bookings for this booking id if no errors so far
 			if( $result === false ){
@@ -222,33 +222,33 @@ class EM_Booking extends EM_Object{
 		}
 		return apply_filters('em_booking_save', false, $this);
 	}
-	
+
 	/**
-	 * Load an record into this object by passing an associative array of table criterie to search for. 
-	 * Returns boolean depending on whether a record is found or not. 
+	 * Load an record into this object by passing an associative array of table criterie to search for.
+	 * Returns boolean depending on whether a record is found or not.
 	 * @param $search
 	 * @return boolean
 	 */
 	function get($search) {
 		global $wpdb;
-		$conds = array(); 
+		$conds = array();
 		foreach($search as $key => $value) {
 			if( array_key_exists($key, $this->fields) ){
 				$value = esc_sql($value);
 				$conds[] = "`$key`='$value'";
-			} 
+			}
 		}
 		$sql = "SELECT * FROM ". $wpdb->EM_BOOKINGS_TABLE ." WHERE " . implode(' AND ', $conds) ;
 		$result = $wpdb->get_row($sql, ARRAY_A);
 		if($result){
 			$this->to_object($result);
 			$this->person = new EM_Person($this->person_id);
-			return true;	
+			return true;
 		}else{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Get posted data and save it into the object (not db)
 	 * @return boolean
@@ -276,8 +276,8 @@ class EM_Booking extends EM_Object{
 			}
 			$this->booking_comment = (!empty($_REQUEST['booking_comment'])) ? wp_kses_data(stripslashes($_REQUEST['booking_comment'])):'';
 			//allow editing of tax rate
-			if( !empty($this->booking_id) && $this->can_manage() ){ 
-			    $this->booking_tax_rate = (!empty($_REQUEST['booking_tax_rate']) && is_numeric($_REQUEST['booking_tax_rate'])) ? $_REQUEST['booking_tax_rate']:$this->booking_tax_rate; 
+			if( !empty($this->booking_id) && $this->can_manage() ){
+			    $this->booking_tax_rate = (!empty($_REQUEST['booking_tax_rate']) && is_numeric($_REQUEST['booking_tax_rate'])) ? $_REQUEST['booking_tax_rate']:$this->booking_tax_rate;
 			}
 			//recalculate spaces/price
 			$this->get_spaces(true);
@@ -289,11 +289,11 @@ class EM_Booking extends EM_Object{
 		}
 		return apply_filters('em_booking_get_post',count($this->errors) == 0,$this);
 	}
-	
+
 	function validate( $override_availability = false ){
 		//step 1, basic info
-		$basic = ( 
-			(empty($this->event_id) || is_numeric($this->event_id)) && 
+		$basic = (
+			(empty($this->event_id) || is_numeric($this->event_id)) &&
 			(empty($this->person_id) || is_numeric($this->person_id)) &&
 			is_numeric($this->booking_spaces) && $this->booking_spaces > 0
 		);
@@ -323,11 +323,11 @@ class EM_Booking extends EM_Object{
 		//can we book this amount of spaces at once?
 		if( $this->get_event()->event_rsvp_spaces > 0 && $this->get_spaces() > $this->get_event()->event_rsvp_spaces ){
 		    $result = false;
-		    $this->add_error( sprintf(get_option('dbem_booking_feedback_spaces_limit'), $this->get_event()->event_rsvp_spaces));			
+		    $this->add_error( sprintf(get_option('dbem_booking_feedback_spaces_limit'), $this->get_event()->event_rsvp_spaces));
 		}
 		return apply_filters('em_booking_validate',$result,$this);
 	}
-	
+
 	/**
 	 * Get the total number of spaces booked in THIS booking. Seting $force_refresh to true will recheck spaces, even if previously done so.
 	 * @param unknown_type $force_refresh
@@ -339,9 +339,9 @@ class EM_Booking extends EM_Object{
 		}
 		return apply_filters('em_booking_get_spaces',$this->booking_spaces,$this);
 	}
-	
+
 	/* Price Calculations */
-	
+
 	/**
 	 * Gets the total price for this whole booking, including any discounts, taxes, and any other additional items. In other words, what the person has to pay or has supposedly paid.
 	 * This price shouldn't change once established, unless there's any alteration to the booking itself that'd affect the price, such as a change in ticket numbers, discount, etc.
@@ -361,7 +361,7 @@ class EM_Booking extends EM_Object{
 		}
 		return $this->booking_price;
 	}
-	
+
 	/**
 	 * Total of tickets without taxes, discounts or any other modification. No filter given here for that very reason!
 	 * @param boolean $format
@@ -374,7 +374,7 @@ class EM_Booking extends EM_Object{
 		}
 	    return $price;
 	}
-	
+
 	function get_price_pre_taxes( $format = false ){
 	    $price = $base_price = $this->get_price_base();
 	    //apply pre-tax discounts
@@ -384,7 +384,7 @@ class EM_Booking extends EM_Object{
 	    if( $format ) return $this->format_price($price);
 	    return $price;
 	}
-	
+
 	/**
 	 * Gets price AFTER taxes and post-tax discounts have also been added
 	 * @param boolean $format
@@ -406,7 +406,7 @@ class EM_Booking extends EM_Object{
 	    if( $format ) return $this->format_price($price);
 	    return $price;
 	}
-	
+
 	/**
 	 * Get amount of taxes applied to this booking price.
 	 * @param boolean $format
@@ -424,11 +424,11 @@ class EM_Booking extends EM_Object{
 	    }
 	    return $this->booking_taxes;
 	}
-	
+
 	function get_price_discount(){
-	    
+
 	}
-	
+
 	/**
 	 * Calculates (or recalculates) the price of this booking including taxes, discounts etc., saves it to the booking_price property and writes to relevant properties booking_meta variables
 	 * @return double
@@ -438,10 +438,10 @@ class EM_Booking extends EM_Object{
 	    $this->booking_price = $this->booking_taxes = null;
 	    //get post-tax price and save it to booking_price
 	    $this->booking_price = apply_filters('em_booking_calculate_price', $this->get_price_post_taxes(), $this);
-	    return $this->booking_price; 
+	    return $this->booking_price;
 	}
-	
-	/* 
+
+	/*
 	 * Gets tax rate of booking
 	 * @see EM_Object::get_tax_rate()
 	 * @return double
@@ -467,7 +467,7 @@ class EM_Booking extends EM_Object{
 	    }
 	    return $this->booking_tax_rate;
 	}
-	
+
 	/**
 	 * Returns an array of discounts to be applied to a booking. Here is an example of an array item that is expected:
 	 * array('name' => 'Name of Discount', 'type'=>'% or #', 'amount'=> 0.00, 'desc' => 'Comments about discount', 'tax'=>'pre/post', 'data' => 'any info for hooks to use' );
@@ -485,7 +485,7 @@ class EM_Booking extends EM_Object{
 	    }
 		return apply_filters('em_booking_get_price_discounts', $discounts, $this);
 	}
-	
+
 	function get_price_discounts_amount( $pre_or_post = 'pre', $price = false ){
 	    $discounts = $this->get_price_discounts_summary($pre_or_post, $price);
 	    $discount_amount = 0;
@@ -525,9 +525,9 @@ class EM_Booking extends EM_Object{
 		}
 		return $discount_summary;
 	}
-	
+
 	/**
-	 * When generating totals at the bottom of a booking, this creates a useful array for displaying the summary in a meaningful way. 
+	 * When generating totals at the bottom of a booking, this creates a useful array for displaying the summary in a meaningful way.
 	 */
 	function get_price_summary_array(){
 	    $summary = array();
@@ -547,9 +547,9 @@ class EM_Booking extends EM_Object{
 	    $summary['total'] =  $this->get_price(true);
 	    return $summary;
 	}
-	
+
 	/* Get Objects linked to booking */
-	
+
 	/**
 	 * Gets the event this booking belongs to and saves a refernece in the event property
 	 * @return EM_Event
@@ -565,7 +565,7 @@ class EM_Booking extends EM_Object{
 		}
 		return apply_filters('em_booking_get_event',$this->event, $this);
 	}
-	
+
 	/**
 	 * Gets the ticket object this booking belongs to, saves a reference in ticket property
 	 * @return EM_Tickets
@@ -578,7 +578,7 @@ class EM_Booking extends EM_Object{
 		}
 		return apply_filters('em_booking_get_tickets', $this->tickets, $this);
 	}
-	
+
 	/**
 	 * Gets the ticket object this booking belongs to, saves a reference in ticket property
 	 * @return EM_Tickets_Bookings
@@ -590,7 +590,7 @@ class EM_Booking extends EM_Object{
 		}
 		return apply_filters('em_booking_get_tickets_bookings', $this->tickets_bookings, $this);
 	}
-	
+
 	/**
 	 * @return EM_Person
 	 */
@@ -617,7 +617,7 @@ class EM_Booking extends EM_Object{
 			}
 			$this->person->user_email = ( !empty($this->booking_meta['registration']['user_email']) ) ? $this->booking_meta['registration']['user_email']:$this->person->user_email;
 			if( !empty($this->booking_meta['registration']['user_name']) ){
-				$name_string = explode(' ',$this->booking_meta['registration']['user_name']); 
+				$name_string = explode(' ',$this->booking_meta['registration']['user_name']);
 				$this->booking_meta['registration']['first_name'] = array_shift($name_string);
 				$this->booking_meta['registration']['last_name'] = implode(' ', $name_string);
 			}
@@ -635,7 +635,7 @@ class EM_Booking extends EM_Object{
 		}
 		return apply_filters('em_booking_get_person', $this->person, $this);
 	}
-	
+
 	/**
 	 * Gets personal information from the $_REQUEST array and saves it to the $EM_Booking->booking_meta['registration'] array
 	 * @return boolean
@@ -668,7 +668,7 @@ class EM_Booking extends EM_Object{
 		    //Check the first/last name
 		    $name_string = array();
 		    if( !empty($_REQUEST['first_name']) ){
-		    	$user_data['first_name'] = $name_string[] = wp_kses($_REQUEST['first_name'], array()); 
+		    	$user_data['first_name'] = $name_string[] = wp_kses($_REQUEST['first_name'], array());
 		    }
 		    if( !empty($_REQUEST['last_name']) ){
 		    	$user_data['last_name'] = $name_string[] = wp_kses($_REQUEST['last_name'], array());
@@ -691,7 +691,7 @@ class EM_Booking extends EM_Object{
 	    }
 	    return $registration;
 	}
-	
+
 	/**
 	 * Displays a form containing user fields, used in no-user booking mode for editing guest users within a booking
 	 * @return string
@@ -724,7 +724,7 @@ class EM_Booking extends EM_Object{
 		$status = ($this->booking_status == 0 && !get_option('dbem_bookings_approval') ) ? 1:$this->booking_status;
 		return apply_filters('em_booking_get_status', $this->status_array[$status], $this);
 	}
-	
+
 	/**
 	 * I wonder what this does....
 	 * @return boolean
@@ -748,28 +748,28 @@ class EM_Booking extends EM_Object{
 		}
 		return apply_filters('em_booking_delete',( $result !== false ), $this);
 	}
-	
+
 	function cancel($email = true){
 		if( $this->person->ID == get_current_user_id() ){
 			$this->manage_override = true; //normally, users can't manage a bookiing, only event owners, so we allow them to mod their booking status in this case only.
 		}
 		return $this->set_status(3, $email);
 	}
-	
+
 	/**
 	 * Approve a booking.
 	 * @return bool
 	 */
 	function approve($email = true, $ignore_spaces = false){
 		return $this->set_status(1, $email, $ignore_spaces);
-	}	
+	}
 	/**
 	 * Reject a booking and save
 	 * @return bool
 	 */
 	function reject($email = true){
 		return $this->set_status(2, $email);
-	}	
+	}
 	/**
 	 * Unapprove a booking.
 	 * @return bool
@@ -777,15 +777,15 @@ class EM_Booking extends EM_Object{
 	function unapprove($email = true){
 		return $this->set_status(0, $email);
 	}
-	
+
 	/**
-	 * Change the status of the booking. This will save to the Database too. 
+	 * Change the status of the booking. This will save to the Database too.
 	 * @param int $status
 	 * @return boolean
 	 */
 	function set_status($status, $email = true, $ignore_spaces = false){
 		global $wpdb;
-		$action_string = strtolower($this->status_array[$status]); 
+		$action_string = strtolower($this->status_array[$status]);
 		//if we're approving we can't approve a booking if spaces are full, so check before it's approved.
 		if(!$ignore_spaces && $status == 1){
 			if( !$this->is_reserved() && $this->get_event()->get_bookings()->get_available_spaces() < $this->get_spaces() && !get_option('dbem_bookings_approval_overbooking') ){
@@ -816,9 +816,9 @@ class EM_Booking extends EM_Object{
 		}
 		return apply_filters('em_booking_set_status', $result, $this);
 	}
-	
+
 	/**
-	 * Returns true if booking is reserving a space at this event, whether confirmed or not 
+	 * Returns true if booking is reserving a space at this event, whether confirmed or not
 	 */
 	function is_reserved(){
 	    $result = false;
@@ -831,15 +831,15 @@ class EM_Booking extends EM_Object{
 	    }
 	    return apply_filters('em_booking_is_reserved', $result, $this);
 	}
-	
+
 	/**
-	 * Returns true if booking is either pending or reserved but not confirmed (which is assumed pending) 
+	 * Returns true if booking is either pending or reserved but not confirmed (which is assumed pending)
 	 */
 	function is_pending(){
 		$result = ($this->is_reserved() || $this->booking_status == 0) && $this->booking_status != 1;
 	    return apply_filters('em_booking_is_pending', $result, $this);
 	}
-	
+
 	/**
 	 * Add a booking note to this booking. returns wpdb result or false if use can't manage this event.
 	 * @param string $note
@@ -870,7 +870,7 @@ class EM_Booking extends EM_Object{
 		}
 		return apply_filters('em_booking_get_bookings_url', $bookings_link, $this);
 	}
-	
+
 	function output($format, $target="html") {
 	 	preg_match_all("/(#@?_?[A-Za-z0-9]+)({([^}]+)})?/", $format, $placeholders);
 		foreach( $this->get_tickets() as $EM_Ticket){ /* @var $EM_Ticket EM_Ticket */ break; } //Get first ticket for single ticket placeholders
@@ -878,7 +878,7 @@ class EM_Booking extends EM_Object{
 		$replaces = array();
 		foreach($placeholders[1] as $key => $result) {
 			$replace = '';
-			$full_result = $placeholders[0][$key];		
+			$full_result = $placeholders[0][$key];
 			switch( $result ){
 				case '#_BOOKINGID':
 					$replace = $this->booking_id;
@@ -967,9 +967,9 @@ class EM_Booking extends EM_Object{
 		}
 		//run event output too, since this is never run from within events and will not infinitely loop
 		$output_string = $this->get_event()->output($output_string, $target);
-		return apply_filters('em_booking_output', $output_string, $this, $format, $target);	
+		return apply_filters('em_booking_output', $output_string, $this, $format, $target);
 	}
-	
+
 	/**
 	 * @param EM_Booking $EM_Booking
 	 * @param EM_Event $event
@@ -979,11 +979,11 @@ class EM_Booking extends EM_Object{
 		global $EM_Mailer;
 		$result = true;
 		$this->mails_sent = 0;
-		
+
 		//FIXME ticket logic needed
 		$EM_Event = $this->get_event(); //We NEED event details here.
 		$EM_Event->get_bookings(true); //refresh all bookings
-		
+
 		//Make sure event matches booking, and that booking used to be approved.
 		if( $this->booking_status !== $this->previous_status || $force_resend ){
 			//messages can be overriden just before being sent
@@ -1001,7 +1001,7 @@ class EM_Booking extends EM_Object{
 					$this->mails_sent++;
 				}
 			}
-			
+
 			//Send admin/contact emails if this isn't the event owner or an events admin
 			if( $email_admin && !empty($msg['admin']['subject']) ){ //emails won't be sent if admin is logged in unless they book themselves
 				//get admin emails that need to be notified, hook here to add extra admin emails
@@ -1036,10 +1036,10 @@ class EM_Booking extends EM_Object{
 		}
 		return $result;
 		//TODO need error checking for booking mail send
-	}	
-	
+	}
+
 	function email_messages(){
-		$msg = array( 'user'=> array('subject'=>'', 'body'=>''), 'admin'=> array('subject'=>'', 'body'=>'')); //blank msg template			
+		$msg = array( 'user'=> array('subject'=>'', 'body'=>''), 'admin'=> array('subject'=>'', 'body'=>'')); //blank msg template
 		//admin messages won't change whether pending or already approved
 	    switch( $this->booking_status ){
 	    	case 0:
@@ -1074,14 +1074,14 @@ class EM_Booking extends EM_Object{
 	    }
 	    return apply_filters('em_booking_email_messages', $msg, $this);
 	}
-	
+
 	/**
-	 * Can the user manage this event? 
+	 * Can the user manage this event?
 	 */
 	function can_manage( $owner_capability = false, $admin_capability = false, $user_to_check = false ){
 		return $this->get_event()->can_manage('manage_bookings','manage_others_bookings') || empty($this->booking_id) || !empty($this->manage_override);
 	}
-	
+
 	/**
 	 * Returns this object in the form of an array
 	 * @return array
