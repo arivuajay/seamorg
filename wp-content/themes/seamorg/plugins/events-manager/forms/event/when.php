@@ -3,7 +3,7 @@ global $EM_Event, $post;
 $hours_format = em_get_hour_format();
 $required = apply_filters('em_required_html', '<i>*</i>');
 if(!$EM_Event->event_start_date){
-    $today_date = date('d/m/Y');
+    $today_date = date('m/d/Y');
     $date_min = " data-min='$today_date'";
 }
 ?>
@@ -22,12 +22,14 @@ if(!$EM_Event->event_start_date){
     </div>
     <div class="row em-time-range">
         <div class="col-xs-12 col-sm-6 col-md-6">
-            <span class="em-event-text"><?php _e('Event starts at', 'dbem'); ?></span>
-            <input id="start-time" class="em-time-input em-time-start" type="text" size="8" maxlength="8" name="event_start_time" value="<?php if($EM_Event->start) echo date($hours_format, $EM_Event->start); ?>" />
+            <span class="em-event-text"><?php _e('Event starts at', 'dbem'); $start_def_value = (!empty($EM_Event->start)) ? $EM_Event->start : strtotime("06:00 AM"); ?></span>
+            <input id="start-time" class="em-time-input em-time-start" type="text" size="8" maxlength="8" name="event_start_time" value="<?php echo date($hours_format, $start_def_value); ?>" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6">
-            <?php _e('to', 'dbem'); ?>
-            <input id="end-time" class="em-time-input em-time-end" type="text" size="8" maxlength="8" name="event_end_time" value="<?php if($EM_Event->end)  echo date($hours_format, $EM_Event->end); ?>" />
+            <?php _e('to', 'dbem');
+            $end_def_value = (!empty($EM_Event->end)) ? $EM_Event->end : strtotime("12:00 PM");
+            ?>
+            <input id="end-time" class="em-time-input em-time-end" type="text" size="8" maxlength="8" name="event_end_time" value="<?php echo date($hours_format, $end_def_value); ?>" />
         </div>
     </div>
 <!--    <p>

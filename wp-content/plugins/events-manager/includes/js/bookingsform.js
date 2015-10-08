@@ -3,6 +3,9 @@ $('#em-booking-form').addClass('em-booking-form'); //backward compatability
 $(document).on('submit', '.em-booking-form', function(e) {
     e.preventDefault();
     var em_booking_form = $(this);
+    console.log(EM.bookingajaxurl);
+    console.log(em_booking_form.serializeArray());
+    
     $.ajax({
         url: EM.bookingajaxurl,
         data: em_booking_form.serializeArray(),
@@ -23,16 +26,20 @@ $(document).on('submit', '.em-booking-form', function(e) {
             //show error or success message
             if (response.result) {
                 console.log(response);
-                var message = '';
-                message += '<div class="em-booking-message-success em-booking-message">' + response.message + '</div>';
-                if (response.detail) {
-                    message += response.detail;
+                if (response.order_url != '') {
+                    window.location.href = response.order_url;
+                } else {
+                    var message = '';
+                    message += '<div class="em-booking-message-success em-booking-message">' + response.message + '</div>';
+                    if (response.detail) {
+                        message += response.detail;
+                    }
+
+                    $(message).insertBefore(em_booking_form);
+                    em_booking_form.hide();
+                    $('.em-booking-login').hide();
+                    $(document).trigger('em_booking_success', [response]);
                 }
-                
-                $(message).insertBefore(em_booking_form);
-                em_booking_form.hide();
-                $('.em-booking-login').hide();
-                $(document).trigger('em_booking_success', [response]);
             } else {
                 if (response.errors != null) {
                     if ($.isArray(response.errors) && response.errors.length > 0) {

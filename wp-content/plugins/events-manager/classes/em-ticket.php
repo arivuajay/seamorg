@@ -10,7 +10,7 @@ class EM_Ticket extends EM_Object{
 	var $ticket_end;
 	var $ticket_min;
 	var $ticket_max;
-	var $ticket_spaces = 10;
+	var $ticket_spaces = DBEM_CUSTOM_MAX_PERSON_LIMIT;
 	var $ticket_members = false;
 	var $ticket_members_roles = array();
 	var $ticket_guests = false;
@@ -165,7 +165,7 @@ class EM_Ticket extends EM_Object{
 		//spaces and limits
 		$this->ticket_min = ( !empty($post['ticket_min']) && is_numeric($post['ticket_min']) ) ? $post['ticket_min']:'';
 		$this->ticket_max = ( !empty($post['ticket_max']) && is_numeric($post['ticket_max']) ) ? $post['ticket_max']:'';
-		$this->ticket_spaces = ( !empty($post['ticket_spaces']) && is_numeric($post['ticket_spaces']) ) ? $post['ticket_spaces']:10;
+		$this->ticket_spaces = ( !empty($post['ticket_spaces']) && is_numeric($post['ticket_spaces']) ) ? $post['ticket_spaces']:DBEM_CUSTOM_MAX_PERSON_LIMIT;
 		//Sort out date/time limits
 		$this->ticket_price = ( !empty($post['ticket_price']) ) ? wp_kses_data($post['ticket_price']):'';
 		$this->ticket_start = ( !empty($post['ticket_start']) ) ? wp_kses_data($post['ticket_start']):'';
@@ -239,6 +239,10 @@ class EM_Ticket extends EM_Object{
 			if ( $this->$true_field == "") {
 				$missing_fields[] = $field;
 			}
+		}
+
+                if( empty($this->ticket_price) || $this->ticket_price < 0 ){
+			$this->add_error(__('Please enter a valid ticket price','dbem'));
 		}
 		if( !empty($this->ticket_price) && !is_numeric($this->ticket_price) ){
 			$this->add_error(__('Please enter a valid ticket price e.g. 10.50 (no currency signs)','dbem'));
@@ -499,11 +503,11 @@ class EM_Ticket extends EM_Object{
 		        $default_value = $this->is_required() ? $min_spaces:0;
 		    }
 			ob_start();
+                        $min = ($this->ticket_min > 0) ? $this->ticket_min:1;
+                        $max = ($this->ticket_max > 0) ? $this->ticket_max:get_option('dbem_bookings_form_max');
 			?>
 			<select name="em_tickets[<?php echo $this->ticket_id ?>][spaces]" class="em-ticket-select" id="em-ticket-spaces-<?php echo $this->ticket_id ?>">
 				<?php
-					$min = ($this->ticket_min > 0) ? $this->ticket_min:1;
-					$max = ($this->ticket_max > 0) ? $this->ticket_max:get_option('dbem_bookings_form_max');
 					if( $this->get_event()->event_rsvp_spaces > 0 && $this->get_event()->event_rsvp_spaces < $max ) $max = $this->get_event()->event_rsvp_spaces;
 				?>
 				<?php if($zero_value && !$this->is_required()) : ?><option>0</option><?php endif; ?>

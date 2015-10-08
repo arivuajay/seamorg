@@ -34,7 +34,11 @@ $required = apply_filters('em_required_html', '<i>*</i>');
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <select name="location_id" id='location-select-id' size="1">
-                        <?php if (!get_option('dbem_require_location', true)): ?><option value="0"><?php _e('No Hike', 'dbem'); ?></option><?php endif; ?>
+                        <?php if (!get_option('dbem_require_location', true)): ?>
+                            <option value="0"><?php _e('No Hike', 'dbem'); ?></option>
+                        <?php else: ?>
+                            <option></option>
+                        <?php endif; ?>
                         <?php
                         $ddm_args = array('blog' => false, 'private' => $EM_Event->can_manage('read_private_locations'));
                         $ddm_args['owner'] = (is_user_logged_in() && !current_user_can('read_others_locations')) ? get_current_user_id() : false;
@@ -44,7 +48,7 @@ $required = apply_filters('em_required_html', '<i>*</i>');
                         foreach ($locations as $EM_Location) {
                             $selected = ($selected_location == $EM_Location->location_id) ? "selected='selected' " : '';
                             ?>
-                            <option data-max-space="<?php echo $EM_Location->location_attributes['Maximum Space'] ?>" value="<?php echo $EM_Location->location_id ?>" title="<?php echo "{$EM_Location->location_latitude},{$EM_Location->location_longitude}" ?>" <?php echo $selected ?>><?php echo $EM_Location->location_name; ?></option>
+                            <option data-max-space="<?php echo DBEM_CUSTOM_MAX_PERSON_LIMIT ?>" value="<?php echo $EM_Location->location_id ?>" title="<?php echo "{$EM_Location->location_latitude},{$EM_Location->location_longitude}" ?>" <?php echo $selected ?>><?php echo $EM_Location->location_name; ?></option>
                             <?php
                         }
                         ?>
@@ -60,14 +64,14 @@ $required = apply_filters('em_required_html', '<i>*</i>');
             </div>
         </div>
 
-              <!--<table class="em-location-data">
-                      <tr class="em-location-data-select">
-                              <th>/th>
-                              <td>
+                  <!--<table class="em-location-data">
+                          <tr class="em-location-data-select">
+                                  <th>/th>
+                                  <td>
 
-                              </td>
-                      </tr>
-              </table>-->
+                                  </td>
+                          </tr>
+                  </table>-->
     <?php else : ?>
         <table class="em-location-data">
             <?php
@@ -93,9 +97,10 @@ $required = apply_filters('em_required_html', '<i>*</i>');
             <tr class="em-location-data-address">
                 <th><?php _e('Address:', 'dbem') ?>&nbsp;</th>
                 <td>
-                    <input id="location-address" type="text" name="location_address" value="<?php echo esc_attr($EM_Location->location_address, ENT_QUOTES);
-        ;
-            ?>" /><?php echo $required; ?>
+                    <input id="location-address" type="text" name="location_address" value="<?php
+                    echo esc_attr($EM_Location->location_address, ENT_QUOTES);
+                    ;
+                    ?>" /><?php echo $required; ?>
                 </td>
             </tr>
             <tr class="em-location-data-town">

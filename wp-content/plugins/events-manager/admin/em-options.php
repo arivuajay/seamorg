@@ -18,7 +18,7 @@ function em_options_save(){
 				if( in_array($postKey,$numeric_options) && !is_numeric($postValue) ){
 					//Do nothing, keep old setting.
 				}elseif( $postKey == 'dbem_category_default_color' && !preg_match("/^#([abcdef0-9]{3}){1,2}?$/i",$postValue)){
-					$EM_Notices->add_error( sprintf(esc_html_x('Colors must be in a valid %s format, such as #FF00EE.', 'hex format', 'dbem'), '<a href="http://en.wikipedia.org/wiki/Web_colors">hex</a>').' '. esc_html__('This setting was not changed.', 'dbem'), true);					
+					$EM_Notices->add_error( sprintf(esc_html_x('Colors must be in a valid %s format, such as #FF00EE.', 'hex format', 'dbem'), '<a href="http://en.wikipedia.org/wiki/Web_colors">hex</a>').' '. esc_html__('This setting was not changed.', 'dbem'), true);
 				}else{
 					//TODO slashes being added?
 					if( is_array($postValue) ){
@@ -114,7 +114,7 @@ function em_options_save(){
 			$wpdb->query('DROP TABLE '.EM_RECURRENCE_TABLE);
 			$wpdb->query('DROP TABLE '.EM_CATEGORIES_TABLE);
 			$wpdb->query('DROP TABLE '.EM_META_TABLE);
-			
+
 			//delete options
 			$wpdb->query('DELETE FROM '.$wpdb->options.' WHERE option_name LIKE \'em_%\' OR option_name LIKE \'dbem_%\'');
 			//deactivate and go!
@@ -162,7 +162,7 @@ function em_options_save(){
 		wp_redirect(wp_get_referer());
 		exit();
 	}
-	
+
 }
 add_action('admin_init', 'em_options_save');
 
@@ -205,7 +205,7 @@ add_action('wp_ajax_em_admin_test_email','em_admin_email_test_ajax');
 function em_admin_options_reset_page(){
 	if( check_admin_referer('em_reset_'.get_current_user_id().'_wpnonce') && is_super_admin() ){
 		?>
-		<div class="wrap">		
+		<div class="wrap">
 			<div id='icon-options-general' class='icon32'><br /></div>
 			<h2><?php _e('Reset Events Manager','dbem'); ?></h2>
 			<p style="color:red; font-weight:bold;"><?php _e('Are you sure you want to reset Events Manager?','dbem')?></p>
@@ -214,14 +214,14 @@ function em_admin_options_reset_page(){
 				<a href="<?php echo add_query_arg(array('_wpnonce2' => wp_create_nonce('em_reset_'.get_current_user_id().'_confirmed'), 'confirmed'=>1)); ?>" class="button-primary"><?php _e('Reset Events Manager','dbem'); ?></a>
 				<a href="<?php echo wp_get_referer(); ?>" class="button-secondary"><?php _e('Cancel','dbem'); ?></a>
 			</p>
-		</div>		
+		</div>
 		<?php
 	}
 }
 function em_admin_options_uninstall_page(){
 	if( check_admin_referer('em_uninstall_'.get_current_user_id().'_wpnonce') && is_super_admin() ){
 		?>
-		<div class="wrap">		
+		<div class="wrap">
 			<div id='icon-options-general' class='icon32'><br /></div>
 			<h2><?php _e('Uninstall Events Manager','dbem'); ?></h2>
 			<p style="color:red; font-weight:bold;"><?php _e('Are you sure you want to uninstall Events Manager?','dbem')?></p>
@@ -231,7 +231,7 @@ function em_admin_options_uninstall_page(){
 				<a href="<?php echo add_query_arg(array('_wpnonce2' => wp_create_nonce('em_uninstall_'.get_current_user_id().'_confirmed'), 'confirmed'=>1)); ?>" class="button-primary"><?php _e('Uninstall and Deactivate','dbem'); ?></a>
 				<a href="<?php echo wp_get_referer(); ?>" class="button-secondary"><?php _e('Cancel','dbem'); ?></a>
 			</p>
-		</div>		
+		</div>
 		<?php
 	}
 }
@@ -242,7 +242,7 @@ function em_admin_options_page() {
 	if( !empty($_REQUEST['action']) && $_REQUEST['action'] == 'uninstall' ){
 		em_admin_options_uninstall_page();
 		return;
-	}	
+	}
 	if( !empty($_REQUEST['action']) && $_REQUEST['action'] == 'reset' ){
 		em_admin_options_reset_page();
 		return;
@@ -262,13 +262,13 @@ function em_admin_options_page() {
 	$locations_placeholder_tip = " ". sprintf(__('This accepts %s placeholders.','dbem'), $locations_placeholders);
 	$categories_placeholder_tip = " ". sprintf(__('This accepts %s placeholders.','dbem'), $categories_placeholders);
 	$bookings_placeholder_tip = " ". sprintf(__('This accepts %s, %s and %s placeholders.','dbem'), $bookings_placeholders, $events_placeholders, $locations_placeholders);
-	
+
 	global $save_button;
 	$save_button = '<tr><th>&nbsp;</th><td><p class="submit" style="margin:0px; padding:0px; text-align:right;"><input type="submit" class="button-primary" id="dbem_options_submit" name="Submit" value="'. __( 'Save Changes', 'dbem') .' ('. __('All','dbem') .')" /></p></ts></td></tr>';
 	?>
 	<script type="text/javascript" charset="utf-8"><?php include(EM_DIR.'/includes/js/admin-settings.js'); ?></script>
 	<style type="text/css">.postbox h3 { cursor:pointer; }</style>
-	<div class="wrap">		
+	<div class="wrap">
 		<div id='icon-options-general' class='icon32'><br /></div>
 		<h2 class="nav-tab-wrapper">
 			<a href="#general" id="em-menu-general" class="nav-tab nav-tab-active"><?php _e('General','dbem'); ?></a>
@@ -281,30 +281,30 @@ function em_admin_options_page() {
 		</h2>
 		<h3 id="em-options-title"><?php _e ( 'Event Manager Options', 'dbem' ); ?></h3>
 		<form id="em-options-form" method="post" action="">
-			<div class="metabox-holder">         
+			<div class="metabox-holder">
 			<!-- // TODO Move style in css -->
 			<div class='postbox-container' style='width: 99.5%'>
 			<div id="">
-		  
+
 		  	<div class="em-menu-general em-menu-group">
-			  
+
 			  	<!-- GENERAL OPTIONS -->
 				<div  class="postbox " id="em-opt-general"  >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'General Options', 'dbem' ); ?> </span></h3>
 				<div class="inside">
 		            <table class="form-table">
-			            <?php em_options_radio_binary ( __( 'Disable thumbnails?', 'dbem' ), 'dbem_thumbnails_enabled', __( 'Select yes to disable Events Manager from enabling thumbnails (some themes may already have this enabled, which we cannot be turned off here).','dbem' ) );  ?>					
+			            <?php em_options_radio_binary ( __( 'Disable thumbnails?', 'dbem' ), 'dbem_thumbnails_enabled', __( 'Select yes to disable Events Manager from enabling thumbnails (some themes may already have this enabled, which we cannot be turned off here).','dbem' ) );  ?>
 						<tr class="em-header">
 							<td colspan="2">
 								<h4><?php echo sprintf(__('%s Settings','dbem'),__('Event','dbem')); ?></h4>
 							</td>
 						</tr>
 						<?php
-						em_options_radio_binary ( __( 'Enable recurrence?', 'dbem' ), 'dbem_recurrence_enabled', __( 'Select yes to enable the recurrence features feature','dbem' ) ); 
-						em_options_radio_binary ( __( 'Enable bookings?', 'dbem' ), 'dbem_rsvp_enabled', __( 'Select yes to allow bookings and tickets for events.','dbem' ) );     
+						em_options_radio_binary ( __( 'Enable recurrence?', 'dbem' ), 'dbem_recurrence_enabled', __( 'Select yes to enable the recurrence features feature','dbem' ) );
+						em_options_radio_binary ( __( 'Enable bookings?', 'dbem' ), 'dbem_rsvp_enabled', __( 'Select yes to allow bookings and tickets for events.','dbem' ) );
 						em_options_radio_binary ( __( 'Enable tags?', 'dbem' ), 'dbem_tags_enabled', __( 'Select yes to enable the tag features','dbem' ) );
 						if( !(EM_MS_GLOBAL && !is_main_site()) ){
-							em_options_radio_binary ( __( 'Enable categories?', 'dbem' ), 'dbem_categories_enabled', __( 'Select yes to enable the category features','dbem' ) );     
+							em_options_radio_binary ( __( 'Enable categories?', 'dbem' ), 'dbem_categories_enabled', __( 'Select yes to enable the category features','dbem' ) );
 							if( get_option('dbem_categories_enabled') ){
 								/*default category*/
 								$category_options = array();
@@ -337,7 +337,7 @@ function em_admin_options_page() {
 							 	}
 								em_options_select ( __( 'Default Hike', 'dbem' ), 'dbem_default_location', $location_options, __('Please enter your Hike ID.','dbem').' '.__( 'This option allows you to select the default location when adding an event.','dbem' )." ".__('(not applicable with event ownership on presently, coming soon!)','dbem') );
 							}
-							
+
 							/*default location country*/
 							em_options_select ( __( 'Default Hike Country', 'dbem' ), 'dbem_location_default_country', em_get_countries(__('no default country', 'dbem')), __('If you select a default country, that will be pre-selected when creating a new location.','dbem') );
 						}
@@ -349,7 +349,7 @@ function em_admin_options_page() {
 						</tr>
 						<?php
 						em_options_radio_binary ( __( 'Enable locations?', 'dbem' ), 'dbem_locations_enabled', __( 'If you disable locations, bear in mind that you should remove your location page, shortcodes and related placeholders from your <a href="#formats" class="nav-tab-link" rel="#em-menu-formats">formats</a>.','dbem' ) );
-						if( get_option('dbem_locations_enabled') ){ 
+						if( get_option('dbem_locations_enabled') ){
 							em_options_radio_binary ( __( 'Require locations for events?', 'dbem' ), 'dbem_require_location', __( 'Setting this to no will allow you to submit events without locations. You can use the <code>{no_location}...{/no_location}</code> or <code>{has_location}..{/has_location}</code> conditional placeholder to selectively display location information.','dbem' ) );
 							em_options_radio_binary ( __( 'Use dropdown for locations?', 'dbem' ), 'dbem_use_select_for_locations', __( 'Select yes to select location from a drop-down menu; location selection will be faster, but you will lose the ability to insert locations with events','dbem' ) );
 							em_options_radio_binary ( sprintf(__( 'Enable %s attributes?', 'dbem' ),__('location','dbem')), 'dbem_location_attributes_enabled', __( 'Select yes to enable the attributes feature','dbem' ) );
@@ -369,14 +369,14 @@ function em_admin_options_page() {
 						echo $save_button;
 						?>
 					</table>
-					    
-				</div> <!-- . inside --> 
+
+				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				
+
 				<?php if ( !is_multisite() ){ em_admin_option_box_image_sizes(); } ?>
-				
+
 				<?php if ( !is_multisite() || (is_super_admin() && !get_site_option('dbem_ms_global_caps')) ){ em_admin_option_box_caps(); } ?>
-				
+
 				<div  class="postbox" id="em-opt-event-submissions" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Event Submission Forms', 'dbem' ); ?></span></h3>
 				<div class="inside">
@@ -404,12 +404,12 @@ function em_admin_options_page() {
 						?>
 				        <?php echo $save_button; ?>
 					</table>
-				</div> <!-- . inside --> 
-				</div> <!-- .postbox --> 
+				</div> <!-- . inside -->
+				</div> <!-- .postbox -->
 
 				<?php do_action('em_options_page_footer'); ?>
-				
-				<?php /* 
+
+				<?php /*
 				<div  class="postbox" id="em-opt-geo" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Geo APIs', 'dbem' ); ?> <em>(Beta)</em></span></h3>
 				<div class="inside">
@@ -428,14 +428,14 @@ function em_admin_options_page() {
 					</table>
 					</div>
 					<table class="form-table"><?php echo $save_button; ?></table>
-				</div> <!-- . inside --> 
+				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
 				*/ ?>
-				
+
 				<div  class="postbox" id="em-opt-performance-optimization" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Performance Optimization', 'dbem' ); ?> (<?php _e('Advanced','dbem'); ?>)</span></h3>
 				<div class="inside">
-					<?php 
+					<?php
 						$performance_opt_page_instructions = __('In the boxes below, you are expected to write the page IDs. For multiple pages, use comma-seperated values e.g. 1,2,3. Entering 0 means EVERY page, -1 means the home page.','dbem');
 					?>
 					<div class="em-boxheader">
@@ -452,7 +452,7 @@ function em_admin_options_page() {
 						?>
 						<tbody id="dbem-js-limit-options">
 							<tr class="em-subheader"><td colspan="2">
-				            	<?php 
+				            	<?php
 				            	_e('Aside from pages we automatically generate and include certain jQuery files, if you are using Widgets, Shortcode or PHP to display specific items you may need to tell us where you are using them for them to work properly. Below are options for you to include specific jQuery dependencies only on certain pages.','dbem');
 				            	echo $performance_opt_page_instructions;
 				            	?>
@@ -481,12 +481,12 @@ function em_admin_options_page() {
 			            	</tbody>
 			            	<?php
 						?>
-						<tr  class="em-header"><td  colspan="2">  
-						    <h4><?php  _e('Thumbnails','dbem');  ?></h4>  
-						</td></tr>  
+						<tr  class="em-header"><td  colspan="2">
+						    <h4><?php  _e('Thumbnails','dbem');  ?></h4>
+						</td></tr>
 						<?php
-                        em_options_radio_binary  (  __(  'Disable  WordPress Thumbnails?',  'dbem'  ),  'dbem_disable_thumbnails',  __(  'If set to yes, full sized images will be used and HTML width and height attributes will be used to determine the size.',  'dbem'  ).' '.sprintf(__('Setting this to yes will also make your images crop efficiently with the %s feature in the %s plugin.','dbem'), '<a href="http://jetpack.me/support/photon/">Photon</a>','<a href="https://wordpress.org/plugins/jetpack/">JetPack</a>') );  
-                        ?>  
+                        em_options_radio_binary  (  __(  'Disable  WordPress Thumbnails?',  'dbem'  ),  'dbem_disable_thumbnails',  __(  'If set to yes, full sized images will be used and HTML width and height attributes will be used to determine the size.',  'dbem'  ).' '.sprintf(__('Setting this to yes will also make your images crop efficiently with the %s feature in the %s plugin.','dbem'), '<a href="http://jetpack.me/support/photon/">Photon</a>','<a href="https://wordpress.org/plugins/jetpack/">JetPack</a>') );
+                        ?>
 				        <?php echo $save_button; ?>
 					</table>
 					<script type="text/javascript">
@@ -495,22 +495,22 @@ function em_admin_options_page() {
 								if( $('input:radio[name="dbem_js_limit"]:checked').val() == 1 ){
 									$('tbody#dbem-js-limit-options').show();
 								}else{
-									$('tbody#dbem-js-limit-options').hide();					
+									$('tbody#dbem-js-limit-options').hide();
 								}
 							}).trigger('change');
-							
+
 							$('input:radio[name="dbem_css_limit"]').change(function(){
 								if( $('input:radio[name="dbem_css_limit"]:checked').val() == 1 ){
 									$('tbody#dbem-css-limit-options').show();
 								}else{
-									$('tbody#dbem-css-limit-options').hide();					
+									$('tbody#dbem-css-limit-options').hide();
 								}
 							}).trigger('change');
 						});
 					</script>
-				</div> <!-- . inside --> 
-				</div> <!-- .postbox --> 
-				
+				</div> <!-- . inside -->
+				</div> <!-- .postbox -->
+
 				<div  class="postbox" id="em-opt-style-options" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Styling Options', 'dbem' ); ?> (<?php _e('Advanced','dbem'); ?>) <em>(Beta)</em></span></h3>
 				<div class="inside">
@@ -534,11 +534,11 @@ function em_admin_options_page() {
 							echo $save_button;
 						?>
 					</table>
-				</div> <!-- . inside --> 
+				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				
+
 				<?php if ( !is_multisite() ) { em_admin_option_box_uninstall(); } ?>
-				
+
 				<?php if( get_option('dbem_migrate_images') ): ?>
 				<div  class="postbox " >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span>Migrate Images From Version 4</span></h3>
@@ -550,13 +550,13 @@ function em_admin_options_page() {
 				      <a href="<?php echo $_SERVER['REQUEST_URI'] ?>&amp;em_migrate_images=1&amp;_wpnonce=<?php echo wp_create_nonce('em_migrate_images'); ?>" />Migrate Images</a><br />
 				      <a href="<?php echo $_SERVER['REQUEST_URI'] ?>&amp;em_not_migrate_images=1&amp;_wpnonce=<?php echo wp_create_nonce('em_not_migrate_images'); ?>" />Do Not Migrate Images</a>
 				   </p>
-				</div> <!-- . inside --> 
+				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
 				<?php endif; ?>
 			</div> <!-- .em-menu-general -->
-			
+
 			<!-- PAGE OPTIONS -->
-		  	<div class="em-menu-pages em-menu-group" style="display:none;">			
+		  	<div class="em-menu-pages em-menu-group" style="display:none;">
             	<?php
             	$template_page_tip = __( "Many themes display extra meta information on post pages such as 'posted by' or 'post date' information, which may not be desired. Usually, page templates contain less clutter.", 'dbem' );
             	$template_page_tip .= ' '. __("If you choose 'Pages' then %s will be shown using your theme default page template, alternatively choose from page templates that come with your specific theme.",'dbem');
@@ -585,8 +585,8 @@ function em_admin_options_page() {
 	            	echo $save_button;
 	            	?>
 	            	</table>
-				</div> <!-- . inside --> 
-				</div> <!-- .postbox -->	
+				</div> <!-- . inside -->
+				</div> <!-- .postbox -->
 
 				<div  class="postbox " id="em-opt-event-pages" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__('%s Pages','dbem'),__('Event','dbem')); ?></span></h3>
@@ -602,9 +602,9 @@ function em_admin_options_page() {
 					echo $save_button;
 	            	?>
 	            	</table>
-				</div> <!-- . inside --> 
-				</div> <!-- .postbox -->	
-            		
+				</div> <!-- . inside -->
+				</div> <!-- .postbox -->
+
 				<div  class="postbox " id="em-opt-event-archives" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__('%s List/Archives','dbem'),__('Event','dbem')); ?></span></h3>
 				<div class="inside">
@@ -618,12 +618,12 @@ function em_admin_options_page() {
 						</td>
 					</tr>
 					<tbody class="em-event-page-options">
-						<?php 
+						<?php
 						em_options_radio_binary ( __( 'Show events search?', 'dbem' ), 'dbem_events_page_search_form', __( "If set to yes, a search form will appear just above your list of events.", 'dbem' ) );
 						em_options_radio_binary ( __( 'Display calendar in events page?', 'dbem' ), 'dbem_display_calendar_in_events_page', __( 'This options allows to display the calendar in the events page, instead of the default list. It is recommended not to display both the calendar widget and a calendar page.','dbem' ).' '.__('If you would like to show events that span over more than one day, see the Calendar section on this page.','dbem') );
 						em_options_radio_binary ( __( 'Disable title rewriting?', 'dbem' ), 'dbem_disable_title_rewrites', __( "Some WordPress themes don't follow best practices when generating navigation menus, and so the automatic title rewriting feature may cause problems, if your menus aren't working correctly on the event pages, try setting this to 'Yes', and provide an appropriate HTML title format below.",'dbem' ) );
 						em_options_input_text ( __( 'Event Manager titles', 'dbem' ), 'dbem_title_html', __( "This only setting only matters if you selected 'Yes' to above. You will notice the events page titles aren't being rewritten, and you have a new title underneath the default page name. This is where you control the HTML of this title. Make sure you keep the #_PAGETITLE placeholder here, as that's what is rewritten by events manager. To control what's rewritten in this title, see settings further down for page titles.", 'dbem' ) );
-						?>				
+						?>
 					</tbody>
 					<tr class="em-header">
 						<td colspan="2">
@@ -640,30 +640,30 @@ function em_admin_options_page() {
 					<tbody class="em-event-archive-options em-event-archive-sub-options">
 						<tr valign="top">
 					   		<th scope="row"><?php _e('Default event archive ordering','dbem'); ?></th>
-					   		<td>   
+					   		<td>
 								<select name="dbem_events_default_archive_orderby" >
-									<?php 
+									<?php
 										$event_archive_orderby_options = apply_filters('em_settings_events_default_archive_orderby_ddm', array(
 											'_start_ts' => __('Order by start date, start time','dbem'),
 											'title' => __('Order by name','dbem')
-										)); 
+										));
 									?>
-									<?php foreach($event_archive_orderby_options as $key => $value) : ?>   
+									<?php foreach($event_archive_orderby_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_events_default_archive_orderby')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value); ?>
 					 				</option>
 									<?php endforeach; ?>
-								</select> 
+								</select>
 								<select name="dbem_events_default_archive_order" >
-									<?php 
+									<?php
 									$ascending = __('Ascending','dbem');
 									$descending = __('Descending','dbem');
 									$event_archive_order_options = apply_filters('em_settings_events_default_archive_order_ddm', array(
 										'ASC' => __('Ascending','dbem'),
 										'DESC' => __('Descending','dbem')
-									)); 
+									));
 									?>
-									<?php foreach( $event_archive_order_options as $key => $value) : ?>   
+									<?php foreach( $event_archive_order_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_events_default_archive_order')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value); ?>
 					 				</option>
@@ -673,7 +673,7 @@ function em_admin_options_page() {
 								<em><?php _e('When Events Manager displays lists of events the default behaviour is ordering by start date in ascending order. To change this, modify the values above.','dbem'); ?></em>
 							</td>
 					   	</tr>
-					   	<?php 
+					   	<?php
 					   	em_options_select( __('Event archives scope','dbem'), 'dbem_events_archive_scope', em_get_scopes() );
 					   	?>
 					</tbody>
@@ -681,7 +681,7 @@ function em_admin_options_page() {
 						<td colspan="2">
 							<h4><?php echo _e('General settings','dbem'); ?></h4>
 						</td>
-					</tr>	
+					</tr>
 					<?php
 					em_options_radio_binary ( __( 'Override with Formats?', 'dbem' ), 'dbem_cp_events_archive_formats', sprintf($format_override_tip,__('events','dbem')));
 					em_options_radio_binary ( __( 'Override Excerpts with Formats?', 'dbem' ), 'dbem_cp_events_excerpt_formats', sprintf($format_override_tip,__('events','dbem')));
@@ -693,27 +693,27 @@ function em_admin_options_page() {
 							<h4><?php echo sprintf(__('Default %s list options','dbem'), __('event','dbem')); ?></h4>
 							<p><?php _e('These can be overriden when using shortcode or template tags.','dbem'); ?></p>
 						</td>
-					</tr>							
+					</tr>
 					<tr valign="top" id='dbem_events_default_orderby_row'>
 				   		<th scope="row"><?php _e('Default event list ordering','dbem'); ?></th>
-				   		<td>   
+				   		<td>
 							<select name="dbem_events_default_orderby" >
-								<?php 
+								<?php
 									$orderby_options = apply_filters('em_settings_events_default_orderby_ddm', array(
 										'event_start_date,event_start_time,event_name' => __('Order by start date, start time, then event name','dbem'),
 										'event_name,event_start_date,event_start_time' => __('Order by name, start date, then start time','dbem'),
 										'event_name,event_end_date,event_end_time' => __('Order by name, end date, then end time','dbem'),
 										'event_end_date,event_end_time,event_name' => __('Order by end date, end time, then event name','dbem'),
-									)); 
+									));
 								?>
-								<?php foreach($orderby_options as $key => $value) : ?>   
+								<?php foreach($orderby_options as $key => $value) : ?>
 				 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_events_default_orderby')) ? "selected='selected'" : ''; ?>>
 				 					<?php echo esc_html($value); ?>
 				 				</option>
 								<?php endforeach; ?>
-							</select> 
+							</select>
 							<select name="dbem_events_default_order" >
-								<?php 
+								<?php
 								$ascending = __('Ascending','dbem');
 								$descending = __('Descending','dbem');
 								$order_options = apply_filters('em_settings_events_default_order_ddm', array(
@@ -725,9 +725,9 @@ function em_admin_options_page() {
 									'ASC,DESC,DESC' => __("$ascending, $descending, $descending",'dbem'),
 									'ASC,ASC,DESC' => __("$ascending, $ascending, $descending",'dbem'),
 									'DESC,ASC,DESC' => __("$descending, $ascending, $descending",'dbem'),
-								)); 
+								));
 								?>
-								<?php foreach( $order_options as $key => $value) : ?>   
+								<?php foreach( $order_options as $key => $value) : ?>
 				 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_events_default_order')) ? "selected='selected'" : ''; ?>>
 				 					<?php echo esc_html($value); ?>
 				 				</option>
@@ -743,15 +743,15 @@ function em_admin_options_page() {
 					echo $save_button;
 	            	?>
 	            	</table>
-				</div> <!-- . inside --> 
-				</div> <!-- .postbox -->	
-				
+				</div> <!-- . inside -->
+				</div> <!-- .postbox -->
+
 				<?php if( get_option('dbem_locations_enabled') ): ?>
 				<div  class="postbox " id="em-opt-location-pages" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__('%s Pages','dbem'),__('Hike','dbem')); ?></span></h3>
 				<div class="inside">
 	            	<table class="form-table">
-	            	<?php 
+	            	<?php
 	            	//em_options_radio_binary ( sprintf(__( 'Display %s as', 'dbem' ),__('locations','dbem')), 'dbem_cp_locations_template_page', sprintf($template_page_tip, EM_POST_TYPE_LOCATION), array(__('Posts'),__('Pages')) );
 	            	em_options_select( sprintf(__( 'Display %s as', 'dbem' ),__('locations','dbem')), 'dbem_cp_locations_template', $page_templates, sprintf($template_page_tip, __('locations','dbem'), EM_POST_TYPE_LOCATION) );
 	            	em_options_input_text( __('Body Classes','dbem'), 'dbem_cp_locations_body_class', sprintf($body_class_tip, __('location','dbem')) );
@@ -762,9 +762,9 @@ function em_admin_options_page() {
 	            	echo $save_button;
 					?>
 	            	</table>
-				</div> <!-- . inside --> 
-				</div> <!-- .postbox -->	
-				
+				</div> <!-- . inside -->
+				</div> <!-- .postbox -->
+
 				<div  class="postbox " id="em-opt-location-archives" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__('%s List/Archives','dbem'),__('Hike','dbem')); ?></span></h3>
 				<div class="inside">
@@ -777,8 +777,8 @@ function em_admin_options_page() {
 							<em><?php echo sprintf(__( 'This option allows you to select which page to use as the %s page. If you do not select a %s page, to display lists you can enable archives or use the appropriate shortcodes and/or template tags.','dbem' ),__('locations','dbem'),__('locations','dbem')); ?></em>
 						</td>
 					</tr>
-					<?php 
-						em_options_radio_binary ( __( 'Show locations search?', 'dbem' ), 'dbem_locations_page_search_form', __( "If set to yes, a search form will appear just above your list of locations.", 'dbem' ) ); 
+					<?php
+						em_options_radio_binary ( __( 'Show locations search?', 'dbem' ), 'dbem_locations_page_search_form', __( "If set to yes, a search form will appear just above your list of locations.", 'dbem' ) );
 					?>
 					<tr class="em-header">
 						<td colspan="2">
@@ -789,51 +789,51 @@ function em_admin_options_page() {
 					</tr>
 					<tbody class="em-location-archive-options">
 						<?php
-						em_options_radio_binary ( __( 'Enable Archives?', 'dbem' ), 'dbem_cp_locations_has_archive', __( "Allow WordPress post-style archives.", 'dbem' ) );						
+						em_options_radio_binary ( __( 'Enable Archives?', 'dbem' ), 'dbem_cp_locations_has_archive', __( "Allow WordPress post-style archives.", 'dbem' ) );
 						?>
 					</tbody>
 					<tbody class="em-location-archive-options em-location-archive-sub-options">
 						<tr valign="top">
 					   		<th scope="row"><?php _e('Default archive ordering','dbem'); ?></th>
-					   		<td>   
+					   		<td>
 								<select name="dbem_locations_default_archive_orderby" >
-									<?php 
+									<?php
 										$orderby_options = apply_filters('em_settings_locations_default_archive_orderby_ddm', array(
 											'_country' => sprintf(__('Order by %s','dbem'),__('Country','dbem')),
 											'_town' => sprintf(__('Order by %s','dbem'),__('Town','dbem')),
 											'title' => sprintf(__('Order by %s','dbem'),__('Name','dbem'))
-										)); 
+										));
 									?>
-									<?php foreach($orderby_options as $key => $value) : ?>   
+									<?php foreach($orderby_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_locations_default_archive_orderby')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value) ?>
 					 				</option>
 									<?php endforeach; ?>
-								</select> 
+								</select>
 								<select name="dbem_locations_default_archive_order" >
-									<?php 
+									<?php
 									$ascending = __('Ascending','dbem');
 									$descending = __('Descending','dbem');
 									$order_options = apply_filters('em_settings_locations_default_archive_order_ddm', array(
 										'ASC' => __('Ascending','dbem'),
 										'DESC' => __('Descending','dbem')
-									)); 
+									));
 									?>
-									<?php foreach( $order_options as $key => $value) : ?>   
+									<?php foreach( $order_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_locations_default_archive_order')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value) ?>
 					 				</option>
 									<?php endforeach; ?>
 								</select>
 							</td>
-					   	</tr>	
+					   	</tr>
 					</tbody>
 					<tr class="em-header">
 						<td colspan="2">
 							<h4><?php echo _e('General settings','dbem'); ?></h4>
 						</td>
 					</tr>
-					<?php 
+					<?php
 					em_options_radio_binary ( __( 'Override with Formats?', 'dbem' ), 'dbem_cp_locations_archive_formats', sprintf($format_override_tip,__('locations','dbem')));
 					em_options_radio_binary ( __( 'Override Excerpts with Formats?', 'dbem' ), 'dbem_cp_locations_excerpt_formats', sprintf($format_override_tip,__('locations','dbem')));
 	            	em_options_radio_binary ( __( 'Include in WordPress Searches?', 'dbem' ), 'dbem_cp_locations_search_results', sprintf(__( "Allow %s to appear in the built-in search results.", 'dbem' ),__('locations','dbem')) );
@@ -843,34 +843,34 @@ function em_admin_options_page() {
 							<h4><?php echo sprintf(__('Default %s list options','dbem'), __('location','dbem')); ?></h4>
 							<p><?php _e('These can be overriden when using shortcode or template tags.','dbem'); ?></p>
 						</td>
-					</tr>							
+					</tr>
 					<tr valign="top" id='dbem_locations_default_orderby_row'>
 				   		<th scope="row"><?php _e('Default list ordering','dbem'); ?></th>
-				   		<td>   
+				   		<td>
 							<select name="dbem_locations_default_orderby" >
-								<?php 
+								<?php
 									$orderby_options = apply_filters('em_settings_locations_default_orderby_ddm', array(
 										'location_country' => sprintf(__('Order by %s','dbem'),__('Country','dbem')),
 										'location_town' => sprintf(__('Order by %s','dbem'),__('Town','dbem')),
 										'location_name' => sprintf(__('Order by %s','dbem'),__('Name','dbem'))
-									)); 
+									));
 								?>
 								<?php foreach($orderby_options as $key => $value) : ?>
 				 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_locations_default_orderby')) ? "selected='selected'" : ''; ?>>
 				 					<?php echo esc_html($value) ?>
 				 				</option>
 								<?php endforeach; ?>
-							</select> 
+							</select>
 							<select name="dbem_locations_default_order" >
-								<?php 
+								<?php
 								$ascending = __('Ascending','dbem');
 								$descending = __('Descending','dbem');
 								$order_options = apply_filters('em_settings_locations_default_order_ddm', array(
 									'ASC' => __('Ascending','dbem'),
 									'DESC' => __('Descending','dbem')
-								)); 
+								));
 								?>
-								<?php foreach( $order_options as $key => $value) : ?>   
+								<?php foreach( $order_options as $key => $value) : ?>
 				 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_locations_default_order')) ? "selected='selected'" : ''; ?>>
 				 					<?php echo esc_html($value) ?>
 				 				</option>
@@ -883,10 +883,10 @@ function em_admin_options_page() {
 	            	echo $save_button;
 					?>
 	            	</table>
-				</div> <!-- . inside --> 
+				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
 				<?php endif; ?>
-				
+
 				<?php if( get_option('dbem_categories_enabled') && !(EM_MS_GLOBAL && !is_main_site()) ): ?>
 				<div  class="postbox " id="em-opt-categories-pages" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo __('Event Categories','dbem'); ?></span></h3>
@@ -920,16 +920,16 @@ function em_admin_options_page() {
 					?>
 					<tr valign="top">
 				   		<th scope="row"><?php _e('Default archive ordering','dbem'); ?></th>
-				   		<td>   
+				   		<td>
 							<select name="dbem_categories_default_archive_orderby" >
-								<?php foreach($event_archive_orderby_options as $key => $value) : ?>   
+								<?php foreach($event_archive_orderby_options as $key => $value) : ?>
 				 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_categories_default_archive_orderby')) ? "selected='selected'" : ''; ?>>
 				 					<?php echo esc_html($value) ?>
 				 				</option>
 								<?php endforeach; ?>
-							</select> 
+							</select>
 							<select name="dbem_categories_default_archive_order" >
-								<?php foreach( $event_archive_order_options as $key => $value) : ?>   
+								<?php foreach( $event_archive_order_options as $key => $value) : ?>
 				 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_categories_default_archive_order')) ? "selected='selected'" : ''; ?>>
 				 					<?php echo esc_html($value) ?>
 				 				</option>
@@ -943,36 +943,36 @@ function em_admin_options_page() {
 							<h4><?php echo sprintf(__('Default %s list options','dbem'), __('category','dbem')); ?></h4>
 							<p><?php _e('These can be overriden when using shortcode or template tags.','dbem'); ?></p>
 						</td>
-					</tr>							
+					</tr>
 					<tr valign="top" id='dbem_categories_default_orderby_row'>
 				   		<th scope="row"><?php _e('Default list ordering','dbem'); ?></th>
-				   		<td>   
+				   		<td>
 							<select name="dbem_categories_default_orderby" >
-								<?php 
+								<?php
 									$orderby_options = apply_filters('em_settings_categories_default_orderby_ddm', array(
 										'id' => sprintf(__('Order by %s','dbem'),__('ID','dbem')),
 										'count' => sprintf(__('Order by %s','dbem'),__('Count','dbem')),
 										'name' => sprintf(__('Order by %s','dbem'),__('Name','dbem')),
 										'slug' => sprintf(__('Order by %s','dbem'),__('Slug','dbem')),
 										'term_group' => sprintf(__('Order by %s','dbem'),'term_group'),
-									)); 
+									));
 								?>
 								<?php foreach($orderby_options as $key => $value) : ?>
 				 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_categories_default_orderby')) ? "selected='selected'" : ''; ?>>
 				 					<?php echo esc_html($value) ?>
 				 				</option>
 								<?php endforeach; ?>
-							</select> 
+							</select>
 							<select name="dbem_categories_default_order" >
-								<?php 
+								<?php
 								$ascending = __('Ascending','dbem');
 								$descending = __('Descending','dbem');
 								$order_options = apply_filters('em_settings_categories_default_order_ddm', array(
 									'ASC' => __('Ascending','dbem'),
 									'DESC' => __('Descending','dbem')
-								)); 
+								));
 								?>
-								<?php foreach( $order_options as $key => $value) : ?>   
+								<?php foreach( $order_options as $key => $value) : ?>
 				 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_categories_default_order')) ? "selected='selected'" : ''; ?>>
 				 					<?php echo esc_html($value) ?>
 				 				</option>
@@ -987,10 +987,10 @@ function em_admin_options_page() {
 	            	echo $save_button;
 					?>
 	            	</table>
-				</div> <!-- . inside --> 
+				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				<?php endif; ?>	
-				
+				<?php endif; ?>
+
 				<?php if( get_option('dbem_tags_enabled') ): //disabled for now, will add tag stuff later ?>
 				<div  class="postbox " id="em-opt-tags-pages" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo __('Thinks to Bring','dbem'); ?></span></h3>
@@ -1024,58 +1024,58 @@ function em_admin_options_page() {
 						?>
 						<tr valign="top">
 					   		<th scope="row"><?php _e('Default archive ordering','dbem'); ?></th>
-					   		<td>   
+					   		<td>
 								<select name="dbem_tags_default_archive_orderby" >
-									<?php foreach($event_archive_orderby_options as $key => $value) : ?>   
+									<?php foreach($event_archive_orderby_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_tags_default_archive_orderby')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value) ?>
 					 				</option>
 									<?php endforeach; ?>
-								</select> 
+								</select>
 								<select name="dbem_tags_default_archive_order" >
-									<?php foreach( $event_archive_order_options as $key => $value) : ?>   
+									<?php foreach( $event_archive_order_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_tags_default_archive_order')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value) ?>
 					 				</option>
 									<?php endforeach; ?>
 								</select>
 							</td>
-					   	</tr>	
+					   	</tr>
 						<tr class="em-header">
 							<td colspan="2">
 								<h4><?php echo sprintf(__('Default %s list options','dbem'), __('tag','dbem')); ?></h4>
 								<p><?php _e('These can be overriden when using shortcode or template tags.','dbem'); ?></p>
 							</td>
-						</tr>			
+						</tr>
 						<tr valign="top" id='dbem_tags_default_orderby_row'>
 					   		<th scope="row"><?php _e('Default list ordering','dbem'); ?></th>
-					   		<td>   
+					   		<td>
 								<select name="dbem_tags_default_orderby" >
-									<?php 
+									<?php
 										$orderby_options = apply_filters('em_settings_tags_default_orderby_ddm', array(
 											'id' => sprintf(__('Order by %s','dbem'),__('ID','dbem')),
 											'count' => sprintf(__('Order by %s','dbem'),__('Count','dbem')),
 											'name' => sprintf(__('Order by %s','dbem'),__('Name','dbem')),
 											'slug' => sprintf(__('Order by %s','dbem'),__('Slug','dbem')),
 											'term_group' => sprintf(__('Order by %s','dbem'),'term_group'),
-										)); 
+										));
 									?>
 									<?php foreach($orderby_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_tags_default_orderby')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value) ?>
 					 				</option>
 									<?php endforeach; ?>
-								</select> 
+								</select>
 								<select name="dbem_tags_default_order" >
-									<?php 
+									<?php
 									$ascending = __('Ascending','dbem');
 									$descending = __('Descending','dbem');
 									$order_options = apply_filters('em_settings_tags_default_order_ddm', array(
 										'ASC' => __('Ascending','dbem'),
 										'DESC' => __('Descending','dbem')
-									)); 
+									));
 									?>
-									<?php foreach( $order_options as $key => $value) : ?>   
+									<?php foreach( $order_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_tags_default_order')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value) ?>
 					 				</option>
@@ -1088,11 +1088,11 @@ function em_admin_options_page() {
 						em_options_input_text ( __( 'List Limits', 'dbem' ), 'dbem_tags_default_limit', sprintf(__( "This will control how many %s are shown on one list by default.", 'dbem' ),__('tags','dbem')) );
 						em_options_input_text ( __( 'Event List Limits', 'dbem' ), 'dbem_tag_event_list_limit', sprintf(__( "Controls how many events belonging to a tag are shown per page when using placeholders such as %s. Leave blank for no limit.", 'dbem' ), '<code>#_TAGNEXTEVENTS</code>') );
 				   		echo $save_button; ?>
-		            </table>					    
-				</div> <!-- . inside --> 
+		            </table>
+				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
 				<?php endif; ?>
-				
+
 				<div  class="postbox " id="em-opt-other-pages" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__('%s Pages','dbem'),__('Other','dbem')); ?></span></h3>
 				<div class="inside">
@@ -1115,26 +1115,26 @@ function em_admin_options_page() {
 							<br />
 							<em><?php echo sprintf(__('Users can view their bookings for other events on this page.','dbem' ),'<code>[my_bookings]</code>',__('bookings','dbem')); ?></em>
 						</td>
-					</tr>	
+					</tr>
 					<tr valign="top" id='dbem_bookings_default_orderby_row'>
 				   		<th scope="row"><?php _e('Default list ordering','dbem'); ?></th>
-				   		<td>   
+				   		<td>
 							<select name="dbem_bookings_default_orderby" >
-								<?php 
+								<?php
 									$orderby_options = apply_filters('em_settings_bookings_default_orderby_ddm', array(
 										'event_name' => sprintf(__('Order by %s','dbem'),__('Event Name','dbem')),
 										'event_start_date' => sprintf(__('Order by %s','dbem'),__('Start Date','dbem')),
 										'booking_date' => sprintf(__('Order by %s','dbem'),__('Booking Date','dbem'))
-									)); 
+									));
 								?>
 								<?php foreach($orderby_options as $key => $value) : ?>
 				 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_bookings_default_orderby')) ? "selected='selected'" : ''; ?>>
 				 					<?php echo esc_html($value) ?>
 				 				</option>
 								<?php endforeach; ?>
-							</select> 
+							</select>
 							<select name="dbem_bookings_default_order" >
-								<?php 
+								<?php
 								$ascending = __('Ascending','dbem');
 								$descending = __('Descending','dbem');
 								$order_options = apply_filters('em_settings_bookings_default_order_ddm', array(
@@ -1142,7 +1142,7 @@ function em_admin_options_page() {
 									'DESC' => __('Descending','dbem')
 								));
 								?>
-								<?php foreach( $order_options as $key => $value) : ?>   
+								<?php foreach( $order_options as $key => $value) : ?>
 				 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_bookings_default_order')) ? "selected='selected'" : ''; ?>>
 				 					<?php echo esc_html($value) ?>
 				 				</option>
@@ -1163,7 +1163,7 @@ function em_admin_options_page() {
 							<br />
 							<em><?php echo sprintf(__('Users can view, add and edit their %s on this page.','dbem'),__('events','dbem')); ?></em>
 						</td>
-					</tr>	            	
+					</tr>
 					<tr>
 						<th><?php echo sprintf(__( '%s page', 'dbem' ),__('Edit locations','dbem')); ?></th>
 						<td>
@@ -1171,7 +1171,7 @@ function em_admin_options_page() {
 							<br />
 							<em><?php echo sprintf(__('Users can view, add and edit their %s on this page.','dbem'),__('locations','dbem')); ?></em>
 						</td>
-					</tr>	            	
+					</tr>
 					<tr>
 						<th><?php echo sprintf(__( '%s page', 'dbem' ),__('Manage bookings','dbem')); ?></th>
 						<td>
@@ -1182,15 +1182,15 @@ function em_admin_options_page() {
 					</tr>
 					<?php echo $save_button; ?>
 	            	</table>
-				</div> <!-- . inside --> 
+				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				
+
 				<?php do_action('em_options_page_footer_pages'); ?>
-				
+
 			</div> <!-- .em-menu-pages -->
-			
+
 			<!-- FORMAT OPTIONS -->
-		  	<div class="em-menu-formats em-menu-group" style="display:none;">				
+		  	<div class="em-menu-formats em-menu-group" style="display:none;">
 				<div  class="postbox " id="em-opt-events-formats" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Events', 'dbem' ); ?> </span></h3>
 				<div class="inside">
@@ -1228,9 +1228,9 @@ function em_admin_options_page() {
 						    </td>
 						</tr>
 					 	<?php
-					 	em_options_textarea ( sprintf(__('%s excerpt', 'dbem' ),__('Event','dbem')), 'dbem_event_excerpt_format', __( 'Used if an excerpt has been defined.', 'dbem' ).$events_placeholder_tip );				 	
+					 	em_options_textarea ( sprintf(__('%s excerpt', 'dbem' ),__('Event','dbem')), 'dbem_event_excerpt_format', __( 'Used if an excerpt has been defined.', 'dbem' ).$events_placeholder_tip );
 					 	em_options_textarea ( sprintf(__('%s excerpt fallback', 'dbem' ),__('Event','dbem')), 'dbem_event_excerpt_alt_format', __( 'Used if an excerpt has not been defined.', 'dbem' ).$events_placeholder_tip );
-						
+
 						echo $save_button;
 						?>
 					</table>
@@ -1265,7 +1265,7 @@ function em_admin_options_page() {
 						em_options_radio_binary ( __( 'Enable advanced fields?', 'dbem' ), 'dbem_search_form_advanced', __('Enables additional advanced search fields such as dates, country, etc.','dbem'), '', '.em-search-form-advanced' );
 						?>
 						<tbody class="em-search-form-advanced">
-						<?php 
+						<?php
 						em_options_input_text ( __( 'Search button text', 'dbem' ), 'dbem_search_form_submit', __("If there's no fields to show in the main search section, this button will be used instead at the bottom of the advanced fields.",'dbem'));
 						em_options_radio_binary ( __( 'Hidden by default?', 'dbem' ), 'dbem_search_form_advanced_hidden', __('If set to yes, advanced search fields will be hidden by default and can be revealed by clicking the "Advanced Search" link.','dbem'), '', '#dbem_search_form_advanced_show_row, #dbem_search_form_advanced_hide_row' );
 						em_options_input_text ( __( 'Show label', 'dbem' ), 'dbem_search_form_advanced_show', __('Appears as the label for this search option.','dbem') );
@@ -1327,7 +1327,7 @@ function em_admin_options_page() {
 				<div class="inside">
 					<p class="em-boxheader"><?php
 						$date_time_format_tip = sprintf(__('Date and Time formats follow the <a href="%s">WordPress time formatting conventions</a>', 'dbem'), 'http://codex.wordpress.org/Formatting_Date_and_Time');
-						echo $date_time_format_tip; 
+						echo $date_time_format_tip;
 					?></p>
 					<table class="form-table">
 	            		<?php
@@ -1343,7 +1343,7 @@ function em_admin_options_page() {
 					</table>
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				      
+
 	           	<div  class="postbox " id="em-opt-calendar-formats" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Calendar', 'dbem' ); ?></span></h3>
 				<div class="inside">
@@ -1366,26 +1366,26 @@ function em_admin_options_page() {
 					    em_options_input_text ( __( 'Event format', 'dbem' ), 'dbem_full_calendar_event_format', __( 'The format of each event when displayed in the full calendar. Remember to include <code>li</code> tags before and after the event.', 'dbem' ).$events_placeholder_tip );
 					    em_options_radio_binary( __( 'Abbreviated weekdays?', 'dbem' ), 'dbem_full_calendar_abbreviated_weekdays', __( 'Use abbreviations, e.g. Friday = Fri. Useful for certain languages where abbreviations differ from full names.','dbem') );
 					    em_options_input_text ( __( 'Initial lengths', 'dbem' ), 'dbem_full_calendar_initials_length', __( 'Shorten the calendar headings containing the days of the week, use 0 for the full name.', 'dbem' ).$events_placeholder_tip);
-					    ?>		
-					    <tr class="em-header"><td colspan="2"><h4><?php echo __('Calendar Day Event List Settings','dbem'); ?></h4></td></tr>			
+					    ?>
+					    <tr class="em-header"><td colspan="2"><h4><?php echo __('Calendar Day Event List Settings','dbem'); ?></h4></td></tr>
 						<tr valign="top" id='dbem_display_calendar_orderby_row'>
 					   		<th scope="row"><?php _e('Default event list ordering','dbem'); ?></th>
-					   		<td>   
+					   		<td>
 								<select name="dbem_display_calendar_orderby" >
-									<?php 
+									<?php
 										$orderby_options = apply_filters('dbem_display_calendar_orderby_ddm', array(
 											'event_name,event_start_time' => __('Order by event name, then event start time','dbem'),
 											'event_start_time,event_name' => __('Order by event start time, then event name','dbem')
-										)); 
+										));
 									?>
-									<?php foreach($orderby_options as $key => $value) : ?>   
+									<?php foreach($orderby_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_display_calendar_orderby')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value) ?>
 					 				</option>
 									<?php endforeach; ?>
-								</select> 
+								</select>
 								<select name="dbem_display_calendar_order" >
-									<?php 
+									<?php
 									$ascending = __('Ascending','dbem');
 									$descending = __('Descending','dbem');
 									$order_options = apply_filters('dbem_display_calendar_order_ddm', array(
@@ -1393,9 +1393,9 @@ function em_admin_options_page() {
 										'DESC,ASC' => "$descending, $ascending",
 										'DESC,DESC' => "$descending, $descending",
 										'DESC' => __('All Descending','dbem')
-									)); 
+									));
 									?>
-									<?php foreach( $order_options as $key => $value) : ?>   
+									<?php foreach( $order_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_display_calendar_order')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value) ?>
 					 				</option>
@@ -1405,23 +1405,23 @@ function em_admin_options_page() {
 								<em><?php _e('When Events Manager displays lists of events the default behaviour is ordering by start date in ascending order. To change this, modify the values above.','dbem'); ?></em>
 							</td>
 					   	</tr>
-					   	<?php 
+					   	<?php
 					   		em_options_input_text ( __( 'Calendar events/day limit', 'dbem' ), 'dbem_display_calendar_events_limit', __( 'Limits the number of events on each calendar day. Leave blank for no limit.', 'dbem' ) );
 					   		em_options_input_text ( __( 'More Events message', 'dbem' ), 'dbem_display_calendar_events_limit_msg', __( 'Text with link to calendar day page with all events for that day if there are more events than the limit above, leave blank for no link as the day number is also a link.', 'dbem' ) );
 					   	?>
 					    <tr class="em-header"><td colspan="2"><h4><?php echo sprintf(__('iCal Feed Settings','dbem'),__('Event','dbem')); ?></h4></td></tr>
-					    <?php 
+					    <?php
 						em_options_input_text ( __( 'iCal Title', 'dbem' ), 'dbem_ical_description_format', __( 'The title that will appear in the calendar.', 'dbem' ).$events_placeholder_tip );
 						em_options_input_text ( __( 'iCal Description', 'dbem' ), 'dbem_ical_real_description_format', __( 'The description of the event that will appear in the calendar.', 'dbem' ).$events_placeholder_tip );
 						em_options_input_text ( __( 'iCal Hike', 'dbem' ), 'dbem_ical_location_format', __( 'The location information that will appear in the calendar.', 'dbem' ).$events_placeholder_tip );
 						em_options_select( __('iCal Scope','dbem'), 'dbem_ical_scope', em_get_scopes(), __('Choose to show events within a specific time range.','dbem'));
-						em_options_input_text ( __( 'iCal Limit', 'dbem' ), 'dbem_ical_limit', __( 'Limits the number of future events shown (0 = unlimited).', 'dbem' ) );						
-					    echo $save_button;        
+						em_options_input_text ( __( 'iCal Limit', 'dbem' ), 'dbem_ical_limit', __( 'Limits the number of future events shown (0 = unlimited).', 'dbem' ) );
+					    echo $save_button;
 						?>
 					</table>
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				
+
 				<?php if( get_option('dbem_locations_enabled') ): ?>
 				<div  class="postbox " id="em-opt-locations-formats" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Hikes', 'dbem' ); ?> </span></h3>
@@ -1452,7 +1452,7 @@ function em_admin_options_page() {
 						    </td>
 						</tr>
 					 	<?php
-					 	em_options_textarea ( sprintf(__('%s excerpt', 'dbem' ),__('Hike','dbem')), 'dbem_location_excerpt_format', __( 'Used if an excerpt has been defined.', 'dbem' ).$locations_placeholder_tip );				 	
+					 	em_options_textarea ( sprintf(__('%s excerpt', 'dbem' ),__('Hike','dbem')), 'dbem_location_excerpt_format', __( 'Used if an excerpt has been defined.', 'dbem' ).$locations_placeholder_tip );
 					 	em_options_textarea ( sprintf(__('%s excerpt fallback', 'dbem' ),__('Hike','dbem')), 'dbem_location_excerpt_alt_format', __( 'Used if an excerpt has not been defined.', 'dbem' ).$locations_placeholder_tip );
 						?>
 					 	<tr class="em-header"><td colspan="2"><h4><?php echo sprintf(__('%s List Formats','dbem'),__('Event','dbem')); ?></h4></td></tr>
@@ -1475,7 +1475,7 @@ function em_admin_options_page() {
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
 				<?php endif; ?>
-				
+
 				<?php if( get_option('dbem_categories_enabled') && !(EM_MS_GLOBAL && !is_main_site()) ): ?>
 				<div  class="postbox " id="em-opt-categories-formats" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Event Categories', 'dbem' ); ?> </span></h3>
@@ -1516,7 +1516,7 @@ function em_admin_options_page() {
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
 				<?php endif; ?>
-				
+
 				<?php if( get_option('dbem_tags_enabled') ): ?>
 				<div  class="postbox " id="em-opt-tags-formats" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Thinks to Bring', 'dbem' ); ?> </span></h3>
@@ -1554,39 +1554,39 @@ function em_admin_options_page() {
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
 				<?php endif; ?>
-				
+
 				<div  class="postbox " id="em-opt-rss-formats" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'RSS', 'dbem' ); ?> </span></h3>
 				<div class="inside">
 	            	<table class="form-table">
-						<?php				
+						<?php
 						em_options_input_text ( __( 'RSS main title', 'dbem' ), 'dbem_rss_main_title', __( 'The main title of your RSS events feed.', 'dbem' ).$events_placeholder_tip );
 						em_options_input_text ( __( 'RSS main description', 'dbem' ), 'dbem_rss_main_description', __( 'The main description of your RSS events feed.', 'dbem' ) );
 						em_options_input_text ( __( 'RSS title format', 'dbem' ), 'dbem_rss_title_format', __( 'The format of the title of each item in the events RSS feed.', 'dbem' ).$events_placeholder_tip );
 						em_options_input_text ( __( 'RSS description format', 'dbem' ), 'dbem_rss_description_format', __( 'The format of the description of each item in the events RSS feed.', 'dbem' ).$events_placeholder_tip );
 						em_options_input_text ( __( 'RSS limit', 'dbem' ), 'dbem_rss_limit', __( 'Limits the number of future events shown (0 = unlimited).', 'dbem' ) );
 						em_options_select( __('RSS Scope','dbem'), 'dbem_rss_scope', em_get_scopes(), __('Choose to show events within a specific time range.','dbem'));
-						?>							
+						?>
 						<tr valign="top" id='dbem_rss_orderby_row'>
 					   		<th scope="row"><?php _e('Default event list ordering','dbem'); ?></th>
-					   		<td>   
+					   		<td>
 								<select name="dbem_rss_orderby" >
-									<?php 
+									<?php
 										$orderby_options = apply_filters('em_settings_events_default_orderby_ddm', array(
 											'event_start_date,event_start_time,event_name' => __('Order by start date, start time, then event name','dbem'),
 											'event_name,event_start_date,event_start_time' => __('Order by name, start date, then start time','dbem'),
 											'event_name,event_end_date,event_end_time' => __('Order by name, end date, then end time','dbem'),
 											'event_end_date,event_end_time,event_name' => __('Order by end date, end time, then event name','dbem'),
-										)); 
+										));
 									?>
-									<?php foreach($orderby_options as $key => $value) : ?>   
+									<?php foreach($orderby_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_rss_orderby')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value); ?>
 					 				</option>
 									<?php endforeach; ?>
-								</select> 
+								</select>
 								<select name="dbem_rss_order" >
-									<?php 
+									<?php
 									$ascending = __('Ascending','dbem');
 									$descending = __('Descending','dbem');
 									$order_options = apply_filters('em_settings_events_default_order_ddm', array(
@@ -1598,9 +1598,9 @@ function em_admin_options_page() {
 										'ASC,DESC,DESC' => __("$ascending, $descending, $descending",'dbem'),
 										'ASC,ASC,DESC' => __("$ascending, $ascending, $descending",'dbem'),
 										'DESC,ASC,DESC' => __("$descending, $ascending, $descending",'dbem'),
-									)); 
+									));
 									?>
-									<?php foreach( $order_options as $key => $value) : ?>   
+									<?php foreach( $order_options as $key => $value) : ?>
 					 				<option value='<?php echo esc_attr($key) ?>' <?php echo ($key == get_option('dbem_rss_order')) ? "selected='selected'" : ''; ?>>
 					 					<?php echo esc_html($value); ?>
 					 				</option>
@@ -1616,12 +1616,12 @@ function em_admin_options_page() {
 					</table>
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				
+
 				<div  class="postbox " id="em-opt-maps-formats" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Maps', 'dbem' ); ?> </span></h3>
 				<div class="inside">
 					<p class="em-boxheader"><?php echo sprintf(__('You can use Google Maps to show where your events are located. For more information on using maps, <a href="%s">see our documentation</a>.','dbem'),'http://wp-events-plugin.com/documentation/google-maps/'); ?>
-					<table class='form-table'> 
+					<table class='form-table'>
 						<?php $gmap_is_active = get_option ( 'dbem_gmap_is_active' ); ?>
 						<tr valign="top">
 							<th scope="row"><?php _e ( 'Enable Google Maps integration?', 'dbem' ); ?></th>
@@ -1646,37 +1646,37 @@ function em_admin_options_page() {
 						</td></tr>
 						<?php
 						em_options_textarea ( __( 'Hike balloon format', 'dbem' ), 'dbem_location_baloon_format', __( 'The format of of the text appearing in the balloon describing the location.', 'dbem' ).$events_placeholder_tip );
-						echo $save_button;     
-						?> 
+						echo $save_button;
+						?>
 					</table>
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				
+
 				<?php do_action('em_options_page_footer_formats'); ?>
-				
+
 			</div> <!-- .em-menu-formats -->
-			
+
 			<?php if( get_option('dbem_rsvp_enabled') ): ?>
 			<!-- BOOKING OPTIONS -->
-		  	<div class="em-menu-bookings em-menu-group" style="display:none;">	
-				
+		  	<div class="em-menu-bookings em-menu-group" style="display:none;">
+
 				<div  class="postbox " id="em-opt-bookings-general" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__( '%s Options', 'dbem' ),__('General','dbem')); ?> </span></h3>
 				<div class="inside">
-					<table class='form-table'> 
-						<?php 
+					<table class='form-table'>
+						<?php
 						em_options_radio_binary ( __( 'Allow guest bookings?', 'dbem' ), 'dbem_bookings_anonymous', __( 'If enabled, guest visitors can supply an email address and a user account will automatically be created for them along with their booking. They will be also be able to log back in with that newly created account.', 'dbem' ) );
 						em_options_radio_binary ( __( 'Approval Required?', 'dbem' ), 'dbem_bookings_approval', __( 'Bookings will not be confirmed until the event administrator approves it.', 'dbem' ).' '.__( 'This setting is not applicable when using payment gateways, see individual gateways for approval settings.', 'dbem' ));
 						em_options_radio_binary ( __( 'Reserved unconfirmed spaces?', 'dbem' ), 'dbem_bookings_approval_reserved', __( 'By default, event spaces become unavailable once there are enough CONFIRMED bookings. To reserve spaces even if unnapproved, choose yes.', 'dbem' ) );
 						em_options_radio_binary ( __( 'Can users cancel their booking?', 'dbem' ), 'dbem_bookings_user_cancellation', __( 'If enabled, users can cancel their bookings themselves from their bookings page.', 'dbem' ) );
 						em_options_radio_binary ( __( 'Allow overbooking when approving?', 'dbem' ), 'dbem_bookings_approval_overbooking', __( 'If you get a lot of pending bookings and you decide to allow more bookings than spaces allow, setting this to yes will allow you to override the event space limit when manually approving.', 'dbem' ) );
 						em_options_radio_binary ( __( 'Allow double bookings?', 'dbem' ), 'dbem_bookings_double', __( 'If enabled, users can book an event more than once.', 'dbem' ) );
-						echo $save_button; 
+						echo $save_button;
 						?>
 					</table>
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				
+
 				<div  class="postbox " id="em-opt-pricing-options" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__( '%s Options', 'dbem' ),__('Pricing','dbem')); ?> </span></h3>
 				<div class="inside">
@@ -1689,19 +1689,19 @@ function em_admin_options_page() {
 						em_options_input_text ( __( 'Currency Format', 'dbem' ), 'dbem_bookings_currency_format', __('Choose how prices are displayed. <code>@</code> will be replaced by the currency symbol, and <code>#</code> will be replaced by the number.','dbem').' <code>'.get_option('dbem_bookings_currency_format')." = ".em_get_currency_formatted('10000000').'</code>');
 						em_options_input_text ( __( 'Tax Rate', 'dbem' ), 'dbem_bookings_tax', __( 'Add a tax rate to your ticket prices (entering 10 will add 10% to the ticket price).', 'dbem' ) );
 						em_options_radio_binary ( __( 'Add tax to ticket price?', 'dbem' ), 'dbem_bookings_tax_auto_add', __( 'When displaying ticket prices and booking totals, include the tax automatically?', 'dbem' ) );
-						echo $save_button; 
+						echo $save_button;
 						?>
 					</table>
 				</div> <!-- . inside -->
-				</div> <!-- .postbox --> 
-				
+				</div> <!-- .postbox -->
+
 				<div  class="postbox " id="em-opt-booking-feedbacks" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e( 'Customize Feedback Messages', 'dbem' ); ?> </span></h3>
 				<div class="inside">
 					<p><?php _e('Below you will find texts that will be displayed to users in various areas during the bookings process, particularly on booking forms.','dbem'); ?></p>
 					<table class='form-table'>
 						<tr class="em-header"><td colspan='2'><h4><?php _e('My Bookings messages','dbem') ?></h4></td></tr>
-						<?php 
+						<?php
 						em_options_input_text ( __( 'Booking Cancelled', 'dbem' ), 'dbem_booking_feedback_cancelled', __( 'When a user cancels their booking, this message will be displayed confirming the cancellation.', 'dbem' ) );
 						em_options_input_text ( __( 'Booking Cancellation Warning', 'dbem' ), 'dbem_booking_warning_cancel', __( 'When a user chooses to cancel a booking, this warning is displayed for them to confirm.', 'dbem' ) );
 						?>
@@ -1729,7 +1729,7 @@ function em_admin_options_page() {
 						?>
 						<tr class="em-header"><td colspan='2'><h4><?php _e('Booking button feedback messages','dbem') ?></h4></td></tr>
 						<tr><td colspan='2'><?php echo sprintf(__('When the %s placeholder, the below texts will be used.','dbem'),'<code>#_BOOKINGBUTTON</code>'); ?></td></tr>
-						<?php			
+						<?php
 						em_options_input_text ( __( 'User can book', 'dbem' ), 'dbem_booking_button_msg_book', '');
 						em_options_input_text ( __( 'Booking in progress', 'dbem' ), 'dbem_booking_button_msg_booking', '');
 						em_options_input_text ( __( 'Booking complete', 'dbem' ), 'dbem_booking_button_msg_booked', '');
@@ -1740,13 +1740,13 @@ function em_admin_options_page() {
 						em_options_input_text ( __( 'Cancelation in progress', 'dbem' ), 'dbem_booking_button_msg_canceling', '');
 						em_options_input_text ( __( 'Cancelation complete', 'dbem' ), 'dbem_booking_button_msg_cancelled', '');
 						em_options_input_text ( __( 'Cancelation error', 'dbem' ), 'dbem_booking_button_msg_cancel_error', '');
-						
-						echo $save_button; 
+
+						echo $save_button;
 						?>
 					</table>
 				</div> <!-- . inside -->
-				</div> <!-- .postbox --> 
-				
+				</div> <!-- .postbox -->
+
 				<div  class="postbox " id="em-opt-booking-form-options" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__( '%s Options', 'dbem' ),__('Booking Form','dbem')); ?> </span></h3>
 				<div class="inside">
@@ -1759,8 +1759,8 @@ function em_admin_options_page() {
 						?>
 					</table>
 				</div> <!-- . inside -->
-				</div> <!-- .postbox --> 
-				
+				</div> <!-- .postbox -->
+
 				<div  class="postbox " id="em-opt-ticket-options" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php echo sprintf(__( '%s Options', 'dbem' ),__('Ticket','dbem')); ?> </span></h3>
 				<div class="inside">
@@ -1770,7 +1770,7 @@ function em_admin_options_page() {
 						em_options_radio_binary ( __( 'Show ticket table in single ticket mode?', 'dbem' ), 'dbem_bookings_tickets_single_form', __( 'If you prefer a ticket table like with multiple tickets, even for single ticket events, enable this.', 'dbem' ) );
 						em_options_radio_binary ( __( 'Show unavailable tickets?', 'dbem' ), 'dbem_bookings_tickets_show_unavailable', __( 'You can choose whether or not to show unavailable tickets to visitors.', 'dbem' ) );
 						em_options_radio_binary ( __( 'Show member-only tickets?', 'dbem' ), 'dbem_bookings_tickets_show_member_tickets', sprintf(__('%s must be set to yes for this to work.', 'dbem' ), '<strong>'.__( 'Show unavailable tickets?', 'dbem' ).'</strong>').' '.__( 'If there are member-only tickets, you can choose whether or not to show these tickets to guests.','dbem') );
-						
+
 						em_options_radio_binary ( __( 'Show multiple tickets if logged out?', 'dbem' ), 'dbem_bookings_tickets_show_loggedout', __( 'If guests cannot make bookings, they will be asked to register in order to book. However, enabling this will still show available tickets.', 'dbem' ) );
 						$ticket_orders = array(
 							'ticket_price DESC, ticket_name ASC'=>__('Ticket Price (Descending)','dbem'),
@@ -1779,12 +1779,12 @@ function em_admin_options_page() {
 							'ticket_name DESC, ticket_price DESC'=>__('Ticket Name (Descending)','dbem')
 						);
 						em_options_select ( __( 'Order Tickets By', 'dbem' ), 'dbem_bookings_tickets_orderby', $ticket_orders, __( 'Choose which order your tickets appear.', 'dbem' ) );
-						echo $save_button; 
+						echo $save_button;
 						?>
 					</table>
 				</div> <!-- . inside -->
-				</div> <!-- .postbox --> 
-					
+				</div> <!-- .postbox -->
+
 				<div  class="postbox " id="em-opt-no-user-bookings" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e('No-User Booking Mode','dbem'); ?> </span></h3>
 				<div class="inside">
@@ -1808,22 +1808,22 @@ function em_admin_options_page() {
 			            }else{
 			            	em_options_select ( __( 'Assign bookings to', 'dbem' ), 'dbem_bookings_registration_user', em_get_wp_users(array('role' => 'subscriber'), $current_user), __( 'Choose a parent user to assign bookings to. People making their booking will be unaware of this and will never have access to those user details. This should be a subscriber user you do not use to log in with yourself.', 'dbem' ) );
 						}
-						echo $save_button; 
+						echo $save_button;
 						?>
 					</table>
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				
+
 				<?php do_action('em_options_page_footer_bookings'); ?>
-				
+
 			</div> <!-- .em-menu-bookings -->
 			<?php endif; ?>
-			
+
 			<!-- EMAIL OPTIONS -->
 		  	<div class="em-menu-emails em-menu-group" style="display:none;">
-				
+
 				<?php if ( !is_multisite() ) { em_admin_option_box_email(); } ?>
-		  	
+
 		  		<?php if( get_option('dbem_rsvp_enabled') ): ?>
 				<div  class="postbox "  id="em-opt-booking-emails">
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Booking Email Templates', 'dbem' ); ?> </span></h3>
@@ -1911,7 +1911,7 @@ function em_admin_options_page() {
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
 				<?php endif; ?>
-						  		
+
 				<?php if( get_option('dbem_rsvp_enabled') ): ?>
 				<div  class="postbox "  id="em-opt-registration-emails">
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Registration Email Templates', 'dbem' ); ?> </span></h3>
@@ -1923,7 +1923,7 @@ function em_admin_options_page() {
 					<table class='form-table'>
 						<?php
 						em_options_radio_binary ( __( 'Disable new registration email?', 'dbem' ), 'dbem_email_disable_registration', __( 'Check this option if you want to prevent the WordPress registration email from going out when a user anonymously books an event.', 'dbem' ) );
-						
+
 						em_options_input_text ( __( 'Registration email subject', 'dbem' ), 'dbem_bookings_email_registration_subject' );
 						em_options_textarea ( __( 'Registration email', 'dbem' ), 'dbem_bookings_email_registration_body', sprintf(__('%s is replaced by username and %s is replaced by the user password.','dbem'),'<code>%username%</code>','<code>%password%</code>') );
 						echo $save_button;
@@ -1932,13 +1932,13 @@ function em_admin_options_page() {
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
 				<?php endif; ?>
-				
+
 				<div  class="postbox " id="em-opt-event-submission-emails" >
 				<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Event Submission Templates', 'dbem' ); ?> </span></h3>
 				<div class="inside">
 					<table class='form-table'>
 						<tr class="em-header"><td colspan='2'><h4><?php _e('Event Admin Emails', 'dbem'); ?></h4></td></tr>
-						<?php 
+						<?php
 						em_options_input_text ( __( 'Administrator Email', 'dbem' ), 'dbem_event_submitted_email_admin', __('Event submission notifications will be sent to emails added here.','dbem').' '.__('If left blank, no emails will be sent. Seperate emails with commas for more than one email.','dbem') );
 						?>
 						<tbody class="em-subsection">
@@ -1985,15 +1985,24 @@ function em_admin_options_page() {
 						em_options_input_text ( __( 'Event reapproved subject', 'dbem' ), 'dbem_event_reapproved_email_subject', __('If left blank, this email will not be sent.','dbem') );
 						em_options_textarea ( __( 'Event reapproved email', 'dbem' ), 'dbem_event_reapproved_email_body', '' );
 						?>
+
+						<tr class="em-subheader"><td colspan='2'>
+							<h5><?php _e('Event Updated','dbem') ?></h5>
+						    <?php echo __('When a guide modifies a previously published event, mail will be sent to guide & booked users.','dbem').$bookings_placeholder_tip ?>
+						</td></tr>
+						<?php
+						em_options_input_text ( __( 'Event updated subject', 'dbem' ), 'dbem_event_updated_email_subject', __('If left blank, this email will not be sent.','dbem') );
+						em_options_textarea ( __( 'Event updated email', 'dbem' ), 'dbem_event_updated_email_body', '' );
+						?>
 						</tbody>
 						<?php echo $save_button; ?>
 					</table>
 				</div> <!-- . inside -->
 				</div> <!-- .postbox -->
-				
+
 				<?php do_action('em_options_page_footer_emails'); ?>
-				
-			</div><!-- .em-group-emails --> 
+
+			</div><!-- .em-group-emails -->
 			<?php /*
 			<div  class="postbox " >
 			<div class="handlediv" title="<?php __('Click to toggle', 'dbem'); ?>"><br /></div><h3><span><?php _e ( 'Debug Modes', 'dbem' ); ?> </span></h3>
@@ -2012,19 +2021,19 @@ function em_admin_options_page() {
 				<input type="submit" id="dbem_options_submit" class="button-primary" name="Submit" value="<?php esc_attr_e( 'Save Changes', 'dbem' ); ?>" />
 				<input type="hidden" name="em-submitted" value="1" />
 				<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce('events-manager-options'); ?>" />
-			</p>  
-			
+			</p>
+
 			</div> <!-- .metabox-sortables -->
 			</div> <!-- .postbox-container -->
-			
-			</div> <!-- .metabox-holder -->	
+
+			</div> <!-- .metabox-holder -->
 		</form>
 	</div>
 	<?php
 }
 
 /**
- * Meta options box for image sizes. Shared in both MS and Normal options page, hence it's own function 
+ * Meta options box for image sizes. Shared in both MS and Normal options page, hence it's own function
  */
 function em_admin_option_box_image_sizes(){
 	global $save_button;
@@ -2045,11 +2054,11 @@ function em_admin_option_box_image_sizes(){
 		</table>
 	</div> <!-- . inside -->
 	</div> <!-- .postbox -->
-	<?php	
+	<?php
 }
 
 /**
- * Meta options box for email settings. Shared in both MS and Normal options page, hence it's own function 
+ * Meta options box for email settings. Shared in both MS and Normal options page, hence it's own function
  */
 function em_admin_option_box_email(){
 	global $save_button;
@@ -2118,12 +2127,12 @@ function em_admin_option_box_email(){
 			});
 		</script>
 	</div> <!-- . inside -->
-	</div> <!-- .postbox --> 
+	</div> <!-- .postbox -->
 	<?php
 }
 
 /**
- * Meta options box for user capabilities. Shared in both MS and Normal options page, hence it's own function 
+ * Meta options box for user capabilities. Shared in both MS and Normal options page, hence it's own function
  */
 function em_admin_option_box_caps(){
 	global $save_button, $wpdb;
@@ -2155,7 +2164,7 @@ function em_admin_option_box_caps(){
 					'delete_others_recurring_events' => sprintf(__('User can delete other users %s','dbem'),__('recurring events','dbem')),
 					'edit_others_recurring_events' => sprintf(__('User can edit other users %s','dbem'),__('recurring events','dbem')),
 					'delete_recurring_events' => sprintf(__('User can delete their own %s','dbem'),__('recurring events','dbem')),
-					'edit_recurring_events' => sprintf(__('User can create and edit %s','dbem'),__('recurring events','dbem'))						
+					'edit_recurring_events' => sprintf(__('User can create and edit %s','dbem'),__('recurring events','dbem'))
 				),
 				sprintf(__('%s Capabilities','dbem'),__('Hike','dbem')) => array(
 					/* Hike Capabilities */
@@ -2179,7 +2188,7 @@ function em_admin_option_box_caps(){
 				)
 			);
             ?>
-            <?php 
+            <?php
         	if( is_multisite() && is_network_admin() ){
 	            echo em_options_radio_binary(__('Apply global capabilities?','dbem'), 'dbem_ms_global_caps', __('If set to yes the capabilities will be applied all your network blogs and you will not be able to set custom capabilities each blog. You can select no later and visit specific blog settings pages to add/remove capabilities.','dbem') );
 	        }
@@ -2189,12 +2198,12 @@ function em_admin_option_box_caps(){
 					<thead>
 						<tr>
 							<td>&nbsp;</td>
-							<?php 
+							<?php
 							$odd = 0;
 							foreach(array_keys($cap_docs) as $capability_group){
 								?><th class="<?php echo ( !is_int($odd/2) ) ? 'odd':''; ?>"><?php echo $capability_group ?></th><?php
 								$odd++;
-							} 
+							}
 							?>
 						</tr>
 					</thead>
@@ -2202,7 +2211,7 @@ function em_admin_option_box_caps(){
             			<?php foreach($wp_roles->role_objects as $role): ?>
 	            		<tr>
 	            			<td class="cap"><strong><?php echo $role->name; ?></strong></td>
-							<?php 
+							<?php
 							$odd = 0;
 							foreach($cap_docs as $capability_group){
 								?>
@@ -2215,7 +2224,7 @@ function em_admin_option_box_caps(){
 	            				</td>
 	            				<?php
 								$odd++;
-							} 
+							}
 							?>
 	            		</tr>
 			            <?php endforeach; ?>
@@ -2261,7 +2270,7 @@ function em_admin_option_box_uninstall(){
     			    <td><?php _e('If you would like to download a dev version, but just as a one-off, you can force a dev version check by clicking the button below. If there is one available, it should appear in your plugin updates page as a regular update.','dbem'); ?></td>
 				</tr>
 			</table>
-			
+
 			<table class="form-table">
     		    <tr class="em-header"><td colspan="2">
     		        <h4><?php _e ( 'Uninstall/Reset', 'dbem' ); ?></h4>
@@ -2276,6 +2285,6 @@ function em_admin_option_box_uninstall(){
 			<?php echo $save_button; ?>
 		</div>
 	</div>
-	<?php	
+	<?php
 }
 ?>

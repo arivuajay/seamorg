@@ -21,10 +21,10 @@
                     <?php dynamic_sidebar('footer-area-2'); ?>
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 footerpart1">
-                    <h2>Join with us</h2>
+                    <!--<h2>Join with us</h2>-->
                     <?php wp_nav_menu(array('container' => false, 'menu_id' => 'social', 'menu_class' => 'social-nav', 'depth' => 0, 'theme_location' => 'social', 'walker' => new social_nav_walker())); ?>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copy"> &copy; Copyright <?php echo date('Y') . " " . get_bloginfo('name'); ?> . All rights reserved.  Designed By <a href="http://www.8milestechnologies.com/" target="_blank">8milestechnologies</a></div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copy"> &copy; Copyright <?php echo date('Y') . " " . get_bloginfo('name'); ?> . All rights reserved.  <br />Designed By <a href="http://www.8milestechnologies.com/" target="_blank">8milestechnologies</a></div>
             </div>
         </div>
     </div>
@@ -33,7 +33,8 @@
 <div class="sb-slidebar sb-left">
     <a href="#" class="sb-close"><span class="fa fa-close"></span></a>
     <?php if (is_user_logged_in()) { ?>
-        <span class="menu-signin">Hi, <a href="<?php echo um_user_profile_url(); ?>">  <?php echo um_user('display_name'); ?> </a></span><br/>
+        <!--<span class="menu-signin">Hi, <a href="<?php // echo um_user_profile_url(); ?>">  <?php // echo um_user('display_name'); ?> </a></span>-->
+        <br/>
         <a href="<?php echo wp_logout_url('$index.php'); ?>" class="signup-btn2" >Log Out</a>
 
     <?php } else { ?>
@@ -43,7 +44,7 @@
     <?php } ?>
     <div class="">
         <?php wp_nav_menu(array('theme_location' => 'primary', 'container_class' => 'big-menu', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-menu')); ?>
-        <?php wp_nav_menu(array('theme_location' => 'primary-2', 'container_class' => 'small-menu', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-2-menu')); ?>
+        <?php // wp_nav_menu(array('theme_location' => 'primary-2', 'container_class' => 'small-menu', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-2-menu')); ?>
         <!--        <div class="language-cont">
                     <p> Language</p>
                     <select name="">
@@ -51,15 +52,27 @@
                     </select>
                 </div>-->
         <div class="joinwith">
-            <p> Join with us</p>
+            <!--<p> Join with us</p>-->
             <?php wp_nav_menu(array('container' => false, 'menu_id' => 'social', 'menu_class' => 'social-nav', 'depth' => 0, 'theme_location' => 'social', 'walker' => new social_nav_walker())); ?>
         </div>
     </div>
 </div>
 <!-- Slidebars -->
 <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/slidebars.js"></script>
-<script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/jquery.maskedinput.min.js"></script>
-<script>
+<script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/jquery.maskedinput.js"></script>
+<script type="text/javascript">
+    function cart_total() {
+        _spaces = jQuery('.em-ticket-select').val();
+        _single_ticket = parseFloat(jQuery('#single_ticket_price').val());
+
+        _total = parseFloat(_spaces * _single_ticket).toFixed(2);
+        jQuery('.sub-total').html(_total);
+
+        console.log(_spaces);
+        console.log(_single_ticket);
+        console.log(_total);
+    }
+
     (function($) {
         $(document).ready(function() {
             $.slidebars({
@@ -68,7 +81,36 @@
 
             $("#phone-118").mask("(999) 999-9999");
             $("#ssn-118").mask("999-999-9999");
+
+            setTimeout(function() {
+                if ($("#phone-118").val() == '' || $("#phone-118").val() =='(___) ___-____' ) {
+                    $("#phone-118").empty().trigger('blur');
+                }
+                if ($("#ssn-118").val() == '' || $("#ssn-118").val() =='___-___-____' ) {
+                    $("#ssn-118").empty().trigger('blur');
+                }
+            }, 500);
+
+
+            $('.em-ticket-select').change(function() {
+                cart_total();
+            });
+
+            $('.em-ticket-select').trigger('change');
+
+            $('#go_checkout').click(function() {
+                _evtID = $('#event_id').val();
+                _space = $('.em-ticket-select').val();
+
+                window.location.href = '<?php echo get_permalink(343); ?>?id=' + _evtID + '&space=' + _space;
+            });
+
+            <?php if (isset($_REQUEST['message']) && isset($_REQUEST['uid'])) { ?>
+            $('div.signup-form-cont > h3').html('Registration Successful');
+            <?php } ?>
         });
+
+
     })(jQuery);
 </script>
 

@@ -257,7 +257,7 @@ function em_events_admin($args = array()) {
                 }
                 em_event_form();
             } else {
-                echo '<div class="css-events-admin-login">' . apply_filters('em_event_restiction_limit', __("You have reached maximum limit for creating event.", 'dbem')) . '</div>';
+                echo '<div class="css-events-admin-login well">' . apply_filters('em_event_restiction_limit', __("Thank you for organizing events on Seamorg, we truly appreciate your contribution.<br />As per our policy you can have a maximum of three upcoming events. Once an event is completed, then you may create another one.<br /><br />Thank you,<br />The Seamorg Team.", 'dbem')) . '</div>';
             }
         } else {
             if (get_option('dbem_css_editors'))

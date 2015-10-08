@@ -958,7 +958,6 @@ class UM_Fields {
 
 			/* Text */
 			case 'text':
-
 				$output .= '<div class="um-field' . $classes . '"' . $conditional . ' data-key="'.$key.'">';
 
 						if ( isset( $data['label'] ) ) {
@@ -1286,7 +1285,7 @@ class UM_Fields {
 							if ( isset( $this->set_mode ) && $this->set_mode == 'register' ) {
 								$imgValue = $this->field_value( $key, $default, $data );
 							} else {
-								$imgValue = um_user_uploads_uri() . $this->field_value( $key, $default, $data );
+								$imgValue = $this->field_value( $key, $default, $data );
 							}
 							$img = '<img src="' . $imgValue . '" alt="" />';
 						} else {

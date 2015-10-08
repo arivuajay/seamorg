@@ -148,7 +148,6 @@
 		extract($args);
 
 		$status = um_user('status');
-
 		do_action("um_post_registration_global_hook", $user_id, $args);
 
 		do_action("um_post_registration_{$status}_hook", $user_id, $args);

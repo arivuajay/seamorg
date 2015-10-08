@@ -71,6 +71,7 @@ function em_init_actions() {
             die();
         }
         if (isset($_REQUEST['query']) && $_REQUEST['query'] == 'GlobalMapData') {
+            $_REQUEST['search'] = $_REQUEST['em_search'];
             $EM_Locations = EM_Locations::get($_REQUEST);
             $json_locations = array();
             foreach ($EM_Locations as $location_key => $EM_Location) {
@@ -355,6 +356,7 @@ function em_init_actions() {
             //Cancel Booking
             em_verify_nonce('booking_cancel');
             if ($EM_Booking->can_manage() || ($EM_Booking->person->ID == get_current_user_id() && get_option('dbem_bookings_user_cancellation'))) {
+                do_action('em_payment_return');
                 if ($EM_Booking->cancel()) {
                     $result = true;
                     if (!defined('DOING_AJAX')) {

@@ -5,7 +5,7 @@
  *
  */
 class EM_Tickets extends EM_Object implements Iterator{
-	
+
 	/**
 	 * Array of EM_Ticket objects for a specific event
 	 * @var array
@@ -20,8 +20,8 @@ class EM_Tickets extends EM_Object implements Iterator{
 	 */
 	var $booking;
 	var $spaces;
-	
-	
+
+
 	/**
 	 * Creates an EM_Tickets instance
 	 * @param mixed $event
@@ -50,13 +50,13 @@ class EM_Tickets extends EM_Object implements Iterator{
 				foreach($object as $ticket){
 					$EM_Ticket = new EM_Ticket($ticket);
 					$EM_Ticket->event_id = $this->event_id;
-					$this->tickets[$EM_Ticket->ticket_id] = $EM_Ticket;				
+					$this->tickets[$EM_Ticket->ticket_id] = $EM_Ticket;
 				}
 			}
 		}
 		do_action('em_tickets', $this, $object);
 	}
-	
+
 	/**
 	 * @return EM_Event
 	 */
@@ -71,7 +71,7 @@ class EM_Tickets extends EM_Object implements Iterator{
 
 	/**
 	 * does this ticket exist?
-	 * @return bool 
+	 * @return bool
 	 */
 	function has_ticket($ticket_id){
 		foreach( $this->tickets as $EM_Ticket){
@@ -81,7 +81,7 @@ class EM_Tickets extends EM_Object implements Iterator{
 		}
 		return apply_filters('em_tickets_has_ticket',false, false,$this);
 	}
-	
+
 	/**
 	 * Get the first EM_Ticket object in this instance. Returns false if no tickets available.
 	 * @return EM_Ticket
@@ -95,7 +95,7 @@ class EM_Tickets extends EM_Object implements Iterator{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Delete tickets in thie object
 	 * @return boolean
@@ -120,7 +120,7 @@ class EM_Tickets extends EM_Object implements Iterator{
 		}
 		return ($result !== false);
 	}
-	
+
 	/**
 	 * Retrieve multiple ticket info via POST
 	 * @return boolean
@@ -150,22 +150,22 @@ class EM_Tickets extends EM_Object implements Iterator{
 		}
 		return apply_filters('em_tickets_get_post', count($this->errors) == 0, $this);
 	}
-	
+
 	/**
-	 * Go through the tickets in this object and validate them 
+	 * Go through the tickets in this object and validate them
 	 */
 	function validate(){
 		$this->errors = array();
 		foreach($this->tickets as $EM_Ticket){
 			if( !$EM_Ticket->validate() ){
 				$this->add_error($EM_Ticket->get_errors());
-			} 
+			}
 		}
 		return apply_filters('em_tickets_validate', count($this->errors) == 0, $this);
 	}
-	
+
 	/**
-	 * Save tickets into DB 
+	 * Save tickets into DB
 	 */
 	function save(){
 		$result = true;
@@ -179,7 +179,7 @@ class EM_Tickets extends EM_Object implements Iterator{
 		}
 		return apply_filters('em_tickets_save', $result, $this);
 	}
-	
+
 	/**
 	 * Goes through each ticket and populates it with the bookings made
 	 */
@@ -188,7 +188,7 @@ class EM_Tickets extends EM_Object implements Iterator{
 			$EM_Ticket->get_bookings();
 		}
 	}
-	
+
 	/**
 	 * Get the total number of spaces this event has. This will show the lower value of event global spaces limit or total ticket spaces. Setting $force_refresh to true will recheck spaces, even if previously done so.
 	 * @param boolean $force_refresh
@@ -205,7 +205,7 @@ class EM_Tickets extends EM_Object implements Iterator{
 		}
 		return apply_filters('em_booking_get_spaces',$this->spaces,$this);
 	}
-	
+
 	/**
 	 * Returns the collumns used in ticket public pricing tables/forms
 	 * @param unknown_type $EM_Event
@@ -216,23 +216,23 @@ class EM_Tickets extends EM_Object implements Iterator{
 		if( $EM_Event->is_free() ) unset($collumns['price']); //add event price
 		return apply_filters('em_booking_form_tickets_cols', $collumns, $EM_Event );
 	}
-	
+
 	//Iterator Implementation
     public function rewind(){
         reset($this->tickets);
-    }  
+    }
     public function current(){
         $var = current($this->tickets);
         return $var;
-    }  
+    }
     public function key(){
         $var = key($this->tickets);
         return $var;
-    }  
+    }
     public function next(){
         $var = next($this->tickets);
         return $var;
-    }  
+    }
     public function valid(){
         $key = key($this->tickets);
         $var = ($key !== NULL && $key !== FALSE);

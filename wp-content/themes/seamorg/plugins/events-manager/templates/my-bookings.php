@@ -48,7 +48,12 @@ if (is_user_logged_in()):
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 booking-grid">
                             <div class="event-cont">
                                 <div class="event-img">
-                                    <div class="eventplace-details"> <img src="<?php echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php echo esc_html($EM_Event->get_location()->location_name); ?> <span>  <i class="fa fa-user"></i>
+                                    <div class="eventplace-details">
+                                    <div class="event-detailname">
+                                        <i class="fa fa-user-plus"></i> &nbsp;<?php echo ucwords($EM_Event->get_contact()->user_firstname." ".$EM_Event->get_contact()->user_lastname); ?>
+                                        <!--<img src="<?php // echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php // echo esc_html($EM_Event->get_location()->location_name); ?>-->
+                                    </div>
+                                        <span>  <i class="fa fa-user"></i>
                                             <?php echo $EM_Booking->get_spaces() ?></span></div>
                                     <?php if ($EM_Event->get_location()->get_image_url() != '') : ?>
                                         <img src='<?php echo $EM_Event->get_location()->get_image_url('grid-3-thumbnails'); ?>' alt='<?php echo $EM_Event->event_name ?>'/>
@@ -64,8 +69,17 @@ if (is_user_logged_in()):
                                         <span><?php echo $localised_start_date; ?></span>
                                     </div>
                                     <div class="buyticket">
-                                        <a class="row-title" href="javascript:void(0);"> <i class="fa fa-check"></i>
-                                            <?php echo $EM_Booking->get_status(); ?></a>
+                                        <?php
+                                        $cf7_db_cls = new CF7DBPlugin();
+                                        $cf7_db_tbl_name = $cf7_db_cls->getSubmitsTableName();
+                                        $current_user_id = get_current_user_id();
+
+            $sql = "SELECT COUNT(*) FROM " . $cf7_db_tbl_name . " AS a WHERE submit_time = (SELECT  `submit_time` FROM " . $cf7_db_tbl_name . " AS b WHERE form_name = 'Feedback' AND field_name = 'bookinguserid' AND field_value = '".$current_user_id."' AND a.submit_time = b.submit_time) AND `field_name` = 'bookingid' AND `field_value` = '{$EM_Booking->booking_id}'";
+            $feedback_state =  $wpdb->get_var($sql);
+                                        if($feedback_state == 0 && current_time( 'timestamp', 0 ) > $EM_Event->end): ?>
+
+                                        <a class="row-title" href="<?php echo esc_url(add_query_arg('id', $EM_Booking->booking_id, get_permalink('451'))); ?>">Feedback</a>
+                                        <?php endif; ?>
                                         <?php
                                         $cancel_link = '';
                                         if (!in_array($EM_Booking->booking_status, array(2, 3)) && get_option('dbem_bookings_user_cancellation') && $EM_Event->get_bookings()->has_open_time()) {

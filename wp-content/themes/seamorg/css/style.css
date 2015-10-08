@@ -138,7 +138,10 @@ div.css-search div.em-search-options {
 	color:#ffffff;
 	width:auto;
 	/*background:#a89715;*/
-	font-size:12px;
+
+
+
+    font-size:12px;
 	float:right !important;
 	text-align:right;
 }
@@ -151,6 +154,7 @@ div.css-search div.em-search-options {
 	text-align:center;
 	color:#4e4e4e;
 	font-size:18px;
+	margin-bottom:25px;
 }
 .upcoming-event-heading2 h2 {
 	color:#4a3f37 !important;
@@ -168,7 +172,7 @@ div.css-search div.em-search-options {
 	-webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
 	-moz-box-shadow:    0px 1px 5px 0px rgba(0, 0, 0, 0.4);
 	box-shadow:         0px 1px 5px 0px rgba(0, 0, 0, 0.4);
-	margin:50px 0px 50px 0px;
+	margin:0px 0px 50px 0px;
 }
 .event-img {
 	width:100%;
@@ -183,6 +187,8 @@ div.css-search div.em-search-options {
 	color:#ffffff;
 	position:absolute;
 	padding:25px 10px 10px 10px;
+	overflow:hidden;
+	text-overflow:ellipsis;
 }
 .eventplace-details span {
 	font-size:25px;
@@ -203,7 +209,11 @@ div.css-search div.em-search-options {
 	font-weight:600;
 	margin:0px 0px 5px 0px;
 	padding:0px;
+	  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
+
 .event-name a {
 	color:#4e4e4e;
 	text-decoration:none;
@@ -338,6 +348,8 @@ a {
 	width:100%;
 	float:left;
 	margin:50px 0px 0px 0px;
+	z-index:0;
+	position:relative;
 }
 .testimonsil-cont {
 	width:100%;
@@ -396,6 +408,7 @@ a {
 	padding:16px 0px;
 	color:#ffffff;
 	font-weight:300;
+	padding-top:40px;
 }
 .footer-row2 a {
 	color:#ffffff;
@@ -445,6 +458,12 @@ html.sb-active #sb-site, .sb-toggle-left, .sb-toggle-right, .sb-open-left, .sb-o
 }
 /* Fixed position examples */
 
+
+
+
+
+
+
 #sb-site.top-padding {
 	padding-top: 50px;
 }
@@ -469,6 +488,12 @@ html.sb-active #sb-site, .sb-toggle-left, .sb-toggle-right, .sb-open-left, .sb-o
 .inner-cont {
 	margin-top:120px;
 	/*	min-height:500px;*/
+
+
+
+
+
+
 
     padding-bottom:120px;
 }
@@ -559,7 +584,7 @@ a:hover {
 	font-size:16px;
 }
 .inner-content h2 {
-	font-size:34px;
+	font-size:28px;
 	margin-bottom:20px;
 	margin-top:0px;
 }
@@ -588,7 +613,7 @@ a:hover {
 	font-size:20px;
 	margin-top:45px;
 }
-.signup-form-cont h3:before,  .signup-form-cont h3:after {
+.signup-form-cont h3:before, .signup-form-cont h3:after {
 	background-color: #ffffff;
 	content: "";
 	display: inline-block;
@@ -764,7 +789,7 @@ a:hover {
 	margin-bottom:10px;
 }
 .trip-inner-deatils-cont h2 {
-	margin:25px 0px 25px 0px;
+	margin:0px 0px 10px 0px;
 }
 .trip-deatils-txt {
 }
@@ -787,6 +812,24 @@ a:hover {
 	display:block !important;
 }
 /*19-05-2015*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -859,11 +902,41 @@ a:hover {
 }
 /*.em-date-range
 
+
+
+
+
+
+
 {
+
+
+
+
+
+
 
         margin-top:5px;
 
+
+
+
+
+
+
 }*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -922,8 +995,11 @@ a:hover {
 }
 div.css-search div.em-search-text {
 	background:none;
-/*	margin: 0 0 0 5px;*/
-	padding-left: 0px;
+	/*	margin: 0 0 0 5px;*/
+
+
+
+    padding-left: 0px;
 	color:#2e2e2e;
 }
  div.css-search div.em-search-main div.em-search-field input::-moz-placeholder {
@@ -956,9 +1032,33 @@ div.css-search.has-advanced div.em-search-main {
 }
 /*div.css-search div.em-search-advanced, div.css-search div.em-search-options {
 
+
+
+
+
+
+
   padding: 8px 8px;
 
+
+
+
+
+
+
 }*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -973,6 +1073,12 @@ div.css-search input, div.css-search select {
 }
 .em-search-scope {
 /*	width:inherit !important*/
+
+
+
+
+
+
 
 }
 .em-events-search-country {
@@ -1048,8 +1154,17 @@ div.em-booking-login label {
 	margin-top:25px;
 }
 /*.em-booking-form, .em-booking-login, .booking-form-section h3 {
-	display:none;
+
+
+
+        display:none;
+
+
+
 }*/
+
+
+
 .um-field-label label {
 	font-size: 15px !important;
 	font-weight: 300;
@@ -1128,7 +1243,7 @@ a.em-button {
 	float: left;
 	height: 60px;
 	left: 0 !important;
-	margin-right: 15px;
+	margin-right: 0px;
 	overflow: hidden;
 	position: relative;
 	top: -20px;
@@ -1157,7 +1272,7 @@ div.css-search div.em-search-main div {
 	float:left;
 }
 .em-search-geo, .em-search-text {
- width:45.5%
+	width:91.5%
 }
 .em-search-scope {
 	width:46.1%;
@@ -1167,39 +1282,159 @@ div.css-search div.em-search-main div {
 	width:100%
 }
 
+
+
+
+
+
+
 /*
+
+
+
+
+
+
 
 .picker__day {
 
+
+
+
+
+
+
   color: #000000;
+
+
+
+
+
+
 
   font-weight: 400;
 
+
+
+
+
+
+
   line-height: 1em !important;
+
+
+
+
+
+
 
   padding: 10px 0;
 
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 .picker__weekday {
 
+
+
+
+
+
+
   color: #000000;
+
+
+
+
+
+
 
 }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 .picker__nav--next:hover, .picker__nav--prev:hover {
+
+
+
+
+
+
 
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
 
+
+
+
+
+
+
   color: #fff;
+
+
+
+
+
+
 
   cursor: pointer;
 
+
+
+
+
+
+
 }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1256,6 +1491,12 @@ select.em-search-geo-unit {
 #coupon-accordion .panel-heading .accordion-toggle:after {
 	/* symbol for "opening" panels */
 
+
+
+
+
+
+
     font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
 	content: "\e114";    /* adjust as needed, taken from bootstrap.css */
 	float: right;        /* adjust as needed */
@@ -1264,225 +1505,385 @@ select.em-search-geo-unit {
 #coupon-accordion .panel-heading .accordion-toggle.collapsed:after {
 	/* symbol for "collapsed" panels */
 
+
+
+
+
+
+
     content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
 #coupon-accordion .panel-title a {
 	display: block;
 	cursor: pointer;
 }
-
-
 .show {
-  font-size: 12px !important;
-  text-decoration:underline;
+	font-size: 12px !important;
+	text-decoration:underline;
 }
-
 .em-search-options.search-btn2 {
-  padding: 0px !important;
+	padding: 0px !important;
 }
-
-.footer-row2 .menu
-{
+.footer-row2 .menu {
 	width:100%;
 	float:left
 }
-
-.footer-row2 .menu li
-{
+.footer-row2 .menu li {
 	display:inline;
 	padding:0px 15px 0px 0px
 }
-
-.myevent-search
-{
+.myevent-search {
 	margin-top:-35px;
 	text-align:right;
 	float:right;
 }
-
-.myevent-search label
-{
+.myevent-search label {
 	text-align:left;
 }
-
 #post-search-input {
-
-  width: 58%;
+	width: 58%;
 }
-
-.create-event-btn
-{
+.create-event-btn {
 	width:auto !important;
 	border:none !important;
 	background:#a89715 !important;
 	-webkit-border-radius: 0px !important;
--moz-border-radius: 0px !important;
-border-radius: 0px !important;
-color:#ffffff !important;
-font-size:20px;
-padding:10px 25px !important;
-margin:0px !important;
-margin-top:25px !important;
-
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
+	color:#ffffff !important;
+	font-size:20px;
+	padding:10px 25px !important;
+	margin:0px !important;
+	margin-top:25px !important;
 }
-
 .em-max-space {
-    font-size: 25px;
-padding: 35px 0;
+	font-size: 25px;
+	padding: 35px 0;
 }
-
 .event-ttb-details label {
-    display: inline;
+	display: inline;
 }
-.time-section, .price-section, .guide-section, .trip-deatils-txt, #bookticket{
-    display: none;
+.time-section, .price-section, .guide-section, .trip-deatils-txt, #bookticket {
+	display: none;
 }
 .em_detail_fields {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
-.em_detail_fields > label{
-      font-weight: bold;
-      padding-right: 10px;
+.em_detail_fields > label {
+	font-weight: bold;
+	padding-right: 10px;
 }
-.em_detail_fields > label,.em_detail_fields .em-date-single {
-  display: inline;
+.em_detail_fields > label, .em_detail_fields .em-date-single {
+	display: inline;
 }
 .em_detail_fields .em-date-input-loc {
-  float: none;
-  margin: 0;
-  width: 50% !important;
+	float: none;
+	margin: 0;
+	width: 50% !important;
 }
-
 .em_detail_fields .time_slots {
-  display: inline;
-  padding: 0;
+	display: inline;
+	padding: 0;
 }
-#tags_slot ul li, #notes_slot{ text-transform: capitalize; }
-ul.time_slots li.evt-available { cursor: pointer; }
-ul.time_slots li { margin-right: 5px;  }
-.evt-expired{ background-color: #C6C6C6;}
-.evt-full{ background-color: #F72222; }
-.evt-booked{ background-color: #FF9800; }
-.evt-available{ background-color: #5cb85c; }
-
-.highlighted
-{
+#tags_slot ul li, #notes_slot {
+	text-transform: capitalize;
+}
+ul.time_slots li.evt-available {
+	cursor: pointer;
+}
+ul.time_slots li {
+	margin-right: 5px;
+}
+.evt-expired {
+	background-color: #C6C6C6;
+}
+.evt-full {
+	background-color: #F72222;
+}
+.evt-booked {
+	background-color: #FF9800;
+}
+.evt-available {
+	background-color: #5cb85c;
+}
+.highlighted {
 	background:#a89715;
 }
-
-
-
 .col-xs-12.col-sm-7.col-md-6.col-lg-6.search-thumb > img {
-  border: 10px solid #f4f2f2;
+	border: 10px solid #f4f2f2;
 }
-
-.gear-listing-cont
-{
+.gear-listing-cont {
 	width:100%;
 	float:left;
 	border-bottom:#ededed solid 1px;
 	padding-bottom:25px;
 	margin-bottom:0px;
 }
-
-.trip-listing-cont
-{
+.trip-listing-cont {
 	width:100%;
 	float:left;
 	border-bottom:#ededed solid 1px;
 	padding-bottom:25px;
 }
-
-.gear-listing-cont h3, .trip-listing-cont h3
-{
+.gear-listing-cont h3, .trip-listing-cont h3 {
 	margin-top:15px;
 }
-
-
 .sort-by {
-  background: #ececec none repeat scroll 0 0;
-  float: right;
-  height: 48px;
-  margin: -20px 0 20px;
-  /*width: 100%;*/
+	background: #ececec none repeat scroll 0 0;
+	float: right;
+	height: 48px;
+	margin: -20px 0 20px;/*width: 100%;*/
 }
 .sort-by h3 {
-  color: #3484db;
-  display: block;
-  float: left;
-  font-family: arial;
-  font-size: 13px;
-  font-weight: bold;
-  line-height: 48px;
-  padding: 0 20px;
-  margin: 0;
+	color: #3484db;
+	display: block;
+	float: left;
+	font-family: arial;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 48px;
+	padding: 0 20px;
+	margin: 0;
 }
 .sort {
-  border-right: 1px solid #ccc;
-  display: block;
-  float: left;
-  height: 25px;
-  margin: 12px 0;
+	border-right: 1px solid #ccc;
+	display: block;
+	float: left;
+	height: 25px;
+	margin: 12px 0;
 }
 .sort li {
-  border-left: 1px solid #ccc;
-  float: left;
-  padding: 3px 15px;
-  position: relative;
-  width: 90px;
-  list-style: none;
+	border-left: 1px solid #ccc;
+	float: left;
+	padding: 3px 15px;
+	position: relative;
+	width: 90px;
+	list-style: none;
 }
 .sort li a {
-  background: rgba(0, 0, 0, 0) url("../images/spinner.png") no-repeat scroll 0 0;
-  display: inline-block;
-  height: 8px;
-  overflow: hidden;
-  position: absolute;
-  right: 13px;
-  text-indent: -99999px;
-  top: 35px;
-  width: 13px;
+	background: rgba(0, 0, 0, 0) url("../images/spinner.png") no-repeat scroll 0 0;
+	display: inline-block;
+	height: 8px;
+	overflow: hidden;
+	position: absolute;
+	right: 13px;
+	text-indent: -99999px;
+	top: 35px;
+	width: 13px;
 }
 .sort li .ascending {
-  top: 6px;
+	top: 6px;
 }
 .sort li .descending {
-  background-position: 0 -9px;
-  top: 14px;
+	background-position: 0 -9px;
+	top: 14px;
 }
-
-
-.um-meta-text
-{
-	  margin-bottom: 15px;
+.um-meta-text {
+	margin-bottom: 15px;
 }
-
 .um-meta-text label {
-  display: inline;
-  float: left;
-  font-weight: bold;
-  width: 100px;
-  font-size:16px !important;
-  margin-bottom:0px;
+	display: inline;
+	float: left;
+	font-weight: bold;
+	width: 100px;
+	font-size:16px !important;
+	margin-bottom:0px;
 }
-
-.guide-profile h3
-{
+.guide-profile h3 {
 	border-bottom:#ececec solid 1px;
 	margin-bottom:20px;
 	padding-bottom:10px;
 }
-
 .um-name {
-  margin-right: 0px;
-  text-align: center;
-  text-transform: capitalize;
-  width: 100%;
+	margin-right: 0px;
+	text-align: center;
+	text-transform: capitalize;
+	width: 100%;
+}
+.um-profile {
+	border: 5px solid #f5f5f5;
+}
+.mt10 {
+	margin-top: 10px;
+}
+/*cart */
+
+
+
+
+
+
+
+.cart-cont {
+	width:100%;
+	float:left;
+	border:#eeeeee solid 1px;
+}
+.cart-heading {
+	width:100%;
+	float:left;
+	background:#817743;
+	font-size:25px;
+	padding:10px;
+	color:#ffffff;
+}
+.cart-content {
+	width:100%;
+	float:left;
+	padding:15px;
+}
+.cart-total {
+	width:100%;
+	float:left;
+	border-bottom:#eeeeee solid 1px;
+	font-size:25px;
+	padding-bottom:10px;
+	line-height:30px;
+	margin-bottom:25px;
+}
+.continue-btn {
+	border:none;
+	color:#ffffff;
+	background:#7b8d6d;
+	float:right;
+	padding:5px;
+ -o-transition:.5s;
+ -ms-transition:.5s;
+ -moz-transition:.5s;
+ -webkit-transition:.5s;
+ transition:.5s;
+}
+.continue-btn:hover {
+	background:#4a3f37;
+}
+.cart-event-details {
+	font-size:15px;
+}
+.cart-event-details h2 {
+	font-size:20px;
+}
+.remove {
+	font-size:18px;
+	text-align:right;
+}
+.cart-event-details h2 {
+	font-size:20px;
+}
+.cart-total2 {
+	border-top: 1px solid #eeeeee;
+	float: left;
+	font-size: 19px;
+	line-height: 30px;
+	padding-top: 15px;
+	margin-top:10px;
+	text-align:right;
+	width: 100%;
+}
+.user-details {
+	font-size:16px;
+}
+.user-details span {
+	width:100px;
+	float:left;
+}
+/*.card-cont {
+	margin-top:25px;
+}*/
+.card-heading {
+	background:#7b8d6d;
+}
+.card-details {
+	font-size:16px;
+}
+.cardimg {
+	text-align:right;
+}
+.card-filed {
+	margin-top:15px;
+}
+.card-txtfiled {
+	width:100%;
+	border:#e5e5e5 solid 1px;
+	margin:10px 0px 0px 0px;
+	height:35px
+}
+.card-details h2 {
+	font-size:18px;
+	font-weight:bold;
+}
+.card-select {
+	border:#e5e5e5 solid 1px;
+	margin:10px 0px 0px 0px;
+	height:35px;
+	padding:2px;
+}
+.bookit {
+	color:#ffffff;
+	background:#a89715;
+	font-size:22px;
+	border:none;
+	padding:10px 15px;
+	text-transform:uppercase;
+	float:right;
+	margin:25px 0px 0px 0px;
+}
+.summry-heading {
+	background:#eeeeee;
+	color:#2e2e2e;
+}
+table.ui-datepicker-calendar tbody td.highlight > a {
+	background:#7b8d6d;
+	color: #ffffff;
+	border: 1px solid #FFDE2E;
+}
+.event-name.full {
+	width: 100%;
+}
+.event-detailname {
+	width: 70%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	float:left;
+}
+.em-search-scope.em-search-field {
+	display: none !important;
+}
+a.u-fullname {
+	font-size: 14px;
+}
+.u-fullname, #first_name.um-form-field, #last_name.um-form-field {
+	text-transform: capitalize;
+}
+.um-login .forgot-pass a {
+	font-size: 15px;
+	font-weight: 300;
+	position: relative;
+	top: -12px;
+	line-height: 24px;
+	text-align: right;
 }
 
-.um-profile {
-  border: 5px solid #f5f5f5;
+.um-account-name > a {
+  text-transform: capitalize;
 }
-.mt10{
-    margin-top: 10px;
+
+.grayText {
+  background-color: #e9f6fb;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 5px 15px;
+}
+
+#first_name-118, #last_name-118
+{
+	text-transform:capitalize;
+}
+
+.wpcf7-response-output, div.wpcf7-validation-errors{
+    float: left;
+}
+
+.create-event-part1 .select2-container{
+    width: 100% !important;
 }

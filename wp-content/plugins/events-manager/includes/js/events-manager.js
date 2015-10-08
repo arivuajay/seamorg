@@ -362,7 +362,7 @@ jQuery(document).ready(function($) {
             e.preventDefault();
             var el = $(this);
             var tbody = el.closest('tbody');
-            console.log(tbody.find('input.ticket_id').val());
+            //console.log(tbody.find('input.ticket_id').val());
             if (tbody.find('input.ticket_id').val() > 0) {
                 //only will happen if no bookings made
                 el.text('Deleting...');
@@ -747,9 +747,9 @@ jQuery(document).ready(function($) {
             success: function(response) {
                 var cList = jQuery('ul.time_slots').empty();
                 if (response) {
-                    jQuery.each(response, function(k, v) {
+                    jQuery.each(response.result, function(k, v) {
                         li = jQuery('<li/>').addClass('label evt-' + v.status).attr('role', 'event_detail').appendTo(cList);
-                        jQuery('<span/>').attr('role', 'evt_time').text(v.start_time+'-'+v.end_time).appendTo(li);
+                        jQuery('<span/>').attr('role', 'evt_time').text(v.start_time + '-' + v.end_time).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_price').text(v.price).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_guide').html(v.guide_name).appendTo(li);
                         jQuery('<span/>').hide().attr('role', 'evt_notes').text(v.notes).appendTo(li);
@@ -763,6 +763,10 @@ jQuery(document).ready(function($) {
                             jQuery('<li/>').text(xs).appendTo(t2);
                         });
                     });
+                    jQuery('#weather_report').html(response.weather_status);
+                    if (response.result.length == '1') {
+                        jQuery('ul.time_slots li').first().trigger('click');
+                    }
                 } else {
                     li = jQuery('<li/>').addClass('label label-danger').html("No time slots").appendTo(cList);
                 }
@@ -802,6 +806,11 @@ jQuery(document).ready(function($) {
 //        e.preventDefault();
 //        return false;
 //    });
+
+    if (jQuery('#event_book_date').val() != '') {
+        jQuery('#event_book_date').trigger('change');
+    }
+
 
 });
 
@@ -857,6 +866,28 @@ function em_setup_datepicker(wrap) {
                     jQuery.datepicker._clearDate(this);
                 }
             });
+
+            if (dateInput.is('#event_book_date')) {
+                if (typeof loc_events != 'undefined') {
+                    dateInput.datepicker('option', 'beforeShowDay', function(date) {
+                        var result = [true, '', null];
+                        var matching = jQuery.grep(loc_events, function(event) {
+                            return new Date(event.Date).valueOf() === date.valueOf();
+                        });
+
+                        if (matching.length) {
+//                        result = [true, 'highlight', null];
+                            return [true, "highlight", "Available"];
+                        } else {
+                            return [false, "", "unAvailable"];
+                        }
+                    });
+                } else {
+                    dateInput.datepicker('option', 'beforeShowDay', function(date) {
+                        return [false, "", "unAvailable"];
+                    });
+                }
+            }
         });
         //deal with date ranges
         dateDivs.filter('.em-date-range').find('input.em-date-input-loc').each(function(i, dateInput) {
@@ -869,29 +900,26 @@ function em_setup_datepicker(wrap) {
                     var startDate = jQuery(this);
                     var endDate = startDate.parents('.em-date-range').find('.em-date-end').first();
 //                    if (startDate.val() > endDate.val() && endDate.val() != '') {
+
                     endDate.datepicker("setDate", selectedDate);
                     endDate.trigger('change');
                     jQuery('#em-bookings-date-loc').datepicker("setDate", selectedDate);
                     jQuery('#em-bookings-date-loc').trigger('change');
+
 //                    }
 //                    endDate.datepicker("option", 'minDate', selectedDate);
 
 
                     if (dateInput.parents('div#em-form-when').length) {
-                        var selDT = jQuery.datepicker.formatDate('yy-mm-dd', jQuery.datepicker.parseDate('dd/mm/yy', selectedDate));
+                        var selDT = jQuery.datepicker.formatDate('yy-mm-dd', jQuery.datepicker.parseDate('mm/dd/yy', selectedDate));
                         locID = jQuery('#location-select-id').val();
                         jQuery.getJSON(document.URL, {em_ajax_action: 'get_timeslots', set_date: selDT, location_id: locID}, function(result) {
                             if (result.status) {
-                                console.log('success');
-
                                 jQuery.each(result.data, function(index, value) {
                                     jQuery('.time-picker ul li').filter(function() {
                                         return jQuery.text([this]) == value;
                                     }).remove();
-//                                    console.log(value);
                                 });
-                            } else {
-                                console.log('no rec');
                             }
                         });
                     }
@@ -903,6 +931,8 @@ function em_setup_datepicker(wrap) {
                     dateInput.datepicker('option', 'minDate', startInput.val());
                 }
             }
+
+
         });
     }
 }
@@ -1008,6 +1038,7 @@ function em_maps_load_locations(el) {
         if (data.length > 0) {
             //define default options and allow option for extension via event triggers
             var map_options = {mapTypeId: google.maps.MapTypeId.ROADMAP};
+
             jQuery(document).triggerHandler('em_maps_locations_map_options', map_options);
             var marker_options = {};
             jQuery(document).triggerHandler('em_maps_location_marker_options', marker_options);
@@ -1229,7 +1260,7 @@ function em_maps() {
 
             if (latlng != '' && jQuery('#em-map').length > 0) {
                 geocoder.geocode({'latLng': latlng}, function(results, status) {
-                    console.log(results);
+                    //console.log(results);
                     if (status == google.maps.GeocoderStatus.OK) {
 //Check result 0
                         var result = results[0];

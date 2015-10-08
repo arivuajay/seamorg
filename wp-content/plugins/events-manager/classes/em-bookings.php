@@ -5,7 +5,7 @@
  *
  */
 class EM_Bookings extends EM_Object implements Iterator{
-	
+
 	/**
 	 * Array of EM_Booking objects for a specific event
 	 * @var array
@@ -30,11 +30,11 @@ class EM_Bookings extends EM_Object implements Iterator{
 	 */
 	public static $force_registration;
 	/**
-	 * If flag is true, bookings and forms will not impose restrictions for roles. Future iterations will remove restrictions on dates, space capacity, etc. This is mainly for use by event admins such as for a manual booking (a Pro feature). 
+	 * If flag is true, bookings and forms will not impose restrictions for roles. Future iterations will remove restrictions on dates, space capacity, etc. This is mainly for use by event admins such as for a manual booking (a Pro feature).
 	 * @var bool
 	 */
 	public static $disable_restrictions = false;
-	
+
 	/**
 	 * Creates an EM_Bookings instance, currently accepts an EM_Event object (gets all bookings for that event) or array of any EM_Booking objects, which can be manipulated in bulk with helper functions.
 	 * @param EM_Event $event
@@ -61,7 +61,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 			}
 		}
 	}
-	
+
 	/**
 	 * Add a booking into this event (or add spaces if person already booked this). We assume at this point that the booking has already been validated usin $EM_Booking->validate()
 	 * @param EM_Booking $EM_Booking
@@ -123,7 +123,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		return apply_filters('em_bookings_add_from_post',$result,$EM_Booking,$this);
 	}
-	
+
 	/**
 	 * Smart event locator, saves a database read if possible. Note that if an event doesn't exist, a blank object will be created to prevent duplicates.
 	 */
@@ -143,7 +143,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		return em_get_event($this->event_id, 'event_id');
 	}
-	
+
 	/**
 	 * Retrieve and save the bookings belonging to instance. If called again will return cached version, set $force_reload to true to create a new EM_Tickets object.
 	 * @param boolean $force_reload
@@ -163,10 +163,10 @@ class EM_Bookings extends EM_Object implements Iterator{
 		    		$EM_Event->event_rsvp_time = date('H:i:00', $EM_Ticket->end_timestamp);
 		    		$EM_Event->rsvp_end = $EM_Ticket->end_timestamp;
 		    		if( $EM_Event->is_recurring() && !empty($EM_Ticket->ticket_meta['recurrences']) ){
-		    			$EM_Event->recurrence_rsvp_days = $EM_Ticket->ticket_meta['recurrences']['end_days'];		    			
-		    		}	    		
+		    			$EM_Event->recurrence_rsvp_days = $EM_Ticket->ticket_meta['recurrences']['end_days'];
+		    		}
 		    	}else{
-		    		//if no end date is set, use event end date (which will have defaulted to the event start date 
+		    		//if no end date is set, use event end date (which will have defaulted to the event start date
 		    		$EM_Ticket->ticket_end = $EM_Event->event_rsvp_date." ".$EM_Event->event_rsvp_time;
 		    		$EM_Ticket->end_timestamp = $EM_Event->rsvp_end;
 		    	}
@@ -176,7 +176,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		return apply_filters('em_bookings_get_tickets', $this->tickets, $this);
 	}
-	
+
 	/**
 	 * Returns EM_Tickets object with available tickets
 	 * @param boolean $include_member_tickets - if set to true, member-ony tickets will be considered available even if logged out
@@ -196,7 +196,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		$EM_Tickets = new EM_Tickets($tickets);
 		return apply_filters('em_bookings_get_available_tickets', $EM_Tickets, $this);
 	}
-	
+
 	function get_user_list(){
 		$users = array();
 		foreach( $this->get_bookings()->bookings as $EM_Booking ){
@@ -204,10 +204,10 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		return $users;
 	}
-	
+
 	/**
 	 * does this ticket exist?
-	 * @return bool 
+	 * @return bool
 	 */
 	function ticket_exists($ticket_id){
 		$EM_Tickets = $this->get_tickets();
@@ -218,11 +218,11 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		return apply_filters('em_bookings_ticket_exists',false, false,$this);
 	}
-	
+
 	function has_space( $include_member_tickets = false ){
 		return count($this->get_available_tickets( $include_member_tickets )->tickets) > 0;
 	}
-	
+
 	function has_open_time(){
 	    $return = false;
 	    $EM_Event = $this->get_event();
@@ -233,13 +233,13 @@ class EM_Bookings extends EM_Object implements Iterator{
 	    }
 	    return $return;
 	}
-	
+
 	function is_open($include_member_tickets = false){
 		//TODO extend booking options
 		$return = $this->has_open_time() && $this->has_space($include_member_tickets);
 		return apply_filters('em_bookings_is_open', $return, $this, $include_member_tickets);
 	}
-	
+
 	/**
 	 * Delete bookings on this id
 	 * @return boolean
@@ -261,7 +261,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		return ($result !== false && $result_tickets !== false);
 	}
 
-	
+
 	/**
 	 * Will approve all supplied booking ids, which must be in the form of a numeric array or a single number.
 	 * @param array|int $booking_ids
@@ -271,7 +271,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		$this->set_status(1, $booking_ids);
 		return false;
 	}
-	
+
 	/**
 	 * Will reject all supplied booking ids, which must be in the form of a numeric array or a single number.
 	 * @param array|int $booking_ids
@@ -280,7 +280,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 	function reject( $booking_ids ){
 		return $this->set_status(2, $booking_ids);
 	}
-	
+
 	/**
 	 * Will unapprove all supplied booking ids, which must be in the form of a numeric array or a single number.
 	 * @param array|int $booking_ids
@@ -289,7 +289,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 	function unapprove( $booking_ids ){
 		return $this->set_status(0, $booking_ids);
 	}
-	
+
 	/**
 	 * @param int $status
 	 * @param array|int $booking_ids
@@ -323,9 +323,9 @@ class EM_Bookings extends EM_Object implements Iterator{
 			$this->feedback_message = $EM_Booking->feedback_message;
 			return $result;
 		}
-		return false;	
+		return false;
 	}
-	
+
 
 	/**
 	 * Get the total number of spaces this event has. This will show the lower value of event global spaces limit or total ticket spaces. Setting $force_refresh to true will recheck spaces, even if previously done so.
@@ -340,7 +340,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		if(!empty($this->get_event()->event_spaces) && $this->get_event()->event_spaces < $this->spaces) $this->spaces = $this->get_event()->event_spaces;
 		return apply_filters('em_booking_get_spaces',$this->spaces,$this);
 	}
-	
+
 	/**
 	 * Returns number of available spaces for this event. If approval of bookings is on, will include pending bookings depending on em option.
 	 * @return int
@@ -348,7 +348,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 	function get_available_spaces(){
 		$spaces = $this->get_spaces();
 		$available_spaces = $spaces - $this->get_booked_spaces();
-		if( get_option('dbem_bookings_approval_reserved') ){ //deduct reserved/pending spaces from available spaces 
+		if( get_option('dbem_bookings_approval_reserved') ){ //deduct reserved/pending spaces from available spaces
 			$available_spaces -= $this->get_pending_spaces();
 		}
 		return apply_filters('em_booking_get_available_spaces', $available_spaces, $this);
@@ -367,7 +367,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		return apply_filters('em_bookings_get_booked_spaces', $booked_spaces, $this);
 	}
-	
+
 	/**
 	 * Gets number of pending spaces awaiting approval. Will return 0 if booking approval is not enabled.
 	 * @return int
@@ -384,7 +384,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		return apply_filters('em_bookings_get_pending_spaces', $pending, $this);
 	}
-	
+
 	/**
 	 * Gets number of bookings (not spaces). If booking approval is enabled, only the number of approved bookings will be shown.
 	 * @return EM_Bookings
@@ -397,11 +397,11 @@ class EM_Bookings extends EM_Object implements Iterator{
 			}
 		}
 		$EM_Bookings = new EM_Bookings($confirmed);
-		return $EM_Bookings;		
+		return $EM_Bookings;
 	}
-	
+
 	/**
-	 * Get pending bookings. If booking approval is disabled, will return no bookings. 
+	 * Get pending bookings. If booking approval is disabled, will return no bookings.
 	 * @return EM_Bookings
 	 */
 	function get_pending_bookings(){
@@ -415,11 +415,11 @@ class EM_Bookings extends EM_Object implements Iterator{
 			}
 		}
 		$EM_Bookings = new EM_Bookings($pending);
-		return $EM_Bookings;	
-	}	
-	
+		return $EM_Bookings;
+	}
+
 	/**
-	 * Get rejected bookings. If booking approval is disabled, will return no bookings. 
+	 * Get rejected bookings. If booking approval is disabled, will return no bookings.
 	 * @return array EM_Bookings
 	 */
 	function get_rejected_bookings(){
@@ -431,10 +431,10 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		$EM_Bookings = new EM_Bookings($rejected);
 		return $EM_Bookings;
-	}	
-	
+	}
+
 	/**
-	 * Get cancelled bookings. 
+	 * Get cancelled bookings.
 	 * @return array EM_Booking
 	 */
 	function get_cancelled_bookings(){
@@ -447,7 +447,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		$EM_Bookings = new EM_Bookings($cancelled);
 		return $EM_Bookings;
 	}
-	
+
 	/**
 	 * Checks if a person with similar details has booked for this before
 	 * @param $person_id
@@ -467,7 +467,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Checks to see if user has a booking for this event
 	 * @param unknown_type $user_id
@@ -481,14 +481,14 @@ class EM_Bookings extends EM_Object implements Iterator{
 				if( $EM_Booking->person->ID == $user_id && !in_array($EM_Booking->booking_status, array(2,3)) ){
 					return apply_filters('em_bookings_has_booking', $EM_Booking, $this);
 				}
-			}	
+			}
 		}
 		return apply_filters('em_bookings_has_booking', false, $this);
 	}
-	
+
 	/**
 	 * Get bookings that match the array of arguments passed.
-	 * @return array 
+	 * @return array
 	 * @static
 	 */
 	public static function get( $args = array(), $count = false ){
@@ -496,32 +496,32 @@ class EM_Bookings extends EM_Object implements Iterator{
 		$bookings_table = EM_BOOKINGS_TABLE;
 		$events_table = EM_EVENTS_TABLE;
 		$locations_table = EM_LOCATIONS_TABLE;
-		
+
 		//Quick version, we can accept an array of IDs, which is easy to retrieve
 		if( self::array_is_numeric($args) ){ //Array of numbers, assume they are event IDs to retreive
 			//We can just get all the events here and return them
 			$sql = "
-				SELECT * FROM $bookings_table b 
-				LEFT JOIN $events_table e ON e.event_id=b.event_id 
+				SELECT * FROM $bookings_table b
+				LEFT JOIN $events_table e ON e.event_id=b.event_id
 				WHERE booking_id".implode(" OR booking_id=", $args);
 			$results = $wpdb->get_results(apply_filters('em_bookings_get_sql',$sql),ARRAY_A);
 			$bookings = array();
 			foreach($results as $result){
 				$bookings[] = em_get_booking($result);
 			}
-			return $bookings; //We return all the bookings matched as an EM_Booking array. 
+			return $bookings; //We return all the bookings matched as an EM_Booking array.
 		}
-		
-		//We assume it's either an empty array or array of search arguments to merge with defaults			
+
+		//We assume it's either an empty array or array of search arguments to merge with defaults
 		$args = self::get_default_search($args);
 		$limit = ( $args['limit'] && is_numeric($args['limit'])) ? "LIMIT {$args['limit']}" : '';
 		$offset = ( $limit != "" && is_numeric($args['offset']) ) ? "OFFSET {$args['offset']}" : '';
-		
+
 		//Get the default conditions
 		$conditions = self::build_sql_conditions($args);
 		//Put it all together
 		$where = ( count($conditions) > 0 ) ? " WHERE " . implode ( " AND ", $conditions ):'';
-		
+
 		//Get ordering instructions
 		$EM_Booking = em_get_booking();
 		$accepted_fields = $EM_Booking->get_fields(true);
@@ -530,11 +530,11 @@ class EM_Bookings extends EM_Object implements Iterator{
 		$orderby_sql = ( count($orderby) > 0 ) ? 'ORDER BY '. implode(', ', $orderby) : 'ORDER BY booking_date';
 		//Selector
 		$selectors = ( $count ) ?  'COUNT(*)':'*';
-		
+
 		//Create the SQL statement and execute
 		$sql = "
-			SELECT $selectors FROM $bookings_table 
-			LEFT JOIN $events_table ON {$events_table}.event_id={$bookings_table}.event_id 
+			SELECT $selectors FROM $bookings_table
+			LEFT JOIN $events_table ON {$events_table}.event_id={$bookings_table}.event_id
 			LEFT JOIN $locations_table ON {$locations_table}.location_id={$events_table}.location_id
 			$where
 			$orderby_sql
@@ -542,7 +542,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		";
 		//If we're only counting results, return the number of results
 		if( $count ){
-			return apply_filters('em_bookings_get_count', $wpdb->get_var($sql), $args);		
+			return apply_filters('em_bookings_get_count', $wpdb->get_var($sql), $args);
 		}
 		$results = $wpdb->get_results( apply_filters('em_events_get_sql',$sql, $args), ARRAY_A);
 
@@ -550,7 +550,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		if( $args['array'] == true ){
 			return $results;
 		}
-		
+
 		//Make returned results EM_Booking objects
 		$results = (is_array($results)) ? $results:array();
 		$bookings = array();
@@ -560,11 +560,11 @@ class EM_Bookings extends EM_Object implements Iterator{
 		$EM_Bookings = new EM_Bookings($bookings);
 		return apply_filters('em_bookings_get', $EM_Bookings);
 	}
-	
+
 	public static function count( $args = array() ){
 		return self::get($args, true);
 	}
-	
+
 
 	//List of patients in the patient database, that a user can choose and go on to edit any previous treatment data, or add a new admission.
 	function export_csv() {
@@ -577,13 +577,13 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		// The name of the file on the user's pc
 		$file_name = sanitize_title($event_name). "-bookings.csv";
-		
+
 		header("Content-Type: application/octet-stream");
 		header("Content-Disposition: Attachment; filename=$file_name");
 		em_locate_template('templates/csv-event-bookings.php', true);
 		exit();
 	}
-	
+
 	static function enqueue_js(){
         if( !defined('EM_BOOKING_JS_LOADED') ){ //request loading of JS file in footer of page load
         	add_action('wp_footer','EM_Bookings::em_booking_js_footer', 20);
@@ -591,17 +591,17 @@ class EM_Bookings extends EM_Object implements Iterator{
         	define('EM_BOOKING_JS_LOADED',true);
         }
 	}
-	
+
 	static function em_booking_js_footer(){
-		?>		
+		?>
 		<script type="text/javascript">
-			jQuery(document).ready( function($){	
+			jQuery(document).ready( function($){
 				<?php
 					//we call the segmented JS files and include them here
 					$include_path = dirname(dirname(__FILE__)); //get path to parent directory
-					include($include_path.'/includes/js/bookingsform.js'); 
-					do_action('em_gateway_js'); 
-				?>							
+					include($include_path.'/includes/js/bookingsform.js');
+					do_action('em_gateway_js');
+				?>
 			});
 			<?php
 			do_action('em_booking_js_footer');
@@ -609,7 +609,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 		</script>
 		<?php
 	}
-	
+
 	/**
 	 * Checks whether a booking being made should register user information as a booking from another user whilst an admin is logged in
 	 * @return boolean
@@ -617,7 +617,7 @@ class EM_Bookings extends EM_Object implements Iterator{
 	public static function is_registration_forced(){
 		return ( defined('EM_FORCE_REGISTRATION') || self::$force_registration );
 	}
-	
+
 	/* Overrides EM_Object method to apply a filter to result
 	 * @see wp-content/plugins/events-manager/classes/EM_Object#build_sql_conditions()
 	 */
@@ -651,15 +651,15 @@ class EM_Bookings extends EM_Object implements Iterator{
 		}
 		return apply_filters('em_bookings_build_sql_conditions', $conditions, $args);
 	}
-	
+
 	/* Overrides EM_Object method to apply a filter to result
 	 * @see wp-content/plugins/events-manager/classes/EM_Object#build_sql_orderby()
 	 */
 	public static function build_sql_orderby( $args, $accepted_fields, $default_order = 'ASC' ){
 		return apply_filters( 'em_bookings_build_sql_orderby', parent::build_sql_orderby($args, $accepted_fields, get_option('dbem_bookings_default_order','booking_date')), $args, $accepted_fields, $default_order );
 	}
-	
-	/* 
+
+	/*
 	 * Adds custom Events search defaults
 	 * @param array $array_or_defaults may be the array to override defaults
 	 * @param array $array
@@ -696,19 +696,19 @@ class EM_Bookings extends EM_Object implements Iterator{
 	//Iterator Implementation
     public function rewind(){
         reset($this->bookings);
-    }  
+    }
     public function current(){
         $var = current($this->bookings);
         return $var;
-    }  
+    }
     public function key(){
         $var = key($this->bookings);
         return $var;
-    }  
+    }
     public function next(){
         $var = next($this->bookings);
         return $var;
-    }  
+    }
     public function valid(){
         $key = key($this->bookings);
         $var = ($key !== NULL && $key !== FALSE);

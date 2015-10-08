@@ -23,7 +23,7 @@
  *
  * @package WordPress
  * @subpackage Seamorg
- * @since Seamorg 1.0
+ * @since Seamorg 1.0photo
  */
 /**
  * Set the content width based on the theme's design and stylesheet.
@@ -516,17 +516,17 @@ function my_em_styles_placeholders($replace, $EM_Event, $result) {
         case '#_EVENTSTARTDATE':
             //get format of time to show
             $date_format = ( get_option('dbem_date_format') ) ? get_option('dbem_date_format') : get_option('date_format');
-            $replace = date_i18n($date_format, $EM_Event->start);
+            $replace = date_i18n(get_option('dbem_date_format'), $EM_Event->start);
+            break;
+        case '#_EVENTDATE':
+            //get format of time to show
+            $replace = $EM_Event->start;
             break;
         case '#_HIKEWEATHER':
             $latitude = $EM_Event->get_location()->location_latitude;
             $longtitude = $EM_Event->get_location()->location_longitude;
 
-            $content = file_get_contents("https://api.forecast.io/forecast/ae31edd2080dfa3f1ccf6b8fdb4aa71d/$latitude,$longtitude");
-            $report = json_decode($content);
-            $celcius = round(($report->currently->temperature - 32) * 5 / 9);
-
-            $replace = "<a target='_blank' href='http://forecast.io/#/f/$latitude,$longtitude'>{$celcius}&deg;C</a>";
+            $replace = getWeatherReport($latitude, $longtitude);
             break;
     }
     return $replace;
@@ -534,21 +534,71 @@ function my_em_styles_placeholders($replace, $EM_Event, $result) {
 
 add_filter('em_event_output_placeholder', 'my_em_styles_placeholders', 1, 3);
 
-function my_em_location_placeholders($replace, $EM_Location, $result) {
+function my_booking_styles_placeholders($replace, $EM_Booking, $result) {
     global $wp_query, $wp_rewrite;
+    switch ($result) {
+        case '#_FEEDBACKBUTTON':
+            //get format of time to show
+            $feed_url = add_query_arg('id', $EM_Booking->booking_id, get_permalink('451'));
+            $replace = '<a target="_blank" href="' . $feed_url . '">Feedback</a>';
+            break;
+        case '#_FEEDBACKLINK':
+            //get format of time to show
+            $replace = add_query_arg('id', $EM_Booking->booking_id, get_permalink('451'));
+            break;
+    }
+    return $replace;
+}
+
+add_filter('em_booking_output_placeholder', 'my_booking_styles_placeholders', 1, 3);
+
+function getWeatherReport($latitude, $longtitude, $time = null) {
+    $apiURL = "https://api.forecast.io/forecast/ae31edd2080dfa3f1ccf6b8fdb4aa71d/{$latitude},{$longtitude}";
+    $link = "http://forecast.io/#/f/{$latitude},{$longtitude}";
+
+    if ($time) {
+        $apiURL .= ",{$time}";
+        $link .= ",{$time}";
+    }
+    $content = file_get_contents($apiURL);
+    $report = json_decode($content);
+    $farenhit = round($report->currently->temperature);
+
+    return "<a target='_blank' href='{$link}'>{$farenhit}&deg;F</a>";
+}
+
+function my_em_location_placeholders($replace, $EM_Location, $result) {
+    global $wp_query, $wp_rewrite, $wpdb;
+    ;
     switch ($result) {
         case '#_HIKEWEATHER':
             $latitude = $EM_Location->location_latitude;
             $longtitude = $EM_Location->location_longitude;
 
-            $content = file_get_contents("https://api.forecast.io/forecast/ae31edd2080dfa3f1ccf6b8fdb4aa71d/$latitude,$longtitude");
-            $report = json_decode($content);
-            $celcius = round(($report->currently->temperature - 32) * 5 / 9);
-
-            $replace = "<a target='_blank' href='http://forecast.io/#/f/$latitude,$longtitude'>{$celcius}&deg;C</a>";
+            $replace = getWeatherReport($latitude, $longtitude);
             break;
         case '#_DATEPICKER':
-            $replace = "<div class='em-date-single'><input id='event_book_date' class='em-date-input-loc' type='text' name='event_book_date' data-min='" . date('d/m/Y') . "' data-hikeid='{$EM_Location->location_id}' /></div>";
+            $def_date = '';
+            if (isset($_REQUEST['predate'])) {
+                $def_date = date_i18n(DBEM_DATE_FORMAT, $_REQUEST['predate']);
+            }
+            $qry = "SELECT
+                        a.`event_name` AS `Title`,
+                        DATE_FORMAT(a.`event_start_date`,'%m/%d/%Y') AS `Date`,
+                        COALESCE((a.event_spaces - SUM(b.booking_spaces)) , 0) AS avail_space
+                      FROM " . EM_EVENTS_TABLE . " AS a
+                      LEFT JOIN " . EM_BOOKINGS_TABLE . " AS b ON b.event_id = a.event_id
+                      WHERE a.location_id = {$EM_Location->location_id}
+                      GROUP BY a.event_start_date
+                      HAVING avail_space > 0";
+//            $qry = "SELECT `event_name` as `Title`,DATE_FORMAT(`event_rsvp_date`,'%m/%d/%Y') as `Date` FROM " . EM_EVENTS_TABLE . " WHERE location_id = {$EM_Location->location_id} GROUP BY event_rsvp_date";
+            $results = $wpdb->get_results($qry, ARRAY_A);
+
+            if ($results) {
+                echo "<script>var loc_events = " . json_encode($results) . ";</script>";
+            }
+
+            $replace = "<div class='em-date-single'><input id='event_book_date' class='em-date-input-loc' type='text' name='event_book_date' data-min='" . date('m/d/Y') . "' data-hikeid='{$EM_Location->location_id}' value='$def_date' /></div>";
             break;
 //         case '#_BOOKINGFORM':
 //            if (get_option('dbem_rsvp_enabled')) {
@@ -582,14 +632,46 @@ function my_custom_tab_in_um($tabs) {
         $tabs[801]['mytab']['icon'] = 'um-faicon-pencil';
         $tabs[801]['mytab']['title'] = 'Suggest Hike';
         $tabs[801]['mytab']['custom'] = true;
-        $tabs[801]['mytab']['tablink'] = get_permalink(250) . "?action=edit";
-    } elseif (in_array('subscriber', getCurrentUserRole())) {
+        $tabs[801]['mytab']['tablink'] = add_query_arg('action', 'edit', get_permalink('250'));
+    }
+
+    if (in_array('subscriber', getCurrentUserRole()) || in_array('guide', getCurrentUserRole())) {
         $tabs[900]['mytab']['icon'] = 'um-faicon-pencil';
         $tabs[900]['mytab']['title'] = 'My Bookings';
         $tabs[900]['mytab']['custom'] = true;
         $tabs[900]['mytab']['tablink'] = get_permalink(79);
     }
     return $tabs;
+}
+
+add_action('um_after_account_general', 'additional_fields_account_tab');
+
+function additional_fields_account_tab() {
+    global $ultimatemember;
+
+    $fields = new UM_Fields();
+    $fields->editing = true;
+    if (is_user_logged_in()) {
+        if (in_array('guide', getCurrentUserRole())) {
+            echo $fields->edit_field('phone', array());
+            echo $fields->edit_field('about', array());
+            echo $fields->edit_field('photo', array('min_width' => 100, 'min_height' => 100));
+            echo $fields->edit_field('upload_certificates', array());
+            echo '<div data-key="um_block_118_11" class="um-field um-field-um_block_118_11"><div class="um-field-block"><h3>Background Check</h3></div></div>';
+            echo $fields->edit_field('address1', array());
+            echo $fields->edit_field('address2', array());
+            echo $fields->edit_field('city', array());
+            echo $fields->edit_field('county', array());
+            echo $fields->edit_field('state', array());
+            echo $fields->edit_field('zipcode', array());
+            echo $fields->edit_field('dob', array());
+            echo $fields->edit_field('ssn', array('public' => 1, 'editable' => 0));
+            echo $fields->edit_field('bank_account_no', array());
+            echo $fields->edit_field('bank_routing_no', array());
+        } else if (in_array('subscriber', getCurrentUserRole())) {
+            echo $fields->edit_field('photo', array('min_width' => 100, 'min_height' => 100));
+        }
+    }
 }
 
 function guide_can_create() {
@@ -680,9 +762,9 @@ add_action('wp_ajax_nopriv_event_time_slots', 'event_time_slots_ajax');
 function event_time_slots_ajax() {
     $slots = null;
     $time_format = ( get_option('dbem_time_format') ) ? get_option('dbem_time_format') : get_option('time_format');
-    $time_format = ( get_option('dbem_time_format') ) ? get_option('dbem_time_format') : get_option('time_format');
 
-    $date = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['date'])));
+    $evt_date = explode('/', $_POST['date']);
+    $date = date('Y-m-d', strtotime("{$evt_date[2]}-{$evt_date[0]}-{$evt_date[1]}"));
     $hike_id = $_POST['hike_id'];
     $args = array('location' => $hike_id, 'scope' => $date, 'ajax' => 1, 'limit' => false);
 
@@ -693,7 +775,7 @@ function event_time_slots_ajax() {
         foreach ($records as $rec) {
             um_fetch_user($rec->get_contact()->ID);
             $guide = "<a target='_blank' href='" . um_user_profile_url() . "'>{$rec->get_contact()->get_name()}</a>";
-            $book_url = "<a href='".esc_url(get_permalink(343)."?id=".$rec->post_id)."' id='book-now' class='book-button'>Book It</a>";
+            $book_url = "<a href='" . esc_url(add_query_arg('id', $rec->post_id, get_permalink('367'))) . "' id='book-now' class='book-button'>Book It</a>";
 
             $slots[$rec->event_id] = array(
                 'start_time' => date_i18n($time_format, $rec->start),
@@ -708,7 +790,11 @@ function event_time_slots_ajax() {
             );
         }
 
-        $time_slots = slotArrangement($slots);
+        $time_slots['result'] = slotArrangement($slots);
+        $loc = em_get_location($hike_id);
+        $latitude = $loc->location_latitude;
+        $longtitude = $loc->location_longitude;
+        $time_slots['weather_status'] = getWeatherReport($latitude, $longtitude, strtotime($date));
     }
     header("Content-Type: application/json", true);
     echo json_encode($time_slots);
@@ -767,12 +853,98 @@ function em_custom_booking_form() {
 add_shortcode('BOOKING_FORM', 'em_custom_booking_form');
 add_filter('BOOKING_FORM', 'em_custom_booking_form');
 
+function em_custom_booking_cart() {
+    $event_id = $_REQUEST['id'];
 
-function get_locations_list(){
+    if (!isset($event_id)) {
+        return false;
+    }
+
+    ob_start();
+    $event = em_get_event($event_id, 'post_id');
+    $template = em_locate_template('placeholders/cart.php', true, array('EM_Event' => $event));
+    EM_Bookings::enqueue_js();
+    $replace = ob_get_clean();
+
+    echo $replace;
+}
+
+add_shortcode('BOOKING_CART', 'em_custom_booking_cart');
+add_filter('BOOKING_CART', 'em_custom_booking_cart');
+
+function em_custom_booking_order() {
+    global $EM_Notices;
+    $booking_id = $_REQUEST['id'];
+
+    if (!isset($booking_id)) {
+        return false;
+    }
+
+    ob_start();
+    $booking = em_get_booking($booking_id);
+    if (!$booking->booking_id) {
+        $EM_Notices->add_error("Server error. please try again later.");
+    } else {
+        $EM_Notices->add_confirm("Thanks You. Event booked successfully. <br />A confirmation email has been sent to your email address.");
+    }
+
+    $template = em_locate_template('placeholders/order.php', true, array('EM_Booking' => $booking));
+    $replace = ob_get_clean();
+
+    echo $replace;
+}
+
+add_shortcode('ORDER_PAGE', 'em_custom_booking_order');
+add_filter('ORDER_PAGE', 'em_custom_booking_order');
+
+function em_custom_feedback_form() {
+    global $EM_Notices;
+    $booking_id = $_REQUEST['id'];
+    $booking = em_get_booking($booking_id);
+
+    if (!isset($booking_id) || $booking->person_id != get_current_user_id()) {
+        return false;
+    }
+
+    ob_start();
+    $event = $booking->get_event();
+    $EM_Notices->add_confirm("Thanks You. Event booked successfully. <br />A confirmation email has been sent to your email address.");
+    $template = em_locate_template('placeholders/feedback_form.php', true, array('EM_Booking' => $booking, 'EM_Event' => $event));
+    $replace = ob_get_clean();
+
+    echo $replace;
+}
+
+function cf7_add_event_id() {
+    $booking_id = $_REQUEST['id'];
+    $booking = em_get_booking($booking_id);
+    return $booking->event_id;
+}
+
+add_shortcode('CF7_ADD_EVENT_ID', 'cf7_add_event_id');
+
+function cf7_add_event_name() {
+    $booking_id = $_REQUEST['id'];
+    $booking = em_get_booking($booking_id);
+    return $booking->get_event()->event_name;
+}
+
+add_shortcode('CF7_ADD_EVENT_NAME', 'cf7_add_event_name');
+
+function cf7_add_user_id() {
+    return get_current_user_id();
+}
+
+add_shortcode('CF7_ADD_USER_ID', 'cf7_add_user_id');
+
+add_shortcode('FEEDBACK_FORM', 'em_custom_feedback_form');
+add_filter('FEEDBACK_FORM', 'em_custom_feedback_form');
+
+function get_locations_list() {
     $list = array();
     $locations = EM_Locations::get();
 
-    foreach ($locations as $loc){
+    foreach ($locations as $loc) {
         $list[] = $loc->location_name;
     }
 
@@ -799,3 +971,14 @@ function get_locations_list(){
 //    echo $replace;
 //    die();
 //}
+function um_allowed_extra_file_types($array) {
+    $array['png'] = 'PNG';
+    $array['jpeg'] = 'JPEG';
+    $array['jpg'] = 'JPG';
+    $array['gif'] = 'GIF';
+
+    return $array;
+}
+
+add_filter('um_allowed_file_types', 'um_allowed_extra_file_types');
+

@@ -8,15 +8,20 @@
  * You also have an $args array available to you with search options passed on by your EM settings or shortcode
  */
 $args = !empty($args) ? $args : array(); /* @var $args array */
+$parts = parse_url($args['search_url']);
+parse_str($parts['query'], $query);
 ?>
 <div class="em-search-wrapper">
     <div class="em-events-search em-search <?php if (!empty($args['main_classes'])) echo esc_attr(implode(' ', $args['main_classes'])); ?>">
-        <form action="<?php echo!empty($args['search_url']) ? esc_url($args['search_url']) : EM_URI; ?>" method="get" class="em-events-search-form em-search-form">
+        <form action="<?php echo (!empty($args['search_url'])) ? esc_url($args['search_url']) : EM_URI; ?>" method="get" class="em-events-search-form em-search-form">
             <input type="hidden" name="action" value="<?php echo esc_attr($args['search_action']); ?>" />
             <?php if ($args['show_main']): //show the 'main' search form ?>
                 <div class="em-search-main">
                     <?php do_action('em_template_events_search_form_header'); //hook in here to add extra fields, text etc. ?>
                     <?php
+                    if($query['page_id']){
+                        echo '<input type="hidden" name="page_id" value="'.$query['page_id'].'" />';
+                    }
                     //search text
                     if (!empty($args['search_term']))
                         em_locate_template('templates/search/search.php', true, array('args' => $args));

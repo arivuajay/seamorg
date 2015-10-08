@@ -31,18 +31,17 @@ get_header();
         <div class="row">
             <?php
             if (class_exists('EM_Events')) {
-                $format_header = '<div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading"><h2> Up Coming Events </h2><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span></div>';
+                $format_header = '<div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading"><h2> Up Coming Events </h2></div>';
                 $format_footer = '<div class="viewall-cont"><a href="' . get_permalink(76) . '"> View all</a></div>';
 
                 $format = '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="event-cont">
                     <div class="event-img">
-                        <div class="eventplace-details"><img src="' . get_template_directory_uri() . '/images/map-icon.png" alt="#_LOCATIONNAME" />&nbsp; #_LOCATIONNAME</div>
-                        <a href="#_LOCATIONURL" title="#_LOCATIONNAME">#_LOCATIONIMAGE{360,230}</a>
+                        <a href="#_LOCATIONURL?predate=#_EVENTDATE" title="#_LOCATIONNAME">#_LOCATIONIMAGE{360,230}</a>
                     </div>
                     <div class="eventplace-details-txt">
-                        <div class="event-name">
-                            <h2><a href="#_LOCATIONURL">#_LOCATIONNAME</a></h2>
+                        <div class="event-name full">
+                            <h2><a href="#_LOCATIONURL?predate=#_EVENTDATE">#_LOCATIONNAME</a></h2>
                             <span>#_EVENTSTARTDATE</span>
                         </div>
                     </div>
@@ -51,7 +50,7 @@ get_header();
 
                 $args = array(
                     'post_type' => EM_POST_TYPE_EVENT,
-                    'posts_per_page' => 10,
+                    'posts_per_page' => 50,
                     'meta_query' => array('key' => '_start_ts', 'value' => current_time('timestamp'), 'compare' => '>=', 'type' => 'numeric'),
                     'orderby' => 'meta_value_num',
                     'order' => 'ASC',
@@ -64,14 +63,17 @@ get_header();
                 // The Query
                 $query = new WP_Query($args);
                 echo $format_header;
+                $i = 0;
                 if ($query->have_posts()) {
                     // The Loop
                     $upcoming_hikes = array();
-                    while ($query->have_posts()):
+                    while ($i < 9 && $query->have_posts()):
                         $query->next_post();
+
                         $event = new EM_Event($query->post);
-                        if (!in_array($event->location_id, $upcoming_hikes)) {
+                        if ($event->get_location()->post_status == 'publish' && !in_array($event->location_id, $upcoming_hikes) && $event->get_bookings()->get_available_spaces() > 0 ) {
                             echo $event->output($format);
+                            $i++;
                         }
                         $upcoming_hikes[] = $event->location_id;
                     endwhile;
@@ -96,17 +98,16 @@ get_header();
 
             <?php
             if (class_exists('EM_Locations')) {
-                $format_header = '<div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading upcoming-event-heading2"><h2> Popular Events</h2><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ex id est tincidunt dictum. </span></div>';
+                $format_header = '<div class="col-xs-12 col-sm-12 col-md-12 upcoming-event-heading upcoming-event-heading2"><h2> Popular Events</h2></div>';
                 $format_footer = '<div class="viewall-cont"><a href="' . get_permalink(76) . '"> View all</a></div>';
 
                 $format = '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="event-cont">
                     <div class="event-img">
-                        <div class="eventplace-details"><img src="' . get_template_directory_uri() . '/images/map-icon.png" alt="#_LOCATIONNAME" />&nbsp; #_LOCATIONNAME</div>
                         <a href="#_LOCATIONURL" title="#_LOCATIONNAME">#_LOCATIONIMAGE{360,230}</a>
                     </div>
                     <div class="eventplace-details-txt">
-                        <div class="event-name">
+                        <div class="event-name full">
                             <h2><a href="#_LOCATIONURL">#_LOCATIONNAME</a></h2>
                         </div>
                     </div>
@@ -115,6 +116,7 @@ get_header();
 
                 $args = array(
                     'post_type' => EM_POST_TYPE_LOCATION,
+                    'post_status' => 'publish',
                     'posts_per_page' => 3,
                     'orderby' => 'post_modified',
                     'order' => 'DESC',
@@ -126,10 +128,12 @@ get_header();
                 echo $format_header;
                 if ($query->have_posts()) {
                     // The Loop
-                    while ($query->have_posts()):
+                    $i = 0;
+                    while ($i < 3 && $query->have_posts()):
                         $query->next_post();
                         $event = new EM_Location($query->post);
                         echo $event->output($format);
+                        $i++;
                     endwhile;
                     // Reset Post Data
                     wp_reset_postdata();
@@ -144,21 +148,24 @@ get_header();
     </div>
 </div>
 <div class="video-slider">
-    <img src="<?php bloginfo('template_url'); ?>/images/video-banerr.jpg"  alt="">
-    <?php // putRevSlider("video_slider") ?>
+    <?php
+    $video_post = 443; //This is page id or post id
+    $content_post = get_post($video_post);
+    $content = $content_post->post_content;
+    $content = apply_filters('the_content', $content);
+    $content = str_replace(']]>', ']]&gt;', $content);
+    echo $content;
+    ?>
 </div>
-<div class="testimonsil-cont">
+<div class="testimonsil-cont ">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h2> Client Testimonials </h2>
-<!--                <p> <img src="<?php echo get_bloginfo('template_directory'); ?>/images/clinet1.jpg"  alt=""></p>
-                -->                 <?php dynamic_sidebar('testimonial-area'); // Displays rotating testimonials or statically     ?>
-                <p class="readmore-cont"> <a href="#" class="readmore">Read more</a></p>
+                <!--<h2> Client Testimonials </h2>-->
+                <?php // dynamic_sidebar('testimonial-area'); ?>
             </div>
         </div>
     </div>
 </div>
-
 <?php
 get_footer();

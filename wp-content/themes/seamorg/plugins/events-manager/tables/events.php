@@ -70,17 +70,20 @@ global $wpdb, $bp, $EM_Notices;
                     $class = ($rowno % 2) ? 'alternate' : '';
                     // FIXME set to american
                     $localised_start_date = date_i18n(get_option('dbem_date_format'), $EM_Event->start);
+
                     $style = "";
                     $today = current_time('timestamp');
 
                     $min = false;
+
                     foreach ($EM_Event->get_tickets()->tickets as $EM_Ticket) {
                         /* @var $EM_Ticket EM_Ticket */
-                        if ($EM_Ticket->is_available() || get_option('dbem_bookings_tickets_show_unavailable')) {
+
+//                        if ($EM_Ticket->is_available() || get_option('dbem_bookings_tickets_show_unavailable')) {
                             if ($EM_Ticket->get_price() < $min || $min === false) {
                                 $min = $EM_Ticket->get_price();
                             }
-                        }
+//                        }
                     }
                     if ($min === false)
                         $min = 0;
@@ -97,7 +100,11 @@ global $wpdb, $bp, $EM_Notices;
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 event-grid event <?php echo trim($class); ?>" <?php echo $style; ?> id="event_<?php echo $EM_Event->event_id ?>">
                         <div class="event-cont">
                             <div class="event-img">
-                                <div class="eventplace-details"> <img src="<?php echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php echo esc_html($EM_Event->get_location()->location_name); ?> <span> <?php echo em_get_currency_formatted($min); ?></span></div>
+                                <div class="eventplace-details">
+<!--                                    <div class="event-detailname">
+                                        <img src="<?php // echo get_template_directory_uri(); ?>/images/map-icon.png"  alt=""> <?php // echo esc_html($EM_Event->get_location()->location_name); ?>
+                                    </div>-->
+                                    <span> <?php echo em_get_currency_formatted($min); ?></span></div>
                                 <?php if ($EM_Event->get_location()->get_image_url() != '') : ?>
                                     <img src='<?php echo $EM_Event->get_location()->get_image_url('grid-3-thumbnails'); ?>' alt='<?php echo $EM_Event->event_name ?>'/>
                                 <?php endif; ?>

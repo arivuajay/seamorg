@@ -140,17 +140,20 @@ global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <p class="em-max-space">
                         <label><?php esc_html_e('Maximum Space', 'dbem'); ?> : <span id="event-spaces"></span></label>
+                        <input type="hidden" class="defult-txt" name="event_spaces" value="<?php echo ($EM_Event->event_spaces > 0) ? $EM_Event->event_spaces : 12; ?>" />
                     </p>
 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <p>
                         <label><?php esc_html_e('Minimum Space', 'dbem'); ?></label>
-                        <input type="text" class="defult-txt" name="event_spaces" value="<?php
-                    if ($EM_Event->event_spaces > 0) {
-                        echo $EM_Event->event_spaces;
-                    }
-                    ?>" /><br />
+
+                        <?php
+                        $name = 'MINIMUM_SPACE';
+                        $attributes = em_get_attributes();
+                        $default_value = array_key_exists($name, $EM_Event->event_attributes) ? esc_attr($EM_Event->event_attributes[$name], ENT_QUOTES) : 2; ?>
+                        <input type="text" class="defult-txt" name="em_attributes[<?php echo $name ?>]" value="<?php echo $default_value; ?>" />
+                        <br />
                         <span class="help-block hidden"><?php esc_html_e('Individual tickets with remaining spaces will not be available if total booking spaces reach this limit. Leave blank for no limit.', 'dbem'); ?></span>
                     </p>
 

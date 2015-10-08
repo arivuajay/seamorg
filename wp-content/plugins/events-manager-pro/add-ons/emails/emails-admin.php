@@ -1,18 +1,47 @@
 <?php
 class EM_Emails_Admin {
-    
+
     public static function init(){
         add_action('em_options_page_footer_emails', 'EM_Emails_Admin::reminder_options');
+        add_action('em_options_page_footer_emails', 'EM_Emails_Admin::feedback_options');
         add_action('em_options_page_footer_emails', 'EM_Emails_Admin::custom_email_options');
     }
-	
+
+    public static function feedback_options(){
+	    global $save_button;
+	    ?>
+		<div  class="postbox " id="em-opt-email-feedback" >
+		<div class="handlediv" title="<?php esc_attr_e_emp('Click to toggle', 'dbem'); ?>"><br /></div><h3><?php _e ( 'Feedback Email Reminders', 'em-pro' ); ?></h3>
+		<div class="inside">
+			<table class='form-table'>
+				<?php
+				em_options_radio_binary ( sprintf(_x( 'Enable %s?', 'Enable a feature in settings page', 'em-pro' ), __('Feedback Email Reminders','em-pro')), 'dbem_cron_feedback','');
+				?>
+				<tr>
+					<th><?php _e('WP Cron Time','em-pro'); ?></th>
+					<td>
+						<input class="em-time-input em-time-start" type="text" name="dbem_emp_feedback_reminder_time" value="<?php echo get_option('dbem_emp_feedback_reminder_time','12:00 AM'); ?>" /><br />
+						<em><?php _e('Every day Events Manager automatically checks upcoming events in order to generate emails. You can choose at what time of day to run this check, if your site has a lot of traffic, it may help having this run at times of lower server loads.','em-pro'); ?></em>
+					</td>
+				</tr>
+				<?php
+				em_options_input_text ( __( 'Reminder subject', 'em-pro' ), 'dbem_emp_feedback_reminder_subject','');
+				em_options_textarea ( __( 'Approved email', 'em-pro' ), 'dbem_emp_feedback_reminder_body','');
+				?>
+				<?php echo $save_button; ?>
+			</table>
+		</div> <!-- . inside -->
+		</div> <!-- .postbox -->
+	    <?php
+	}
+
     /*
      * --------------------------------------------
      * Email Reminders
      * --------------------------------------------
      */
 	/**
-	 * Generates meta box for settings page 
+	 * Generates meta box for settings page
 	 */
 	public static function reminder_options(){
 	    global $save_button;
@@ -51,15 +80,15 @@ class EM_Emails_Admin {
 		</div> <!-- .postbox -->
 	    <?php
 	}
-	
+
     /*
      * --------------------------------------------
      * Custom Event/Gateway Booking Emails
      * --------------------------------------------
      */
-	
+
 	/**
-	 * Generates meta box for settings page 
+	 * Generates meta box for settings page
 	 */
 	public static function custom_email_options(){
 	    global $save_button;
@@ -96,7 +125,7 @@ class EM_Emails_Admin {
 					if( $('input:radio[name="dbem_custom_emails"]:checked').val() == 1 ){
 						$('tbody.dbem-js-custom-emails').show();
 					}else{
-						$('tbody.dbem-js-custom-emails').hide();					
+						$('tbody.dbem-js-custom-emails').hide();
 					}
 				}).first().trigger('change');
 				$('input:radio[name="dbem_custom_emails_events"], input:radio[name="dbem_custom_emails_gateways"]').change(function(){

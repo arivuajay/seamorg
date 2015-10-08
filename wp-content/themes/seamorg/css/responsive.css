@@ -1,326 +1,360 @@
 @charset "utf-8";
+
 /* CSS Document */
 
+
+
 @media (min-width:1200px) {
-.visible-lg-inline-block {
-display:inline-block!important
+ .visible-lg-inline-block {
+ display:inline-block!important
 }
 }
-@media (max-width:767px) {
-.hidden-xs {
-display:none!important
+ @media (max-width:767px) {
+ .hidden-xs {
+ display:none!important
 }
-.easy-sidebar-toggle.menu-btn > span {
-  display: none;
+ .easy-sidebar-toggle.menu-btn > span {
+ display: none;
 }
-.menu {
-  width: 50px !important;
-  padding:0px;
+ .menu {
+ width: 50px !important;
+ padding:0px;
+}
+ .menu-btn span {
+ display:none;
+}
+ .logo {
+ text-align:center;
+}
+ .toplinks {
+ display:none;
+}
+ .searchbg {
+ margin-top: -26px;
+}
+ .event-name h2 {
+ font-size: 18px;
+}
+ .buyticket a {
+ font-size: 14px;
+}
+ .upcoming-event-heading {
+ font-size: 16px;
+}
+ .upcoming-event-heading h2 {
+ font-size: 30px;
+}
+ .event-cont {
+ margin:20px 0px 10px 0px;
+}
+ .searchbg {
+ background-color:#4a3f37;
+ padding:10px;
+ width:100%;
+ float:left;
+ margin-top:0px;
+}
+ .footer-row1 {
+ float: left;
+ margin-top: -26px;
+ text-align: center;
+ width: 100%;
+}
+ .inner-searchcont {
+ margin-top:0px;
+}
+ .search-btn2 {
+ display:none !important;
+}
+ .searchfield1 {
+ width: 68% !important;
+}
+ .searchbg {
+ padding-bottom:0px;
+ margin-top:0px !important;
+}
+ .header {
+ position: relative;
+}
+ .slider {
+ margin-top:0px;
+}
+ .inner-cont {
+ margin-top: 20px;
+}
+ .guide-signup {
+ margin-top:0px;
+}
+ .em-search-geo {
+ width: 100% !important;
+}
+ .searchfield1 {
+ width:99.5% !important;
+}
+ .em-search-scope {
+ float: left;
+ width: 71.1% !important;
+}
+ .em-events-search-dates {
+ width: 100% !important;
+}
+ .searchbg2 .em-search-scope {
+ float: left;
+ width: 65% !important;
+}
+ .searchbg2 .em-events-search-dates {
+ width: 100% !important;
+}
+ .search-btn {
+ width: 28% !important;
+}
+ .footer-row2 .menu {
+ width:100% !important;
+ float:left
+}
+ .myevent-search {
+ margin-top:25px;
+}
+ #post-search-input {
+ width: 47%;
+}
+ .em-search-geo, .em-search-text {
+ width:72%;
+ margin:0px;
+}
+ .em-search-scope.em-search-field {
+ margin:0px;
 }
 
-.menu-btn span
+
+
+/*cart*/
+
+
+
+.cart-event-details {
+ border-bottom:#e5e5e5 solid 1px;
+ padding-top:10px;
+ padding-bottom:10px;
+}
+ .cart-total {
+ border-bottom: 1px solid #eeeeee;
+ float: left;
+ font-size: 19px;
+ line-height: 30px;
+ margin-bottom: 25px;
+ padding-bottom: 10px;
+ width: 100%;
+}
+ .cart-event-details h2 {
+ margin-bottom:5px;
+}
+ .remove {
+ padding-top:10px;
+ text-align:left;
+}
+ .cart-cont {
+ margin-bottom:25px;
+}
+ .cardimg {
+ text-align:left;
+}
+.event-detailname {
+  width: 64% !important;
+}
+
+.footerpart1 ul {
+  text-align: center;
+}
+
+}
+ @media (min-width:768px)and (max-width:991px) {
+ .hidden-sm {
+ display:none!important
+}
+ #post-search-input {
+ width: 56%;
+}
+ .logo {
+ margin-top:5px;
+}
+ .searchfield1 {
+ width: 31.7% !important;
+}
+ .event-name {
+ text-align: center;
+ width: 100%;
+}
+ .buyticket {
+ float: left;
+ font-size: 17px;
+ margin-top: 15px;
+ text-align: center;
+ text-transform: uppercase;
+ width: 100%;
+}
+ .footer-row1 {
+ float: left;
+ margin-top: -62px;
+ text-align: center;
+ width: 100%;
+}
+ .tripright-details .buyticket {
+ width:50%;
+}
+ .inner-content h2 {
+ font-size: 30px;
+ margin-bottom: 20px;
+ margin-top: 0;
+}
+
+ .trip-inner-deatils-cont h2 {
+ margin:25px 0px 25px 0px;
+}
+ .um-account-meta.radius-1 img {
+ border:none;
+ border-radius: 999px !important;
+}
+ .em-search-geo {
+ width: 43.6% !important;
+}
+ .searchfield1 {
+ width:99.5% !important;
+}
+ .searchfield2 {
+ width: 99% !important;
+}
+ .footer-row2 .menu li {
+ display: inline;
+ padding: 0 9px 0 0;
+ font-size: 15px;
+}
+ .em-search-scope {
+ float: left;
+ width: 42.6%;
+}
+ .em-date-range {
+ width: 99%;
+}
+
+/*cart*/
+
+
+
+.cart-event-details h2 {
+ font-size:18px;
+ margin-bottom:5px;
+}
+ .card-details h2 {
+ font-size:18px;
+ font-weight:bold;
+}
+
+.u-fullname
 {
-	display:none;
-}
-
-.logo
-{
-	text-align:center;
-}
-
-.toplinks
-{
-	display:none;
+	width: 83%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis ;
+  float:right;
 }
 
 
-
-
-
-.searchbg {
-
-  margin-top: -26px;
+.event-detailname {
+  width: 50% !important;
 }
 
-.event-name h2 {
+ .em-search-geo, .em-search-text {
+ width: 89.2%;
+ margin:0px;
+}
+
+.menu-btn {
+
   font-size: 18px;
 }
 
-.buyticket a {
-  font-size: 14px;
-}
 
-.upcoming-event-heading {
-  font-size: 16px;
-}
-
-.upcoming-event-heading h2 {
-  font-size: 30px;
-}
-
-.event-cont
-{
-	margin:20px 0px 10px 0px;
-}
-
-.searchbg
-{
-	background-color:#4a3f37;
-	padding:10px;
-	width:100%;
-	float:left;
-	margin-top:0px;
-}
-
-.footer-row1 {
-  float: left;
-  margin-top: -26px;
-  text-align: center;
-  width: 100%;
-}
-
-
-.inner-searchcont
-{
-	margin-top:0px;
-}
-
-.search-btn2
-{
-	display:none !important;
-}
-
-.searchfield1{
-  width: 68% !important;
-}
-
-.searchbg
-{
-	padding-bottom:0px;
-	margin-top:0px !important;
-}
-
-.header {
-
-  position: relative;
-}
-
-.slider
-{
-	margin-top:0px;
-}
-
-.inner-cont {
-  margin-top: 20px;
-}
-
-.guide-signup
-{
-	margin-top:0px;
-}
-
-.em-search-geo {
-  width: 100% !important;
-}
-
-.searchfield1
-{
-	width:99.5% !important;
-}
-
-.em-search-scope {
-  float: left;
-  width: 71.1% !important;
-}
-
-.em-events-search-dates {
-  width: 100% !important;
-}
-
-.searchbg2 .em-search-scope {
-  float: left;
-  width: 65% !important;
-}
-
-.searchbg2 .em-events-search-dates {
-  width: 100% !important;
-}
-
-.search-btn {
-
-  width: 28% !important;
-}
-
-.footer-row2 .menu
-{
-	width:100% !important;
-	float:left
-}
-
-.myevent-search
-{
-	margin-top:25px;
-}
-#post-search-input {
-  width: 47%;
-}
-
-
-.em-search-geo, .em-search-text {
-  width: 101.5%;
-  margin:0px;
-}
-
-.em-search-scope.em-search-field
-{
-	margin:0px;
-}
 
 
 }
-@media (min-width:768px)and (max-width:991px) {
-.hidden-sm {
-display:none!important
+
+ @media (min-width:992px)and (max-width:1199px) {
+ .hidden-md {
+ display:none!important
+}
+ .buyticket a {
+ font-size: 15px;
+}
+ .footer-row1 {
+ float: left;
+ margin-top: -78px;
+ text-align: center;
+ width: 100%;
 }
 
 
-#post-search-input {
-  width: 56%;
-}
-
-.logo
-{
-	margin-top:5px;
-}
-
-
-.searchfield1 {
-  width: 31.7% !important;
-}
-
-
-.event-name {
-  text-align: center;
-  width: 100%;
-}
-
-.buyticket {
-  float: left;
-  font-size: 17px;
-  margin-top: 15px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 100%;
-}
-
-.footer-row1 {
-  float: left;
-  margin-top: -62px;
-  text-align: center;
-  width: 100%;
-}
-
-.tripright-details .buyticket
-{
-	width:50%;
-}
-.inner-content h2 {
-  font-size: 30px;
-  margin-bottom: 20px;
-  margin-top: 0;
-}
-
-.trip-inner-deatils-cont h2
-{
-	margin:25px 0px 25px 0px;
-}
-
-
-
-
-.um-account-meta.radius-1 img {
-  border:none;
-  border-radius: 999px !important;
-}
-
-.em-search-geo {
-  width: 43.6% !important;
-}
-
-.searchfield1
-{
-	width:99.5% !important;
-}
-
-.searchfield2 {
-
-  width: 99% !important;
-}
-
-.footer-row2 .menu li {
-  display: inline;
-  padding: 0 9px 0 0;
-  font-size: 15px;
-}
-
-
-.em-search-scope {
-  float: left;
-  width: 42.6%;
-}
-.em-date-range 
-{
-	  width: 99%;
-}
-}
-@media (min-width:992px)and (max-width:1199px) {
-.hidden-md {
-display:none!important
-}
-
-.buyticket a {
-  font-size: 15px;
-}
-.footer-row1 {
-  float: left;
-  margin-top: -78px;
-  text-align: center;
-  width: 100%;
-}
 
 /*.searchfield1 {
+
   width: 33.1% !important;
+
 }
+
 */
 
 
+
+
+
 .em-search-geo {
-  width: 44.3% !important;
+ width: 44.3% !important;
+}
+ .searchfield1 {
+ width:99.5% !important;
+}
+ .searchfield2 {
+ width: 99.5% !important;
+}
+ .footer-row1 {
+ float: left;
+ margin-top: -83px !important;
+ text-align: center;
+ width: 100%;
+}
+ .em-search-scope {
+ float: left;
+ width: 44%;
+}
+ .em-date-range {
+ width: 100%;
 }
 
-.searchfield1
-{
-	width:99.5% !important;
+
+.event-detailname {
+  width: 50% !important;
 }
 
-.searchfield2 {
-
-  width: 99.5% !important;
+.em-search-geo, .em-search-text {
+  width: 90%;
+}
+}
+ @media (min-width:992px)and (max-width:1199px) {
+ .hidden-md {
+ display:none!important
+}
+ .buyticket a {
+ font-size: 15px;
+}
+ .footer-row1 {
+ float: left;
+ margin-top: -78px;
+ text-align: center;
+ width: 100%;
 }
 
-.footer-row1 {
-  float: left;
-  margin-top: -83px !important;
-  text-align: center;
-  width: 100%;
+.event-detailname {
+  width: 64% !important;
 }
 
-.em-search-scope {
-  float: left;
-  width: 44%;
-}
-.em-date-range 
-{
-	 width: 100%;
-}
 }

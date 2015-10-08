@@ -347,6 +347,7 @@ class EM_Locations extends EM_Object {
         } else {
             $defaults = array_merge($defaults, $array_or_defaults);
         }
+
         //specific functionality
         if (EM_MS_GLOBAL) {
             if (get_site_option('dbem_ms_mainblog_locations')) {

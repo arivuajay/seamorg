@@ -6,16 +6,16 @@ class UM_Validation {
 
 		$this->regex_safe = '/\A[\w\-\.]+\z/';
 		$this->regex_phone_number = '/\A[\d\-\.\+\(\)\ ]+\z/';
-		
+		$this->regex_alphabetic = '/^[a-z][a-z ]*$/i';
 	}
-	
+
 	/***
 	***	@removes html from any string
 	***/
 	function remove_html($string) {
 		return wp_strip_all_tags( $string );
 	}
-	
+
 	/***
 	***	@normalize a string
 	***/
@@ -23,7 +23,7 @@ class UM_Validation {
 		$string = preg_replace('~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8'));
 		return $string;
 	}
-	
+
 	/***
 	***	@safe name usage ( for url purposes )
 	***/
@@ -35,7 +35,7 @@ class UM_Validation {
 		$name = rawurldecode( $name );
 		return $name;
 	}
-	
+
 	/***
 	***	@password test
 	***/
@@ -48,7 +48,7 @@ class UM_Validation {
 	   if(preg_match_all($r3,$candidate, $o)<1) return false;
 	   return true;
 	}
-	
+
 	/***
 	***	@space, dash, underscore
 	***/
@@ -59,7 +59,7 @@ class UM_Validation {
 			return false;
 		return true;
 	}
-	
+
 	/***
 	***	@dash and underscore (metakey)
 	***/
@@ -68,7 +68,7 @@ class UM_Validation {
 			return false;
 		return true;
 	}
-	
+
 	/***
 	***	@is phone number
 	***/
@@ -79,7 +79,18 @@ class UM_Validation {
 			return false;
 		return true;
 	}
-	
+
+	/***
+	***	@is phone number
+	***/
+	function is_alphabetic( $string ){
+		if ( !$string )
+			return true;
+		if ( !preg_match( $this->regex_alphabetic, $string) )
+			return false;
+		return true;
+	}
+
 	/***
 	***	@is url
 	***/
@@ -95,21 +106,21 @@ class UM_Validation {
 				if ( filter_var($url, FILTER_VALIDATE_URL) && strstr( $url, $social ) ) {
 					return true;
 				} elseif ( preg_match( $this->regex_safe, $url) ) {
-				
+
 					if ( strstr( $url, '.com' ) ){
 						return false;
 					} else {
 						return true;
 					}
-					
+
 				}
-				
+
 			}
-			
+
 		} else {
-		
+
 		}
-		
+
 		return false;
 	}
 
@@ -131,7 +142,7 @@ class UM_Validation {
 	function generate( $length = 40 ) {
 		return wp_generate_password( $length, false );
 	}
-	
+
 	/***
 	***	@random numbers only
 	***/
@@ -156,7 +167,7 @@ class UM_Validation {
 		  }
 	   }
 	}
-	
+
 	/***
 	***	@To validate given date input
 	***/
@@ -196,5 +207,5 @@ class UM_Validation {
 		}
 		return false;
 	}
-	
+
 }

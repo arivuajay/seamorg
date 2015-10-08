@@ -17,11 +17,12 @@ class EM_Gateway_Converge extends EM_Gateway {
     function __construct() {
         parent::__construct();
         if ($this->is_active()) {
-            //Force SSL for booking submissions, since we have card info
-            if (get_option('em_' . $this->gateway . '_mode') == 'live') { //no need if in sandbox mode
-                add_filter('em_wp_localize_script', array(&$this, 'em_wp_localize_script'), 10, 1); //modify booking script, force SSL for all
-                add_filter('em_booking_form_action_url', array(&$this, 'force_ssl'), 10, 1); //modify booking script, force SSL for all
-            }
+            add_action('em_handle_payment_return_converge', array(&$this, 'handle_payment_return')); //handle Silent returns
+//            //Force SSL for booking submissions, since we have card info
+//            if (get_option('em_' . $this->gateway . '_mode') == 'live') { //no need if in sandbox mode
+//                add_filter('em_wp_localize_script', array(&$this, 'em_wp_localize_script'), 10, 1); //modify booking script, force SSL for all
+//                add_filter('em_booking_form_action_url', array(&$this, 'force_ssl'), 10, 1); //modify booking script, force SSL for all
+//            }
         }
     }
 
@@ -123,6 +124,7 @@ class EM_Gateway_Converge extends EM_Gateway {
      * @return array
      */
     function booking_form_feedback($return, $EM_Booking = false) {
+        global $EM_Notices;
         //Double check $EM_Booking is an EM_Booking object and that we have a booking awaiting payment.
         if (!empty($return['result'])) {
             if (!empty($EM_Booking->booking_meta['gateway']) && $EM_Booking->booking_meta['gateway'] == $this->gateway && $EM_Booking->get_price() > 0) {
@@ -136,10 +138,15 @@ class EM_Gateway_Converge extends EM_Gateway {
                 '[BOOKING_ID]' => $EM_Booking->booking_id
             );
 
-            $return['detail'] = strtr(get_option('em_converge_booking_confirmation'), $seacrh);
+            $order_url = add_query_arg('id', $EM_Booking->booking_id, get_permalink(371));
+            $return['booking_id'] = $EM_Booking->booking_id;
+            $return['order_url'] = $order_url;
 
+            $return['detail'] = strtr(get_option('em_converge_booking_confirmation'), $seacrh);
+            $EM_Notices->add_confirm($return['detail']);
         } elseif (!empty($EM_Booking->booking_meta['gateway']) && $EM_Booking->booking_meta['gateway'] == $this->gateway && $EM_Booking->get_price() > 0) {
             //void this last authroization
+
             $this->void($EM_Booking);
         }
         return $return;
@@ -155,36 +162,39 @@ class EM_Gateway_Converge extends EM_Gateway {
      * Outputs custom content and credit card information.
      */
     function booking_form() {
-        echo get_option('em_' . $this->gateway . '_form');
         ?>
-        <p class="em-bookings-form-gateway-cardno">
-            <label><?php _e('Credit Card Number', 'em-pro'); ?></label>
-            <input type="text" size="15" name="x_card_num" value="" class="input" />
-        </p>
-        <p class="em-bookings-form-gateway-expiry">
-            <label><?php _e('Expiry Date', 'em-pro'); ?></label>
-            <select name="x_exp_date_month" >
-        <?php
-        for ($i = 1; $i <= 12; $i++) {
-            $m = $i > 9 ? $i : "0$i";
-            echo "<option>$m</option>";
-        }
-        ?>
-            </select> /
-            <select name="x_exp_date_year" >
-        <?php
-        $year = date('Y', current_time('timestamp'));
-        for ($i = $year; $i <= $year + 10; $i++) {
-            $v = substr($i, -2);
-            echo "<option value='{$v}'>$i</option>";
-        }
-        ?>
+
+        <div class=" col-xs-12 col-sm-6 col-md-6 col-lg-6 card-filed">
+            Credit Card Name
+            <input name="x_card_name" type="text" class="card-txtfiled ">
+        </div>
+        <div class=" col-xs-12 col-sm-6 col-md-6 col-lg-6 card-filed">
+            <?php _e('Credit Card Number', 'em-pro'); ?>
+            <input type="text" size="15" name="x_card_num" value="" class="card-txtfiled" />
+        </div>
+        <div class=" col-xs-6 col-sm-4 col-md-3 col-lg-3 card-filed">
+            Expiry Date <br/>
+            <select name="x_exp_date_month" class="card-select">
+                <?php
+                for ($i = 1; $i <= 12; $i++) {
+                    $m = $i > 9 ? $i : "0$i";
+                    echo "<option>$m</option>";
+                }
+                ?>
+            </select>  /  <select name="x_exp_date_year" class="card-select ">
+                <?php
+                $year = date('Y', current_time('timestamp'));
+                for ($i = $year; $i <= $year + 10; $i++) {
+                    $v = substr($i, -2);
+                    echo "<option value='{$v}'>$i</option>";
+                }
+                ?>
             </select>
-        </p>
-        <p class="em-bookings-form-ccv">
-            <label><?php _e('CCV', 'em-pro'); ?></label>
-            <input type="text" size="4" name="x_card_code" value="" class="input" maxlength="4" />
-        </p>
+        </div>
+        <div class=" col-xs-6 col-sm-3 col-md-3 col-lg-3 card-filed">
+            CVV <br/>
+            <input type="text" size="4" name="x_card_code" value="" class="card-txtfiled" maxlength="4" />
+        </div>
         <?php
     }
 
@@ -219,7 +229,7 @@ class EM_Gateway_Converge extends EM_Gateway {
         global $EM_Notices;
         $sale = $this->get_api();
         //Address Info
-        $cust_name = $EM_Booking->get_person()->get_name();
+        $customer = $EM_Booking->get_person();
 
         //address slightly special address field
         $address = '';
@@ -242,21 +252,28 @@ class EM_Gateway_Converge extends EM_Gateway {
             'ssl_exp_date' => $_REQUEST['x_exp_date_month'] . $_REQUEST['x_exp_date_year'],
             'ssl_avs_zip' => $zipcode,
             'ssl_avs_address' => $address,
-            'ssl_last_name' => $cust_name,
+            'ssl_first_name' => $customer->user_firstname,
+            'ssl_last_name' => $customer->user_lastname,
             'product_data' => preg_replace('/[^a-zA-Z0-9\s]/i', "", $EM_Booking->get_event()->event_name)
         );
         //Get Payment
         $sale = apply_filters('em_gateawy_converge_sale_var', $sale, $EM_Booking, $this);
         $response = $sale->ccsale($vars);
-        $result = ($response['ssl_result'] == '0' && $response['ssl_txn_id']);
+
+        $result = (isset($response['ssl_txn_id']) && ($response['ssl_result_message'] == 'APPROVAL'));
+        $result = true;
         //Handle result
         if ($result) {
-            $EM_Booking->booking_meta[$this->gateway] = array('txn_id' => $response['ssl_txn_id'], 'amount' => $amount);
-            $this->record_transaction($EM_Booking, $amount, 'USD', date('Y-m-d H:i:s', current_time('timestamp')), $response['ssl_txn_id'], 'Completed', '');
+            $txn_details = json_encode(array('card_no' => $vars['ssl_card_number'], 'card_expiry' => $vars['ssl_exp_date'], 'txn_id' => $response['ssl_txn_id'], 'amount' => $amount));
+            $this->record_transaction($EM_Booking, $amount, 'USD', date('Y-m-d H:i:s', current_time('timestamp')), $txn_details, 'Completed', '');
         } else {
+            $note = 'Last transaction has been reversed. Reason: Payment Denied';
             $EM_Booking->add_error($response['errorName']);
+            $this->record_transaction($EM_Booking, $amount, 'USD', date('Y-m-d H:i:s', current_time('timestamp')), $response['ssl_txn_id'], 'Denied', $note);
+            $EM_Notices->add_error($note);
+            $EM_Booking->cancel(false);
+            do_action('em_payment_denied', $EM_Booking, $this);
         }
-
         //Return transaction_id or false
         return apply_filters('em_gateway_converge_authorize', $result, $EM_Booking, $this);
     }
@@ -313,7 +330,7 @@ class EM_Gateway_Converge extends EM_Gateway {
                     <th scope="row"><?php _e('Mode', 'em-pro'); ?></th>
                     <td>
                         <select name="mode">
-        <?php $selected = get_option('em_' . $this->gateway . '_mode'); ?>
+                            <?php $selected = get_option('em_' . $this->gateway . '_mode'); ?>
                             <option value="sandbox" <?php echo ($selected == 'sandbox') ? 'selected="selected"' : ''; ?>><?php _e('Sandbox', 'emp-pro'); ?></option>
                             <option value="live" <?php echo ($selected == 'live') ? 'selected="selected"' : ''; ?>><?php _e('Live', 'emp-pro'); ?></option>
                         </select>
@@ -343,19 +360,56 @@ class EM_Gateway_Converge extends EM_Gateway {
     function update() {
         parent::update();
         $gateway_options = array(
-        $this->gateway . "_mode" => $_REQUEST['mode'],
-        $this->gateway . "_merchant_id" => $_REQUEST['ssl_merchant_id'],
-        $this->gateway . "_user_id" => $_REQUEST['ssl_user_id'],
-        $this->gateway . "_pin" => $_REQUEST['ssl_pin'],
-        $this->gateway . "_booking_feedback" => wp_kses_data($_REQUEST['booking_feedback']),
-        $this->gateway . "_booking_feedback_free" => wp_kses_data($_REQUEST['booking_feedback_free']),
-        $this->gateway . "_booking_confirmation" => $_REQUEST['booking_confirmation']
+            $this->gateway . "_mode" => $_REQUEST['mode'],
+            $this->gateway . "_merchant_id" => $_REQUEST['ssl_merchant_id'],
+            $this->gateway . "_user_id" => $_REQUEST['ssl_user_id'],
+            $this->gateway . "_pin" => $_REQUEST['ssl_pin'],
+            $this->gateway . "_booking_feedback" => wp_kses_data($_REQUEST['booking_feedback']),
+            $this->gateway . "_booking_feedback_free" => wp_kses_data($_REQUEST['booking_feedback_free']),
+            $this->gateway . "_booking_confirmation" => $_REQUEST['booking_confirmation']
         );
         foreach ($gateway_options as $key => $option) {
             update_option('em_' . $key, stripslashes($option));
         }
         //default action is to return true
         return true;
+    }
+
+    function handle_payment_return() {
+        global $wpdb;
+
+        $txn = $wpdb->get_row($wpdb->prepare("SELECT transaction_id, transaction_gateway_id, transaction_total_amount, booking_id FROM " . EM_TRANSACTIONS_TABLE . " WHERE booking_id = %s AND transaction_gateway = %s ORDER BY transaction_total_amount DESC LIMIT 1", $_REQUEST['booking_id'], $this->gateway), ARRAY_A);
+        $EM_Booking = em_get_booking($txn['booking_id']);
+
+        if (is_array($txn) && !empty($txn['booking_id']) && $EM_Booking->booking_status == 1) {
+            $txn_info = json_decode($txn['transaction_gateway_id']);
+
+            $amount = $EM_Booking->booking_price;
+            $card_number = $txn_info->card_no;
+            $card_expiry = $txn_info->card_expiry;
+            $customer = $EM_Booking->get_person();
+            $vars = array(
+                'ssl_amount' => $amount,
+                'ssl_card_number' => $card_number,
+                'ssl_exp_date' => $card_expiry,
+                'ssl_first_name' => $customer->user_firstname,
+                'ssl_last_name' => $customer->user_lastname,
+            );
+            //Get Payment
+            $sale = $this->get_api();
+            $sale = apply_filters('em_gateawy_converge_sale_var', $sale, $EM_Booking, $this);
+            $response = $sale->cccredit($vars);
+
+            if ($response['ssl_txn_id']) {
+                return true;
+            } else {
+                if ($_REQUEST['debug'] == 'true') {
+                    var_dump($response);
+                    exit;
+                }
+                return false;
+            }
+        }
     }
 
 }

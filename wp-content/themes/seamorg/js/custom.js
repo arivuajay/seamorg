@@ -6,16 +6,17 @@
 function randomString(length) {
     chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var result = '';
-    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    for (var i = length; i > 0; --i)
+        result += chars[Math.round(Math.random() * (chars.length - 1))];
     return result;
 }
 (function($) {
     $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
-        if($('input#user_password-118').length > 0){
+        if ($('input#user_password-118').length > 0) {
             $('input#user_password-118').val(randomString(8));
         }
-        
+
         $('a[href*=#]:not([href=#])').click(function() {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
                 var target = $(this.hash);
@@ -41,6 +42,9 @@ function randomString(length) {
 //        if (!$('#event-rsvp').is(':checked')) {
 //            $('#event-rsvp').prop("checked", 'checked').triggerHandler('click');
 //        }
+//$('#weather_report').parent('p').remove();
+        jQuery(".create-event-part1 select#location-select-id").select2();
+        jQuery(".page-id-66  .um-field-bank_account_no,.page-id-66  .um-field-bank_routing_no").remove();
     });
 })(jQuery);
 

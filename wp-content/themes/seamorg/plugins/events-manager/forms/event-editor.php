@@ -97,13 +97,18 @@ if (!empty($_REQUEST['success'])) {
                     }
                     $col_count = 1;
                     $EM_Ticket = $EM_Tickets->get_first();
+
+                    if($EM_Ticket->get_price_precise() > 0){
+                        $et_price=$EM_Ticket->get_price_precise();
+                    }
+
                     ?>
                     <!--@j@y Price Field From Ticket Option-->
                     <div id="em-form-price" class="event-form-price">
                         <div class="row em-price-range">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <span class="em-event-text">Price </span>
-                                <input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_price]" class="ticket_price" value="<?php echo esc_attr($EM_Ticket->get_price_precise()) ?>" />
+                                <input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_price]" class="ticket_price" value="<?php echo $et_price ?>"  />
                             </div>
                         </div>
                     </div>
@@ -134,14 +139,14 @@ if (!empty($_REQUEST['success'])) {
             </div>
             <div class="event-extra-details">
                 <?php
-                if (get_option('dbem_attributes_enabled')) {
-                    em_locate_template('forms/event/attributes-public.php', true);
-                }
+//                if (get_option('dbem_attributes_enabled')) {
+//                    em_locate_template('forms/event/attributes-public.php', true);
+//                }
                 ?>
                 <?php
-                if (get_option('dbem_categories_enabled')) {
-                    em_locate_template('forms/event/categories-public.php', true);
-                }
+//                if (get_option('dbem_categories_enabled')) {
+//                    em_locate_template('forms/event/categories-public.php', true);
+//                }
                 ?>
             </div>
         </div>
