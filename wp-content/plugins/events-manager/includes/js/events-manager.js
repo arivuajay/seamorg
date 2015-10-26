@@ -870,13 +870,11 @@ function em_setup_datepicker(wrap) {
             if (dateInput.is('#event_book_date')) {
                 if (typeof loc_events != 'undefined') {
                     dateInput.datepicker('option', 'beforeShowDay', function(date) {
-                        var result = [true, '', null];
                         var matching = jQuery.grep(loc_events, function(event) {
                             return new Date(event.Date).valueOf() === date.valueOf();
                         });
 
                         if (matching.length) {
-//                        result = [true, 'highlight', null];
                             return [true, "highlight", "Available"];
                         } else {
                             return [false, "", "unAvailable"];

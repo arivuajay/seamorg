@@ -65,3 +65,24 @@ function em_event_submission_emails($result, $EM_Event){
     return $result;
 }
 add_filter('em_event_save','em_event_submission_emails',10,2);
+
+function em_event_delete_emails($result, $EM_Event) {
+    if ($result) {
+        if ($EM_Event) {
+//                        When we Delete
+            $to_emails[] = $EM_Event->get_contact()->user_email; //send to event owner
+            foreach ($EM_Event->bookings->get_user_list() as $bookies):
+                $to_emails[] = $bookies->data->user_email;
+            endforeach;
+
+            if (empty($to_emails))
+                return true;
+            $subject = $EM_Event->output(get_option('dbem_event_deleted_email_subject'), 'raw');
+            $body = $EM_Event->output(get_option('dbem_event_deleted_email_body'), $output_type);
+            $EM_Event->email_send($subject, $body, $to_emails);
+        }
+    }
+    return $result;
+}
+
+add_filter('em_delete_booking_email', 'em_event_delete_emails', 10, 2);

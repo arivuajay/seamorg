@@ -261,7 +261,6 @@ class EM_Gateway_Converge extends EM_Gateway {
         $response = $sale->ccsale($vars);
 
         $result = (isset($response['ssl_txn_id']) && ($response['ssl_result_message'] == 'APPROVAL'));
-        $result = true;
         //Handle result
         if ($result) {
             $txn_details = json_encode(array('card_no' => $vars['ssl_card_number'], 'card_expiry' => $vars['ssl_exp_date'], 'txn_id' => $response['ssl_txn_id'], 'amount' => $amount));

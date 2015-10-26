@@ -1994,6 +1994,18 @@ function em_admin_options_page() {
 						em_options_input_text ( __( 'Event updated subject', 'dbem' ), 'dbem_event_updated_email_subject', __('If left blank, this email will not be sent.','dbem') );
 						em_options_textarea ( __( 'Event updated email', 'dbem' ), 'dbem_event_updated_email_body', '' );
 						?>
+
+						<tr class="em-subheader"><td colspan='2'>
+							<h5><?php _e('Event Deleted','dbem') ?></h5>
+						    <?php echo __('When a guide deleted a previously published event, mail will be sent to guide & booked users.','dbem').$bookings_placeholder_tip ?>
+						</td></tr>
+						<?php
+						em_options_input_text ( __( 'Event Deleted subject', 'dbem' ), 'dbem_event_deleted_email_subject', __('If left blank, this email will not be sent.','dbem') );
+						em_options_textarea ( __( 'Event Deleted email', 'dbem' ), 'dbem_event_deleted_email_body', '' );
+						?>
+
+
+
 						</tbody>
 						<?php echo $save_button; ?>
 					</table>

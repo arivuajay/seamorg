@@ -558,11 +558,11 @@ function getWeatherReport($latitude, $longtitude, $time = null) {
 
     if ($time) {
         $apiURL .= ",{$time}";
-        $link .= ",{$time}";
+        $link .= "/{$time}";
     }
     $content = file_get_contents($apiURL);
     $report = json_decode($content);
-    $farenhit = round($report->currently->temperature);
+    $farenhit = floor($report->currently->temperature);
 
     return "<a target='_blank' href='{$link}'>{$farenhit}&deg;F</a>";
 }
@@ -588,7 +588,7 @@ function my_em_location_placeholders($replace, $EM_Location, $result) {
                         COALESCE((a.event_spaces - SUM(b.booking_spaces)) , 0) AS avail_space
                       FROM " . EM_EVENTS_TABLE . " AS a
                       LEFT JOIN " . EM_BOOKINGS_TABLE . " AS b ON b.event_id = a.event_id
-                      WHERE a.location_id = {$EM_Location->location_id}
+                      WHERE a.location_id = {$EM_Location->location_id}  AND b.booking_status = '1'
                       GROUP BY a.event_start_date
                       HAVING avail_space > 0";
 //            $qry = "SELECT `event_name` as `Title`,DATE_FORMAT(`event_rsvp_date`,'%m/%d/%Y') as `Date` FROM " . EM_EVENTS_TABLE . " WHERE location_id = {$EM_Location->location_id} GROUP BY event_rsvp_date";
@@ -794,7 +794,8 @@ function event_time_slots_ajax() {
         $loc = em_get_location($hike_id);
         $latitude = $loc->location_latitude;
         $longtitude = $loc->location_longitude;
-        $time_slots['weather_status'] = getWeatherReport($latitude, $longtitude, strtotime($date));
+
+        $time_slots['weather_status'] = getWeatherReport($latitude, $longtitude, strtotime($date." 10:00:00"));
     }
     header("Content-Type: application/json", true);
     echo json_encode($time_slots);

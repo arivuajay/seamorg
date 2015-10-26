@@ -669,11 +669,11 @@ class EM_Event extends EM_Object {
         if (!empty($this->event_start_date) && !empty($this->event_start_time) && !empty($this->event_end_time)) {
             global $wpdb;
             $sql = "SELECT COUNT(*) FROM " . EM_EVENTS_TABLE . " WHERE event_owner = '" . get_current_user_id() . "' AND event_start_date = '{$this->event_start_date}' AND ( event_start_time BETWEEN '{$this->event_start_time}' AND '{$this->event_end_time}' OR event_end_time BETWEEN '{$this->event_start_time}' AND '{$this->event_end_time}' )";
-            if($this->event_id){
+            if ($this->event_id) {
                 $sql .= " event_id <> '{$this->event_id}'";
             }
 
-            $evt_count_same_time =  $wpdb->get_var($sql);
+            $evt_count_same_time = $wpdb->get_var($sql);
             if ($evt_count_same_time > 0) {
                 $this->add_error("You already scheduled an event at this time. You can either change the date or time for this event.");
             }
@@ -771,6 +771,7 @@ class EM_Event extends EM_Object {
         $result = $meta_save && $post_save && $image_save;
         if ($result)
             $this->load_postdata($post_data, $blog_id); //reload post info
+
 
 //do a dirty update for location too if it's not published
         if ($this->is_published() && !empty($this->location_id)) {
@@ -1001,10 +1002,11 @@ class EM_Event extends EM_Object {
                     $result = true;
                 }
             }
-            if (!$result && !empty($this->orphaned_event)) {
-                //this is an orphaned event, so the wp delete posts would have never worked, so we just delete the row in our events table
-                $this->delete_meta();
-            }
+//            if (!$result && !empty($this->orphaned_event)) {
+            //this is an orphaned event, so the wp delete posts would have never worked, so we just delete the row in our events table
+            $this->delete_bookings();
+            $this->delete_meta();
+//            }
         } else {
             $result = false;
         }
@@ -1041,7 +1043,15 @@ class EM_Event extends EM_Object {
         do_action('em_event_delete_bookings_pre', $this);
         $result = false;
         if ($this->can_manage('manage_bookings', 'manage_others_bookings')) {
-            $result_bt = $wpdb->query($wpdb->prepare("DELETE FROM " . EM_TICKETS_BOOKINGS_TABLE . " WHERE booking_id IN (SELECT booking_id FROM " . EM_BOOKINGS_TABLE . " WHERE event_id=%d)", $this->event_id));
+            apply_filters('em_delete_booking_email', true, $this);
+            $result_bookticket = $wpdb->get_results($wpdb->prepare("SELECT booking_id FROM " . EM_BOOKINGS_TABLE . " WHERE event_id=%d", $this->event_id));
+            foreach ($result_bookticket as $book) {
+                $_REQUEST['booking_id'] = $book->booking_id;
+                do_action('em_payment_return');
+
+                $result_bt = $wpdb->query($wpdb->prepare("DELETE FROM " . EM_TICKETS_BOOKINGS_TABLE . " WHERE booking_id =%d", $book->booking_id));
+            }
+
             $result = $wpdb->query($wpdb->prepare("DELETE FROM " . EM_BOOKINGS_TABLE . " WHERE event_id=%d", $this->event_id));
         }
         return apply_filters('em_event_delete_bookings', $result !== false && $result_bt !== false, $this);
